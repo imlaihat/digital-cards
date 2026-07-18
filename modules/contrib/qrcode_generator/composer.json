@@ -1,0 +1,10 @@
+{
+    "name": "drupal/qrcode_generator",
+    "description": "Module to render QR code in each page as floating icon as Block.",
+    "type": "drupal-module",
+    "homepage": "https://www.drupal.org/project/qrcode_generator",
+    "minimum-stability": "dev",
+    "require": {
+        "chillerlan/php-qrcode": "^4.3"
+    }
+}

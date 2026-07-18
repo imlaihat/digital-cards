@@ -1,0 +1,78 @@
+{% if response.icon_type|trim == 'blockasitis' %}
+    <div class="qr-body">
+            <div class="url-section">
+                <div id="pageUrl"> 
+                    {{ response.url }}
+                </div>
+            </div>
+            <div class="img-qrcode">
+                <img src={{ response.base64 }} alt="QR Code" />
+            </div>
+            <div class="social-media-section">
+                <span class="share-qr-msg">{{ 'Share QR Code:' | t }}</span>
+                <ul>
+                    <li>
+                        <a download="qrcode.png" href="{{ response.base64 }}" title="Download the QR Code for this page." class="download-page-qr">
+                            <i class="fa-solid fa-download"></i>
+                        </a>
+                    </li>
+                    <li class="sms-link"><a href='sms:?&body={{ response.url }}' title="Share this page link over SMS." target="_blank" class="sms"><i class="fas fa-sms"></i></a></li>
+                    <li class="fb-link"><a href='https://www.facebook.com/sharer/sharer.php?u={{ response.url }}' title="Share this page link over Facebook." target="_blank" class="facebook"><i class="fab fa-facebook-square"></i></a></li>
+                    <li class="x-link"><a href='http://twitter.com/share?url={{ response.url }}' title="Share this page link over X(Legacy Twitter)" target="_blank" class="twitter"><i class="fab fa-twitter-square"></i></a></li>
+                    <li class="mail-link"><a href='mailto:?subject=QRCode&body={{ response.url }}' title="Share this page link over Email." target="_blank" class="mailto"><i class="fas fa-envelope"></i></a></li>
+                    <li class="copy-link">
+                        <span type="button" class="copyingBtn" title="Copy this page link to clipboard.">
+                            <i class="fas fa-copy"></i>
+                        </span>
+                        <span class="copied-success">{{ 'Page URL Copied!' | t }}</span>
+                    </li>
+                </ul>
+                <div class="qr-tab-info">
+                    <p> {{ "SMS feature will work only on mobile devices." | t }}</p>
+                </div>
+            </div>
+        </div>
+{% else %}
+    <div id="qr-float-icon" title="QR Code for this page" class="{{ response.position }} {{ response.icon_type }}" style="background-color:{{ response.icon_bg }}">
+        <i class="fas fa-qrcode" aria-hidden="true" style="color: {{ response.icon_color }}"></i>
+    </div>
+
+    <div id="qr-popup" class="page-qa-container qr-modal">
+    <div class="popup-content">
+        <span class="close" title="Close popup">&times;</span>
+        <div class="qr-modal-body">
+            <div class="url-section">
+                <div id="pageUrl"> 
+                    {{ response.url }}
+                </div>
+            </div>
+            <div class="img-qrcode">
+                <img src={{ response.base64 }} alt="QR Code" />
+            </div>
+            <div class="social-media-section">
+                <span class="">{{ 'Share QR Code:' | t }}</span>
+                <ul>
+                    <li>
+                        <a download="qrcode.png" href="{{ response.base64 }}" title="Download the QR Code for this page." class="download-page-qr">
+                            <i class="fa-solid fa-download"></i>
+                        </a>
+                    </li>
+                    <li class="sms-link"><a href='sms:?&body={{ response.url }}' title="Share this page link over SMS." target="_blank" class="sms"><i class="fas fa-sms"></i></a></li>
+                    <li class="fb-link"><a href='https://www.facebook.com/sharer/sharer.php?u={{ response.url }}' title="Share this page link over Facebook." target="_blank" class="facebook"><i class="fab fa-facebook-square"></i></a></li>
+                    <li class="x-link"><a href='http://twitter.com/share?url={{ response.url }}' title="Share this page link over X(Legacy Twitter)" target="_blank" class="twitter"><i class="fab fa-twitter-square"></i></a></li>
+                    <li class="mail-link"><a href='mailto:?subject=QRCode&body={{ response.url }}' title="Share this page link over Email." target="_blank" class="mailto"><i class="fas fa-envelope"></i></a></li>
+                    <li class="copy-link">
+                        <span type="button" class="copyingBtn" title="Copy this page link to clipboard.">
+                            <i class="fas fa-copy"></i>
+                        </span>
+                        <span class="copied-success">{{ 'Page URL Copied!' | t }}</span>
+                    </li>
+                </ul>
+                <div class="qr-tab-info">
+                    <p> {{ "SMS feature will work only on mobile devices." | t }}</p>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endif %}

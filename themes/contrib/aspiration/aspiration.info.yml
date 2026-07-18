@@ -1,0 +1,40 @@
+name: Aspiration
+type: theme
+base theme: false
+description: '<p><strong>Aspiration</strong> is a lightweight, mobile-optimized base theme for Drupal 10 and 11, developed by <a href="https://www.drupal.org/u/sujan-shrestha" target="_blank">Sujan Shrestha</a>. Built on Bootstrap, it offers a responsive, mobile-first layout with customizable regions, perfect for developers and users who are familiar with setting up themes and utilizing theme functionality to build modern, scalable websites.<br><a href="https://www.drupal.org/project/aspiration" target="_blank">Project Page</a></p>'
+package: Aspiration
+core_version_requirement: ^10 || ^11
+libraries:
+  - aspiration/global-styling
+regions:
+  header_top_left: 'Header Top Left'
+  header_top_right: 'Header Top Right'
+  site_branding: 'Site Branding'
+  primary_menu: 'Primary menu'
+  search_box: 'Search Box'
+  header_right: 'Header right' 
+  menu_sidebar_content: 'Menu Sidebar Content' 
+  highlighted: Highlighted
+  help: Help
+  page_header: 'Page Header'
+  content_top: 'Content Top'
+  content: Content
+  content_bottom: 'Content Bottom'
+  content_home_top: 'Homepage Content Top'
+  content_home_bottom: 'Homepage Content Bottom'
+  sidebar_first: 'Sidebar Left'
+  sidebar_second: 'Sidebar Right'
+  footer_top: 'Footer Top'
+  footer_one: 'Footer First Column'
+  footer_two: 'Footer Second Column'
+  footer_three: 'Footer Third Column'
+  footer_four: 'Footer Fourth Column'
+  footer_bottom_left: 'Footer Bottom Left'
+  footer_bottom_right: 'Footer Bottom Right'
+  footer_bottom_last: 'Footer Bottom Last'
+  hidden: Hidden Blocks
+
+# Information added by Drupal.org packaging script on 2026-05-23
+version: '1.1.7'
+project: 'aspiration'
+datestamp: 1779533111

@@ -1,0 +1,194 @@
+favicon:
+  use_default: true
+features:
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+  node_user_picture: true
+logo:
+  use_default: true
+bootstrap: cdn
+bootstrap_cdn: v5.3
+bootstrap_local: v5.3
+bootstrap_container: container
+show_header_top: 1
+header_address: 'Ocean View, Unit 34, Malibu, CA 90265'
+header_email: johndoe@example.com
+header_link_1_title: 'Our FAQs'
+header_link_1_url: '#'
+header_link_2_title: Help
+header_link_2_url: '#'
+header_social_medias: "['facebook', 'twitter']"
+social_media_prefix: 'Follow Us'
+header_top_bg: bg-none
+facebook_url: 'https://www.facebook.com'
+twitter_url: 'https://www.twitter.com'
+instagram_url: 'https://www.instagram.com'
+linkedin_url: 'https://www.linkedin.com'
+youtube_url: 'https://www.youtube.com'
+vimeo_url: 'https://www.vimeo.com'
+vk_url: 'https://www.vk.com'
+whatsapp_url: 'https://www.whatsapp.com'
+github_url: 'https://www.github.com'
+telegram_url: 'https://www.telegram.com'
+pinterest_url: 'https://www.pinterest.com'
+header_navbar_bg: bg-none
+local_fonts: helvetica
+google_fonts: poppins
+global_icons:
+  fontawesome: fontawesome
+  flaticon: flaticon
+  google-material: 0
+  bootstrap-icons: 0
+global_icons_fontawesome: fa_cdn
+global_style: ''
+sidebar_block_bg: bg-none
+sidebar_block_classes: ''
+footer_bg: bg-none
+footer_classes: ''
+footer_top_classes: ''
+footer_bottom_bg: bg-none
+footer_bottom_classes: ''
+header_social_media:
+  facebook: facebook
+  twitter: twitter
+  linkedin: linkedin
+  youtube: youtube
+  pinterest: pinterest
+  instagram: 0
+  whatsapp: 0
+  vimeo: 0
+  vk: 0
+  github: 0
+  telegram: 0
+old_uuids: {  }
+header_sidebar_text_allowed_formats:
+  - basic_html
+  - full_html
+footer_logo_type: default
+footer_location: '456 Innovation Drive, Suite 900 Silicon Valley, CA 94043 United States'
+footer_contact: "Phone: <a href=\"tel:+18001234567\">+1 (800) 123-4567</a><br>\r\nSupport Line: <a href=\"tel:+14159876543\">+1 (415) 987-6543</a><br>\r\nEmail: <a href=\"mailto:support@example.com\">support@example.com</a>\r\n"
+footer_aspiration_time: "Monday – Friday: 9:00 AM – 6:00 PM<br>\r\nSaturday: 10:00 AM – 2:00 PM<br>\r\nSunday: Closed"
+footer_copyright_text: 'Copyright © [current_year] <a href="#">Aspiration</a>. All Rights Reserved'
+footer_social_icons:
+  facebook: facebook
+  twitter: twitter
+  instagram: instagram
+  whatsapp: whatsapp
+  linkedin: linkedin
+  youtube: youtube
+  pinterest: pinterest
+  vimeo: 0
+  vk: 0
+  github: 0
+  telegram: 0
+footer_contact_title: Contact
+show_footer_contact: 1
+mobile_nav_search: 1
+sticky_header: 1
+hdr_sidebar_icn_pos: right
+hdr_sidebar_txt:
+  value: '<h3>📍 <strong>Office Address</strong></h3><p><strong>Head Office</strong><br>789/C, Nova Square, Kensington Avenue<br>Newport City, NY 54321, USA</p><p><strong>Branch Office</strong><br>12B, Oxford Street, Carlton<br>London W1D 4RD, United Kingdom</p><hr><h3>☎️ <strong>Phone Numbers</strong></h3><p><strong>Customer Service:</strong><br>+1 (800) 234-5678<br>+1 (212) 555-0198</p><p><strong>International Support:</strong><br>+44 20 7946 0958<br>+61 3 8376 6284</p><hr><h3>📧 <strong>Email Addresses</strong></h3><p><strong>General Inquiries:</strong><br><a class="cursor-pointer" rel="noopener">hello@example.com</a></p><p><strong>Support:</strong><br><a class="cursor-pointer" rel="noopener">support@example.com</a></p><p><strong>Partnerships:</strong><br><a class="cursor-pointer" rel="noopener">partners@example.com</a></p>'
+  format: basic_html
+hdr_sidebar_social_media:
+  facebook: facebook
+  twitter: twitter
+  instagram: instagram
+  whatsapp: whatsapp
+  linkedin: linkedin
+  youtube: youtube
+  pinterest: pinterest
+  github: github
+  vimeo: 0
+  vk: 0
+  telegram: 0
+slideshow_display: 1
+slide1_head: 'Discover <span>Endless</span> Possibilities'
+slide1_desc: 'Explore our cutting-edge solutions tailored for your business needs. Let us help you drive transformation with technology.'
+slide1_url: '#'
+slide1_text: 'Learn more'
+slide2_head: 'Your Vision, Our <span>Mission</span>'
+slide2_desc: 'We collaborate with you to turn your ideas into impactful digital experiences. Build something amazing together.'
+slide2_url: '#'
+slide2_text: 'Get Started'
+social_links:
+  facebook:
+    url: 'https://facebook.com'
+    weight: '0'
+  x-twitter:
+    url: 'https://x.com'
+    weight: '0'
+  instagram:
+    url: 'https://instagram.com'
+    weight: '0'
+  whatsapp:
+    url: 'https://whatsapp.com'
+    weight: '0'
+  linkedin:
+    url: 'https://linkedin.com'
+    weight: '0'
+  youtube:
+    url: 'https://youtube.com'
+    weight: '0'
+  pinterest:
+    url: 'https://pinterest.com'
+    weight: '0'
+  vimeo:
+    url: 'https://vimea.com'
+    weight: '0'
+  vk:
+    url: 'https://vk.com'
+    weight: '0'
+  github:
+    url: 'https://github.com'
+    weight: '0'
+  telegram:
+    url: 'https://telegram.com'
+    weight: '0'
+show_preloader_text: 1
+custom_preloader_css: 0
+preloader_text: Aspiration
+aptn_preloader_txt_color: '#000000'
+aptn_preloader_txt_stroke_color: '#000000'
+aptn_preloader_background: '#000038'
+enable_backtotop: 1
+custom_backtotop_css: 0
+backtotop_arrow_color: '#29abe2'
+backtotop_circle_color: '#000038'
+footer_branding_txt:
+  value: '<p>Trusted by clients <strong>worldwide</strong>, Aspiration brings clarity, performance, and purpose to every project we touch.</p>'
+  format: basic_html
+color_theme: olive-green
+aptn_body_color: '#666666'
+aptn_heading_color: '#000038'
+aptn_theme_primary: '#001b90'
+aptn_theme_secondary: '#29abe2'
+aptn_color_white_default: '#ffffff'
+aptn_color_gray_1: '#dcdcec'
+aptn_color_gray_3: '#edf6fa'
+aptn_color_gray_5: '#dde3ff'
+aptn_color_gray_6: '#96a1b8'
+aptn_color_gray_7: '#4c4c5b'
+aptn_color_gray_8: '#a6a6a6'
+aptn_color_gray_9: '#fceff0'
+aptn_color_gray_10: '#f6f6f6'
+aptn_color_dark: '#1c1a4a'
+aptn_color_black_1: '#06042e'
+aptn_color_black_2: '#151515'
+aptn_color_black_3: '#00002f'
+aptn_border_1: '#5a5a8e'
+aptn_border_2: '#dce5e9'
+aptn_border_3: '#b2bfc5'
+aptn_border_5: '#c3c3e1'
+aptn_border_7: '#e2e2e2'
+aptn_border_8: '#dbdbdb'
+old_uuids_branding_txt: {  }
+slide_num: 3
+slide1_subtitle: 'Innovation Starts Here'
+slide2_subtitle: 'Partnering for Success'
+slide3_subtitle: 'Trusted by Global Brands'
+slide3_head: 'Experience <span>Excellence</span>'
+slide3_desc: 'Join hundreds of companies who trust us to deliver exceptional results with speed, quality, and care.'
+slide3_url: '#'
+slide3_text: 'View Portfolio'
+slider_img_updated: false

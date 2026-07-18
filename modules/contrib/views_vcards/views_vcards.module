@@ -1,0 +1,97 @@
+<?php
+
+/**
+ * @file
+ * Contains the required Drupal hooks, primarily for theming the output.
+ */
+
+use Drupal\Component\Utility\Xss;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function views_vcards_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.views_vcards':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Views vCards module allows the exporting of user fields in a vCard format. This is mainly done because there was no way to export core user fields to a vCard format without user intervention.') . '</p>';
+      $output .= '<h3>' . t('Configuration') . '</h3>';
+      $output .= '<p>' . t('Create or edit a View showing users (or any other other entity) and create a new display of type <em>vCard</em>. In this display choose vCards for both <em>Format</em> and <em>Show</em>. The settings dialog for <em>Show</em> will allow you to select which field should be used for each vCard property.') . '</p>';
+      $output .= '<p>' . t('Make sure the fields you want to use are added in the fields section, otherwise they will not show up.') . '</p>';
+      $output .= '<p>' . t('Views vCards offers the <em>attach to</em>e> option under vCard settings, allowing this module to add a download link to another page. You can set up your user list as a normal view with all (exposed) filters if you require them, and the vCard export will adapt to the selected filters and provide the right vCards.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function views_vcards_theme($existing, $type, $theme, $path) {
+  return [
+    'views_vcards_view_row_vcard' => [
+      'variables' => [
+        'first_name' => NULL,
+        'middle_name' => NULL,
+        'last_name' => NULL,
+        'full_name' => NULL,
+        'title' => NULL,
+        'email' => NULL,
+        'email2' => NULL,
+        'email3' => NULL,
+        'photo' => NULL,
+        'home_address' => NULL,
+        'home_city' => NULL,
+        'home_state' => NULL,
+        'home_zip' => NULL,
+        'home_country' => NULL,
+        'home_phone' => NULL,
+        'home_cellphone' => NULL,
+        'home_website' => NULL,
+        'work_title' => NULL,
+        'work_company' => NULL,
+        'work_address' => NULL,
+        'work_city' => NULL,
+        'work_state' => NULL,
+        'work_zip' => NULL,
+        'work_fax' => NULL,
+        'work_website' => NULL,
+      ],
+    ],
+    'views_vcards_vcard_icon' => [
+      'variables' => [
+        'url' => NULL,
+        'title' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for views_vcards_view_row_vcard.
+ *
+ * Filters HTML from all row fields (except photo which is always safe).
+ */
+function views_vcards_preprocess_views_vcards_view_row_vcard(&$variables) {
+  $item = $variables['row'];
+  $xss = new Xss();
+  $renderer = \Drupal::service('renderer');
+
+  // Grab the variables previously defined by the theme hook.
+  $registry = \Drupal::service('theme.registry')->get();
+  $names = array_keys($registry['views_vcards_view_row_vcard']['variables']);
+
+  // Iterate over the variables to filter each value.
+  foreach ($names as $name) {
+    if (isset($item->$name) && is_array($item->$name) && !empty($item->$name['#markup'])) {
+      $render = [$item->$name];
+      $value = $xss::filter($renderer->renderInIsolation($render));
+      $value = htmlspecialchars_decode($value, ENT_QUOTES | ENT_HTML5);
+      $value = trim(strip_tags($value, '<a>'));
+      if (strlen($value) > 0) {
+        $variables[$name] = $value;
+      }
+    }
+  }
+  $variables['photo'] = $item->photo;
+}

@@ -1,0 +1,845 @@
+/* Deep Ocean */
+body.deep-ocean {
+  --aptn-body-color: #5a6d7c;
+  --aptn-heading-color: #001f3f;
+  --aptn-theme-primary: #003366;
+  --aptn-theme-secondary: #0088cc;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #d0dae6;
+  --aptn-color-gray-3: #e6f2f9;
+  --aptn-color-gray-5: #d5e5ff;
+  --aptn-color-gray-6: #8ca0b3;
+  --aptn-color-gray-7: #445566;
+  --aptn-color-gray-8: #99aabb;
+  --aptn-color-gray-9: #f4f9fc;
+  --aptn-color-gray-10: #f0f5fa;
+  --aptn-color-dark: #1a2639;
+  --aptn-color-black-1: #051a30;
+  --aptn-color-black-2: #112233;
+  --aptn-color-black-3: #001e3c;
+  --aptn-border-1: #465f7b;
+  --aptn-border-2: #d4e0ea;
+  --aptn-border-3: #a5b7c6;
+  --aptn-border-5: #b5c6e0;
+  --aptn-border-7: #e0e6ec;
+  --aptn-border-8: #d5dde5;
+}
+
+/* Forest Green */
+body.forest-green {
+  --aptn-body-color: #5a6d5c;
+  --aptn-heading-color: #003800;
+  --aptn-theme-primary: #1e5631;
+  --aptn-theme-secondary: #4caf50;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #d0e6d4;
+  --aptn-color-gray-3: #eaf7ec;
+  --aptn-color-gray-5: #dff0df;
+  --aptn-color-gray-6: #8cad91;
+  --aptn-color-gray-7: #445d48;
+  --aptn-color-gray-8: #99b499;
+  --aptn-color-gray-9: #f2f9f2;
+  --aptn-color-gray-10: #f5faf5;
+  --aptn-color-dark: #1a391e;
+  --aptn-color-black-1: #05300a;
+  --aptn-color-black-2: #112b15;
+  --aptn-color-black-3: #00380c;
+  --aptn-border-1: #467b4d;
+  --aptn-border-2: #d4ead8;
+  --aptn-border-3: #a5c6aa;
+  --aptn-border-5: #b5e0bd;
+  --aptn-border-7: #e0ece2;
+  --aptn-border-8: #d5e5d8;
+}
+
+/* Warm Desert */
+body.warm-desert {
+  --aptn-body-color: #7c6d5a;
+  --aptn-heading-color: #3f2600;
+  --aptn-theme-primary: #8b5a2b;
+  --aptn-theme-secondary: #d9a566;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #e6dad0;
+  --aptn-color-gray-3: #f9f2e6;
+  --aptn-color-gray-5: #ffe5d5;
+  --aptn-color-gray-6: #b3a08c;
+  --aptn-color-gray-7: #665544;
+  --aptn-color-gray-8: #bba999;
+  --aptn-color-gray-9: #fcf7f4;
+  --aptn-color-gray-10: #faf5f0;
+  --aptn-color-dark: #39261a;
+  --aptn-color-black-1: #301a05;
+  --aptn-color-black-2: #332211;
+  --aptn-color-black-3: #3c1e00;
+  --aptn-border-1: #7b6146;
+  --aptn-border-2: #ead6c4;
+  --aptn-border-3: #c6b5a5;
+  --aptn-border-5: #e0c5b5;
+  --aptn-border-7: #ece4e0;
+  --aptn-border-8: #e5ddd5;
+}
+
+/* Berry Purple */
+body.berry-purple {
+  --aptn-body-color: #6d5a7c;
+  --aptn-heading-color: #2a0038;
+  --aptn-theme-primary: #5d1e7b;
+  --aptn-theme-secondary: #9c4dc7;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #e2d0e6;
+  --aptn-color-gray-3: #f5eaf9;
+  --aptn-color-gray-5: #f0ddff;
+  --aptn-color-gray-6: #a68cb3;
+  --aptn-color-gray-7: #574466;
+  --aptn-color-gray-8: #ac99bb;
+  --aptn-color-gray-9: #f9f2fc;
+  --aptn-color-gray-10: #f7f0fa;
+  --aptn-color-dark: #2f1a39;
+  --aptn-color-black-1: #230530;
+  --aptn-color-black-2: #291133;
+  --aptn-color-black-3: #25003c;
+  --aptn-border-1: #664677;
+  --aptn-border-2: #e4d4ea;
+  --aptn-border-3: #bda5c6;
+  --aptn-border-5: #d5b5e0;
+  --aptn-border-7: #e8e0ec;
+  --aptn-border-8: #e2d5e5;
+}
+
+/* Coastal Blue */
+body.coastal-blue {
+  --aptn-body-color: #5a7c7d;
+  --aptn-heading-color: #003838;
+  --aptn-theme-primary: #007a87;
+  --aptn-theme-secondary: #4ecdc4;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #d0e6e4;
+  --aptn-color-gray-3: #e6f9f8;
+  --aptn-color-gray-5: #d5fffa;
+  --aptn-color-gray-6: #8cb3b0;
+  --aptn-color-gray-7: #446665;
+  --aptn-color-gray-8: #99bbba;
+  --aptn-color-gray-9: #f4fcfa;
+  --aptn-color-gray-10: #f0faf8;
+  --aptn-color-dark: #1a3938;
+  --aptn-color-black-1: #053030;
+  --aptn-color-black-2: #113332;
+  --aptn-color-black-3: #003c39;
+  --aptn-border-1: #467b77;
+  --aptn-border-2: #d4eae8;
+  --aptn-border-3: #a5c6c2;
+  --aptn-border-5: #b5e0da;
+  --aptn-border-7: #e0eceb;
+  --aptn-border-8: #d5e5e3;
+}
+
+/* Ruby Red */
+body.ruby-red {
+  --aptn-body-color: #7c5a5a;
+  --aptn-heading-color: #380000;
+  --aptn-theme-primary: #8c1c1c;
+  --aptn-theme-secondary: #e74c3c;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #e6d0d0;
+  --aptn-color-gray-3: #f9eaea;
+  --aptn-color-gray-5: #ffd5d5;
+  --aptn-color-gray-6: #b38c8c;
+  --aptn-color-gray-7: #664444;
+  --aptn-color-gray-8: #bb9999;
+  --aptn-color-gray-9: #fcf4f4;
+  --aptn-color-gray-10: #faf0f0;
+  --aptn-color-dark: #391a1a;
+  --aptn-color-black-1: #300505;
+  --aptn-color-black-2: #331111;
+  --aptn-color-black-3: #3c0000;
+  --aptn-border-1: #7b4646;
+  --aptn-border-2: #ead4d4;
+  --aptn-border-3: #c6a5a5;
+  --aptn-border-5: #e0b5b5;
+  --aptn-border-7: #ece0e0;
+  --aptn-border-8: #e5d5d5;
+}
+
+/* Midnight Tech */
+body.midnight-tech {
+  --aptn-body-color: #6b6b7c;
+  --aptn-heading-color: #0a0a38;
+  --aptn-theme-primary: #191970;
+  --aptn-theme-secondary: #4b4bdd;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #d5d5e6;
+  --aptn-color-gray-3: #ededfa;
+  --aptn-color-gray-5: #d7d7ff;
+  --aptn-color-gray-6: #9191b3;
+  --aptn-color-gray-7: #4a4a66;
+  --aptn-color-gray-8: #a3a3b9;
+  --aptn-color-gray-9: #f6f6fc;
+  --aptn-color-gray-10: #f3f3fa;
+  --aptn-color-dark: #1e1e3a;
+  --aptn-color-black-1: #0a0a30;
+  --aptn-color-black-2: #141423;
+  --aptn-color-black-3: #08082f;
+  --aptn-border-1: #5252a3;
+  --aptn-border-2: #dcdcea;
+  --aptn-border-3: #afafc6;
+  --aptn-border-5: #bdbde0;
+  --aptn-border-7: #e4e4ec;
+  --aptn-border-8: #dddde5;
+}
+
+/* Golden Amber */
+body.golden-amber {
+  --aptn-body-color: #7c7a5a;
+  --aptn-heading-color: #332200;
+  --aptn-theme-primary: #b38728;
+  --aptn-theme-secondary: #f9bf3b;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #e6e4d0;
+  --aptn-color-gray-3: #f9f7e6;
+  --aptn-color-gray-5: #fff5d5;
+  --aptn-color-gray-6: #b3ad8c;
+  --aptn-color-gray-7: #665e44;
+  --aptn-color-gray-8: #bbac99;
+  --aptn-color-gray-9: #fcfbf4;
+  --aptn-color-gray-10: #faf8f0;
+  --aptn-color-dark: #39331a;
+  --aptn-color-black-1: #302805;
+  --aptn-color-black-2: #332d11;
+  --aptn-color-black-3: #332a00;
+  --aptn-border-1: #7b7346;
+  --aptn-border-2: #eae6d4;
+  --aptn-border-3: #c6bfa5;
+  --aptn-border-5: #e0d5b5;
+  --aptn-border-7: #ece9e0;
+  --aptn-border-8: #e5e0d5;
+}
+
+/* Olive Green */
+body.olive-green {
+  --aptn-body-color: #6d7c5a;
+  --aptn-heading-color: #1c3800;
+  --aptn-theme-primary: #556b2f;
+  --aptn-theme-secondary: #8bc34a;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #dae6d0;
+  --aptn-color-gray-3: #f2f9e6;
+  --aptn-color-gray-5: #eaffd5;
+  --aptn-color-gray-6: #a0b38c;
+  --aptn-color-gray-7: #556644;
+  --aptn-color-gray-8: #aabb99;
+  --aptn-color-gray-9: #f7fcf4;
+  --aptn-color-gray-10: #f5faf0;
+  --aptn-color-dark: #26391a;
+  --aptn-color-black-1: #1a3005;
+  --aptn-color-black-2: #223311;
+  --aptn-color-black-3: #1e3c00;
+  --aptn-border-1: #617b46;
+  --aptn-border-2: #dee0d4;
+  --aptn-border-3: #b5c6a5;
+  --aptn-border-5: #c5e0b5;
+  --aptn-border-7: #e6ece0;
+  --aptn-border-8: #dde5d5;
+}
+
+/* Sunset Orange */
+body.sunset-orange {
+  --aptn-body-color: #7c6b5a;
+  --aptn-heading-color: #381500;
+  --aptn-theme-primary: #d35400;
+  --aptn-theme-secondary: #ff9966;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #e6dad0;
+  --aptn-color-gray-3: #f9ede6;
+  --aptn-color-gray-5: #ffe1d5;
+  --aptn-color-gray-6: #b39a8c;
+  --aptn-color-gray-7: #664e44;
+  --aptn-color-gray-8: #bba399;
+  --aptn-color-gray-9: #fcf6f4;
+  --aptn-color-gray-10: #faf4f0;
+  --aptn-color-dark: #392b1a;
+  --aptn-color-black-1: #301505;
+  --aptn-color-black-2: #331c11;
+  --aptn-color-black-3: #3c1a00;
+  --aptn-border-1: #7b5946;
+  --aptn-border-2: #eadbd4;
+  --aptn-border-3: #c6b3a5;
+  --aptn-border-5: #e0c0b5;
+  --aptn-border-7: #ece5e0;
+  --aptn-border-8: #e5dad5;
+}
+
+/* Lavender Dream */
+body.lavender-dream {
+  --aptn-body-color: #7a7495;
+  --aptn-heading-color: #2c0051;
+  --aptn-theme-primary: #673ab7;
+  --aptn-theme-secondary: #b39ddb;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #e0d7ee;
+  --aptn-color-gray-3: #f4eefb;
+  --aptn-color-gray-5: #ede1ff;
+  --aptn-color-gray-6: #a79bc1;
+  --aptn-color-gray-7: #544a6b;
+  --aptn-color-gray-8: #aea7c3;
+  --aptn-color-gray-9: #f9f6fe;
+  --aptn-color-gray-10: #f6f0fc;
+  --aptn-color-dark: #2c214a;
+  --aptn-color-black-1: #1e0a3c;
+  --aptn-color-black-2: #261b2d;
+  --aptn-color-black-3: #210033;
+  --aptn-border-1: #695a94;
+  --aptn-border-2: #e2dbed;
+  --aptn-border-3: #bbb0d3;
+  --aptn-border-5: #cec0ea;
+  --aptn-border-7: #e9e5f0;
+  --aptn-border-8: #e0dbe9;
+}
+
+/* Emerald Isle */
+body.emerald-isle {
+  --aptn-body-color: #5a7c6d;
+  --aptn-heading-color: #00382a;
+  --aptn-theme-primary: #00695c;
+  --aptn-theme-secondary: #4db6ac;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #d0e6e0;
+  --aptn-color-gray-3: #e6f9f5;
+  --aptn-color-gray-5: #d5ffe9;
+  --aptn-color-gray-6: #8cb3a7;
+  --aptn-color-gray-7: #446659;
+  --aptn-color-gray-8: #99bbad;
+  --aptn-color-gray-9: #f4fcf9;
+  --aptn-color-gray-10: #f0faf6;
+  --aptn-color-dark: #1a3930;
+  --aptn-color-black-1: #053025;
+  --aptn-color-gray-2: #113329;
+  --aptn-color-black-3: #003c2e;
+  --aptn-border-1: #467b6d;
+  --aptn-border-2: #d4eae5;
+  --aptn-border-3: #a5c6bc;
+  --aptn-border-5: #b5e0d0;
+  --aptn-border-7: #e0ece9;
+  --aptn-border-8: #d5e5e0;
+}
+
+/* Nordic Frost */
+body.nordic-frost {
+  --aptn-body-color: #6c7883;
+  --aptn-heading-color: #0b2c3d;
+  --aptn-theme-primary: #3c5b74;
+  --aptn-theme-secondary: #81a4cd;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #dce5ed;
+  --aptn-color-gray-3: #edf5fa;
+  --aptn-color-gray-5: #daeeff;
+  --aptn-color-gray-6: #98aebf;
+  --aptn-color-gray-7: #4e5c67;
+  --aptn-color-gray-8: #a8b5c0;
+  --aptn-color-gray-9: #f0f7fc;
+  --aptn-color-gray-10: #f2f7fb;
+  --aptn-color-dark: #1c2c3a;
+  --aptn-color-black-1: #0a1c28;
+  --aptn-color-black-2: #151e25;
+  --aptn-color-black-3: #0a2433;
+  --aptn-border-1: #536d83;
+  --aptn-border-2: #d8e3eb;
+  --aptn-border-3: #b1c0cd;
+  --aptn-border-5: #bcd2e4;
+  --aptn-border-7: #e3eaef;
+  --aptn-border-8: #d9e1e8;
+}
+
+/* Rose Gold */
+body.rose-gold {
+  --aptn-body-color: #847070;
+  --aptn-heading-color: #3d1515;
+  --aptn-theme-primary: #c27ba0;
+  --aptn-theme-secondary: #f8bbd0;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #eddada;
+  --aptn-color-gray-3: #fbeded;
+  --aptn-color-gray-5: #ffe0e6;
+  --aptn-color-gray-6: #c0a3a3;
+  --aptn-color-gray-7: #6d5252;
+  --aptn-color-gray-8: #c5aaaa;
+  --aptn-color-gray-9: #fdf5f5;
+  --aptn-color-gray-10: #fcf5f5;
+  --aptn-color-dark: #422a2a;
+  --aptn-color-black-1: #2e1414;
+  --aptn-color-black-2: #291a1a;
+  --aptn-color-black-3: #341010;
+  --aptn-border-1: #8e6868;
+  --aptn-border-2: #ebdada;
+  --aptn-border-3: #cfb9b9;
+  --aptn-border-5: #e9c5c5;
+  --aptn-border-7: #f0e7e7;
+  --aptn-border-8: #e9dede;
+}
+
+/* Matcha Green */
+body.matcha-green {
+  --aptn-body-color: #687259;
+  --aptn-heading-color: #1e3300;
+  --aptn-theme-primary: #5d8c3e;
+  --aptn-theme-secondary: #aed581;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #dde4d5;
+  --aptn-color-gray-3: #f0f7ea;
+  --aptn-color-gray-5: #eaffd8;
+  --aptn-color-gray-6: #a3b494;
+  --aptn-color-gray-7: #4d5a3f;
+  --aptn-color-gray-8: #b1bd9e;
+  --aptn-color-gray-9: #f5faef;
+  --aptn-color-gray-10: #f4faf0;
+  --aptn-color-dark: #273920;
+  --aptn-color-black-1: #1a2e09;
+  --aptn-color-black-2: #1d2616;
+  --aptn-color-black-3: #1a2e00;
+  --aptn-border-1: #647a4b;
+  --aptn-border-2: #dce7d2;
+  --aptn-border-3: #b8c6aa;
+  --aptn-border-5: #c9e0b7;
+  --aptn-border-7: #e7ede1;
+  --aptn-border-8: #dfe6d5;
+}
+
+/* Indigo Night */
+body.indigo-night {
+  --aptn-body-color: #6c6e87;
+  --aptn-heading-color: #00023d;
+  --aptn-theme-primary: #303f9f;
+  --aptn-theme-secondary: #7986cb;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #d5d6e8;
+  --aptn-color-gray-3: #ecedf9;
+  --aptn-color-gray-5: #dfe0ff;
+  --aptn-color-gray-6: #9597b9;
+  --aptn-color-gray-7: #484a66;
+  --aptn-color-gray-8: #a7a9c4;
+  --aptn-color-gray-9: #f5f5fd;
+  --aptn-color-gray-10: #f3f3fa;
+  --aptn-color-dark: #1d1f47;
+  --aptn-color-black-1: #0c0d35;
+  --aptn-color-black-2: #16172b;
+  --aptn-color-black-3: #080936;
+  --aptn-border-1: #56598e;
+  --aptn-border-2: #dcdce9;
+  --aptn-border-3: #b1b3d0;
+  --aptn-border-5: #c0c2e6;
+  --aptn-border-7: #e4e5ef;
+  --aptn-border-8: #dddeea;
+}
+
+/* Coral Sunset */
+body.coral-sunset {
+  --aptn-body-color: #8a6c67;
+  --aptn-heading-color: #3d1007;
+  --aptn-theme-primary: #ff5722;
+  --aptn-theme-secondary: #ffab91;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #f0dad7;
+  --aptn-color-gray-3: #fcedea;
+  --aptn-color-gray-5: #ffddd4;
+  --aptn-color-gray-6: #c29e99;
+  --aptn-color-gray-7: #6d4e4a;
+  --aptn-color-gray-8: #c7a8a3;
+  --aptn-color-gray-9: #fef6f4;
+  --aptn-color-gray-10: #fcf4f2;
+  --aptn-color-dark: #42241f;
+  --aptn-color-black-1: #2e0e09;
+  --aptn-color-black-2: #291815;
+  --aptn-color-black-3: #340906;
+  --aptn-border-1: #8e5f59;
+  --aptn-border-2: #eedbd8;
+  --aptn-border-3: #d1b5b1;
+  --aptn-border-5: #ebc6c0;
+  --aptn-border-7: #f2e6e4;
+  --aptn-border-8: #ecdcd9;
+}
+
+/* Slate Blue */
+body.slate-blue {
+  --aptn-body-color: #6e7282;
+  --aptn-heading-color: #1c2343;
+  --aptn-theme-primary: #475591;
+  --aptn-theme-secondary: #90a4d7;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #dbdee9;
+  --aptn-color-gray-3: #eef0f8;
+  --aptn-color-gray-5: #dfe3ff;
+  --aptn-color-gray-6: #9ba2b7;
+  --aptn-color-gray-7: #4e5367;
+  --aptn-color-gray-8: #acb1c2;
+  --aptn-color-gray-9: #f6f7fc;
+  --aptn-color-gray-10: #f4f5fa;
+  --aptn-color-dark: #232942;
+  --aptn-color-black-1: #131834;
+  --aptn-color-black-2: #1a1d29;
+  --aptn-color-black-3: #141c3c;
+  --aptn-border-1: #5d668a;
+  --aptn-border-2: #dbdee8;
+  --aptn-border-3: #b5b9ca;
+  --aptn-border-5: #c4cae0;
+  --aptn-border-7: #e6e8ee;
+  --aptn-border-8: #dfe1e9;
+}
+
+/* Autumn Harvest */
+body.autumn-harvest {
+  --aptn-body-color: #82715e;
+  --aptn-heading-color: #3a1d00;
+  --aptn-theme-primary: #a45629;
+  --aptn-theme-secondary: #e09c4e;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #ecdfd4;
+  --aptn-color-gray-3: #fbf4ec;
+  --aptn-color-gray-5: #ffe5ca;
+  --aptn-color-gray-6: #bca491;
+  --aptn-color-gray-7: #67543f;
+  --aptn-color-gray-8: #c3b09c;
+  --aptn-color-gray-9: #fcf8f4;
+  --aptn-color-gray-10: #faf6f0;
+  --aptn-color-dark: #40301c;
+  --aptn-color-black-1: #2b1b06;
+  --aptn-color-black-2: #281f15;
+  --aptn-color-black-3: #321a00;
+  --aptn-border-1: #876a4f;
+  --aptn-border-2: #eadeda;
+  --aptn-border-3: #cabba9;
+  --aptn-border-5: #e2cbb3;
+  --aptn-border-7: #efe8e2;
+  --aptn-border-8: #e7ded4;
+}
+
+/* Turquoise Bay */
+body.turquoise-bay {
+  --aptn-body-color: #5a7a7f;
+  --aptn-heading-color: #003538;
+  --aptn-theme-primary: #00838f;
+  --aptn-theme-secondary: #4dd0e1;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #d0e5e7;
+  --aptn-color-gray-3: #e6f7f9;
+  --aptn-color-gray-5: #d5faff;
+  --aptn-color-gray-6: #8cacb1;
+  --aptn-color-gray-7: #445e62;
+  --aptn-color-gray-8: #99b7bb;
+  --aptn-color-gray-9: #f4fbfc;
+  --aptn-color-gray-10: #f0f9fa;
+  --aptn-color-dark: #1a3639;
+  --aptn-color-black-1: #052b2e;
+  --aptn-color-black-2: #112b2d;
+  --aptn-color-black-3: #003638;
+  --aptn-border-1: #467478;
+  --aptn-border-2: #d4e6e8;
+  --aptn-border-3: #a5c1c4;
+  --aptn-border-5: #b5dce0;
+  --aptn-border-7: #e0eaeb;
+  --aptn-border-8: #d5e2e3;
+}
+
+/* Midnight Sapphire */
+body.midnight-sapphire {
+  --aptn-body-color: #667891;
+  --aptn-heading-color: #00142c;
+  --aptn-theme-primary: #1a237e;
+  --aptn-theme-secondary: #5c6bc0;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #d1d8e6;
+  --aptn-color-gray-3: #ebf0f8;
+  --aptn-color-gray-5: #d8e1ff;
+  --aptn-color-gray-6: #91a0bd;
+  --aptn-color-gray-7: #455573;
+  --aptn-color-gray-8: #9eabc3;
+  --aptn-color-gray-9: #f5f7fc;
+  --aptn-color-gray-10: #f0f4fa;
+  --aptn-color-dark: #172b4d;
+  --aptn-color-black-1: #071529;
+  --aptn-color-black-2: #101b2a;
+  --aptn-color-black-3: #001333;
+  --aptn-border-1: #4b6185;
+  --aptn-border-2: #d6dde9;
+  --aptn-border-3: #acbad1;
+  --aptn-border-5: #b8c7e5;
+  --aptn-border-7: #e2e7ef;
+  --aptn-border-8: #d9dfe9;
+}
+
+/* Carbon Elegance */
+body.carbon-elegance {
+  --aptn-body-color: #707070;
+  --aptn-heading-color: #121212;
+  --aptn-theme-primary: #2d2d2d;
+  --aptn-theme-secondary: #757575;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #dedede;
+  --aptn-color-gray-3: #f2f2f2;
+  --aptn-color-gray-5: #ebebeb;
+  --aptn-color-gray-6: #a0a0a0;
+  --aptn-color-gray-7: #505050;
+  --aptn-color-gray-8: #b0b0b0;
+  --aptn-color-gray-9: #fafafa;
+  --aptn-color-gray-10: #f7f7f7;
+  --aptn-color-dark: #242424;
+  --aptn-color-black-1: #0d0d0d;
+  --aptn-color-black-2: #181818;
+  --aptn-color-black-3: #0a0a0a;
+  --aptn-border-1: #5e5e5e;
+  --aptn-border-2: #e0e0e0;
+  --aptn-border-3: #bbbbbb;
+  --aptn-border-5: #cacaca;
+  --aptn-border-7: #e8e8e8;
+  --aptn-border-8: #dfdfdf;
+}
+
+/* Teal Fusion */
+body.teal-fusion {
+  --aptn-body-color: #5e7c7a;
+  --aptn-heading-color: #003634;
+  --aptn-theme-primary: #00796b;
+  --aptn-theme-secondary: #26a69a;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #d2e6e5;
+  --aptn-color-gray-3: #e8f6f5;
+  --aptn-color-gray-5: #d7fff9;
+  --aptn-color-gray-6: #8fb3b1;
+  --aptn-color-gray-7: #445e5d;
+  --aptn-color-gray-8: #9cbbb9;
+  --aptn-color-gray-9: #f4fcfb;
+  --aptn-color-gray-10: #f0faf9;
+  --aptn-color-dark: #1a3938;
+  --aptn-color-black-1: #042e2d;
+  --aptn-color-black-2: #10282a;
+  --aptn-color-black-3: #003432;
+  --aptn-border-1: #4a7877;
+  --aptn-border-2: #d4e7e6;
+  --aptn-border-3: #a7c5c4;
+  --aptn-border-5: #b7dcd9;
+  --aptn-border-7: #e1ecec;
+  --aptn-border-8: #d7e3e3;
+}
+
+/* Crimson Elegance */
+body.crimson-elegance {
+  --aptn-body-color: #856363;
+  --aptn-heading-color: #3c0000;
+  --aptn-theme-primary: #880e4f;
+  --aptn-theme-secondary: #e91e63;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #ecd3d3;
+  --aptn-color-gray-3: #fbe9e9;
+  --aptn-color-gray-5: #ffd9e3;
+  --aptn-color-gray-6: #bd9393;
+  --aptn-color-gray-7: #684343;
+  --aptn-color-gray-8: #c3a0a0;
+  --aptn-color-gray-9: #fdf4f4;
+  --aptn-color-gray-10: #fbf0f0;
+  --aptn-color-dark: #3f1f1f;
+  --aptn-color-black-1: #2c0505;
+  --aptn-color-black-2: #251414;
+  --aptn-color-black-3: #380000;
+  --aptn-border-1: #8a5353;
+  --aptn-border-2: #ead6d6;
+  --aptn-border-3: #cab0b0;
+  --aptn-border-5: #e4baba;
+  --aptn-border-7: #efe4e4;
+  --aptn-border-8: #e9d9d9;
+}
+
+/* Driftwood Neutrals */
+body.driftwood-neutrals {
+  --aptn-body-color: #7d7168;
+  --aptn-heading-color: #332920;
+  --aptn-theme-primary: #8d6e63;
+  --aptn-theme-secondary: #bcaaa4;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #e7ded9;
+  --aptn-color-gray-3: #f8f2ee;
+  --aptn-color-gray-5: #f3e9e0;
+  --aptn-color-gray-6: #b5a297;
+  --aptn-color-gray-7: #5f5147;
+  --aptn-color-gray-8: #beb2a9;
+  --aptn-color-gray-9: #fcf9f7;
+  --aptn-color-gray-10: #faf6f2;
+  --aptn-color-dark: #3b2e24;
+  --aptn-color-black-1: #2a1e15;
+  --aptn-color-black-2: #221b15;
+  --aptn-color-black-3: #2c1f15;
+  --aptn-border-1: #7e6b60;
+  --aptn-border-2: #e6dbd5;
+  --aptn-border-3: #c2b5ad;
+  --aptn-border-5: #d7c5bb;
+  --aptn-border-7: #eee7e2;
+  --aptn-border-8: #e5dcd6;
+}
+
+/* Electric Violet */
+body.electric-violet {
+  --aptn-body-color: #7e6a99;
+  --aptn-heading-color: #2c0054;
+  --aptn-theme-primary: #7b1fa2;
+  --aptn-theme-secondary: #ba68c8;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #e5d9ef;
+  --aptn-color-gray-3: #f6edfb;
+  --aptn-color-gray-5: #f0d7ff;
+  --aptn-color-gray-6: #b29cc9;
+  --aptn-color-gray-7: #5b4a73;
+  --aptn-color-gray-8: #b9a8cc;
+  --aptn-color-gray-9: #faf5fd;
+  --aptn-color-gray-10: #f8f2fc;
+  --aptn-color-dark: #321a47;
+  --aptn-color-black-1: #240940;
+  --aptn-color-black-2: #211527;
+  --aptn-color-black-3: #250042;
+  --aptn-border-1: #70589c;
+  --aptn-border-2: #e3daee;
+  --aptn-border-3: #bfb3d6;
+  --aptn-border-5: #d1bce9;
+  --aptn-border-7: #eae3f3;
+  --aptn-border-8: #e3dbed;
+}
+
+/* Aquamarine Breeze */
+body.aquamarine-breeze {
+  --aptn-body-color: #5a9085;
+  --aptn-heading-color: #00362d;
+  --aptn-theme-primary: #009688;
+  --aptn-theme-secondary: #64ffda;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #d0ebe7;
+  --aptn-color-gray-3: #e7f9f6;
+  --aptn-color-gray-5: #d5ffef;
+  --aptn-color-gray-6: #8cc7bc;
+  --aptn-color-gray-7: #446c63;
+  --aptn-color-gray-8: #9ed3ca;
+  --aptn-color-gray-9: #f2fcfa;
+  --aptn-color-gray-10: #f0faf7;
+  --aptn-color-dark: #1a3c35;
+  --aptn-color-black-1: #052e25;
+  --aptn-color-black-2: #112a25;
+  --aptn-color-black-3: #003229;
+  --aptn-border-1: #468c7f;
+  --aptn-border-2: #d4eae7;
+  --aptn-border-3: #a5d0c8;
+  --aptn-border-5: #b5e8de;
+  --aptn-border-7: #e0ecea;
+  --aptn-border-8: #d5e8e4;
+}
+
+/* Amber Glow */
+body.amber-glow {
+  --aptn-body-color: #8a7346;
+  --aptn-heading-color: #3e2800;
+  --aptn-theme-primary: #ff8f00;
+  --aptn-theme-secondary: #ffca28;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #f0e3c8;
+  --aptn-color-gray-3: #fcf5e6;
+  --aptn-color-gray-5: #fff1d0;
+  --aptn-color-gray-6: #c5a97a;
+  --aptn-color-gray-7: #6e572e;
+  --aptn-color-gray-8: #d1b987;
+  --aptn-color-gray-9: #fefaf1;
+  --aptn-color-gray-10: #fcf8ed;
+  --aptn-color-dark: #453017;
+  --aptn-color-black-1: #301f05;
+  --aptn-color-black-2: #2c2211;
+  --aptn-color-black-3: #382400;
+  --aptn-border-1: #8e753a;
+  --aptn-border-2: #eee2c4;
+  --aptn-border-3: #d3c4a0;
+  --aptn-border-5: #e9d6a5;
+  --aptn-border-7: #f2ebe0;
+  --aptn-border-8: #ece3d1;
+}
+
+/* Urban Concrete */
+body.urban-concrete {
+  --aptn-body-color: #75777c;
+  --aptn-heading-color: #25262d;
+  --aptn-theme-primary: #455a64;
+  --aptn-theme-secondary: #90a4ae;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #e0e1e4;
+  --aptn-color-gray-3: #f1f2f5;
+  --aptn-color-gray-5: #e5e8ef;
+  --aptn-color-gray-6: #a6a8af;
+  --aptn-color-gray-7: #54565c;
+  --aptn-color-gray-8: #b5b7bd;
+  --aptn-color-gray-9: #f8f9fa;
+  --aptn-color-gray-10: #f5f6f8;
+  --aptn-color-dark: #2b2d33;
+  --aptn-color-black-1: #1b1c22;
+  --aptn-color-black-2: #1e1f24;
+  --aptn-color-black-3: #1d1e25;
+  --aptn-border-1: #65676e;
+  --aptn-border-2: #dedfe2;
+  --aptn-border-3: #b9bbc1;
+  --aptn-border-5: #c7c9d1;
+  --aptn-border-7: #e8e9eb;
+  --aptn-border-8: #e0e1e4;
+}
+
+/* Moroccan Spice */
+body.moroccan-spice {
+  --aptn-body-color: #8c6150;
+  --aptn-heading-color: #3d1000;
+  --aptn-theme-primary: #bf360c;
+  --aptn-theme-secondary: #ff7043;
+  --aptn-color-white-default: #ffffff;
+  --aptn-color-gray-1: #f0d3ca;
+  --aptn-color-gray-3: #fcebe5;
+  --aptn-color-gray-5: #ffdacb;
+  --aptn-color-gray-6: #c49385;
+  --aptn-color-gray-7: #6e4132;
+  --aptn-color-gray-8: #d0a596;
+  --aptn-color-gray-9: #fef5f2;
+  --aptn-color-gray-10: #fcf2ee;
+  --aptn-color-dark: #452418;
+  --aptn-color-black-1: #301005;
+  --aptn-color-black-2: #2c1411;
+  --aptn-color-black-3: #380c00;
+  --aptn-border-1: #8e5440;
+  --aptn-border-2: #eed3c9;
+  --aptn-border-3: #d3b1a5;
+  --aptn-border-5: #e9beae;
+  --aptn-border-7: #f2e4e0;
+  --aptn-border-8: #ecdad5;
+}
+
+a.nav-link,
+a {
+  color: var(--aptn-heading-color);
+}
+
+a.nav-link:hover,
+a:hover {
+  color: var(--aptn-theme-secondary);
+}
+
+.theme-preloader .handle-preloader {
+  background: var(--aptn-color-black-3);
+}
+
+.theme-preloader .handle-preloader .animation-preloader .txt-loading .letters-loading:before {
+  color: var(--aptn-color-gray-1);
+}
+
+.theme-preloader .handle-preloader .animation-preloader .spinner {
+  border: 3px solid var(--aptn-color-gray-6);
+  border-top-color: var(--aptn-color-white-default);
+}
+
+.handle-preloader .animation-preloader .txt-loading .letters-loading {
+  -webkit-text-stroke-color: var(--aptn-color-gray-1);
+}
+
+.theme-backtotop .scroll-up svg.scroll-circle path {
+  stroke: var(--aptn-theme-secondary);
+}
+
+.theme-backtotop .scroll-up svg g {
+  fill: var(--aptn-theme-secondary);
+  stroke: var(--aptn-theme-secondary);
+}

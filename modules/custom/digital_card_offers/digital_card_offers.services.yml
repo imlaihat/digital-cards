@@ -1,0 +1,14 @@
+services:
+  logger.channel.digital_card_offers:
+    parent: logger.channel_base
+    arguments: ['digital_card_offers']
+  digital_card_offers.repository:
+    class: Drupal\digital_card_offers\Service\OfferRepository
+    arguments:
+      - '@database'
+      - '@datetime.time'
+      - '@entity_type.manager'
+      - '@current_user'
+      - '@logger.channel.digital_card_offers'
+      - '@language_manager'
+      - '@request_stack'

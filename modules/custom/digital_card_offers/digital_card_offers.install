@@ -1,0 +1,275 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function digital_card_offers_schema(): array {
+  $schema['digital_card_partner'] = [
+    'description' => 'Contracted merchant partners.',
+    'fields' => [
+      'id' => ['type' => 'serial', 'not null' => TRUE],
+      'name' => ['type' => 'varchar', 'length' => 190, 'not null' => TRUE],
+      'merchant_uid' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'contact_email' => ['type' => 'varchar', 'length' => 254, 'not null' => FALSE],
+      'status' => ['type' => 'int', 'size' => 'tiny', 'not null' => TRUE, 'default' => 1],
+      'created' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'changed' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+    ],
+    'primary key' => ['id'],
+    'indexes' => ['merchant_uid' => ['merchant_uid'], 'status' => ['status']],
+  ];
+  $schema['digital_card_offer'] = [
+    'description' => 'Offers available to verified card holders.',
+    'fields' => [
+      'id' => ['type' => 'serial', 'not null' => TRUE],
+      'partner_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'title' => ['type' => 'varchar', 'length' => 190, 'not null' => TRUE],
+      'description' => ['type' => 'text', 'size' => 'big', 'not null' => FALSE],
+      'discount_label' => ['type' => 'varchar', 'length' => 100, 'not null' => TRUE],
+      'starts' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'ends' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'status' => ['type' => 'int', 'size' => 'tiny', 'not null' => TRUE, 'default' => 1],
+      'max_redemptions' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'organization_limit' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'per_holder_limit' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 1],
+      'reward_type' => ['type' => 'varchar', 'length' => 24, 'not null' => TRUE, 'default' => 'standard'],
+      'points_awarded' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'points_required' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'created' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'changed' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+    ],
+    'primary key' => ['id'],
+    'indexes' => ['partner_status' => ['partner_id', 'status'], 'active_window' => ['status', 'starts', 'ends']],
+  ];
+  $schema['digital_card_offer_org'] = [
+    'description' => 'Optional organization targeting for offers.',
+    'fields' => [
+      'offer_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'organization_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+    ],
+    'primary key' => ['offer_id', 'organization_id'],
+    'indexes' => ['organization_id' => ['organization_id']],
+  ];
+  $schema['digital_card_offer_translation'] = [
+    'description' => 'Localized offer presentation text without affecting redemption counters.',
+    'fields' => [
+      'offer_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'langcode' => ['type' => 'varchar_ascii', 'length' => 12, 'not null' => TRUE],
+      'title' => ['type' => 'varchar', 'length' => 190, 'not null' => TRUE],
+      'description' => ['type' => 'text', 'size' => 'big', 'not null' => FALSE],
+      'discount_label' => ['type' => 'varchar', 'length' => 100, 'not null' => TRUE],
+      'changed' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+    ],
+    'primary key' => ['offer_id', 'langcode'],
+    'indexes' => ['langcode' => ['langcode']],
+  ];
+  $schema['digital_card_offer_redemption'] = [
+    'description' => 'Immutable offer redemption audit records.',
+    'fields' => [
+      'id' => ['type' => 'serial', 'not null' => TRUE],
+      'offer_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'partner_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'card_nid' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'holder_uid' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'holder_key' => ['type' => 'varchar', 'length' => 140, 'not null' => TRUE, 'default' => ''],
+      'organization_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'points_delta' => ['type' => 'int', 'not null' => TRUE, 'default' => 0],
+      'points_balance_after' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'merchant_uid' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'reference' => ['type' => 'varchar', 'length' => 32, 'not null' => TRUE],
+      'created' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+    ],
+    'primary key' => ['id'],
+    'unique keys' => ['reference' => ['reference']],
+    'indexes' => [
+      'offer_holder' => ['offer_id', 'holder_uid'],
+      'offer_holder_key' => ['offer_id', 'holder_key'],
+      'offer_organization' => ['offer_id', 'organization_id'],
+      'merchant_created' => ['merchant_uid', 'created'],
+      'card_created' => ['card_nid', 'created'],
+    ],
+  ];
+  $schema['digital_card_points_wallet'] = [
+    'description' => 'Fast partner-scoped NFC loyalty point balances.',
+    'fields' => [
+      'partner_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'holder_key' => ['type' => 'varchar', 'length' => 140, 'not null' => TRUE],
+      'organization_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'balance' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'lifetime_earned' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'lifetime_spent' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'changed' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+    ],
+    'primary key' => ['partner_id', 'holder_key'],
+    'indexes' => ['organization_changed' => ['organization_id', 'changed']],
+  ];
+  $schema['digital_card_points_ledger'] = [
+    'description' => 'Immutable loyalty points earning and spending ledger.',
+    'fields' => [
+      'id' => ['type' => 'serial', 'not null' => TRUE],
+      'partner_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'holder_key' => ['type' => 'varchar', 'length' => 140, 'not null' => TRUE],
+      'organization_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'redemption_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'offer_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'delta' => ['type' => 'int', 'not null' => TRUE],
+      'balance_after' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'entry_type' => ['type' => 'varchar', 'length' => 24, 'not null' => TRUE],
+      'reference' => ['type' => 'varchar', 'length' => 32, 'not null' => TRUE],
+      'created' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+    ],
+    'primary key' => ['id'],
+    'unique keys' => ['redemption_id' => ['redemption_id']],
+    'indexes' => [
+      'holder_created' => ['partner_id', 'holder_key', 'created'],
+      'organization_created' => ['organization_id', 'created'],
+    ],
+  ];
+  return $schema;
+}
+
+function digital_card_offers_update_10001(): string {
+  $schema = \Drupal::database()->schema();
+  foreach (digital_card_offers_schema() as $table => $definition) {
+    if (!$schema->tableExists($table)) {
+      $schema->createTable($table, $definition);
+    }
+  }
+  return 'Created or verified merchant offer and redemption tables.';
+}
+
+/**
+ * Creates or updates the least-privilege Merchant role.
+ */
+function digital_card_offers_update_10002(): string {
+  digital_card_offers_ensure_merchant_role();
+  return 'Created or updated the Merchant role with eligibility and redemption permissions.';
+}
+
+/**
+ * Adds independent holder and organization redemption counters.
+ */
+function digital_card_offers_update_10003(array &$sandbox): string {
+  $database = \Drupal::database();
+  $schema = $database->schema();
+  $offerDefinition = digital_card_offers_schema()['digital_card_offer'];
+  $redemptionDefinition = digital_card_offers_schema()['digital_card_offer_redemption'];
+
+  if (!isset($sandbox['initialized'])) {
+    if (!$schema->fieldExists('digital_card_offer', 'organization_limit')) {
+      $schema->addField('digital_card_offer', 'organization_limit', $offerDefinition['fields']['organization_limit']);
+    }
+    if (!$schema->fieldExists('digital_card_offer_redemption', 'holder_key')) {
+      $schema->addField('digital_card_offer_redemption', 'holder_key', $redemptionDefinition['fields']['holder_key']);
+    }
+    if (!$schema->fieldExists('digital_card_offer_redemption', 'organization_id')) {
+      $schema->addField('digital_card_offer_redemption', 'organization_id', $redemptionDefinition['fields']['organization_id']);
+    }
+    $sandbox['initialized'] = TRUE;
+    $sandbox['total'] = (int) $database->select('digital_card_offer_redemption', 'r')->countQuery()->execute()->fetchField();
+    $sandbox['processed'] = 0;
+    $sandbox['last_id'] = 0;
+  }
+
+  $query = $database->select('digital_card_offer_redemption', 'r')
+    ->fields('r', ['id', 'card_nid', 'holder_uid'])
+    ->condition('id', (int) $sandbox['last_id'], '>')
+    ->orderBy('id')
+    ->range(0, 200);
+  $records = $query->execute()->fetchAllAssoc('id');
+  if ($records) {
+    $cards = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple(array_unique(array_map(
+      static fn($record): int => (int) $record->card_nid,
+      $records,
+    )));
+    foreach ($records as $record) {
+      $card = $cards[(int) $record->card_nid] ?? NULL;
+      $holderKey = 'card:' . (int) $record->card_nid;
+      $organizationId = 0;
+      if ($card) {
+        if ($card->hasField('field_nfc_id') && !$card->get('field_nfc_id')->isEmpty()) {
+          $holderKey = 'nfc:' . strtolower(trim((string) $card->get('field_nfc_id')->value));
+        }
+        if ($card->hasField('field_organization') && !$card->get('field_organization')->isEmpty()) {
+          $organizationId = (int) $card->get('field_organization')->target_id;
+        }
+      }
+      $database->update('digital_card_offer_redemption')
+        ->fields(['holder_key' => $holderKey, 'organization_id' => $organizationId])
+        ->condition('id', (int) $record->id)
+        ->execute();
+      $sandbox['last_id'] = (int) $record->id;
+      $sandbox['processed']++;
+    }
+  }
+
+  $sandbox['#finished'] = $sandbox['total'] > 0
+    ? min(1, $sandbox['processed'] / $sandbox['total'])
+    : 1;
+  if ($sandbox['#finished'] >= 1) {
+    if (!$schema->indexExists('digital_card_offer_redemption', 'offer_holder_key')) {
+      $schema->addIndex('digital_card_offer_redemption', 'offer_holder_key', ['offer_id', 'holder_key'], $redemptionDefinition);
+    }
+    if (!$schema->indexExists('digital_card_offer_redemption', 'offer_organization')) {
+      $schema->addIndex('digital_card_offer_redemption', 'offer_organization', ['offer_id', 'organization_id'], $redemptionDefinition);
+    }
+  }
+  return 'Added and populated NFC holder and organization redemption counters.';
+}
+
+/**
+ * Adds the partner-scoped NFC loyalty wallet and immutable points ledger.
+ */
+function digital_card_offers_update_10004(): string {
+  $schema = \Drupal::database()->schema();
+  $definitions = digital_card_offers_schema();
+  foreach (['reward_type', 'points_awarded', 'points_required'] as $field) {
+    if (!$schema->fieldExists('digital_card_offer', $field)) {
+      $schema->addField('digital_card_offer', $field, $definitions['digital_card_offer']['fields'][$field]);
+    }
+  }
+  foreach (['points_delta', 'points_balance_after'] as $field) {
+    if (!$schema->fieldExists('digital_card_offer_redemption', $field)) {
+      $schema->addField('digital_card_offer_redemption', $field, $definitions['digital_card_offer_redemption']['fields'][$field]);
+    }
+  }
+  foreach (['digital_card_points_wallet', 'digital_card_points_ledger'] as $table) {
+    if (!$schema->tableExists($table)) {
+      $schema->createTable($table, $definitions[$table]);
+    }
+  }
+  return 'Added NFC loyalty offer modes, points wallets, and immutable ledger storage.';
+}
+
+/**
+ * Adds editable localized offer text without slowing redemption counters.
+ */
+function digital_card_offers_update_10005(): string {
+  $schema = \Drupal::database()->schema();
+  $definition = digital_card_offers_schema()['digital_card_offer_translation'];
+  if (!$schema->tableExists('digital_card_offer_translation')) {
+    $schema->createTable('digital_card_offer_translation', $definition);
+  }
+  return 'Added indexed Arabic and future-language offer presentation storage.';
+}
+
+/**
+ * Implements hook_install().
+ */
+function digital_card_offers_install(): void {
+  digital_card_offers_ensure_merchant_role();
+}
+
+/**
+ * Creates the Merchant role without granting administrative permissions.
+ */
+function digital_card_offers_ensure_merchant_role(): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('user_role');
+  $role = $storage->load('merchant');
+  if (!$role) {
+    $role = $storage->create(['id' => 'merchant', 'label' => 'Merchant']);
+  }
+  $role->grantPermission('check card holder offer eligibility');
+  $role->grantPermission('redeem card holder offers');
+  $role->save();
+}

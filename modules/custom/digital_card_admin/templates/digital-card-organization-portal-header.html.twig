@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Organization Portal reusable header block.
+ */
+#}
+{% set org_name = summary.organization_name|default('My Organization'|t) %}
+
+<header class="dc-portal-header dc-portal-header--organization" aria-label="{{ 'Organization Portal header'|t }}">
+  <div class="dc-portal-header__inner">
+    <a class="dc-portal-brand" href="{{ path('digital_card_admin.organization_dashboard') }}" aria-label="{{ 'Organization dashboard'|t }}">
+      <span class="dc-portal-brand__mark">
+        {% if portal_theme.logo_url|default('') %}
+          <img src="{{ portal_theme.logo_url }}" alt="{{ org_name }}">
+        {% else %}
+          {{ org_name|slice(0, 1)|upper }}
+        {% endif %}
+      </span>
+      <span class="dc-portal-brand__text">
+        <span class="dc-portal-kicker">{{ 'Organization Portal'|t }}</span>
+        <strong>{{ org_name }}</strong>
+      </span>
+    </a>
+
+    <nav class="dc-portal-nav" aria-label="{{ 'Organization Portal navigation'|t }}">
+      {% for item in navigation %}
+        <a class="dc-portal-nav__link{{ item.active ? ' is-active' : '' }}{{ item.highlight|default(false) ? ' is-highlight' : '' }}" href="{{ item.url }}">
+          <span class="dc-portal-nav__icon" aria-hidden="true"><i class="{{ item.icon }}"></i></span>
+          <span>{{ item.title }}</span>
+        </a>
+      {% endfor %}
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,189 @@
+<!-- header-area -->
+<header>
+	<div id="header-fixed-height"></div>
+
+	{% if theme_settings.show_header_top %}
+		<div class="aptn-header__top">
+			<div class="{{ container }}">
+				<div class="row align-items-center">
+					<div class="col-xl-7">
+					{% if page.header_top_left %}
+						{{ page.header_top_left }}
+					{% endif %}
+					{% if theme_settings.header_address or theme_settings.header_email%}
+						<ul class="aptn-header__top-info left-side list-wrap">
+							{% if theme_settings.header_address %}
+								<li>
+									<i class="flaticon-location-1"></i>
+									{{ theme_settings.header_address }}
+								</li>
+							{% endif %}
+							{% if theme_settings.header_email %}
+								<li>
+									<i class="flaticon-envelope"></i>
+									<a href="mailto:{{ theme_settings.header_email }}">{{ theme_settings.header_email }}</a>
+								</li>
+							{% endif %}
+						</ul>
+					{% endif %}
+					</div>
+					<div class="col-xl-5">
+						<div class="aptn-header__top-right">
+						{% if page.header_top_right %}
+							{{ page.header_top_right }}
+						{% endif %}
+						{% if theme_settings.header_link_1_title or theme_settings.header_link_2_title %}
+							<ul class="aptn-header__top-menu list-wrap">
+								{% for link in [
+                                    { url: theme_settings.header_link_1_url, title: theme_settings.header_link_1_title },
+                                    { url: theme_settings.header_link_2_url, title: theme_settings.header_link_2_title }
+                                ] %}
+									{% if link.url and link.title %}
+										<li>
+											<a href="{{ link.url }}">{{ link.title }}</a>
+										</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						{% endif %}
+						{% if theme_settings.header_social_media %}
+							<div class="aptn-header__top-social">
+								{% if theme_settings.social_media_prefix %}
+									<span>{{ theme_settings.social_media_prefix }}</span>
+								{% endif %}
+								{% include '@aspiration/template-parts/components/social-links.html.twig' with { theme_settings: theme_settings } %}
+							</div>
+						{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+	<div {% if theme_settings.sticky_header %} id="sticky-header" {% endif %} class="aptn-header__area">
+		<div class="{{ container }}">
+			<div class="row gx-0">
+				<div class="col-12">
+					<div class="aptn-__wrap">
+						<div class="aptn-__nav-left-side">
+							{% if theme_settings.hdr_sidebar_icn_pos == 'left' %}
+								<div class="offcanvas-toggle">
+									<a href="javascript:void(0)" class="menu-tigger">
+										<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewbox="0 0 30 30" fill="none">
+											<path d="M1.66669 15H28.3334M1.66669 6.66666H28.3334M1.66669 23.3333H28.3334" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</a>
+								</div>
+							{% endif %}
+							<div class="logo">{{ page.site_branding }}</div>
+						</div>
+						<div class="aptn-__navbar-wrap aptn-__main-menu d-none d-xl-flex">{{ page.primary_menu }}</div>
+						<div class="aptn-action d-none d-md-flex">
+							<ul class="list-wrap">
+								{% if page.search_box %}
+									<li class="header-search">
+										<a href="javascript:void(0)" class="search-open-btn">
+											<i class="flaticon-search"></i>
+										</a>
+									</li>
+								{% endif %}
+							</ul>
+							{% if page.header_right %}
+								{{ page.header_right }}
+							{% endif %}
+							{% if theme_settings.hdr_sidebar_icn_pos == 'right' %}
+								<div class="offcanvas-toggle offcanvas-toggle-two">
+									<a href="javascript:void(0)" class="menu-tigger">
+										<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewbox="0 0 30 30" fill="none">
+											<path d="M1.66669 15H28.3334M1.66669 6.66666H28.3334M1.66669 23.3333H28.3334" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</a>
+								</div>
+							{% endif %}
+						</div>
+						<div class="mobile-nav-toggler">
+							<i class="aptn-flaticon-menu-1"></i>
+						</div>
+					</div>
+
+					<!-- Mobile Menu -->
+					<div class="aptn-mobile__menu">
+						<nav class="aptn-mobile__menu-box">
+							<div class="close-btn">
+								<i class="aptn-flaticon-close"></i>
+							</div>
+							<div class="nav-logo">{{ page.site_branding }}</div>
+							{% if theme_settings.mobile_nav_search and page.search_box %}
+								<div class="aptn-mobile__search">{{ page.search_box }}</div>
+							{% endif %}
+							<div class="aptn-mobile__menu-outer"></div>
+							{% if page.header_right %}
+								<div class="mobile-header-right">
+									{{ page.header_right }}
+								</div>
+							{% endif %}
+							<div class="social-links">
+								{% include '@aspiration/template-parts/components/social-links.html.twig' with { theme_settings: theme_settings } %}
+							</div>
+						</nav>
+					</div>
+					<div class="aptn-mobile__menu-backdrop"></div>
+					<!-- End Mobile Menu -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- header-search -->
+	<div class="search__popup">
+		<div class="{{ container }}">
+			<div class="row">
+				<div class="col-12">
+					<div class="search__wrapper">
+						<div class="search__close">
+							<button type="button" class="search-close-btn" aria-label="Close search" title="Close search">
+								<svg width="28" height="28" viewbox="0 0 18 18" fill="none">
+									<path d="M17 1L1 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M1 1L17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</button>
+						</div>
+						{% if page.search_box %}
+							<div class="search__form">{{ page.search_box }}</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="search-popup-overlay"></div>
+	<!-- header-search-end -->
+
+	{% if theme_settings.hdr_sidebar_icn_pos and theme_settings.hdr_sidebar_txt %}
+		<!-- aspn-sidebar-menu-menu -->
+		<div class="aspn-sidebar-menu__info">
+			<div class="d-flex d-flex justify-content-between">
+				<div class="aspn-sidebar-menu__logo">{{ page.site_branding }}</div>
+				<div class="aspn-sidebar-menu__close-icon menu-close">
+					<button>
+						<i class="far fa-window-close"></i>
+					</button>
+				</div>
+			</div>
+			<div class="aspn-sidebar-menu__side-info mb-30">
+				{% if page.menu_sidebar_content %}
+					{{ page.menu_sidebar_content }}
+				{% endif %}
+				{{ theme_settings.hdr_sidebar_txt }}
+			</div>
+			<div class="aspn-sidebar-menu__social-icon mt-30">
+				{% include '@aspiration/template-parts/components/social-links-header-sidebar.html.twig' with { theme_settings: theme_settings } %}
+			</div>
+		</div>
+	{% endif %}
+	<div class="aspn-sidebar-menu__overly"></div>
+	<!-- aspn-sidebar-menu-menu-end -->
+</header>
+<!-- header-area-end -->

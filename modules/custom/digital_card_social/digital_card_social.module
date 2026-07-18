@@ -1,0 +1,71 @@
+<?php
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Adds cross-field platform/domain validation to Social Link Paragraphs.
+ */
+function digital_card_social_entity_bundle_field_info_alter(array &$fields, EntityTypeInterface $entity_type, string $bundle): void {
+  if ($entity_type->id() === 'paragraph' && $bundle === 'social_link' && isset($fields['field_url'])) {
+    $fields['field_url']->addConstraint('DigitalCardSocialLinkUrl');
+  }
+}
+
+/**
+ * Makes Social Link Paragraph actions clear and permanently visible.
+ */
+function digital_card_social_field_widget_complete_form_alter(array &$field_widget_complete_form, FormStateInterface $form_state, array $context): void {
+  $items = $context['items'] ?? NULL;
+  if (!$items || $items->getName() !== 'field_social_links') {
+    return;
+  }
+
+  $field_widget_complete_form['#attributes']['class'][] = 'dc-social-links-widget';
+  $field_widget_complete_form['#attached']['library'][] = 'digital_card_social/admin';
+  digital_card_social_relabel_paragraph_actions($field_widget_complete_form);
+}
+
+/**
+ * Ensures Paragraph actions are enhanced after the complete node form exists.
+ */
+function digital_card_social_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  $form_object = $form_state->getFormObject();
+  if (!method_exists($form_object, 'getEntity')) {
+    return;
+  }
+  $entity = $form_object->getEntity();
+  if (!$entity instanceof NodeInterface || $entity->bundle() !== 'digital_business_card' || !isset($form['field_social_links'])) {
+    return;
+  }
+
+  $form['field_social_links']['#attributes']['class'][] = 'dc-social-links-widget';
+  $form['field_social_links']['#attached']['library'][] = 'digital_card_social/admin';
+  digital_card_social_relabel_paragraph_actions($form['field_social_links']);
+}
+
+/**
+ * Recursively labels Paragraph remove/duplicate controls for card editors.
+ */
+function digital_card_social_relabel_paragraph_actions(array &$element): void {
+  $name = (string) ($element['#name'] ?? '');
+  $mode = (string) ($element['#paragraphs_mode'] ?? '');
+
+  if ($mode === 'remove' || ($name !== '' && str_ends_with($name, '_remove'))) {
+    $element['#value'] = t('Remove this social link');
+    $element['#attributes']['class'][] = 'dc-social-link-remove';
+    $element['#attributes']['aria-label'] = t('Remove this social link');
+  }
+  elseif ($mode === 'duplicate' || ($name !== '' && str_ends_with($name, '_duplicate'))) {
+    $element['#value'] = t('Duplicate social link');
+    $element['#attributes']['class'][] = 'dc-social-link-duplicate';
+  }
+
+  foreach ($element as &$child) {
+    if (is_array($child)) {
+      digital_card_social_relabel_paragraph_actions($child);
+    }
+  }
+  unset($child);
+}

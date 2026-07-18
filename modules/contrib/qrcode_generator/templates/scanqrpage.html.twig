@@ -1,0 +1,15 @@
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+{{ attach_library('qrcode_generator/qrscanner') }}
+<div id="reader"></div>
+<div class="text-center">
+  <button id="start-scanning" class="html5-qrcode-element" style="display:none;">{{ "Start scanning" | t }}</button>
+</div>
+<div class="event-admission" class="text-center">
+  <div class="event-admission__header">
+    <h1><span id='event-title'>{{ "QR Code Scan result:" | t }}</span></h1>
+  </div>
+  <div class="validate-admission">
+    <div id="validation-message" class="validation-message"><span></span></div>
+  </div>
+</div>

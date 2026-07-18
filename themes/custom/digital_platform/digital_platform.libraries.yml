@@ -1,0 +1,41 @@
+global-styling:
+  version: 1.8.0
+
+  dependencies:
+    - bootstrap_barrio/global-styling
+    - core/jquery
+
+  css:
+    component:
+      css/style.css: {}
+      css/colors.css: {}
+
+    theme:
+      css/layout.css: {}
+      css/dashboard.css: {}
+      css/cards.css: {}
+      css/forms.css: {}
+      css/navigation.css: {}
+      css/rtl.css: {}
+
+  js:
+    js/global.js: {}
+
+
+color.preview:
+  version: VERSION
+
+  css:
+    theme:
+      color/preview.css: {}
+
+  js:
+    color/preview.js: {}
+
+login:
+  version: 1.0.0
+  css:
+    theme:
+      css/login.css: {}
+
+  

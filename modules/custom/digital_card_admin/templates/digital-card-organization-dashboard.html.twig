@@ -1,0 +1,165 @@
+{#
+/**
+ * @file
+ * Organization Portal dashboard.
+ */
+#}
+{% set usage_percent = summary.usage_percent|default(0) %}
+{% set subscription_status = subscription.status_label|default('Unknown'|t) %}
+{% set subscription_class = subscription.status_class|default('unknown') %}
+
+<div class="dc-dashboard dc-dashboard--organization dc-dashboard--portalized">
+  <section class="dc-welcome-card dc-welcome-card--organization">
+    <div class="dc-welcome-card__content">
+      <span class="dc-eyebrow">{{ 'Live Organization Summary'|t }}</span>
+      <h1>{{ summary.organization_name|default('My Organization'|t) }}</h1>
+      <p>{{ 'Monitor card approvals, plan usage, and subscription health from one clean workspace.'|t }}</p>
+      <div class="dc-welcome-card__badges">
+        <span class="dc-pill dc-pill--{{ subscription_class }}">{{ subscription_status }}</span>
+        <span class="dc-pill dc-pill--info">{{ '@percent% of card allowance used'|t({'@percent': usage_percent}) }}</span>
+        {% if subscription.end_date|default('') %}
+          <span class="dc-pill dc-pill--draft">{{ 'Valid until @date'|t({'@date': subscription.end_date}) }}</span>
+        {% endif %}
+      </div>
+    </div>
+    <div class="dc-welcome-card__actions">
+      <a class="dc-action-tile" href="{{ path('digital_card_admin.organization_my_cards') }}">
+        <span>▣</span>
+        <strong>{{ 'My Cards'|t }}</strong>
+        <small>{{ 'Review and update records'|t }}</small>
+      </a>
+      <a class="dc-action-tile dc-action-tile--primary" href="{{ path('digital_card_admin.organization_cards') }}">
+        <span>+</span>
+        <strong>{{ 'Add Card'|t }}</strong>
+        <small>{{ 'Create a new business card'|t }}</small>
+      </a>
+    </div>
+  </section>
+
+  <section class="dc-kpi-grid dc-kpi-grid--four">
+    <article class="dc-kpi-card dc-kpi-card--green dc-kpi-card--compact">
+      <span class="dc-kpi-icon">✓</span>
+      <div>
+        <span class="dc-kpi-label">{{ 'Approved'|t }}</span>
+        <strong>{{ summary.approved_cards|default(0) }}</strong>
+        <small>{{ 'Generated or ready'|t }}</small>
+      </div>
+    </article>
+
+    <article class="dc-kpi-card dc-kpi-card--amber dc-kpi-card--compact">
+      <span class="dc-kpi-icon">⌛</span>
+      <div>
+        <span class="dc-kpi-label">{{ 'Pending'|t }}</span>
+        <strong>{{ summary.pending_cards|default(0) }}</strong>
+        <small>{{ 'Waiting for review'|t }}</small>
+      </div>
+    </article>
+
+    <article class="dc-kpi-card dc-kpi-card--blue dc-kpi-card--compact">
+      <span class="dc-kpi-icon">◌</span>
+      <div>
+        <span class="dc-kpi-label">{{ 'Remaining'|t }}</span>
+        <strong>{{ summary.remaining_cards|default(0) }}</strong>
+        <small>{{ 'of @count cards'|t({'@count': summary.max_cards|default(0)}) }}</small>
+      </div>
+    </article>
+
+    <article class="dc-kpi-card dc-kpi-card--purple dc-kpi-card--compact">
+      <span class="dc-kpi-icon">◈</span>
+      <div>
+        <span class="dc-kpi-label">{{ 'Plan'|t }}</span>
+        <strong class="dc-kpi-card__text-value">{{ subscription.plan|default('No plan'|t) }}</strong>
+        <small>{{ subscription_status }}</small>
+      </div>
+    </article>
+  </section>
+
+  <section class="dc-dashboard-grid dc-dashboard-grid--main">
+    <article class="dc-panel dc-panel--capacity dc-panel--featured">
+      <div class="dc-panel-header">
+        <div>
+          <span class="dc-eyebrow">{{ 'Plan Consumption'|t }}</span>
+          <h2>{{ '@used of @max approved cards used'|t({'@used': summary.approved_cards|default(0), '@max': summary.max_cards|default(0)}) }}</h2>
+        </div>
+        <span class="dc-pill dc-pill--info">{{ usage_percent }}%</span>
+      </div>
+      <div class="dc-capacity-meter dc-capacity-meter--large" aria-label="{{ 'Organization card allowance usage'|t }}">
+        <div class="dc-capacity-meter__fill" style="width: {{ usage_percent }}%"></div>
+      </div>
+      <div class="dc-capacity-numbers">
+        <div><strong>{{ summary.total_cards|default(0) }}</strong><span>{{ 'Total cards'|t }}</span></div>
+        <div><strong>{{ summary.approved_cards|default(0) }}</strong><span>{{ 'Approved cards'|t }}</span></div>
+        <div><strong>{{ summary.remaining_cards|default(0) }}</strong><span>{{ 'Available quota'|t }}</span></div>
+      </div>
+    </article>
+
+    <article class="dc-panel dc-panel--subscription dc-panel--glass">
+      <div class="dc-panel-header">
+        <div>
+          <span class="dc-eyebrow">{{ 'Subscription Health'|t }}</span>
+          <h2>{{ subscription_status }}</h2>
+        </div>
+        <span class="dc-pill dc-pill--{{ subscription_class }}">{{ subscription.plan|default('No plan'|t) }}</span>
+      </div>
+      <dl class="dc-details">
+        <div><dt>{{ 'Plan'|t }}</dt><dd>{{ subscription.plan|default('No plan'|t) }}</dd></div>
+        <div><dt>{{ 'Max cards'|t }}</dt><dd>{{ subscription.max_cards|default(0) }}</dd></div>
+        <div><dt>{{ 'End date'|t }}</dt><dd>{{ subscription.end_date|default('Not configured'|t) }}</dd></div>
+      </dl>
+      <p class="dc-help-text">{{ 'Approved cards stay available while the subscription is active. If service is restored after an interruption, eligible cards are published again automatically.'|t }}</p>
+    </article>
+  </section>
+
+  <section class="dc-dashboard-grid dc-dashboard-grid--tables">
+    <article class="dc-panel dc-panel--wide">
+      <div class="dc-panel-header">
+        <div>
+          <span class="dc-eyebrow">{{ 'Recent Work'|t }}</span>
+          <h2>{{ 'Recent Organization Cards'|t }}</h2>
+        </div>
+        <a class="dc-text-link" href="{{ path('digital_card_admin.organization_my_cards') }}">{{ 'Manage all'|t }}</a>
+      </div>
+
+      {% if cards %}
+        <div class="dc-table-wrap">
+          <table class="dc-table">
+            <thead>
+              <tr>
+                <th>{{ 'Card'|t }}</th>
+                <th>{{ 'Status'|t }}</th>
+                <th>{{ 'Last Updated'|t }}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for card in cards %}
+                <tr>
+                  <td><a class="dc-strong-link" href="{{ card.view_url }}">{{ card.title }}</a></td>
+                  <td><span class="dc-pill dc-pill--{{ card.status_class }}">{{ card.status }}</span></td>
+                  <td>{{ card.changed }}</td>
+                  <td><a class="dc-text-link" href="{{ card.edit_url }}">{{ 'Edit'|t }}</a></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="dc-empty-state">{{ 'No cards created yet. Start by adding the first digital business card.'|t }}</div>
+      {% endif %}
+    </article>
+
+    <article class="dc-panel dc-panel--quick-actions">
+      <div class="dc-panel-header">
+        <div>
+          <span class="dc-eyebrow">{{ 'Next Actions'|t }}</span>
+          <h2>{{ 'Recommended Tasks'|t }}</h2>
+        </div>
+      </div>
+      <div class="dc-task-list">
+        <a href="{{ path('digital_card_admin.organization_cards') }}"><span>+</span><strong>{{ 'Add a new card'|t }}</strong><small>{{ 'Start a new employee card request.'|t }}</small></a>
+        <a href="{{ path('digital_card_admin.organization_my_cards') }}"><span>▣</span><strong>{{ 'Review existing cards'|t }}</strong><small>{{ 'Keep employee profiles, photos, and contact details current.'|t }}</small></a>
+        <a href="{{ path('digital_card_admin.organization_subscription') }}"><span>◈</span><strong>{{ 'View subscription'|t }}</strong><small>{{ 'Review your plan allowance, usage, and renewal date.'|t }}</small></a>
+      </div>
+    </article>
+  </section>
+</div>

@@ -1,0 +1,31 @@
+name: Digital Platform
+type: theme
+base theme: bootstrap_barrio
+description: 'Digital Card Platform Theme'
+core_version_requirement: ^10 || ^11
+
+libraries:
+  - digital_platform/global-styling
+
+
+regions:
+
+  header: Header
+
+  primary_menu: Primary menu
+
+  breadcrumb: Breadcrumb
+
+  content: Content
+
+  sidebar_first: Sidebar first
+
+  sidebar_second: Sidebar second
+
+  footer: Footer
+
+  dashboard_header: Dashboard Header
+
+  dashboard_content: Dashboard Content
+
+

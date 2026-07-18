@@ -1,0 +1,764 @@
+<?php
+
+/**
+ * @file
+ * Support workflows made up of arbitrary states.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Hook\Attribute\LegacyHook;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Url;
+use Drupal\field\FieldStorageConfigInterface;
+use Drupal\workflow\Entity\Workflow;
+use Drupal\workflow\Entity\WorkflowInterface;
+use Drupal\workflow\Entity\WorkflowManagerInterface;
+use Drupal\workflow\Entity\WorkflowState;
+use Drupal\workflow\Entity\WorkflowTransitionInterface;
+use Drupal\workflow\Entity\WorkflowUser;
+use Drupal\workflow\Hook\WorkflowEntityHooks;
+use Drupal\workflow\Hook\WorkflowHooks;
+use Drupal\workflow\Hook\WorkflowViewsHooks;
+use Drupal\workflow\Entity\WorkflowRole;
+
+/**
+ * FormElement base plugin class is deprecated and renamed to FormElementBase.
+ *
+ * @see https://www.drupal.org/node/3436275
+ * @todo Deprecated in D10.3 and will be removed in Drupal 12.
+ */
+if (class_exists('\Drupal\Core\Render\Element\FormElementBase')) {
+  class_alias(
+    '\Drupal\Core\Render\Element\FormElementBase',
+    '\Drupal\workflow\Element\FormElementBase'
+  );
+}
+else {
+  class_alias(
+    '\Drupal\Core\Render\Element\FormElement',
+    '\Drupal\workflow\Element\FormElementBase'
+  );
+}
+
+require_once __DIR__ . '/workflow.devel.inc';
+require_once __DIR__ . '/workflow.entity.inc';
+require_once __DIR__ . '/workflow.field.inc';
+require_once __DIR__ . '/workflow.migrate.inc';
+
+/**********************************************************************
+ * Info hooks.
+ */
+
+/**
+ * Implements hook_cron().
+ *
+ * Given a time frame, execute all scheduled transitions.
+ */
+#[LegacyHook]
+function workflow_cron(): void {
+  \Drupal::service(WorkflowEntityHooks::class)->cron();
+}
+
+/**
+ * Implements hook_help().
+ */
+#[LegacyHook]
+function workflow_help($route_name, RouteMatchInterface $route_match) {
+  return \Drupal::service(WorkflowHooks::class)->help($route_name, $route_match);
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Adds action/drop buttons next to the 'Save'/'Delete' buttons,
+ * when the 'options' widget element is set to 'action buttons'.
+ * Note: do not use with multiple workflows per entity: confusing UX.
+ */
+#[LegacyHook]
+function workflow_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
+  // Keep aligned: workflow_form_alter(), WorkflowTransitionForm::actions().
+  \Drupal::service(WorkflowHooks::class)->formAlter($form, $form_state, $form_id);
+}
+
+/**
+ * Implements hook_hook_info().
+ *
+ * Allow adopters to place their hook implementations in either
+ * their main module or in a module.workflow.inc file.
+ *
+ * @todo Includes for hook_hook_info implementations have been deprecated.
+ * @see https://www.drupal.org/node/3489765
+ */
+function workflow_hook_info(): array {
+  $hooks['workflow'] = ['group' => 'workflow'];
+  return $hooks;
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function template_preprocess_workflow_transition(&$variables): void {
+  \Drupal::service(WorkflowHooks::class)->preprocessWorkflowTransition($variables);
+}
+
+/**
+ * Implements hook_theme().
+ */
+#[LegacyHook]
+function workflow_theme() {
+  return \Drupal::service(WorkflowHooks::class)->theme();
+}
+
+/**
+ * Implements hook_field_views_data().
+ */
+#[LegacyHook]
+function workflow_field_views_data(FieldStorageConfigInterface $field): array {
+  return \Drupal::service(WorkflowViewsHooks::class)->fieldViewsData($field);
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+#[LegacyHook]
+function workflow_views_data_alter(array &$data): void {
+  \Drupal::service(WorkflowViewsHooks::class)->viewsDataAlter($data);
+}
+
+/**
+ * Business related functions, the API.
+ */
+
+/**
+ * Executes transition and updates the target entity.
+ *
+ * @param \Drupal\workflow\Entity\WorkflowTransitionInterface $transition
+ *   A WorkflowTransition.
+ * @param bool $force
+ *   Indicator if the transition must be forced.
+ *
+ * @return string
+ *   A string.
+ */
+function workflow_execute_transition(WorkflowTransitionInterface $transition, $force = FALSE): string {
+  return $transition->executeAndUpdateEntity($force);
+}
+
+/**
+ * {@inheritdoc}
+ *
+ * Gets the initial/resulting Transition of a workflow form/widget.
+ */
+function workflow_get_transition(EntityInterface $entity, $field_name, ?WorkflowTransitionInterface $transition = NULL): WorkflowTransitionInterface {
+  /** @var \Drupal\workflow\Plugin\Field\WorkflowItemListInterface $items */
+  return $transition ?? $entity->{$field_name}->getDefaultTransition();
+}
+
+/**
+ * Functions to get an options list (to show in a Widget).
+ *
+ * The naming convention is workflow_allowed_<entity_type>_names.
+ * (A bit different from 'user_role_names'.)
+ * Can be used for hook_allowed_values from list.module:
+ * - user_role
+ * - workflow
+ * - workflow_state
+ * - sid.
+ */
+
+/**
+ * Gets an Options list of user roles.
+ *
+ * @param string $permission
+ *   A permission ID.
+ *
+ * @return array
+ *   An array of [key =>label] user roles.
+ */
+function workflow_allowed_user_role_names(string $permission = ''): array {
+  return WorkflowRole::allowedValues($permission);
+}
+
+/**
+ * Gets an Options list of field names.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface|null $entity
+ *   An entity.
+ * @param string $entity_type_id
+ *   An entity_type ID.
+ * @param string $entity_bundle
+ *   An entity.
+ * @param string $field_name
+ *   A field name.
+ *
+ * @return array
+ *   An list of field names.
+ */
+function workflow_allowed_field_names(?EntityInterface $entity = NULL, $entity_type_id = '', $entity_bundle = '', $field_name = ''): array {
+  return \Drupal::service('workflow.manager')->getPossibleFieldNames($entity, $entity_type_id, $entity_bundle, $field_name);
+}
+
+/**
+ * Get an options list for workflow states.
+ *
+ * @param mixed $wid
+ *   The Workflow ID.
+ * @param bool $grouped
+ *   Indicates if the value must be grouped per workflow.
+ *   This influences the rendering of the select_list options.
+ * @param mixed $all
+ *   Indicates to which states to return.
+ *   - WorkflowInterface::ALL_STATES = TRUE
+ *     = all states, including Creation and Inactive;
+ *   - WorkflowInterface::ACTIVE_STATES = FALSE
+ *     = only Active states, not Creation;
+ *   - WorkflowInterface::ACTIVE_CREATION_STATES = 'CREATION'
+ *     = Active states, including Creation.
+ *
+ * @return array
+ *   An array of $sid => state, convertible to (string), grouped per Workflow.
+ *
+ * @see callback_allowed_values_function()
+ * @see options_allowed_values()
+ * @see WorkflowInterface::getStates()
+ */
+function workflow_allowed_workflow_state_names($wid = '', $grouped = FALSE, $all = TRUE): array {
+  $options = [];
+
+  /** @var \Drupal\workflow\Entity\WorkflowInterface[] $workflows */
+  $workflows = Workflow::loadMultiple($wid ? [$wid] : NULL);
+  if (empty($workflows)) {
+    return $options;
+  }
+
+  // Do not group if only 1 Workflow is configured or selected.
+  $grouped = (1 == count($workflows)) ? FALSE : $grouped;
+  foreach ($workflows as $wid => $workflow) {
+    $workflow_options = $workflow->getStates($all);
+    if (!$grouped) {
+      $options += $workflow_options;
+    }
+    else {
+      // Make a group for each Workflow.
+      $options[$workflow->label()] = $workflow_options;
+    }
+  }
+
+  return $options;
+}
+
+/**
+ * Get an options list for workflow types.
+ *
+ * Includes an initial empty value if requested.
+ * Validate each workflow, and generate a message if not complete.
+ *
+ * @param bool $required
+ *   Indicates if the resulting list contains a options value.
+ *
+ * @return array
+ *   An array of $wid => workflow->label().
+ */
+function workflow_allowed_workflow_names($required = TRUE): array {
+  $options = [];
+
+  if (!$required) {
+    $options[''] = t('- Select a value -');
+  }
+  foreach (Workflow::loadMultiple() as $wid => $workflow) {
+    /** @var \Drupal\workflow\Entity\WorkflowInterface $workflow */
+    if ($workflow->isValid()) {
+      $options[$wid] = $workflow->label();
+    }
+  }
+
+  return $options;
+}
+
+/**
+ * Implements 'allowed_values_function' options_allowed_values().
+ */
+function workflow_field_allowed_values(FieldStorageDefinitionInterface $field_storage_definition, ?FieldableEntityInterface $entity = NULL, &$cacheable = TRUE): array {
+  $target_entity = ($entity instanceof WorkflowTransitionInterface)
+    ? $entity->getTargetEntity()
+    : $entity;
+  $field_name = workflow_allowed_field_names($target_entity);
+  return $field_name;
+}
+
+/**
+ * Implements 'allowed_values_function' options_allowed_values().
+ *
+ * @param \Drupal\Core\Field\FieldStorageDefinitionInterface|null $field_storage_definition
+ *   The field definition.
+ *
+ * @return \Drupal\Core\Config\Entity\ConfigEntityBase[]
+ *   The allowed values for a WorkflowState field.
+ */
+function workflow_state_allowed_values(FieldStorageDefinitionInterface $field_storage_definition, ?FieldableEntityInterface $entity = NULL, &$cacheable = TRUE): array {
+  $allowed_options = [];
+
+  // State values cannot be cached since 'to_sid' and 'from_sid' have
+  // different options and on the Workflow History page,
+  // a normal widget is displayed, too.
+  // Also, cache is not per wid, so not possible for multiple wid systems.
+  // Note: $cacheable is a reference.
+  $cacheable = FALSE;
+
+  $field_name = $field_storage_definition->getName();
+  switch (TRUE) {
+    case $entity instanceof WorkflowTransitionInterface:
+      /** @var \Drupal\workflow\Entity\WorkflowTransitionInterface $entity */
+      $user = workflow_current_user();
+      $allowed_options = $entity->getSettableOptions($user, $field_name);
+      break;
+
+    case (!$entity):
+      $wid = $field_storage_definition->getSetting('workflow_type');
+      $allowed_options = WorkflowState::loadMultiple([], $wid);
+      break;
+
+    case $entity instanceof EntityInterface:
+    default:
+      // An entity can exist already before adding the workflow field.
+      // @todo It seems this is not used anymore in v2.x.
+      $items = $entity->{$field_name};
+      if ($workflow = $items?->getWorkflow()) {
+        $allowed_options = $workflow->getStates(WorkflowInterface::ACTIVE_CREATION_STATES);
+      }
+      break;
+  }
+
+  return $allowed_options;
+}
+
+/**
+ * Gets an Options list of user roles.
+ *
+ * @param string $permission
+ *   A permission ID.
+ *
+ * @return array
+ *   An array of [key =>label] user roles.
+ *
+ * @deprecated in workflow:1.8.0 and is removed from workflow:3.0.0. Replaced by workflow_allowed_user_role_names().
+ * @see workflow_allowed_user_role_names()
+ */
+function workflow_get_user_role_names(string $permission = ''): array {
+  return workflow_allowed_user_role_names($permission);
+}
+
+/**
+ * Gets an Options list of field names.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface|null $entity
+ *   An entity.
+ * @param string $entity_type_id
+ *   An entity_type ID.
+ * @param string $entity_bundle
+ *   An entity.
+ * @param string $field_name
+ *   A field name.
+ *
+ * @return array
+ *   An list of field names.
+ *
+ * @deprecated in workflow:1.8.0 and is removed from workflow:3.0.0. Replaced by workflow_allowed_field_names().
+ * @see workflow_allowed_field_names()
+ */
+function workflow_get_workflow_field_names(?EntityInterface $entity, $entity_type_id = '', $entity_bundle = '', $field_name = ''): array {
+  return workflow_allowed_field_names($entity, $entity_type_id, $entity_bundle, $field_name);
+}
+
+/**
+ * {@inheritdoc}
+ *
+ * @deprecated in workflow:1.8.0 and is removed from workflow:3.0.0. Replaced by workflow_allowed_workflow_state_names().
+ * @see workflow_allowed_workflow_state_names()
+ */
+function workflow_get_workflow_state_names($wid = '', $grouped = FALSE): array {
+  return workflow_allowed_workflow_state_names($wid, $grouped);
+}
+
+/**
+ * Helper function, to get the label of a given State ID.
+ *
+ * @param string $sid
+ *   A State ID.
+ *
+ * @return string
+ *   An translated label.
+ */
+function workflow_get_sid_name($sid) {
+  $label = match (TRUE) {
+    empty($sid)
+    => t('No state'),
+    is_object($state = WorkflowState::load($sid))
+    => t($state->label()),
+    default
+    => t('Unknown state'),
+  };
+  return $label;
+}
+
+/**
+ * Determines the Workflow field_name of an entity.
+ *
+ * If an entity has multiple workflows, only returns the first one.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity at hand.
+ * @param string $field_name
+ *   The field name. If given, will be passed as return value.
+ *
+ * @return string
+ *   The found Field name of the first workflow field.
+ */
+function workflow_get_field_name(EntityInterface $entity, $field_name = ''): string {
+  $field_name = match (TRUE) {
+    // Normal case, a field name is given.
+    !empty($field_name)
+    => $field_name,
+
+    // $entity may be empty on Entity Add page.
+    !$entity
+    => '',
+
+    // Get the first field_name (multiple may exist).
+    !empty($fields = workflow_allowed_field_names($entity))
+    => array_key_first($fields),
+
+    // No Workflow field exists.
+    default
+    => '',
+  };
+
+  return $field_name;
+}
+
+/**
+ * Functions to get the state of an entity.
+ */
+
+/**
+ * Gets the WorkflowManager object.
+ *
+ * @return \Drupal\workflow\Entity\WorkflowManagerInterface
+ *   The WorkflowManager object.
+ */
+function workflow_get_workflow_manager(): WorkflowManagerInterface {
+  return \Drupal::service('workflow.manager');
+}
+
+/**
+ * Wrapper function to get a UserInterface object.
+ *
+ * @param \Drupal\Core\Session\AccountInterface|null $account
+ *   An Account.
+ *
+ * @return \Drupal\workflow\Entity\WorkflowUser|null
+ *   A User to check permissions, since we can't add Roles to AccountInterface.
+ */
+function workflow_current_user(?AccountInterface $account = NULL): ?WorkflowUser {
+  /** @var \Drupal\workflow\Entity\WorkflowUser $user */
+  static $user = NULL;
+
+  if ($account instanceof WorkflowUser) {
+    return $account;
+  }
+
+  $account ??= \Drupal::currentUser();
+  if ($account) {
+    return ($account->id() === $user?->id())
+      ? $user
+      : $user = WorkflowUser::load($account->id());
+  }
+
+  // Handle CLI contexts where current user ID is 0/null.
+  if (!$user) {
+    return NULL;
+  }
+
+  return $user;
+}
+
+/**
+ * Gets the creation state ID of a given entity.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity at hand.
+ * @param string $field_name
+ *   The field_name.
+ *
+ * @return string
+ *   The creation State ID.
+ */
+function workflow_node_creation_state(EntityInterface $entity, $field_name = ''): string {
+  $field_name = workflow_get_field_name($entity, $field_name);
+
+  /** @var \Drupal\workflow\Plugin\Field\WorkflowItemListInterface $items */
+  $items = $entity->{$field_name};
+  $state = $items?->getWorkflow()->getCreationState();
+  return $state?->id() ?? '';
+}
+
+/**
+ * Gets the current state ID of a given entity.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity at hand.
+ * @param string $field_name
+ *   The field_name.
+ *
+ * @return string
+ *   The current State ID.
+ */
+function workflow_node_current_state(EntityInterface $entity, $field_name = ''): string {
+  $field_name = workflow_get_field_name($entity, $field_name);
+  /** @var \Drupal\workflow\Plugin\Field\WorkflowItemListInterface $items */
+  // $items may be empty on initial FieldItemList::setValue($values).
+  // $items may be empty on node with core options widget.
+  return $entity->{$field_name}?->getCurrentStateId() ?? '';
+}
+
+/**
+ * Gets the previous state ID of a given entity.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity at hand.
+ * @param string $field_name
+ *   The field_name.
+ *
+ * @return string
+ *   The previous State ID.
+ */
+function workflow_node_previous_state(EntityInterface $entity, $field_name = ''): string {
+  $field_name = workflow_get_field_name($entity, $field_name);
+  /** @var \Drupal\workflow\Plugin\Field\WorkflowItemListInterface $items */
+  $items = $entity->{$field_name};
+  return $items?->getPreviousStateId();
+}
+
+/**
+ * Get a specific workflow, given an entity type.
+ *
+ * Only one workflow is possible per node type.
+ * Caveat: gives undefined results with multiple workflows per entity.
+ *
+ * @todo Support multiple workflows per entity.
+ *
+ * @param string $entity_bundle
+ *   An entity bundle.
+ * @param string $entity_type_id
+ *   An entity type ID. This is passed when also the Field API must be checked.
+ *
+ * @return \Drupal\workflow\Entity\WorkflowInterface
+ *   A Workflow object, or NULL if no workflow is retrieved.
+ */
+function workflow_get_workflows_by_type($entity_bundle, $entity_type_id): WorkflowInterface {
+  static $map = [];
+
+  // Create a single cache key instead of deep array nesting.
+  $cache_key = "{$entity_type_id}:{$entity_bundle}";
+
+  if (!isset($map[$cache_key])) {
+    $wid = FALSE;
+    if (isset($entity_type_id)) {
+      foreach (_workflow_info_fields(NULL, $entity_type_id, $entity_bundle) as $field_info) {
+        $wid = $field_info->getSetting('workflow_type');
+      }
+    }
+    // Set the cache with a workflow object.
+    /** @var \Drupal\workflow\Entity\WorkflowInterface $workflow */
+    $workflow = $wid ? Workflow::load($wid) : NULL;
+    $map[$cache_key] = $workflow;
+  }
+
+  return $map[$cache_key];
+}
+
+/**
+ * Finds the Workflow fields on a given Entity type.
+ *
+ * @param string $entity_type_id
+ *   The entity type ID, if needed.
+ *
+ * @return array
+ *   A list of Workflow fields.
+ */
+function workflow_get_workflow_fields_by_entity_type($entity_type_id = ''): array {
+  return \Drupal::service('workflow.manager')->getFieldMap($entity_type_id);
+}
+
+/**
+ * Gets the workflow field names, if not known already.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface|null $entity
+ *   Object to work with. May be empty, e.g., on menu build.
+ * @param string $entity_type_id
+ *   Entity type ID. Optional, but required if $entity provided.
+ * @param string $entity_bundle
+ *   Bundle of entity. Optional.
+ * @param string $field_name
+ *   A field name. Optional.
+ *
+ * @return Drupal\field\Entity\FieldStorageConfig[]
+ *   An array of FieldStorageConfig objects.
+ */
+function _workflow_info_fields(?EntityInterface $entity = NULL, $entity_type_id = '', $entity_bundle = '', $field_name = ''): array {
+  return \Drupal::service('workflow.manager')->getWorkflowFieldDefinitions($entity, $entity_type_id, $entity_bundle, $field_name);
+}
+
+/**
+ * Helper function to get the entity from a route.
+ *
+ * This is a hack. It should be solved by using $route_match.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface|null $entity
+ *   An optional entity.
+ * @param \Drupal\Core\Routing\RouteMatchInterface|null $route_match
+ *   A route.
+ *
+ * @return \Drupal\Core\Entity\EntityInterface|null
+ *   Entity from the route.
+ */
+function workflow_url_get_entity(?EntityInterface $entity = NULL, ?RouteMatchInterface $route_match = NULL): ?EntityInterface {
+  if ($entity) {
+    return $entity;
+  }
+
+  // Find the (yet unknown) entity.
+  $entities = [];
+  $route_match ??= \Drupal::routeMatch();
+  foreach ($route_match->getParameters() as $param) {
+    if ($param instanceof EntityInterface) {
+      $entities[] = $param;
+    }
+  }
+  $value = reset($entities);
+
+  // Evaluate the result.
+  $value = match (TRUE) {
+    ($value === FALSE) => NULL,
+    is_object($value) => $value,
+    // On workflow tab, we'd get an ID.
+    // This is an indicator that the route is mal-configured.
+    default => NULL,
+  };
+
+  // Debug the last faulty 'default' case.
+  if ($value && !is_object($value)) {
+    workflow_debug(__FILE__, __FUNCTION__, __LINE__, 'route declaration is not optimal.');
+    /* Return $entity = \Drupal::entityTypeManager()->getStorage($entity_type_id)->load($value); */
+  }
+
+  return $value;
+}
+
+/**
+ * Helper function to get the field name from a route.
+ *
+ * For now only used for ../{entity_id}/workflow history tab.
+ *
+ * @todo Url may specify field name, E.g., /node/60/workflow/field_workflow.
+ *
+ * @return string
+ *   Return $field_name, can be empty string.
+ */
+function workflow_url_get_field_name(): string {
+  return workflow_url_get_parameter('field_name') ?? '';
+}
+
+/**
+ * Helper function to get the entity from a route.
+ *
+ * @return string
+ *   Return $operation
+ */
+function workflow_url_get_operation(): string {
+  $url = Url::fromRoute('<current>');
+  // The last part of the path is the operation: edit, workflow, devel.
+  $url_parts = explode('/', $url->toString());
+  $operation = array_pop($url_parts);
+  // Except for view pages.
+  if (is_numeric($operation) || $operation == 'view') {
+    $operation = '';
+  }
+  return $operation;
+}
+
+/**
+ * Helper function to get arbitrary parameter from a route.
+ *
+ * @param string $parameter
+ *   The requested parameter.
+ *
+ * @return mixed
+ *   E.g., a node object, or field_name string, or NULL.
+ */
+function workflow_url_get_parameter($parameter): mixed {
+  return \Drupal::routeMatch()->getParameter($parameter);
+  // Return \Drupal::request()->get($parameter);
+}
+
+/**
+ * Helper function to determine Workflow from Workflow UI URL.
+ *
+ * @return \Drupal\workflow\Entity\WorkflowInterface|null
+ *   Workflow Object.
+ */
+function workflow_url_get_workflow(): ?WorkflowInterface {
+  static $workflows = [];
+
+  $wid = workflow_url_get_parameter('workflow_type');
+  if (is_object($wid)) {
+    // $wid is a Workflow object.
+    return $wid;
+  }
+
+  $workflows[$wid] ??= $wid ? Workflow::load($wid) : NULL;
+  return $workflows[$wid];
+}
+
+/**
+ * Helper function to determine the title of the page.
+ *
+ * Used in file workflow.routing.yml.
+ *
+ * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+ *   the page title.
+ */
+function workflow_url_get_title() {
+  $label = '';
+
+  // Get the Workflow from the page.
+  if ($workflow = workflow_url_get_workflow()) {
+    $label = $workflow->label();
+  }
+
+  $title = t('Edit @entity %label', ['@entity' => 'Workflow', '%label' => $label]);
+  return $title;
+}
+
+/**
+ * Helper function to determine Workflow from Workflow UI URL.
+ *
+ * @param string $url
+ *   URL.
+ *
+ * @return string
+ *   the Workflow type ID.
+ */
+function workflow_url_get_form_type($url = ''): string {
+  // For some reason, $_SERVER is not allowed as default.
+  $url = ($url == '') ? $_SERVER['REQUEST_URI'] : $url;
+
+  $base_url = '/config/workflow/workflow/';
+  $string = substr($url, strpos($url, $base_url) + strlen($base_url));
+  $type = explode('/', $string)[1];
+  return $type;
+}

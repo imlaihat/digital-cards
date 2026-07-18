@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Install scripts for Views vCards.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function views_vcards_requirements($phase) {
+  $requirements = [];
+  if ($phase == 'install') {
+    // Detect if the ZipStream library is available before installation.
+    $class_exists = class_exists('ZipStream\ZipStream');
+    $requirements['views_vcards_library'] = [
+      'title' => t('ZipStream library'),
+      'value' => $class_exists ? t('Detected') : t('Not found'),
+    ];
+    if (!$class_exists) {
+      $requirements['views_vcards_library']['description'] = t('Views vCards requires the maennchen/zipstream-php library to be installed with composer. Installation instructions are in README.md');
+      $requirements['views_vcards_library']['severity'] = REQUIREMENT_ERROR;
+    }
+  }
+  if ($phase == 'runtime') {
+    // Detect if Twig debug mode is enabled.
+    $twig_debug_on = \Drupal::service('twig')->isDebug();
+    $requirements['views_vcards_debug'] = [
+      'title' => t('Twig debugging mode'),
+      'value' => !$twig_debug_on ? t('Disabled') : t('Enabled'),
+    ];
+    if ($twig_debug_on) {
+      $requirements['views_vcards_debug']['description'] = t('Views vCards does not work properly while Twig debugging mode is enabled. Exported vCards will contain debug data, and importing them into a mail client will fail.');
+      $requirements['views_vcards_debug']['severity'] = REQUIREMENT_WARNING;
+    }
+  }
+
+  return $requirements;
+}

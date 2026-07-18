@@ -1,0 +1,9 @@
+name: Digital Card Delivery
+type: module
+description: Generates organization-scoped, branded static digital card pages.
+package: Digital Card
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:file
+  - drupal:group
+  - drupal:node

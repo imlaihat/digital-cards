@@ -1,0 +1,19 @@
+access digital card scanner api:
+  title: 'Access digital card scanner API'
+  description: 'Access public scanner context for approved digital cards.'
+  restrict access: false
+
+check card holder offer eligibility:
+  title: 'Check card-holder offer eligibility'
+  description: 'Allows a merchant to verify whether a scanned card may use available offers.'
+  restrict access: true
+
+redeem card holder offers:
+  title: 'Redeem card-holder offers'
+  description: 'Allows a merchant to confirm and record an offer redemption.'
+  restrict access: true
+
+view digital card scan analytics:
+  title: 'View digital card scan analytics'
+  description: 'View privacy-conscious card scan reports.'
+  restrict access: true

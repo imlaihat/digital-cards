@@ -1,0 +1,9 @@
+name: Digital Card Offers
+type: module
+description: Merchant partners, card-holder offers, eligibility, secure redemption, and audit reporting.
+package: Digital Card
+core_version_requirement: ^10 || ^11
+dependencies:
+  - digital_card_public:digital_card_public
+  - drupal:user
+

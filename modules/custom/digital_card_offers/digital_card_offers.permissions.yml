@@ -1,0 +1,16 @@
+administer digital card partners:
+  title: 'Administer digital card merchant partners'
+  restrict access: true
+administer digital card offers:
+  title: 'Administer digital card offers'
+  restrict access: true
+administer digital card merchant users:
+  title: 'Create and manage Merchant users'
+  restrict access: true
+check card holder offer eligibility:
+  title: 'Check card-holder offer eligibility'
+redeem card holder offers:
+  title: 'Redeem card-holder offers'
+view digital card redemption reports:
+  title: 'View digital card redemption reports'
+  restrict access: true

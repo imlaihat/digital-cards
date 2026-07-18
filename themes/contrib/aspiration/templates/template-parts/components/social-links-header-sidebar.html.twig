@@ -1,0 +1,22 @@
+{% set social_links = theme_settings.social_links ?? [] %}
+<ul class="list-wrap" aria-label="Sidebar social media links">
+  {% for link in social_links %}
+    {% set label = link.label %}
+    {% set platform = link.platform|lower %}
+    {% set url = link.url %}
+    {% set show_platform = theme_settings['hdr_sidebar_social_media'][platform]|default(false) %}
+
+    {% if url and show_platform %}
+      <li>
+        <a href="{{ url }}" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           title="Follow us on {{ label }}" 
+           aria-label="Follow us on {{ label }}">
+          <i class="fab fa-{{ platform }}" aria-hidden="true"></i>
+          <span class="visually-hidden">{{ label }}</span>
+        </a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

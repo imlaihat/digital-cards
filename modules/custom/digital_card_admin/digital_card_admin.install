@@ -1,0 +1,114 @@
+<?php
+
+/**
+ * @file
+ * Install/update hooks for Digital Card Admin.
+ */
+
+/**
+ * Remove stale block configs assigned to a missing theme named "color".
+ */
+function digital_card_admin_update_10001(): string {
+  return _digital_card_admin_remove_missing_color_theme_blocks();
+}
+
+/**
+ * Helper to clean only block configs whose theme property is exactly "color".
+ */
+function _digital_card_admin_remove_missing_color_theme_blocks(): string {
+  $storage = \Drupal::service('config.storage');
+  $factory = \Drupal::configFactory();
+  $deleted = [];
+
+  foreach ($storage->listAll('block.block.') as $name) {
+    $data = $storage->read($name);
+    if (($data['theme'] ?? NULL) === 'color') {
+      $factory->getEditable($name)->delete();
+      $deleted[] = $name;
+    }
+  }
+
+  if ($deleted) {
+    return 'Removed stale block configuration assigned to missing theme color: ' . implode(', ', $deleted);
+  }
+
+  return 'No stale color theme block configuration found.';
+}
+
+
+/**
+ * Create or refresh the Digital Card management Views.
+ */
+function digital_card_admin_update_10002(): string {
+  return _digital_card_admin_import_management_views();
+}
+
+/**
+ * Imports bundled Views config for Plans, Subscriptions, and subscription details.
+ */
+function _digital_card_admin_import_management_views(): string {
+  $module_path = \Drupal::service('extension.list.module')->getPath('digital_card_admin');
+  $config_factory = \Drupal::configFactory();
+  $imported = [];
+  $files = [
+    'views.view.platform_plans.yml' => 'views.view.platform_plans',
+    'views.view.platform_subscriptions.yml' => 'views.view.platform_subscriptions',
+    'views.view.organization_subscription_details.yml' => 'views.view.organization_subscription_details',
+  ];
+
+  foreach ($files as $file => $config_name) {
+    $path = DRUPAL_ROOT . '/' . $module_path . '/config/optional/' . $file;
+    if (!file_exists($path)) {
+      \Drupal::logger('digital_card_admin')->warning('Management View config file @file was not found.', ['@file' => $file]);
+      continue;
+    }
+
+    try {
+      $data = \Drupal\Component\Serialization\Yaml::decode(file_get_contents($path));
+      if (!is_array($data) || empty($data['id'])) {
+        \Drupal::logger('digital_card_admin')->warning('Management View config file @file is invalid.', ['@file' => $file]);
+        continue;
+      }
+      $config_factory->getEditable($config_name)->setData($data)->save(TRUE);
+      $imported[] = $config_name;
+    }
+    catch (\Throwable $e) {
+      \Drupal::logger('digital_card_admin')->error('Failed to import management View @file: @message', [
+        '@file' => $file,
+        '@message' => $e->getMessage(),
+      ]);
+    }
+  }
+
+  if ($imported) {
+    \Drupal::service('router.builder')->setRebuildNeeded();
+    return 'Imported/updated management Views: ' . implode(', ', $imported) . '. Clear cache to rebuild routes.';
+  }
+
+  return 'No management Views were imported. Check recent log messages.';
+}
+
+/**
+ * Re-import management Views with corrected text-area configuration.
+ */
+function digital_card_admin_update_10003(): string {
+  return _digital_card_admin_import_management_views();
+}
+
+/**
+ * Keep card approval exclusive to Platform Administrators.
+ */
+function digital_card_admin_update_10004(): string {
+  $role = \Drupal\user\Entity\Role::load('organization_admin');
+  if (!$role) {
+    return 'Organization Administrator role was not found; no permission change was required.';
+  }
+
+  if (!$role->hasPermission('manage digital card workflow')) {
+    return 'Organization Administrators already do not have the card workflow management permission.';
+  }
+
+  $role->revokePermission('manage digital card workflow');
+  $role->save();
+  return 'Removed card workflow management permission from Organization Administrators.';
+}

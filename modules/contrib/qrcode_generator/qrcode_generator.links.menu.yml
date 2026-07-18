@@ -1,0 +1,5 @@
+qrcode_generator.settings:
+  title: QR Page Configurations
+  route_name: qrcode_generator.settings
+  parent: system.admin_config_ui
+  description: 'Manage settings for displaying QR code.'

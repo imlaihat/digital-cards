@@ -1,0 +1,42 @@
+
+# Drupal runtime files
+/sites/*/files/*
+!/sites/*/files/.htaccess
+/sites/*/private/*
+/sites/*/tmp/*
+
+# Sensitive local settings
+/sites/*/settings.php
+/sites/*/services.yml
+/sites/*/settings.local.php
+
+# Composer dependencies
+/vendor/
+
+# If using Composer-managed Drupal, also ignore these:
+# /core/
+# /modules/contrib/
+# /themes/contrib/
+
+# Static generated cards - production generated output
+/c/*
+/cards/*
+/assets/*
+
+# Keep organization CSS source/design assets if you manage them in Git
+# Do not ignore /cards/*/assets/card.css if this is your source design
+
+# Backups and dumps
+*.sql
+*.sql.gz
+*.zip
+*.rar
+*.tar
+*.tar.gz
+/backups/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

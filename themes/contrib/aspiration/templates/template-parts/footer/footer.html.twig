@@ -1,0 +1,127 @@
+{% if page.footer_top %}
+  {{ page.footer_top }}
+{% endif %}
+
+<!-- footer-area -->
+<footer class="footer__area fix">
+
+  {# Count active footer sections #}
+  {% set footer_sections = [
+    page.footer_one or theme_settings.footer_logo_type or theme_settings.footer_branding_txt,
+    page.footer_two,
+    page.footer_three,
+    page.footer_four or theme_settings.show_footer_contact
+  ] %}
+  {% set active_sections = footer_sections|filter(v => v)|length %}
+  {% set col_class = 'col-xl-' ~ (12 // active_sections) ~ ' col-lg-' ~ (12 // active_sections) ~ ' col-md-6' %}
+
+  <div class="container">
+    <div class="footer__top">
+      <div class="row">
+        {% if page.footer_one or theme_settings.footer_logo_type or theme_settings.footer_branding_txt %}
+          <!-- Footer Widget 1 -->
+          <div class="{{ col_class }}">
+            <div class="footer__widget">
+              {% if theme_settings.footer_logo_type %}
+                <div class="footer__logo">
+                  {% if theme_settings.footer_logo_type == 'default' %}
+                    {{ page.site_branding }}
+                  {% elseif theme_settings.footer_logo_type == 'custom' %}
+                    <a href="{{ url('<front>') }}">
+                      <img src="{{ theme_settings.footer_logo_url }}" alt="logo">
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+              {% if page.footer_one or theme_settings.footer_branding_txt %}
+                <div class="footer__content">
+                  {{ page.footer_one }}
+                  {{ theme_settings.footer_branding_txt }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if page.footer_two %}
+          <!-- Footer Widget 2 -->
+          <div class="{{ col_class }}">
+            <div class="footer__widget">
+              {{ page.footer_two }}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if page.footer_three %}
+          <!-- Footer Widget 3 -->
+          <div class="{{ col_class }}">
+            <div class="footer__widget">
+              {{ page.footer_three }}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if page.footer_four or theme_settings.show_footer_contact %}
+          <!-- Footer Widget 4 -->
+          <div class="{{ col_class }}">
+            <div class="footer__widget">
+              {% if page.footer_four %}
+                {{ page.footer_four }}
+              {% endif %}
+              {% if theme_settings.show_footer_contact %}
+                <h4 class="footer__widget-title">{{ theme_settings.footer_contact_title }}</h4>
+                <div class="footer__info-wrap">
+                  <ul class="footer__info-wrap list-wrap">
+                    {% if theme_settings.footer_location %}
+                      <li>
+                        <i class="flaticon-location-1"></i>
+                        <p>{{ theme_settings.footer_location }}</p>
+                      </li>
+                    {% endif %}
+                    {% if theme_settings.footer_contact %}
+                      <li>
+                        <i class="flaticon-telephone"></i>
+                        <p>{{ theme_settings.footer_contact }}</p>
+                      </li>
+                    {% endif %}
+                    {% if theme_settings.footer_aspiration_time %}
+                      <li>
+                        <i class="flaticon-time"></i>
+                        <p>{{ theme_settings.footer_aspiration_time }}</p>
+                      </li>
+                    {% endif %}
+                  </ul>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer__bottom">
+      <div class="row align-items-center">
+        <div class="col-md-7">
+          {% if theme_settings.footer_copyright_text %}
+            <div class="copyright-text">
+              <p>{{ theme_settings.footer_copyright_text }}</p>
+            </div>
+          {% endif %}
+          {% if page.footer_bottom_left %}
+            {{ page.footer_bottom_left }}
+          {% endif %}
+        </div>
+        <div class="col-md-5">
+          {% if page.footer_bottom_right %}
+            {{ page.footer_bottom_right }}
+          {% endif %}
+          <div class="footer__social">
+            {% include '@aspiration/template-parts/components/social-links-footer.html.twig' with { theme_settings: theme_settings } %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- footer-area-end -->

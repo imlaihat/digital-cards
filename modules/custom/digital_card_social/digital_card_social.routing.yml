@@ -1,0 +1,34 @@
+digital_card_social.platforms:
+  path: '/platform/social-platforms'
+  defaults:
+    _controller: '\Drupal\digital_card_social\Controller\SocialPlatformController::listing'
+    _title: 'Social Platforms'
+  requirements:
+    _permission: 'manage digital card social platforms'
+
+digital_card_social.platform_add:
+  path: '/platform/social-platforms/add'
+  defaults:
+    _form: '\Drupal\digital_card_social\Form\SocialPlatformForm'
+    _title: 'Add social platform'
+  requirements:
+    _permission: 'manage digital card social platforms'
+
+digital_card_social.platform_edit:
+  path: '/platform/social-platforms/{platform}/edit'
+  defaults:
+    _form: '\Drupal\digital_card_social\Form\SocialPlatformForm'
+    _title: 'Edit social platform'
+  requirements:
+    _permission: 'manage digital card social platforms'
+    platform: '[a-z0-9_]+'
+
+digital_card_social.platform_delete:
+  path: '/platform/social-platforms/{platform}/delete'
+  defaults:
+    _form: '\Drupal\digital_card_social\Form\SocialPlatformDeleteForm'
+    _title: 'Delete social platform'
+  requirements:
+    _permission: 'manage digital card social platforms'
+    platform: '[a-z0-9_]+'
+

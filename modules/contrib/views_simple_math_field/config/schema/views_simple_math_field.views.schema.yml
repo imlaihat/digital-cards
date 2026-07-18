@@ -1,0 +1,27 @@
+views.field.field_views_simple_math_field:
+  type: views_field
+  label: 'Simple Math Field'
+  mapping:
+    fieldset_one:
+      label: 'Fieldset One'
+      type: mapping
+      data_fields:
+        type: sequence
+        label: 'Data Fields'
+        sequence:
+          type: string
+          label: 'Data Field'
+      formula:
+        label: 'Formula'
+        type: string
+    mute_logs:
+      type: boolean
+      label: 'Mute database logs for this field'
+
+views.sort.views_simple_math_field_sort:
+  type: views_sort
+  label: 'Simple Math Fields'
+  mapping:
+    simple:
+      label: 'Simple math fields'
+      type: string

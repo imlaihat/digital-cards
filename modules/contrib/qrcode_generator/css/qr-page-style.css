@@ -1,0 +1,226 @@
+#qr-float-icon {
+  background-color: #fff;
+  color: #000;
+  display: inline-block;
+  width: 50px;
+  font-size: 2.25rem;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  z-index: 9999;
+  cursor: pointer;
+  transition: all ease-in 0.2s;
+  box-shadow: 0px 3px 5px 0px #000;
+}
+.sidebarhover.rightbottom,
+.sidebarhover.righttop,
+.sidebarhover.rightcenter {
+  border-bottom-left-radius: 10px;
+  padding-left: 10px;
+  border-top-left-radius: 10px;
+}
+.sidebarhover.leftbottom,
+.sidebarhover.lefttop,
+.sidebarhover.leftcenter {
+  border-bottom-right-radius: 10px;
+  padding-left: 10px;
+  border-top-right-radius: 10px;
+}
+.sidebarhover.rightbottom {
+  right: 0px;
+  bottom: 100px;
+}
+.sidebarhover.rightcenter {
+  right: 0px;
+  bottom: 45%;
+}
+.sidebarhover.leftcenter {
+  left: 0px;
+  bottom: 45%;
+}
+.sidebarhover.righttop {
+  right: 0px;
+  top: 100px;
+}
+.sidebarhover.leftbottom {
+  left: 0px;
+  bottom: 100px;
+}
+.sidebarhover.lefttop {
+  left: 0px;
+  top: 100px;
+}
+#qr-popup .close {
+  color: #aaaaaa;
+  font-size: 28px;
+  right: -96%;
+  top: -8%;
+  background: none;
+  font-weight: bold;
+  position: relative;
+}
+#qr-popup .close:hover,
+#qr-popup .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.img-qrcode {
+  display: flex;
+  justify-content: center;
+}
+
+.popup-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.popup-content img {
+  width: 50%;
+  margin-left: 15px;
+}
+.qr-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+.download-page-qr,
+.social-media-section li i {
+  font-size: 1.5rem;
+  color: #000000;
+}
+.url-section {
+  color: #000;
+}
+.url-section #pageUrl {
+  word-wrap: break-word;
+  opacity: 0;
+  max-height: 10px;
+  overflow: hidden;
+  cursor: default;
+}
+.fa-download:before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-style: normal;
+  color: #000000;
+}
+
+#qr-float-icon.floatingonscreen {
+  bottom: 10%;
+  padding: 10px;
+  position: fixed;
+  z-index: 99999;
+  font-size: 2.25rem;
+  right: 5%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  border-radius: 50px;
+  align-items: center;
+  justify-content: center;
+}
+.social-media-section ul {
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  align-items: center;
+  margin: 0;
+}
+.social-media-section > span {
+  color: #000000;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.qr-tab-info {
+  display: none;
+}
+.qr-tab-info p {
+  font-size: 0.75rem;
+  color: #000000;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.copied-success {
+  position: absolute;
+  right: -45px;
+  width: 110px;
+  top: 30px;
+  display: inline-block;
+  font-size: 50%;
+  opacity: 0;
+  transition: 1s all ease-in-out;
+  color: #000000;
+}
+.copy-link {
+  position: relative;
+}
+
+@-webkit-keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  25% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  60% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+@keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  25% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  60% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}

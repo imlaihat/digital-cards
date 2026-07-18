@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Implements hook_mail().
+ */
+function digital_card_offers_mail(string $key, array &$message, array $params): void {
+  if ($key !== 'merchant_user_created') {
+    return;
+  }
+  $account = $params['account'];
+  $message['subject'] = t('Your merchant account on @site', ['@site' => \Drupal::config('system.site')->get('name')]);
+  $message['body'][] = t('Hello @name,', ['@name' => $account->getDisplayName()]);
+  $message['body'][] = t('Your Merchant account login information is available below.');
+  if (!empty($params['temporary_password'])) {
+    $message['body'][] = t('Username: @name', ['@name' => $account->getAccountName()]);
+    $message['body'][] = t('Temporary password: @password', ['@password' => $params['temporary_password']]);
+    $message['body'][] = t('For security, sign in and change this temporary password immediately.');
+  }
+  if (!empty($params['reset_url'])) {
+    $message['body'][] = t('Alternatively, use this secure one-time password link:');
+    $message['body'][] = $params['reset_url'];
+  }
+  $message['body'][] = t('After signing in, open the merchant validation portal: @url', ['@url' => $params['portal_url']]);
+}

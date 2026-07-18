@@ -1,0 +1,6 @@
+digital_card_delivery.organization_themes:
+  title: 'Card Themes'
+  description: 'Configure card branding for each organization.'
+  route_name: digital_card_delivery.organization_themes
+  menu_name: platform-admin
+  weight: 70

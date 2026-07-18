@@ -1,0 +1,27 @@
+services:
+  logger.channel.digital_card_delivery:
+    parent: logger.channel_base
+    arguments: ['digital_card_delivery']
+
+  digital_card_delivery.organization_context:
+    class: Drupal\digital_card_delivery\Service\OrganizationCardContext
+    arguments: ['@transliteration', '@file_url_generator']
+
+  digital_card_delivery.static_generator:
+    class: Drupal\digital_card_delivery\Service\CardStaticGenerator
+    arguments:
+      - '@digital_card_delivery.organization_context'
+      - '@file_system'
+      - '@lock'
+      - '@logger.channel.digital_card_delivery'
+      - '@request_stack'
+      - '@?digital_card_social.registry'
+
+  digital_card_delivery.card_preparation:
+    class: Drupal\digital_card_delivery\Service\CardPreparationManager
+    arguments:
+      - '@entity_type.manager'
+      - '@file_system'
+      - '@request_stack'
+      - '@logger.factory'
+      - '@transliteration'

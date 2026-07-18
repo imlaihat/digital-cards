@@ -1,0 +1,128 @@
+digital_card_offers.partners:
+  path: '/platform/merchant-partners'
+  defaults:
+    _controller: '\Drupal\digital_card_offers\Controller\AdminController::partners'
+    _title: 'Merchant Partners'
+  requirements:
+    _permission: 'administer digital card partners'
+
+digital_card_offers.merchant_users:
+  path: '/platform/merchant-users'
+  defaults:
+    _controller: '\Drupal\digital_card_offers\Controller\MerchantUserController::listing'
+    _title: 'Merchant Users'
+  requirements:
+    _permission: 'administer digital card merchant users'
+
+digital_card_offers.merchant_user_add:
+  path: '/platform/merchant-users/add'
+  defaults:
+    _form: '\Drupal\digital_card_offers\Form\MerchantUserForm'
+    _title: 'Add Merchant User'
+  requirements:
+    _permission: 'administer digital card merchant users'
+
+digital_card_offers.merchant_user_edit:
+  path: '/platform/merchant-users/{user}/edit'
+  defaults:
+    _form: '\Drupal\digital_card_offers\Form\MerchantUserForm'
+    _title: 'Edit Merchant User'
+  requirements:
+    _permission: 'administer digital card merchant users'
+    user: '\d+'
+  options:
+    parameters:
+      user:
+        type: entity:user
+
+digital_card_offers.partner_add:
+  path: '/platform/merchant-partners/add'
+  defaults:
+    _form: '\Drupal\digital_card_offers\Form\PartnerForm'
+    _title: 'Add Merchant Partner'
+  requirements:
+    _permission: 'administer digital card partners'
+
+digital_card_offers.partner_edit:
+  path: '/platform/merchant-partners/{partner_id}/edit'
+  defaults:
+    _form: '\Drupal\digital_card_offers\Form\PartnerForm'
+    _title: 'Edit Merchant Partner'
+  requirements:
+    _permission: 'administer digital card partners'
+    partner_id: '\d+'
+
+digital_card_offers.offers:
+  path: '/platform/offers'
+  defaults:
+    _controller: '\Drupal\digital_card_offers\Controller\AdminController::offers'
+    _title: 'Card-holder Offers'
+  requirements:
+    _permission: 'administer digital card offers'
+
+digital_card_offers.offer_add:
+  path: '/platform/offers/add'
+  defaults:
+    _form: '\Drupal\digital_card_offers\Form\OfferForm'
+    _title: 'Add Offer'
+  requirements:
+    _permission: 'administer digital card offers'
+
+digital_card_offers.offer_edit:
+  path: '/platform/offers/{offer_id}/edit'
+  defaults:
+    _form: '\Drupal\digital_card_offers\Form\OfferForm'
+    _title: 'Edit Offer'
+  requirements:
+    _permission: 'administer digital card offers'
+    offer_id: '\d+'
+
+digital_card_offers.merchant_portal:
+  path: '/merchant/offers'
+  defaults:
+    _controller: '\Drupal\digital_card_offers\Controller\MerchantController::portal'
+    _title: 'Merchant Offer Validation'
+  requirements:
+    _permission: 'check card holder offer eligibility'
+
+digital_card_offers.merchant_redeem_form:
+  path: '/merchant/offers/{nfc_id}/{offer_id}/redeem'
+  defaults:
+    _form: '\Drupal\digital_card_offers\Form\MerchantRedeemForm'
+    _title: 'Confirm Offer Redemption'
+  requirements:
+    _permission: 'redeem card holder offers'
+    nfc_id: '[A-Za-z0-9_-]{3,128}'
+    offer_id: '\d+'
+
+digital_card_offers.eligibility:
+  path: '/api/digital-card/offers/{nfc_id}'
+  defaults:
+    _controller: '\Drupal\digital_card_offers\Controller\OfferApiController::eligibility'
+  requirements:
+    _access: 'TRUE'
+    nfc_id: '[A-Za-z0-9_-]{3,128}'
+  methods: [GET]
+  options:
+    no_cache: TRUE
+
+digital_card_offers.redeem:
+  path: '/api/digital-card/offers/{offer_id}/redeem/{nfc_id}'
+  defaults:
+    _controller: '\Drupal\digital_card_offers\Controller\OfferApiController::redeem'
+  requirements:
+    _permission: 'redeem card holder offers'
+    _csrf_token: 'TRUE'
+    offer_id: '\d+'
+    nfc_id: '[A-Za-z0-9_-]{3,128}'
+  methods: [POST]
+  options:
+    no_cache: TRUE
+
+digital_card_offers.report:
+  path: '/platform/offer-redemptions'
+  defaults:
+    _controller: '\Drupal\digital_card_offers\Controller\AdminController::redemptions'
+    _title: 'Offer Redemptions'
+  requirements:
+    _permission: 'view digital card redemption reports'

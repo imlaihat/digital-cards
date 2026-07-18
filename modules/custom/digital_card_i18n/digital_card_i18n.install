@@ -1,0 +1,297 @@
+<?php
+
+use Drupal\language\Entity\ConfigurableLanguage;
+use Drupal\locale\Gettext;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Implements hook_install().
+ */
+function digital_card_i18n_install(): void {
+  digital_card_i18n_configure();
+  digital_card_i18n_import_arabic();
+}
+
+/**
+ * Applies multilingual defaults to existing installations.
+ */
+function digital_card_i18n_update_10001(): string {
+  digital_card_i18n_configure();
+  digital_card_i18n_import_arabic();
+  return 'Arabic language, URL prefixes, content translation, and editable platform translations were configured.';
+}
+
+/**
+ * Imports the expanded, end-user-focused Arabic interface catalog.
+ */
+function digital_card_i18n_update_10002(): string {
+  digital_card_i18n_import_arabic();
+  return 'Expanded Arabic translations for dashboards, forms, messages, and user guidance were imported.';
+}
+
+/**
+ * Imports translations discovered during authenticated platform QA.
+ */
+function digital_card_i18n_update_10003(): string {
+  digital_card_i18n_import_arabic();
+  return 'Arabic translations found during platform-admin browser testing were imported.';
+}
+
+/**
+ * Imports the complete browser-QA catalog for Views, forms, and alerts.
+ */
+function digital_card_i18n_update_10004(): string {
+  digital_card_i18n_import_arabic();
+  return 'Arabic Views labels, plural alerts, form guidance, and page descriptions were imported.';
+}
+
+/**
+ * Imports translations discovered during the complete Arabic route audit.
+ */
+function digital_card_i18n_update_10005(): string {
+  digital_card_i18n_import_arabic();
+  return 'Arabic route, action-menu, custom table, and form translations were imported.';
+}
+
+/**
+ * Imports the final post-install Arabic QA corrections.
+ */
+function digital_card_i18n_update_10006(): string {
+  digital_card_i18n_import_arabic();
+  return 'Final Arabic View titles, action labels, and NFC labels were imported.';
+}
+
+/**
+ * Stores Arabic View titles in Drupal's editable language override collection.
+ */
+function digital_card_i18n_update_10007(): string {
+  digital_card_i18n_apply_view_title_overrides();
+  return 'Editable Arabic View page-title overrides were stored.';
+}
+
+/**
+ * Imports Arabic titles for all audited secondary management routes.
+ */
+function digital_card_i18n_update_10008(): string {
+  digital_card_i18n_import_arabic();
+  return 'Arabic secondary-route titles were imported.';
+}
+
+/**
+ * Applies action-link, date, form-direction, and translation-form updates.
+ */
+function digital_card_i18n_update_10009(): string {
+  digital_card_i18n_import_arabic();
+  digital_card_i18n_enable_content_language_controls();
+  return 'Arabic actions, date display, form direction, and content language controls were updated.';
+}
+
+/**
+ * Imports the final QA translations used by content language controls.
+ */
+function digital_card_i18n_update_10010(): string {
+  digital_card_i18n_import_arabic();
+  digital_card_i18n_enable_content_language_controls();
+  return 'Final Arabic form translations and content language controls were refreshed.';
+}
+
+/**
+ * Imports Workflow action translations after dynamic state resolution.
+ */
+function digital_card_i18n_update_10011(): string {
+  digital_card_i18n_import_arabic();
+  return 'Workflow action translations were imported.';
+}
+
+/**
+ * Imports translated Workflow notifications and destructive-action warnings.
+ */
+function digital_card_i18n_update_10012(): string {
+  digital_card_i18n_import_arabic();
+  return 'Workflow notifications and destructive-action warnings were translated.';
+}
+
+/**
+ * Imports labels for every configured card Workflow state action.
+ */
+function digital_card_i18n_update_10013(): string {
+  digital_card_i18n_import_arabic();
+  return 'All configured card Workflow state action labels were translated.';
+}
+
+/**
+ * Imports labels for column-only table filtering controls.
+ */
+function digital_card_i18n_update_10014(): string {
+  digital_card_i18n_import_arabic();
+  return 'Column-filter controls were translated.';
+}
+
+/**
+ * Imports the branded login-page Arabic translations.
+ */
+function digital_card_i18n_update_10015(): string {
+  digital_card_i18n_import_arabic();
+  return 'Branded login-page translations were imported.';
+}
+
+/**
+ * Imports concise business-value login-page translations.
+ */
+function digital_card_i18n_update_10016(): string {
+  digital_card_i18n_import_arabic();
+  return 'Business-value login-page translations were imported.';
+}
+
+/**
+ * Applies the complete Organization Portal language and route QA update.
+ */
+function digital_card_i18n_update_10017(): string {
+  digital_card_i18n_import_arabic();
+  digital_card_i18n_move_legacy_my_cards_view();
+  return 'Organization Portal translations and canonical My Cards route were updated.';
+}
+
+/**
+ * Enables editable content language selection and core Translate operations.
+ */
+function digital_card_i18n_enable_content_language_controls(): void {
+  foreach ([
+    ['node', 'digital_business_card'],
+    ['node', 'subscription_plan'],
+    ['node', 'organization_subscription'],
+    ['group', 'organizations'],
+    ['taxonomy_term', 'tags'],
+    ['paragraph', 'social_link'],
+  ] as [$entity_type, $bundle]) {
+    $name = "language.content_settings.$entity_type.$bundle";
+    $config = \Drupal::configFactory()->getEditable($name);
+    if (!$config->isNew()) {
+      $config
+        ->set('default_langcode', 'site_default')
+        ->set('language_alterable', TRUE)
+        ->set('third_party_settings.content_translation.enabled', TRUE)
+        ->save(TRUE);
+    }
+    if (\Drupal::hasService('content_translation.manager')) {
+      try {
+        \Drupal::service('content_translation.manager')->setEnabled($entity_type, $bundle, TRUE);
+      }
+      catch (\Throwable $exception) {
+        \Drupal::logger('digital_card_i18n')->warning('Could not enable content translation for @type:@bundle: @message', [
+          '@type' => $entity_type,
+          '@bundle' => $bundle,
+          '@message' => $exception->getMessage(),
+        ]);
+      }
+    }
+  }
+}
+
+/**
+ * Applies config translations for View titles used by the route title resolver.
+ */
+function digital_card_i18n_apply_view_title_overrides(): void {
+  $titles = [
+    'views.view.platform_plans' => 'الخطط',
+    'views.view.platform_subscriptions' => 'الاشتراكات',
+    'views.view.organization_administrators' => 'مسؤولو المؤسسات',
+    'views.view.card_approval_queue' => 'قائمة اعتماد البطاقات',
+  ];
+  foreach ($titles as $config_name => $title) {
+    if (!\Drupal::config($config_name)->isNew()) {
+      \Drupal::languageManager()
+        ->getLanguageConfigOverride('ar', $config_name)
+        ->set('display.default.display_options.title', $title)
+        ->save();
+    }
+  }
+}
+
+/**
+ * Adds Arabic without replacing an administrator's existing language choices.
+ */
+function digital_card_i18n_configure(): void {
+  if (!ConfigurableLanguage::load('ar')) {
+    ConfigurableLanguage::createFromLangcode('ar')->save();
+  }
+
+  $negotiation = \Drupal::configFactory()->getEditable('language.negotiation');
+  $prefixes = $negotiation->get('url.prefixes') ?: [];
+  $prefixes['en'] = $prefixes['en'] ?? 'en';
+  $prefixes['ar'] = $prefixes['ar'] ?? 'ar';
+  // Give English a prefix too when it was still configured as an empty path.
+  // This makes links unambiguous while NFC /c/{id}/ URLs remain untouched.
+  if ($prefixes['en'] === '') {
+    $prefixes['en'] = 'en';
+  }
+  $domains = $negotiation->get('url.domains') ?: [];
+  $domains += ['en' => '', 'ar' => ''];
+  $negotiation->set('url.source', 'path_prefix')->set('url.prefixes', $prefixes)->set('url.domains', $domains)->save(TRUE);
+
+  if (\Drupal::hasService('content_translation.manager')) {
+    $manager = \Drupal::service('content_translation.manager');
+    foreach ([
+      ['node', 'digital_business_card'],
+      ['node', 'subscription_plan'],
+      ['node', 'organization_subscription'],
+      ['group', 'organizations'],
+      ['taxonomy_term', 'tags'],
+      ['paragraph', 'social_link'],
+    ] as [$entityType, $bundle]) {
+      try {
+        $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($entityType);
+        if (\Drupal::entityTypeManager()->getDefinition($entityType, FALSE) && isset($bundles[$bundle])) {
+          $manager->setEnabled($entityType, $bundle, TRUE);
+        }
+      }
+      catch (\Throwable $exception) {
+        \Drupal::logger('digital_card_i18n')->warning('Could not enable translation for @type:@bundle: @message', ['@type' => $entityType, '@bundle' => $bundle, '@message' => $exception->getMessage()]);
+      }
+    }
+  }
+  foreach ([
+    ['node', 'field_full_name'],
+    ['node', 'field_job_title'],
+    ['node', 'field_social_links'],
+  ] as [$entityType, $fieldName]) {
+    if ($storage = FieldStorageConfig::loadByName($entityType, $fieldName)) {
+      if (!$storage->isTranslatable()) {
+        $storage->setTranslatable(TRUE)->save();
+      }
+    }
+  }
+}
+
+/**
+ * Imports translations as customized so administrators may edit them safely.
+ */
+function digital_card_i18n_import_arabic(): void {
+  $directory = DRUPAL_ROOT . '/' . \Drupal::service('extension.list.module')->getPath('digital_card_i18n') . '/translations';
+  foreach (['digital_card_platform.ar.po', 'digital_card_runtime_qa.ar.po'] as $catalog) {
+    $path = $directory . '/' . $catalog;
+    if (!is_file($path)) {
+      continue;
+    }
+    $file = (object) ['langcode' => 'ar', 'uri' => $path];
+    Gettext::fileToDatabase($file, [
+      'customized' => LOCALE_CUSTOMIZED,
+      'overwrite_options' => ['customized' => TRUE, 'not_customized' => TRUE],
+    ]);
+  }
+}
+
+/**
+ * Retains the legacy View while freeing the canonical Organization Portal URL.
+ */
+function digital_card_i18n_move_legacy_my_cards_view(): void {
+  $config = \Drupal::configFactory()->getEditable('views.view.my_cards');
+  if ($config->isNew()) {
+    return;
+  }
+  $path = (string) $config->get('display.page_2.display_options.path');
+  if ($path === 'organization/my-cards') {
+    $config->set('display.page_2.display_options.path', 'organization/my-cards-legacy')->save(TRUE);
+    \Drupal::service('router.builder')->rebuild();
+  }
+}

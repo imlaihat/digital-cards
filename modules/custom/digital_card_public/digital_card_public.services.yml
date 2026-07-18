@@ -1,0 +1,49 @@
+services:
+  logger.channel.digital_card_public:
+    parent: logger.channel_base
+    arguments: ['digital_card_public']
+
+  digital_card_public.card_lookup:
+    class: Drupal\digital_card_public\Service\CardLookup
+    arguments: ['@entity_type.manager', '@cache.data']
+
+  digital_card_public.scanner_context:
+    class: Drupal\digital_card_public\Service\ScannerContextResolver
+    arguments: ['@current_user']
+
+  digital_card_public.scan_logger:
+    class: Drupal\digital_card_public\Service\ScanLogger
+    arguments:
+      - '@database'
+      - '@cache.data'
+      - '@datetime.time'
+      - '@settings'
+      - '@current_user'
+      - '@logger.channel.digital_card_public'
+
+  digital_card_public.access_controller:
+    class: Drupal\digital_card_public\Controller\CardAccessController
+    arguments:
+      - '@digital_card_public.card_lookup'
+      - '@digital_card_public.scanner_context'
+      - '@flood'
+      - '@request_stack'
+      - '@logger.channel.digital_card_public'
+      - '@digital_card_public.scan_logger'
+    tags:
+      - { name: controller.service_arguments }
+
+  digital_card_public.scan_report_controller:
+    class: Drupal\digital_card_public\Controller\ScanReportController
+    arguments: ['@database', '@entity_type.manager', '@date.formatter']
+    tags:
+      - { name: controller.service_arguments }
+
+  digital_card_public.card_redirect_controller:
+    class: Drupal\digital_card_public\Controller\CardRedirectController
+    arguments:
+      - '@digital_card_public.card_lookup'
+      - '@digital_card_delivery.organization_context'
+      - '@logger.channel.digital_card_public'
+    tags:
+      - { name: controller.service_arguments }

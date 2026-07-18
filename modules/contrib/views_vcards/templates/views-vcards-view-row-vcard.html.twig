@@ -1,0 +1,59 @@
+{#
+/**
+ * @file
+ * Default theme implementation to print individual vCards.
+ *
+ * Available variables:
+ *   - first_name
+ *   - middle_name
+ *   - last_name
+ *   - full_name
+ *  -  title
+ *   - email
+ *   - email2
+ *   - email3
+ *   - photo (array with 'base64' and 'mimetype' keys)
+ *   - home_address
+ *   - home_city
+ *   - home_state
+ *   - home_zip
+ *   - home_country
+ *   - home_phone
+ *   - home_cellphone
+ *   - home_website
+ *   - work_title
+ *   - work_company
+ *   - work_address
+ *   - work_city
+ *   - work_state
+ *   - work_zip
+ *   - work_fax
+ *   - work_website
+ *
+ * @ingroup themeable
+ */
+#}
+{% autoescape false %}
+BEGIN:VCARD
+VERSION:4.0
+FN:{{ full_name }}
+{% if (last_name is not empty) or (first_name is not empty) or (middle_name is not empty) or (title is not empty) %}
+N:{{ last_name }};{{ first_name }};{{ middle_name }};{{ title }};{{ "\n" }}{% endif %}
+{% if (home_address is not empty) or (home_city is not empty) or (home_state is not empty) or (home_zip is not empty) or (home_country is not empty) %}
+ADR;TYPE=home:;;{{ home_address }};{{ home_city }};{{ home_state }};{{ home_zip }};{{ home_country }}{{ "\n" }}{% endif %}
+{% if (work_address is not empty) or (work_city is not empty) or (work_state is not empty) or (work_zip is not empty) or (work_country is not empty) %}
+ADR;TYPE=work:;;{{ work_address }};{{ work_city }};{{ work_state }};{{ work_zip }};{{ work_country }}{{ "\n" }}{% endif %}
+{% if email is not empty            %}EMAIL:{{ email }}{{ "\n" }}{% endif %}
+{% if email2 is not empty           %}EMAIL:{{ email2 }}{{ "\n" }}{% endif %}
+{% if email3 is not empty           %}EMAIL:{{ email3 }}{{ "\n" }}{% endif %}
+{% if work_company is not empty     %}ORG:{{ work_company }}{{ "\n" }}{% endif %}
+{% if work_phone is not empty       %}TEL;TYPE=work,voice:{{ work_phone }}{{ "\n" }}{% endif %}
+{% if work_fax is not empty         %}TEL;TYPE=work,fax:{{ work_fax }}{{ "\n" }}{% endif %}
+{% if home_cellphone is not empty   %}TEL;TYPE=cell,voice:{{ home_cellphone }}{{ "\n" }}{% endif %}
+{% if home_phone is not empty       %}TEL;TYPE=home,voice:{{ home_phone }}{{ "\n" }}{% endif %}
+{% if work_title is not empty       %}TITLE:{{ work_title }}{{ "\n" }}{% endif %}
+{% if home_website is not empty     %}URL:{{ home_website }}{{ "\n" }}{% endif %}
+{% if work_website is not empty     %}URL;TYPE=work:{{ work_website }}{{ "\n" }}{% endif %}
+{% if photo is not empty            %}PHOTO;TYPE={{ photo.mimetype }};ENCODING=B:{{ photo.base64 }}{{ "\n" }}{% endif %}
+END:VCARD
+{% endautoescape %}

@@ -1,0 +1,19 @@
+div#reader video {
+  transform: scaleX(-100%);
+}
+
+div#reader #reader__scan_region {
+  display: flex;
+  justify-content: center;
+}
+
+div#reader button.html5-qrcode-element,
+button#start-scanning {
+    padding: 10px;
+    color: white;
+    background: #1785c4;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+}

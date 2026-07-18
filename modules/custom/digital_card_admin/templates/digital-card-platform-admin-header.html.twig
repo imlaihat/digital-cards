@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Platform Admin reusable header block.
+ */
+#}
+<header class="dc-portal-header dc-portal-header--platform" aria-label="{{ 'Platform Admin header'|t }}">
+  <div class="dc-portal-header__inner">
+    <a class="dc-portal-brand" href="{{ path('digital_card_admin.platform_dashboard') }}" aria-label="{{ 'Platform dashboard'|t }}">
+      <span class="dc-portal-brand__mark">P</span>
+      <span class="dc-portal-brand__text">
+        <span class="dc-portal-kicker">{{ 'Platform Admin'|t }}</span>
+        <strong>{{ 'Digital Card Platform'|t }}</strong>
+      </span>
+    </a>
+
+    <nav class="dc-portal-nav" aria-label="{{ 'Platform Admin navigation'|t }}">
+      {% for item in navigation %}
+        <a class="dc-portal-nav__link{{ item.active ? ' is-active' : '' }}{{ item.highlight|default(false) ? ' is-highlight' : '' }}" href="{{ item.url }}">
+          <span class="dc-portal-nav__icon" aria-hidden="true">{{ item.icon }}</span>
+          <span>{{ item.title }}</span>
+        </a>
+      {% endfor %}
+    </nav>
+  </div>
+</header>

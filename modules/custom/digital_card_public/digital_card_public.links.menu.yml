@@ -1,0 +1,6 @@
+digital_card_public.scan_report:
+  title: 'Card Scan Analytics'
+  description: 'Review recent card scans and scanner classifications.'
+  route_name: digital_card_public.scan_report
+  menu_name: platform-admin
+  weight: 80

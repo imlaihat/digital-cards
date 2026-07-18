@@ -1,0 +1,71 @@
+{#
+/**
+ * @file
+ * Branded anonymous login gateway used for protected front-page routes.
+ */
+#}
+<div class="dp-auth-shell dp-login-gateway">
+  <section class="dp-auth-brand" aria-labelledby="dp-auth-brand-title">
+    <div class="dp-auth-brand__glow dp-auth-brand__glow--one"></div>
+    <div class="dp-auth-brand__glow dp-auth-brand__glow--two"></div>
+
+    <a class="dp-auth-logo" href="{{ front_page }}" aria-label="{{ 'Digital Card Platform'|t }}">
+      <span class="dp-auth-logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="img">
+          <rect x="5" y="7" width="38" height="34" rx="10"></rect>
+          <circle cx="17" cy="20" r="5"></circle>
+          <path d="M12 33c1.8-5 8.2-7.2 12.6-3.4M29 17h8M29 23h8M29 29h6"></path>
+        </svg>
+      </span>
+      <span>
+        <strong>{{ 'Digital Card Platform'|t }}</strong>
+        <small>{{ 'Digital identity, loyalty, and partner offers'|t }}</small>
+      </span>
+    </a>
+
+    <div class="dp-auth-brand__content">
+      <span class="dp-auth-eyebrow">{{ 'Connect organizations, card holders, and merchants.'|t }}</span>
+      <h1 id="dp-auth-brand-title">{{ 'Turn every card into lasting customer value'|t }}</h1>
+      <p>{{ 'Issue branded digital cards, reward engagement, and deliver partner offers—all from one scalable platform.'|t }}</p>
+
+      <ul class="dp-auth-benefits" role="list">
+        <li><span aria-hidden="true">&#10003;</span>{{ 'Branded cards for every organization'|t }}</li>
+        <li><span aria-hidden="true">&#10003;</span>{{ 'Loyalty points and exclusive offers'|t }}</li>
+        <li><span aria-hidden="true">&#10003;</span>{{ 'Fast merchant verification and redemption'|t }}</li>
+      </ul>
+    </div>
+
+    <div class="dp-auth-security">
+      <span class="dp-auth-security__icon" aria-hidden="true">&#8599;</span>
+      <span>
+        <strong>{{ 'Built for business growth'|t }}</strong>
+        <small>{{ 'Manage subscriptions, usage, partners, and performance from one place.'|t }}</small>
+      </span>
+    </div>
+  </section>
+
+  <main class="dp-auth-main" id="main-content">
+    <div class="dp-auth-card">
+      <div class="dp-auth-card__header">
+        <span class="dp-auth-card__icon" aria-hidden="true">&#8594;</span>
+        <div>
+          <h2>{{ 'Welcome back'|t }}</h2>
+          <p>{{ 'Sign in to manage your business workspace.'|t }}</p>
+        </div>
+      </div>
+
+      {% if page.highlighted %}
+        <div class="dp-auth-messages">{{ page.highlighted }}</div>
+      {% endif %}
+
+      <div class="dp-auth-form-wrap">
+        {{ page.content }}
+      </div>
+
+      <div class="dp-auth-card__footer">
+        <span aria-hidden="true">&#9679;</span>
+        {{ 'One workspace for your business network'|t }}
+      </div>
+    </div>
+  </main>
+</div>

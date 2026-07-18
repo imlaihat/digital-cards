@@ -1,0 +1,62 @@
+qrcode_generator.settings:
+  path: '/admin/qr-page/config'
+  defaults:
+    _title: 'QR Page Global Config settings'
+    _form: 'Drupal\qrcode_generator\Form\QRConfigForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+qrcode_page_config.settings:
+  path: '/admin/qr-page/override/add'
+  defaults:
+    _title: 'Add QR Page settings'
+    _form: 'Drupal\qrcode_generator\Form\QRPageWiseConfigForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+qrcode_page_config.settings_edit:
+  path: '/admin/qr-page/override/edit/{element}'
+  defaults:
+    _title: 'Edit QR Page settings'
+    _form: 'Drupal\qrcode_generator\Form\QRPageWiseEditForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+qrcode_page_config.page_qr_list:
+ path: '/admin/qr-page/override/list'
+ defaults:
+   _title: 'QR Page Overriden list'
+   _type: MENU_LOCAL_TASK,
+   _controller: '\Drupal\qrcode_generator\Controller\QrPageConfigListController::qrPageList'
+ requirements:
+   _permission: 'administer site configuration'   
+
+qrcode_page_config.delete:
+ path: '/admin/qr-page/override/delete/{id}'
+ defaults:
+   _title: 'Confirm delete'
+   _form: '\Drupal\qrcode_generator\Form\QRCodePageDeleteForm'
+   options:
+   _admin_route: TRUE
+ requirements:
+   _permission: 'administer site configuration' 
+
+qrcode_page_config.text_url:
+ path: '/admin/generate-qr/from-text-url'
+ defaults:
+   _title: 'Create QR from Text and URL'
+   _form: '\Drupal\qrcode_generator\Form\QRCodeFromURL'
+   options:
+   _admin_route: TRUE
+ requirements:
+   _permission: 'administer site configuration'
+
+qrcode_generator.scanqrcode:
+  path: '/scanqrcode'
+  defaults:
+    _controller: '\Drupal\qrcode_generator\Controller\QrScannerController::scanPage'
+    _title: 'Scan a QR Code'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: TRUE

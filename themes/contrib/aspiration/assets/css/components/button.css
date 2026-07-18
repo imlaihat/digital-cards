@@ -1,0 +1,26 @@
+/**
+ * @file
+ * Visual styles for buttons.
+ */
+
+.button,
+.image-button {
+  margin-right: 1em;
+  margin-left: 1em;
+}
+
+.button:first-child,
+.image-button:first-child {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.btn.btn-primary {
+  color: var(--aptn-color-white-default);
+  background: var(--aptn-theme-secondary);
+  border: none;
+}
+
+.btn.btn-primary:hover {
+  background: var(--aptn-heading-color);
+}

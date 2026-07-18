@@ -1,0 +1,8 @@
+name: 'Digital Card Enforcement'
+type: module
+description: 'Enforces subscription validity and card limits before Digital Business Cards are approved or generated.'
+package: 'Digital Card'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:node
+  - digital_card_subscription

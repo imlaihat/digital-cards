@@ -1,0 +1,23 @@
+services:
+  digital_card_admin.organization_admin_mailer:
+    class: Drupal\digital_card_admin\Service\OrganizationAdminMailer
+    arguments:
+      - '@plugin.manager.mail'
+      - '@logger.factory'
+
+  digital_card_admin.organization_admin_manager:
+    class: Drupal\digital_card_admin\Service\OrganizationAdminManager
+    arguments:
+      - '@entity_type.manager'
+      - '@logger.factory'
+      - '@password_generator'
+      - '@digital_card_admin.organization_admin_mailer'
+
+  digital_card_admin.dashboard_data:
+    class: Drupal\digital_card_admin\Service\DashboardDataBuilder
+    arguments:
+      - '@entity_type.manager'
+      - '@entity_field.manager'
+      - '@current_user'
+      - '@logger.factory'
+      - '@datetime.time'

@@ -1,0 +1,7 @@
+.vcard-icon {
+  display: inline-block;
+  overflow: hidden;
+  margin: 25px 0 0 0;
+  padding: 0 0 0 20px;
+  background: url(../icons/vcard.svg) no-repeat left center;
+}

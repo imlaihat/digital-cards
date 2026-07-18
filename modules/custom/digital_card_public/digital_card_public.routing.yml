@@ -1,0 +1,30 @@
+digital_card_public.access:
+  path: '/api/digital-card/access/{nfc_id}'
+  defaults:
+    _controller: '\Drupal\digital_card_public\Controller\CardAccessController::access'
+  requirements:
+    _access: 'TRUE'
+    nfc_id: '[A-Za-z0-9_-]{3,128}'
+  methods: [GET]
+  options:
+    no_cache: TRUE
+
+digital_card_public.card_redirect:
+  path: '/c/{nfc_id}'
+  defaults:
+    _controller: '\Drupal\digital_card_public\Controller\CardRedirectController::redirect'
+  requirements:
+    _access: 'TRUE'
+    nfc_id: '[A-Za-z0-9_-]{3,128}'
+  methods: [GET]
+  options:
+    no_cache: TRUE
+
+digital_card_public.scan_report:
+  path: '/platform/card-scans'
+  defaults:
+    _controller: '\Drupal\digital_card_public\Controller\ScanReportController::report'
+    _title: 'Card Scan Analytics'
+  requirements:
+    _permission: 'view digital card scan analytics'
+  methods: [GET]

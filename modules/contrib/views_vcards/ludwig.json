@@ -1,0 +1,8 @@
+{
+  "require": {
+    "maennchen/zipstream-php": {
+      "version": "3.1.0",
+      "url": "https://github.com/maennchen/ZipStream-PHP/archive/refs/tags/3.1.0.zip"
+    }
+  }
+}

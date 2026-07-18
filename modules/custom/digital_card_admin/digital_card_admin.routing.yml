@@ -1,0 +1,145 @@
+digital_card_admin.platform_dashboard:
+  path: '/platform/dashboard'
+  defaults:
+    _controller: '\Drupal\digital_card_admin\Controller\DashboardController::platformDashboard'
+    _title: 'Platform Dashboard'
+  requirements:
+    _permission: 'access platform admin dashboard'
+
+digital_card_admin.organization_dashboard:
+  path: '/organization/dashboard'
+  defaults:
+    _controller: '\Drupal\digital_card_admin\Controller\DashboardController::organizationDashboard'
+    _title: 'Organization Dashboard'
+  requirements:
+    _permission: 'access organization portal dashboard'
+
+digital_card_admin.organization_admin_add:
+  path: '/platform/users/add-org-admin'
+  defaults:
+    _form: '\Drupal\digital_card_admin\Form\OrganizationAdminForm'
+    _title: 'Add Organization Administrator'
+  requirements:
+    _permission: 'create organization administrators'
+
+digital_card_admin.organization_admin_edit:
+  path: '/platform/users/{user}/edit-org-admin'
+  defaults:
+    _form: '\Drupal\digital_card_admin\Form\OrganizationAdminEditForm'
+    _title: 'Edit Organization Administrator'
+  requirements:
+    _permission: 'administer users'
+    user: '\d+'
+  options:
+    parameters:
+      user:
+        type: entity:user
+
+digital_card_admin.organization_admin_block:
+  path: '/platform/users/{user}/block'
+  defaults:
+    _form: '\Drupal\digital_card_admin\Form\OrganizationAdminBlockForm'
+    _title: 'Block Organization Administrator'
+  requirements:
+    _permission: 'administer users'
+    user: '\d+'
+  options:
+    parameters:
+      user:
+        type: entity:user
+
+digital_card_admin.organization_admin_activate:
+  path: '/platform/users/{user}/activate'
+  defaults:
+    _form: '\Drupal\digital_card_admin\Form\OrganizationAdminActivateForm'
+    _title: 'Activate Organization Administrator'
+  requirements:
+    _permission: 'administer users'
+    user: '\d+'
+  options:
+    parameters:
+      user:
+        type: entity:user
+
+digital_card_admin.organization_admin_reset_password:
+  path: '/platform/users/{user}/reset-password'
+  defaults:
+    _form: '\Drupal\digital_card_admin\Form\OrganizationAdminResetPasswordForm'
+    _title: 'Reset Organization Administrator Password'
+  requirements:
+    _permission: 'administer users'
+    user: '\d+'
+  options:
+    parameters:
+      user:
+        type: entity:user
+
+digital_card_admin.card_change_status:
+  path: '/platform/cards/{node}/change-status/{state}'
+  defaults:
+    _form: '\Drupal\digital_card_admin\Form\CardStatusChangeForm'
+    _title: 'Change Card Status'
+  requirements:
+    _permission: 'manage digital card workflow'
+    node: '\d+'
+    state: '[A-Za-z0-9_-]+'
+  options:
+    parameters:
+      node:
+        type: entity:node
+
+digital_card_admin.organization_cards:
+  path: '/organization/cards/add'
+  defaults:
+    _controller: '\Drupal\digital_card_admin\Controller\DigitalCardController::addCardRedirect'
+    _title: 'Add Digital Card'
+  requirements:
+    _permission: 'access organization portal dashboard'
+
+digital_card_admin.organization_cards_list:
+  path: '/organization/cards'
+  defaults:
+    _controller: '\Drupal\digital_card_admin\Controller\DashboardLinkController::organizationCards'
+    _title: 'My Cards'
+  requirements:
+    _permission: 'access organization portal dashboard'
+
+digital_card_admin.organization_my_cards:
+  path: '/organization/my-cards'
+  defaults:
+    _controller: '\Drupal\digital_card_admin\Controller\DashboardLinkController::organizationCards'
+    _title: 'My Cards'
+  requirements:
+    _permission: 'access organization portal dashboard'
+
+digital_card_admin.organization_subscription:
+  path: '/organization/subscription'
+  defaults:
+    _controller: '\Drupal\digital_card_admin\Controller\DashboardLinkController::organizationSubscription'
+    _title: 'My Subscription'
+  requirements:
+    _permission: 'access organization portal dashboard'
+
+digital_card_admin.organization_subscriptions:
+  path: '/organization/subscriptions'
+  defaults:
+    _controller: '\Drupal\digital_card_admin\Controller\DashboardLinkController::organizationSubscription'
+    _title: 'My Subscription'
+  requirements:
+    _permission: 'access organization portal dashboard'
+
+digital_card_admin.organization_administrators:
+  path: '/organization/administrators'
+  defaults:
+    _controller: '\Drupal\digital_card_admin\Controller\DashboardLinkController::organizationAdministrators'
+    _title: 'Organization Administrators'
+  requirements:
+    _permission: 'access organization portal dashboard'
+
+digital_card_admin.subscription_legacy_alias:
+  path: '/node/organization_subscription'
+  defaults:
+    _controller: '\Drupal\digital_card_admin\Controller\DashboardLinkController::platformSubscriptionsRedirect'
+    _title: 'Subscriptions'
+  requirements:
+    _permission: 'access platform admin dashboard'

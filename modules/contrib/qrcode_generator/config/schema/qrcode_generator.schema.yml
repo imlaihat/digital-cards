@@ -1,0 +1,16 @@
+qrcode_generator.settings:
+  type: config_object
+  label: 'Current Page QR Code settings'
+  mapping:
+    floating_icon:
+      type: string
+      label: 'QR floating icon position'
+    floating_icon_bg:
+      type: string
+      label: 'QR floating icon BG color'
+    floating_icon_color:
+      type: string
+      label: 'QR floating icon font color'
+    floating_icon_type:
+      type: string
+      label: 'QR floating icon type'

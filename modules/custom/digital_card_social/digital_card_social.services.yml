@@ -1,0 +1,26 @@
+services:
+  logger.channel.digital_card_social:
+    parent: logger.channel_base
+    arguments: ['digital_card_social']
+
+  digital_card_social.registry:
+    class: Drupal\digital_card_social\Service\SocialPlatformRegistry
+    arguments:
+      - '@config.factory'
+      - '@language_manager'
+
+  # Main custom validator service.
+  # Registering this explicitly avoids constructor/autowiring problems and lets
+  # older cached constraint definitions resolve the validator safely.
+  digital_card_social.constraint_validator.social_link_url:
+    class: Drupal\digital_card_social\Plugin\Validation\Constraint\SocialLinkUrlConstraintValidator
+    arguments:
+      - '@digital_card_social.registry'
+    tags:
+      - { name: validator.constraint_validator }
+
+  # Backward-compatible service ID for older/generated constraint definitions
+  # that call validatedBy() as "digital_card_social_link_url".
+  digital_card_social_link_url:
+    alias: digital_card_social.constraint_validator.social_link_url
+    public: true

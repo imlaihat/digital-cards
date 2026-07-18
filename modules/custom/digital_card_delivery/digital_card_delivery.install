@@ -1,0 +1,114 @@
+<?php
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+
+/**
+ * Implements hook_install().
+ */
+function digital_card_delivery_install(): void {
+  digital_card_delivery_ensure_theme_fields();
+  digital_card_delivery_ensure_language_fields();
+}
+
+/**
+ * Adds organization theme fields to existing installations.
+ */
+function digital_card_delivery_update_10001(): string {
+  digital_card_delivery_ensure_theme_fields();
+  return 'Organization card theme fields are available.';
+}
+
+/**
+ * Adds multilingual card-language controls.
+ */
+function digital_card_delivery_update_10002(): string {
+  digital_card_delivery_ensure_theme_fields();
+  digital_card_delivery_ensure_language_fields();
+  return 'Arabic, English, and bilingual static-card language controls are available.';
+}
+
+/**
+ * Creates optional organization branding fields safely and idempotently.
+ */
+function digital_card_delivery_ensure_theme_fields(): void {
+  $definitions = [
+    'field_primary_color' => ['type' => 'string', 'label' => 'Card primary color', 'settings' => ['max_length' => 7]],
+    'field_secondary_color' => ['type' => 'string', 'label' => 'Card secondary color', 'settings' => ['max_length' => 7]],
+    'field_card_background' => ['type' => 'string', 'label' => 'Card page background', 'settings' => ['max_length' => 255]],
+    'field_slug' => ['type' => 'string', 'label' => 'Organization URL slug', 'settings' => ['max_length' => 64]],
+    'field_card_custom_css' => ['type' => 'string_long', 'label' => 'Additional card CSS', 'settings' => []],
+  ];
+
+  foreach ($definitions as $name => $definition) {
+    $storage = FieldStorageConfig::loadByName('group', $name);
+    if (!$storage) {
+      $storage = FieldStorageConfig::create([
+        'field_name' => $name,
+        'entity_type' => 'group',
+        'type' => $definition['type'],
+        'cardinality' => 1,
+        'settings' => $definition['settings'],
+      ]);
+      $storage->save();
+    }
+    if (!FieldConfig::loadByName('group', 'organizations', $name)) {
+      FieldConfig::create([
+        'field_storage' => $storage,
+        'bundle' => 'organizations',
+        'label' => $definition['label'],
+        'required' => FALSE,
+      ])->save();
+    }
+  }
+}
+
+/**
+ * Creates organization defaults and optional per-card overrides.
+ */
+function digital_card_delivery_ensure_language_fields(): void {
+  $settings = [
+    'allowed_values' => [
+      'en' => 'English',
+      'ar' => 'Arabic',
+      'bilingual' => 'Arabic and English',
+    ],
+  ];
+  foreach ([
+    ['entity_type' => 'group', 'bundle' => 'organizations', 'label' => 'Default static card language'],
+    ['entity_type' => 'node', 'bundle' => 'digital_business_card', 'label' => 'Static card language override'],
+  ] as $definition) {
+    $storage = FieldStorageConfig::loadByName($definition['entity_type'], 'field_card_language');
+    if (!$storage) {
+      $storage = FieldStorageConfig::create([
+        'field_name' => 'field_card_language',
+        'entity_type' => $definition['entity_type'],
+        'type' => 'list_string',
+        'cardinality' => 1,
+        'settings' => $settings,
+      ]);
+      $storage->save();
+    }
+    if (!FieldConfig::loadByName($definition['entity_type'], $definition['bundle'], 'field_card_language')) {
+      FieldConfig::create([
+        'field_storage' => $storage,
+        'bundle' => $definition['bundle'],
+        'label' => $definition['label'],
+        'required' => FALSE,
+        'default_value' => $definition['entity_type'] === 'group' ? [['value' => 'en']] : [],
+      ])->save();
+    }
+  }
+  $display = EntityFormDisplay::load('node.digital_business_card.default') ?: EntityFormDisplay::create([
+    'targetEntityType' => 'node',
+    'bundle' => 'digital_business_card',
+    'mode' => 'default',
+    'status' => TRUE,
+  ]);
+  $display->setComponent('field_card_language', [
+    'type' => 'options_select',
+    'weight' => 30,
+    'region' => 'content',
+  ])->save();
+}

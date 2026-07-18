@@ -1,0 +1,5 @@
+manage digital card social platforms:
+  title: 'Manage digital card social platforms'
+  description: 'Add, edit, order, enable, and disable the social platforms available on digital business cards.'
+  restrict access: true
+

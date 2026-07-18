@@ -1,0 +1,4 @@
+manage organization card themes:
+  title: 'Manage organization card themes'
+  description: 'Configure organization-specific card colors, backgrounds, slugs, and custom CSS.'
+  restrict access: true

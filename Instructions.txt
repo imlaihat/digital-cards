@@ -1,0 +1,5 @@
+$php = "C:\Users\mohammad.imlaihat\Documents\UniServerZ\core\php83\php.exe"
+
+& $php .\composer.phar install
+& $php .\vendor\drush\drush\drush.php status
+& $php .\vendor\drush\drush\drush.php cr

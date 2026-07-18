@@ -1,0 +1,31 @@
+/* Shared Arabic/RTL application layer. Logical properties keep LTR unchanged. */
+@font-face {
+  font-family: "Noto Sans Arabic";
+  src: url("../fonts/NotoSansArabic-Variable.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+html[dir="rtl"] body { font-family: "Noto Sans Arabic", "Tajawal", Arial, sans-serif; text-align: right; }
+html[dir="rtl"] .navbar-nav,
+html[dir="rtl"] .dc-portal-nav,
+html[dir="rtl"] .dc-platform-nav,
+html[dir="rtl"] .dropdown-menu,
+html[dir="rtl"] .form-item,
+html[dir="rtl"] .view-content,
+html[dir="rtl"] table { direction: rtl; }
+html[dir="rtl"] .dropdown-menu { text-align: right; }
+html[dir="rtl"] .dropdown-toggle::after { margin-right: .45rem; margin-left: 0; }
+html[dir="rtl"] .bi-arrow-right,
+html[dir="rtl"] .bi-chevron-right,
+html[dir="rtl"] .dc-directional-icon { transform: scaleX(-1); }
+html[dir="rtl"] input[type="email"],
+html[dir="rtl"] input[type="url"],
+html[dir="rtl"] input[type="tel"],
+html[dir="rtl"] .dc-reference,
+html[dir="rtl"] .dc-nfc-id { direction: ltr; text-align: right; unicode-bidi: plaintext; }
+html[dir="rtl"] .progress-bar { transform-origin: right center; }
+html[dir="rtl"] th,
+html[dir="rtl"] td { text-align: right; }
+html[dir="rtl"] .text-start { text-align: right !important; }
+html[dir="rtl"] .text-end { text-align: left !important; }

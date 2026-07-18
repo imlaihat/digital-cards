@@ -1,0 +1,51 @@
+<?php
+
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_node_presave().
+ */
+function digital_card_delivery_node_presave(NodeInterface $node): void {
+  if ($node->bundle() === 'digital_business_card') {
+    \Drupal::service('digital_card_delivery.card_preparation')->prepare($node);
+  }
+}
+
+/**
+ * Generates/removes static output after a card is saved.
+ */
+function digital_card_delivery_node_insert(NodeInterface $node): void {
+  digital_card_delivery_sync_card($node);
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function digital_card_delivery_node_update(NodeInterface $node): void {
+  digital_card_delivery_sync_card($node);
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function digital_card_delivery_node_delete(NodeInterface $node): void {
+  if ($node->bundle() === 'digital_business_card') {
+    \Drupal::service('digital_card_delivery.static_generator')->delete($node);
+  }
+}
+
+/**
+ * Synchronizes one card with its workflow state.
+ */
+function digital_card_delivery_sync_card(NodeInterface $node): void {
+  if ($node->bundle() !== 'digital_business_card' || !$node->hasField('field_status')) {
+    return;
+  }
+  $generator = \Drupal::service('digital_card_delivery.static_generator');
+  if ((string) $node->get('field_status')->value === 'card_workflow_approved') {
+    $generator->generate($node);
+  }
+  else {
+    $generator->delete($node);
+  }
+}

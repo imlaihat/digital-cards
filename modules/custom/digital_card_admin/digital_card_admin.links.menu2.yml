@@ -1,0 +1,60 @@
+digital_card_admin.platform_admin2:
+  title: 'Platform Admin'
+  route_name: '<nolink>'
+  menu_name: main
+  weight: -50
+
+digital_card_admin.platform_dashboard_menu:
+  title: 'Dashboard'
+  route_name: digital_card_admin.platform_dashboard
+  parent: digital_card_admin.platform_admin2
+  menu_name: main
+  weight: -100
+
+digital_card_admin.platform_organizations_menu:
+  title: 'Organizations'
+  url: internal:/platform/organizations
+  parent: digital_card_admin.platform_admin
+  menu_name: main
+  weight: -90
+
+digital_card_admin.platform_cards_menu:
+  title: 'Digital Cards'
+  url: internal:/platform/cards/approval-queue
+  parent: digital_card_admin.platform_admin2
+  menu_name: main
+  weight: -80
+
+digital_card_admin.platform_users_menu:
+  title: 'Users & Access'
+  url: internal:/platform/users
+  parent: digital_card_admin.platform_admin2
+  menu_name: main
+  weight: -70
+
+digital_card_admin.organization_portal2:
+  title: 'Organization Portal'
+  route_name: '<nolink>'
+  menu_name: main
+  weight: -40
+
+digital_card_admin.organization_dashboard_menu:
+  title: 'Dashboard'
+  route_name: digital_card_admin.organization_dashboard
+  parent: digital_card_admin.organization_portal2
+  menu_name: main
+  weight: -100
+
+digital_card_admin.organization_cards_menu:
+  title: 'My Cards'
+  url: internal:/my-cards
+  parent: digital_card_admin.organization_portal2
+  menu_name: main
+  weight: -90
+
+digital_card_admin.organization_add_card_menu:
+  title: 'Add Digital Card'
+  route_name: digital_card_admin.organization_cards
+  parent: digital_card_admin.organization_portal2
+  menu_name: main
+  weight: -80

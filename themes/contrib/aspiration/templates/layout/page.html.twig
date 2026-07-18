@@ -1,0 +1,152 @@
+{% include '@aspiration/template-parts/header/header.html.twig' with {page: page, container: container, theme_settings: theme_settings} %}
+
+<div class="main-wrapper">
+  <a id="main-content" tabindex="-1"></a>
+  <div class="main-container">
+    <main role="main">
+      <a id="main-content" tabindex="-1"></a>
+
+      {% if is_front and theme_settings.slideshow_display %}
+        <section class="hero-area hero-area-2">
+          <div class="hero-slide-container hero-slide-2 swiper-container">
+            <div class="swiper-wrapper">
+              {% for slide in theme_settings.slider_data %}
+                <div class="swiper-slide">
+                  <div class="slide-wrapper slide_bg d-flex align-items-center" data-img-src="{{ slide.image }}">
+                    <div class="container">
+                      <div class="text-left text-content text-white p-0" data-swiper-parallax="-200">
+                        {% if slide.subtitle %}
+                          <p class="text-uppercase text-white mb-0 slide-subtitle">{{ slide.subtitle }}</p>
+                        {% endif %}
+
+                        <h2 class="xl-title text-uppercase text-white mt-lg-4 mb-lg-5 mt-3 mb-3">
+                          {{ slide.head|nl2br }}
+                        </h2>
+
+                        {% if slide.desc %}
+                          <p class="text-uppercase text-white mb-5">{{ slide.desc }}</p>
+                        {% endif %}
+
+                        {% if slide.url %}
+                          <div class="btn-area">
+                            <a href="{{ slide.url }}" class="btn btn-lg btn-primary">
+                              <span class="btn-text">{{ slide.text }}</span>
+                            </a>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="hero-pagination"></div>
+        </section>
+      {% endif %}
+
+      {% block highlighted %}
+        {% if page.highlighted %}
+          <div class="flex-highlighted">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  {{ page.highlighted }}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endblock %}
+
+      {% if page.help %}
+        <div class="flex-help">
+          <div class="container-fluid">
+            {{ page.help }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if is_front and page.content_home_top %}
+        <div class="flex-featured">
+          <div class="container-fluid">
+            {{ page.content_home_top }}
+          </div>
+        </div>
+      {% endif %}
+
+      {%
+        set sidebar_first_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-sm-6 col-lg-3' : 'col-12 col-lg-3'
+        %}
+      
+      {%
+        set sidebar_second_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-sm-6 col-lg-3' : 'col-12 col-lg-3'
+        %}
+      
+      {%
+        set content_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-lg-6' : ((page.sidebar_first or page.sidebar_second) ? 'col-12 col-lg-9' : 'col-12')
+        %}
+
+      {% block main_content %}
+      <div class="{{ container }}">
+        {% if page.breadcrumb %}
+          {{ page.breadcrumb }}
+        {% endif %}
+        <div class="main-content-wrapper">
+          <div class="row g-0">
+            {% if page.sidebar_first %}
+              <div class="order-2 order-lg-1 {{ sidebar_first_classes }}">
+                <div class="sidebar-section-wrapper">
+                  {{ page.sidebar_first }}
+                </div>
+              </div>
+            {% endif %}
+            <div class="order-1 order-lg-2 {{ content_classes }}">
+              <div class="main-content-section">
+              {{ page.page_header }}
+              {% if page.content_top %}
+                {{ page.content_top }}
+              {% endif %}
+              {{ page.content }}
+              {% if page.content_bottom %}
+                {{ page.content_bottom }}
+              {% endif %}
+              </div>
+            </div>
+            {% if page.sidebar_second %}
+              <div class="order-3 {{ sidebar_second_classes }}">
+                <div class="sidebar-section-wrapper">
+                  {{ page.sidebar_second }}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      {% endblock %}
+
+      {% if is_front and page.content_home_bottom %}
+        <div class="flex-content-bottom">
+          <div class="container-fluid">
+            {{ page.content_home_bottom }}
+          </div>
+        </div>
+      {% endif %}
+      {% if page.featured_bottom %}
+        <div class="flex-featured-bottom">
+          <div class="container-fluid">
+            {{ page.featured_bottom }}
+          </div>
+        </div>
+      {% endif %}
+
+    </main>
+  </div>
+</div>
+
+{% include '@aspiration/template-parts/footer/footer.html.twig' with {page: page, container: container, theme_settings: theme_settings} %}
+{% include '@aspiration/template-parts/components/preloader.html.twig' with {theme_settings: theme_settings} %}
+{% if theme_settings.enable_backtotop %}
+{% include '@aspiration/template-parts/components/back-to-top.html.twig' with {theme_settings: theme_settings} %}
+{% endif %}

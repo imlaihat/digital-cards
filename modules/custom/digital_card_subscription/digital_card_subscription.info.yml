@@ -1,0 +1,8 @@
+name: 'Digital Card Subscription'
+type: module
+description: 'Manages organization subscriptions for the Digital Business Card platform.'
+package: 'Digital Card'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:node
+  - drupal:datetime

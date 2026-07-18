@@ -1,0 +1,31 @@
+qr_page_css:
+  css:
+    theme:
+      css/qr-page-style.css: {}
+      '//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css' : { type: external, minified: true }
+  js:
+    js/qr-code.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal 
+
+qr-admin-css-js:
+  css:
+    theme:
+      css/qr-page-admin-style.css: {}
+      '//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css' : { type: external, minified: true }
+  js:
+    js/qr-admin-code.js: {}
+  dependencies:
+    - core/jquery    
+    - core/drupal
+
+qrscanner:
+  css:
+    theme:
+      css/scanner-styles.css: {}
+  js:
+    js/qrscanner.js: {}
+  dependencies:
+    - core/jquery    
+    - core/drupal

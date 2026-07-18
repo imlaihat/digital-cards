@@ -1,0 +1,16 @@
+{
+    "name": "drupal/views_simple_math_field",
+    "type": "drupal-module",
+    "description": "Math operations over selected fields",
+    "homepage": "https://www.drupal.org/project/views_simple_math_field",
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev",
+    "require": {
+        "andileco/eval-math": "^3.0.1",
+        "drupal/core": "^8.7|^9.0 || ^10 || ^11"
+    },
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/views_simple_math_field",
+        "source": "http://cgit.drupalcode.org/views_simple_math_field"
+    }
+}

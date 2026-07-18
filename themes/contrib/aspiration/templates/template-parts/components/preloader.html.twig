@@ -1,0 +1,20 @@
+<!-- preloader -->
+<div class="loader-wrap">
+    <div class="preloader">
+        <div id="handle-preloader" class="handle-preloader">
+            <div class="animation-preloader">
+                <div class="spinner"></div>
+                {% if theme_settings.show_preloader_text and theme_settings.preloader_text %}
+                    <div class="txt-loading">
+                        {% for letter in theme_settings.preloader_text|split('') %}
+                            <span data-text-preloader="{{ letter }}" class="letters-loading">
+                                {{ letter }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>   
+        </div>
+    </div>
+</div>
+<!-- preloader end -->

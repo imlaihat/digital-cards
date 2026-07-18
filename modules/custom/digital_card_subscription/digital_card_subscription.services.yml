@@ -1,0 +1,8 @@
+services:
+  digital_card_subscription.manager:
+    class: Drupal\digital_card_subscription\Service\SubscriptionManager
+    arguments:
+      - '@entity_type.manager'
+      - '@entity_field.manager'
+      - '@logger.factory'
+      - '@datetime.time'

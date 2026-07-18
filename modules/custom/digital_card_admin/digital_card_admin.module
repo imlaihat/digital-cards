@@ -1,0 +1,399 @@
+<?php
+
+/**
+ * @file
+ * Hooks for Digital Card Admin.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\digital_card_enforcement\Service\CardLimitChecker;
+use Drupal\node\NodeInterface;
+use Drupal\user\Entity\User;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Returns whether an account is a trusted card approver.
+ *
+ * Approval is intentionally restricted to Platform Administrators and full
+ * site Administrators. Merely granting the workflow permission to an
+ * Organization Administrator does not elevate that account to an approver.
+ */
+function digital_card_admin_account_can_approve_cards(AccountInterface $account): bool {
+  if ((int) $account->id() === 1) {
+    return TRUE;
+  }
+
+  $trusted_roles = array_intersect($account->getRoles(), ['platform_admin', 'administrator']);
+  return !empty($trusted_roles) && $account->hasPermission('manage digital card workflow');
+}
+
+/**
+ * Chooses a readable foreground for a validated hexadecimal background.
+ */
+function digital_card_admin_contrast_color(string $hex): string {
+  if (!preg_match('/^#([0-9a-fA-F]{6})$/', $hex, $matches)) {
+    return '#0f172a';
+  }
+
+  $channels = [
+    hexdec(substr($matches[1], 0, 2)) / 255,
+    hexdec(substr($matches[1], 2, 2)) / 255,
+    hexdec(substr($matches[1], 4, 2)) / 255,
+  ];
+  foreach ($channels as &$channel) {
+    $channel = $channel <= 0.04045
+      ? $channel / 12.92
+      : (($channel + 0.055) / 1.055) ** 2.4;
+  }
+  unset($channel);
+
+  $luminance = (0.2126 * $channels[0]) + (0.7152 * $channels[1]) + (0.0722 * $channels[2]);
+  return $luminance > 0.179 ? '#0f172a' : '#ffffff';
+}
+
+/**
+ * Implements hook_entity_presave().
+ *
+ * Organization Administrators can create and update cards, but every change
+ * must be reviewed by a Platform Administrator before it is public. This is a
+ * server-side guard and therefore also protects against crafted requests that
+ * bypass the normal Workflow widget.
+ */
+function digital_card_admin_entity_presave(EntityInterface $entity): void {
+  if (!$entity instanceof NodeInterface || $entity->bundle() !== CardLimitChecker::CARD_TYPE) {
+    return;
+  }
+
+  $account = \Drupal::currentUser();
+  if (!in_array('organization_admin', $account->getRoles(), TRUE) || digital_card_admin_account_can_approve_cards($account)) {
+    return;
+  }
+
+  /** @var \Drupal\digital_card_enforcement\Service\CardLimitChecker $checker */
+  $checker = \Drupal::service('digital_card_enforcement.checker');
+  $status_field = $checker->getCardStatusFieldName();
+  if (!$status_field || !$entity->hasField($status_field)) {
+    return;
+  }
+
+  $new_status = (string) ($entity->get($status_field)->value ?? '');
+  if ($new_status !== CardLimitChecker::STATUS_APPROVED) {
+    return;
+  }
+
+  $old_status = '';
+  if (isset($entity->original) && $entity->original instanceof NodeInterface && $entity->original->hasField($status_field)) {
+    $old_status = (string) ($entity->original->get($status_field)->value ?? '');
+  }
+
+  $entity->set($status_field, CardLimitChecker::STATUS_PENDING);
+  $entity->setNewRevision(TRUE);
+  $entity->setRevisionLogMessage('Organization administrator changes require Platform Admin approval.');
+
+  if ($old_status === CardLimitChecker::STATUS_APPROVED) {
+    \Drupal::messenger()->addWarning(t('Your changes were saved and the card was moved to Waiting Approval for Platform Admin review.'));
+  }
+  else {
+    \Drupal::messenger()->addError(t('Only Platform Administrators can approve cards. The card was moved to Waiting Approval.'));
+  }
+
+  \Drupal::logger('digital_card_admin')->warning('Approval was prevented for card @card by Organization Administrator @uid. The card is now waiting for Platform Admin review.', [
+    '@card' => $entity->id() ?: 'new',
+    '@uid' => $account->id(),
+  ]);
+}
+
+/**
+ * Implements hook_views_pre_view().
+ *
+ * The installed Group release exposes member relationship action fields but
+ * does not provide the corresponding HTML entity routes. Remove those broken
+ * operations from the stock members View; the member name remains a working
+ * link to the user's organization-scoped profile.
+ */
+function digital_card_admin_views_pre_view(ViewExecutable $view, string $display_id, array &$args): void {
+  if ($view->id() !== 'group_members' || !$view->display_handler) {
+    return;
+  }
+
+  $fields = $view->display_handler->getOption('fields');
+  if (!is_array($fields)) {
+    return;
+  }
+
+  foreach (['view_group_relationship', 'edit_group_relationship', 'delete_group_relationship', 'dropbutton'] as $field_id) {
+    unset($fields[$field_id]);
+  }
+  $view->display_handler->setOption('fields', $fields);
+}
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Management Views do not pass through dashboard controllers, so explicitly
+ * attach the table library even when the portal header block is not placed.
+ */
+function digital_card_admin_page_attachments(array &$attachments): void {
+  $path = \Drupal::service('path.current')->getPath();
+  $management_paths = [
+    '/platform-organizations',
+    '/platform-digital-Cards',
+    '/organization-administrators',
+    '/platform-plans',
+    '/platform-subscriptions',
+  ];
+
+  if (
+    in_array($path, $management_paths, TRUE)
+    || str_starts_with($path, '/platform/')
+    || str_starts_with($path, '/organization/')
+  ) {
+    $attachments['#attached']['library'][] = 'digital_card_admin/dashboards';
+  }
+
+  // Apply the organization's safe card-theme palette throughout its portal.
+  // The card generator's custom CSS is intentionally not reused in the
+  // authenticated application; only validated color values are exposed here.
+  $account = \Drupal::currentUser();
+  if (!$account->isAnonymous() && in_array('organization_admin', $account->getRoles(), TRUE)) {
+    try {
+      $data = \Drupal::service('digital_card_admin.dashboard_data')->buildOrganizationDashboard();
+      $portal_theme = $data['portal_theme'] ?? [];
+      $primary = $portal_theme['primary'] ?? '#2563eb';
+      $secondary = $portal_theme['secondary'] ?? '#0f172a';
+      $background = $portal_theme['background'] ?? '#f8fafc';
+      $on_primary = digital_card_admin_contrast_color($primary);
+      $on_secondary = digital_card_admin_contrast_color($secondary);
+      $on_background = digital_card_admin_contrast_color($background);
+      $attachments['#attached']['html_head'][] = [[
+        '#tag' => 'style',
+        '#value' => sprintf(
+          ':root{--dc-org-primary:%s;--dc-org-on-primary:%s;--dc-org-secondary:%s;--dc-org-on-secondary:%s;--dc-org-background:%s;--dc-org-on-background:%s}',
+          $primary,
+          $on_primary,
+          $secondary,
+          $on_secondary,
+          $background,
+          $on_background
+        ),
+      ], 'digital_card_admin_organization_portal_theme'];
+    }
+    catch (\Throwable $e) {
+      \Drupal::logger('digital_card_admin')->warning('Organization portal theme could not be attached for user @uid: @message', [
+        '@uid' => $account->id(),
+        '@message' => $e->getMessage(),
+      ]);
+    }
+  }
+}
+
+/**
+ * Adds a stable portal class for organization-aware theme selectors.
+ */
+function digital_card_admin_preprocess_html(array &$variables): void {
+  $account = \Drupal::currentUser();
+  if (!$account->isAnonymous() && in_array('organization_admin', $account->getRoles(), TRUE)) {
+    $variables['attributes']['class'][] = 'dc-organization-portal-page';
+  }
+}
+
+/**
+ * Prepares reliable card-tile data for the organization My Cards View.
+ *
+ * The View excludes its image and workflow fields from normal output. Reading
+ * those rendered View fields in Twig therefore produces empty values. Build
+ * the tile data from the card entity instead so default profile images and
+ * translated workflow labels are preserved.
+ */
+function digital_card_admin_preprocess_views_view_fields(array &$variables): void {
+  $view = $variables['view'] ?? NULL;
+  if (!$view instanceof ViewExecutable || $view->id() !== 'my_cards' || $view->current_display !== 'page_2') {
+    return;
+  }
+
+  $card = $variables['row']->_entity ?? NULL;
+  if (!$card instanceof NodeInterface || $card->bundle() !== CardLimitChecker::CARD_TYPE) {
+    return;
+  }
+
+  $full_name = $card->label();
+  if ($card->hasField('field_full_name') && !$card->get('field_full_name')->isEmpty()) {
+    $full_name = (string) $card->get('field_full_name')->value;
+  }
+
+  $job_title = '';
+  if ($card->hasField('field_job_title') && !$card->get('field_job_title')->isEmpty()) {
+    $job_title = (string) $card->get('field_job_title')->value;
+  }
+
+  $status_id = '';
+  foreach (CardLimitChecker::STATUS_FIELD_CANDIDATES as $status_field) {
+    if ($card->hasField($status_field) && !$card->get($status_field)->isEmpty()) {
+      $status_id = (string) $card->get($status_field)->value;
+      break;
+    }
+  }
+
+  $status_label = match ($status_id) {
+    CardLimitChecker::STATUS_APPROVED => t('Approved'),
+    CardLimitChecker::STATUS_PENDING => t('Waiting Approval'),
+    'card_workflow_rejected' => t('Rejected'),
+    'card_workflow_creation' => t('Creation'),
+    default => t('Draft'),
+  };
+
+  $status_class = match ($status_id) {
+    CardLimitChecker::STATUS_APPROVED => 'approved',
+    CardLimitChecker::STATUS_PENDING => 'waiting-approval',
+    'card_workflow_rejected' => 'rejected',
+    default => 'draft',
+  };
+
+  $profile_image = [];
+  if ($card->hasField('field_profile_image')) {
+    // Rendering the field through its formatter also includes the configured
+    // default image when a card holder has not uploaded a profile photo.
+    $profile_image = $card->get('field_profile_image')->view([
+      'label' => 'hidden',
+      'type' => 'image',
+      'settings' => [
+        'image_link' => '',
+        'image_style' => 'medium',
+        'image_loading' => ['attribute' => 'lazy'],
+      ],
+    ]);
+  }
+
+  $variables['dc_card'] = [
+    'id' => (int) $card->id(),
+    'full_name' => $full_name,
+    'job_title' => $job_title,
+    'profile_image' => $profile_image,
+    'status_label' => $status_label,
+    'status_class' => $status_class,
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for role-aware login destinations.
+ */
+function digital_card_admin_form_user_login_form_alter(array &$form, FormStateInterface $form_state): void {
+  $form['#submit'][] = 'digital_card_admin_user_login_dashboard_redirect';
+}
+
+/**
+ * Sends each business role to its dashboard after a direct login.
+ */
+function digital_card_admin_user_login_dashboard_redirect(array &$form, FormStateInterface $form_state): void {
+  $request = \Drupal::request();
+  $account = User::load((int) $form_state->get('uid'));
+  if (!$account) {
+    return;
+  }
+
+  $roles = $account->getRoles();
+  $route_name = NULL;
+  if ((int) $account->id() === 1 || array_intersect($roles, ['platform_admin', 'administrator'])) {
+    $route_name = 'digital_card_admin.platform_dashboard';
+  }
+  elseif (in_array('organization_admin', $roles, TRUE)) {
+    $route_name = 'digital_card_admin.organization_dashboard';
+  }
+  elseif (in_array('merchant', $roles, TRUE)) {
+    $route_name = 'digital_card_offers.merchant_portal';
+  }
+
+  if (!$route_name) {
+    return;
+  }
+
+  // The front-page access-denied login block posts its current page as a
+  // destination. Core copies that value back to the query string and it then
+  // takes precedence over FormState redirects. Platform and Organization
+  // administrators should always start in their working dashboard, so remove
+  // both copies after core's submit handler has completed. Merchant deep links
+  // keep their explicit destination so NFC/offer verification can resume.
+  $is_administration_portal = (int) $account->id() === 1
+    || !empty(array_intersect($roles, ['platform_admin', 'administrator', 'organization_admin']));
+  if (!$is_administration_portal && ($request->request->has('destination') || $request->query->has('destination'))) {
+    return;
+  }
+  if ($is_administration_portal) {
+    $request->request->remove('destination');
+    $request->query->remove('destination');
+  }
+
+  try {
+    \Drupal::service('router.route_provider')->getRouteByName($route_name);
+    if (\Drupal\Core\Url::fromRoute($route_name)->access($account)) {
+      $form_state->setRedirect($route_name);
+    }
+  }
+  catch (\Throwable $e) {
+    \Drupal::logger('digital_card_admin')->warning('Post-login dashboard route @route is unavailable for user @uid: @message', [
+      '@route' => $route_name,
+      '@uid' => $account->id(),
+      '@message' => $e->getMessage(),
+    ]);
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function digital_card_admin_mail($key, &$message, $params): void {
+  switch ($key) {
+    case 'organization_admin_welcome':
+    case 'organization_admin_password_reset':
+      $message['subject'] = $params['subject'] ?? 'Digital Business Card Platform';
+      $message['body'][] = $params['message'] ?? '';
+      $message['headers']['Content-Type'] = 'text/plain; charset=UTF-8';
+      break;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function digital_card_admin_theme($existing, $type, $theme, $path): array {
+  return [
+    'digital_card_platform_dashboard' => [
+      'variables' => [
+        'summary' => [],
+        'cards' => [],
+        'organizations' => [],
+        'alerts' => [],
+      ],
+      'template' => 'digital-card-platform-dashboard',
+    ],
+    'digital_card_organization_dashboard' => [
+      'variables' => [
+        'summary' => [],
+        'cards' => [],
+        'subscription' => [],
+        'alerts' => [],
+      ],
+      'template' => 'digital-card-organization-dashboard',
+    ],
+    'digital_card_organization_portal_header' => [
+      'variables' => [
+        'summary' => [],
+        'subscription' => [],
+        'portal_theme' => [],
+        'navigation' => [],
+        'account_name' => '',
+      ],
+      'template' => 'digital-card-organization-portal-header',
+    ],
+    'digital_card_platform_admin_header' => [
+      'variables' => [
+        'summary' => [],
+        'navigation' => [],
+        'account_name' => '',
+      ],
+      'template' => 'digital-card-platform-admin-header',
+    ],
+  ];
+}

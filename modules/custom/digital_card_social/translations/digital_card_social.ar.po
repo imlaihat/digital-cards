@@ -1,0 +1,218 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Digital Card Social Platforms 1.0\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+
+msgid "Social Platforms"
+msgstr "منصات التواصل"
+
+msgid "Add social platform"
+msgstr "إضافة منصة تواصل"
+
+msgid "Edit social platform"
+msgstr "تعديل منصة التواصل"
+
+msgid "Manage digital card social platforms"
+msgstr "إدارة منصات التواصل للبطاقات الرقمية"
+
+msgid "Digital card presentation"
+msgstr "عرض البطاقة الرقمية"
+
+msgid "Control the platform names, trusted domains, icons, and order available on every digital business card."
+msgstr "تحكم في أسماء المنصات والنطاقات الموثوقة والأيقونات وترتيبها في جميع بطاقات الأعمال الرقمية."
+
+msgid "Disable a platform to stop new selections. Delete is blocked while the platform is referenced by card content."
+msgstr "عطّل المنصة لمنع اختيارها مستقبلاً. لا يمكن حذفها ما دامت مستخدمة في محتوى البطاقات."
+
+msgid "Icon"
+msgstr "الأيقونة"
+
+msgid "Platform"
+msgstr "المنصة"
+
+msgid "Machine ID"
+msgstr "المعرّف البرمجي"
+
+msgid "Allowed domains"
+msgstr "النطاقات المسموح بها"
+
+msgid "Any valid HTTPS domain"
+msgstr "أي نطاق HTTPS صالح"
+
+msgid "Enabled"
+msgstr "مفعّلة"
+
+msgid "Disabled"
+msgstr "معطّلة"
+
+msgid "Available for card editors"
+msgstr "متاحة لمحرري البطاقات"
+
+msgid "English label"
+msgstr "الاسم بالإنجليزية"
+
+msgid "Arabic label"
+msgstr "الاسم بالعربية"
+
+msgid "Approved icon"
+msgstr "الأيقونة المعتمدة"
+
+msgid "Legacy names and aliases"
+msgstr "الأسماء السابقة والبديلة"
+
+msgid "Example profile URL"
+msgstr "مثال على رابط الحساب"
+
+msgid "Brand accent color"
+msgstr "لون تمييز العلامة"
+
+msgid "Display order"
+msgstr "ترتيب العرض"
+
+msgid "Save platform"
+msgstr "حفظ المنصة"
+
+msgid "Add platform"
+msgstr "إضافة المنصة"
+
+msgid "Delete platform"
+msgstr "حذف المنصة"
+
+msgid "Select a supported social platform."
+msgstr "اختر منصة تواصل مدعومة."
+
+msgid "- Select a platform -"
+msgstr "- اختر منصة -"
+
+msgid "Choose an approved platform. Platform Admins control the available choices, icons, and allowed domains."
+msgstr "اختر منصة معتمدة. يتحكم مسؤول المنصة بالخيارات والأيقونات والنطاقات المسموح بها."
+
+msgid "Add, edit, order, enable, and disable the social platforms available on digital business cards."
+msgstr "إضافة منصات التواصل المتاحة في بطاقات الأعمال الرقمية وتعديلها وترتيبها وتفعيلها أو تعطيلها."
+
+msgid "No social platforms are configured."
+msgstr "لا توجد منصات تواصل مهيأة."
+
+msgid "Keep labels friendly for card holders while domain rules protect cards from misleading or unsafe links."
+msgstr "استخدم أسماء واضحة لحاملي البطاقات، بينما تحمي قواعد النطاقات البطاقات من الروابط المضللة أو غير الآمنة."
+
+msgid "Stable lowercase identifier, for example telegram. It cannot be changed after creation."
+msgstr "معرّف ثابت بأحرف إنجليزية صغيرة، مثل telegram. لا يمكن تغييره بعد الإنشاء."
+
+msgid "Icons are built into generated cards, so no external font or network request is required."
+msgstr "الأيقونات مدمجة داخل البطاقات المنشأة، لذلك لا تحتاج إلى خط خارجي أو اتصال إضافي بالشبكة."
+
+msgid "One domain per line, without a scheme or path. Subdomains are accepted. Leave empty only for a generic Website platform."
+msgstr "أدخل نطاقاً واحداً في كل سطر من دون بروتوكول أو مسار. النطاقات الفرعية مسموحة. اتركه فارغاً فقط لمنصة موقع إلكتروني عامة."
+
+msgid "One alternative name per line. These values are used to normalize older free-text card data."
+msgstr "أدخل اسماً بديلاً واحداً في كل سطر. تُستخدم هذه القيم لتوحيد بيانات البطاقات النصية السابقة."
+
+msgid "Shown to editors as practical guidance."
+msgstr "يظهر للمحررين كإرشاد عملي."
+
+msgid "Stored for optional future accents. Static cards currently use the organization palette for visual consistency."
+msgstr "يُحفظ للاستخدام الاختياري مستقبلاً. تستخدم البطاقات الثابتة حالياً ألوان المؤسسة لضمان الاتساق البصري."
+
+msgid "Lower values appear first."
+msgstr "تظهر القيم الأقل أولاً."
+
+msgid "The social platform @platform was saved."
+msgstr "تم حفظ منصة التواصل @platform."
+
+msgid "The social platform could not be saved. Please try again or contact the system administrator."
+msgstr "تعذر حفظ منصة التواصل. حاول مرة أخرى أو تواصل مع مسؤول النظام."
+
+msgid "A platform with this machine ID already exists."
+msgstr "توجد منصة بهذا المعرّف البرمجي مسبقاً."
+
+msgid "Use lowercase letters, numbers, and underscores only."
+msgstr "استخدم أحرفاً إنجليزية صغيرة وأرقاماً وشرطة سفلية فقط."
+
+msgid "@domain is not a valid domain name."
+msgstr "@domain ليس اسم نطاق صالحاً."
+
+msgid "Add at least one trusted domain. Only a generic Website platform should allow any HTTPS domain."
+msgstr "أضف نطاقاً موثوقاً واحداً على الأقل. يجب أن تسمح منصة الموقع الإلكتروني العامة فقط بأي نطاق HTTPS."
+
+msgid "The alias @alias is already used by another platform."
+msgstr "الاسم البديل @alias مستخدم في منصة أخرى."
+
+msgid "The example must be an HTTPS URL on one of the allowed domains."
+msgstr "يجب أن يكون المثال رابط HTTPS ضمن أحد النطاقات المسموح بها."
+
+msgid "Delete @platform?"
+msgstr "هل تريد حذف @platform؟"
+
+msgid "This action cannot be undone. Disable a platform when you only want to prevent new selections."
+msgstr "لا يمكن التراجع عن هذا الإجراء. عطّل المنصة إذا أردت فقط منع اختيارها مستقبلاً."
+
+msgid "This platform is referenced @count times in card content or revisions. Disable it instead of deleting it."
+msgstr "هذه المنصة مستخدمة @count مرة في محتوى البطاقات أو مراجعاتها. عطّلها بدلاً من حذفها."
+
+msgid "The platform is still used by card content and was not deleted."
+msgstr "ما زالت المنصة مستخدمة في محتوى البطاقات ولم يتم حذفها."
+
+msgid "The social platform @platform was deleted."
+msgstr "تم حذف منصة التواصل @platform."
+
+msgid "The social platform could not be deleted."
+msgstr "تعذر حذف منصة التواصل."
+
+msgid "Legacy value: @value — choose a supported platform"
+msgstr "قيمة سابقة: @value — اختر منصة مدعومة"
+
+msgid "@platform (disabled — choose another platform)"
+msgstr "@platform (معطّلة — اختر منصة أخرى)"
+
+msgid "Enter a valid social profile URL."
+msgstr "أدخل رابطاً صالحاً لحساب التواصل."
+
+msgid "Use a complete HTTPS URL without credentials."
+msgstr "استخدم رابط HTTPS كاملاً من دون بيانات دخول."
+
+msgid "The selected social platform is unavailable."
+msgstr "منصة التواصل المحددة غير متاحة."
+
+msgid "The URL host must match: %s."
+msgstr "يجب أن يطابق نطاق الرابط: %s."
+
+msgid "Controlled social platform"
+msgstr "منصة تواصل معتمدة"
+
+msgid "Add New Social Media Platform"
+msgstr "إضافة منصة تواصل اجتماعي جديدة"
+
+msgid "Save Social Media Platform"
+msgstr "حفظ منصة التواصل الاجتماعي"
+
+msgid "Create Social Media Platform"
+msgstr "إنشاء منصة التواصل الاجتماعي"
+
+msgid "Choose the matching icon. The icon name is the technical key shown after each label, for example instagram or linkedin. Icons are built into generated cards and require no external service."
+msgstr "اختر الأيقونة المطابقة. اسم الأيقونة هو المعرّف التقني الظاهر بعد كل اسم، مثل instagram أو linkedin. الأيقونات مدمجة في البطاقات المنشأة ولا تحتاج إلى خدمة خارجية."
+
+msgid "Available icon names"
+msgstr "أسماء الأيقونات المتاحة"
+
+msgid "Match the new platform with the closest built-in icon. Use Website for a platform that does not yet have a dedicated icon."
+msgstr "اربط المنصة الجديدة بأقرب أيقونة مدمجة. استخدم أيقونة الموقع الإلكتروني إذا لم تتوفر أيقونة مخصصة للمنصة بعد."
+
+msgid "Select the social network for this link. The card will automatically use its approved name and icon."
+msgstr "اختر شبكة التواصل الخاصة بهذا الرابط. ستستخدم البطاقة الاسم والأيقونة المعتمدين تلقائياً."
+
+msgid "Remove this social link"
+msgstr "حذف رابط التواصل هذا"
+
+msgid "Duplicate social link"
+msgstr "تكرار رابط التواصل"
+
+msgid "Add Social Link"
+msgstr "إضافة رابط تواصل"
+
+msgid "Social Links"
+msgstr "روابط التواصل"

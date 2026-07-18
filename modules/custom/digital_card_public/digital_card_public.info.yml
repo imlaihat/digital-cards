@@ -1,0 +1,8 @@
+name: Digital Card Public API
+type: module
+description: Provides performant, privacy-aware scanner detection for static digital cards.
+package: Digital Card
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:node
+  - digital_card_delivery:digital_card_delivery

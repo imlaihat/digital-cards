@@ -1,0 +1,188 @@
+{#
+/**
+ * @file
+ * Platform Admin dashboard.
+ */
+#}
+{% set quota_percent = summary.quota_percent|default(0) %}
+
+<div class="dc-dashboard dc-dashboard--platform dc-dashboard--portalized">
+  <section class="dc-welcome-card dc-welcome-card--platform">
+    <div class="dc-welcome-card__content">
+      <span class="dc-eyebrow">{{ 'Platform Command Center'|t }}</span>
+      <h1>{{ 'Digital Card Platform'|t }}</h1>
+      <p>{{ 'Monitor organizations, subscriptions, approvals, and card capacity from a single operational workspace.'|t }}</p>
+      <div class="dc-welcome-card__badges">
+        <span class="dc-pill dc-pill--active">{{ '@count active subscriptions'|t({'@count': summary.active_subscriptions|default(0)}) }}</span>
+        <span class="dc-pill dc-pill--info">{{ '@percent% of card capacity used'|t({'@percent': quota_percent}) }}</span>
+        {% if summary.expiring_soon|default(0) > 0 %}
+          <span class="dc-pill dc-pill--pending">{{ '@count subscriptions nearing renewal'|t({'@count': summary.expiring_soon}) }}</span>
+        {% endif %}
+      </div>
+    </div>
+    <div class="dc-welcome-card__actions">
+      <a class="dc-action-tile" href="{{ path('<front>') ~ '/platform-organizations' }}">
+        <span>▥</span>
+        <strong>{{ 'Organizations'|t }}</strong>
+        <small>{{ 'Manage tenants'|t }}</small>
+      </a>
+      <a class="dc-action-tile dc-action-tile--primary" href="{{ path('<front>') ~ '/platform-digital-Cards' }}">
+        <span>✓</span>
+        <strong>{{ 'Approval Queue'|t }}</strong>
+        <small>{{ '@count cards awaiting review'|t({'@count': summary.pending_cards|default(0)}) }}</small>
+      </a>
+      <a class="dc-action-tile" href="{{ path('<front>') ~ '/platform-plans' }}">
+        <span>◈</span>
+        <strong>{{ 'Plans'|t }}</strong>
+        <small>{{ 'Manage plan capacity'|t }}</small>
+      </a>
+      <a class="dc-action-tile" href="{{ path('<front>') ~ '/platform-subscriptions' }}">
+        <span>▤</span>
+        <strong>{{ 'Subscriptions'|t }}</strong>
+        <small>{{ 'Manage organization subscriptions'|t }}</small>
+      </a>
+    </div>
+  </section>
+
+  <section class="dc-kpi-grid dc-kpi-grid--four">
+    <article class="dc-kpi-card dc-kpi-card--blue dc-kpi-card--compact">
+      <span class="dc-kpi-icon">▥</span>
+      <div>
+        <span class="dc-kpi-label">{{ 'Organizations'|t }}</span>
+        <strong>{{ summary.organizations|default(0) }}</strong>
+        <small>{{ '@count active subscriptions'|t({'@count': summary.active_subscriptions|default(0)}) }}</small>
+      </div>
+    </article>
+
+    <article class="dc-kpi-card dc-kpi-card--green dc-kpi-card--compact">
+      <span class="dc-kpi-icon">✓</span>
+      <div>
+        <span class="dc-kpi-label">{{ 'Approved Cards'|t }}</span>
+        <strong>{{ summary.approved_cards|default(0) }}</strong>
+        <small>{{ '@count total cards'|t({'@count': summary.total_cards|default(0)}) }}</small>
+      </div>
+    </article>
+
+    <article class="dc-kpi-card dc-kpi-card--amber dc-kpi-card--compact">
+      <span class="dc-kpi-icon">⌛</span>
+      <div>
+        <span class="dc-kpi-label">{{ 'Pending Approval'|t }}</span>
+        <strong>{{ summary.pending_cards|default(0) }}</strong>
+        <small>{{ 'Needs platform action'|t }}</small>
+      </div>
+    </article>
+
+    <article class="dc-kpi-card dc-kpi-card--red dc-kpi-card--compact">
+      <span class="dc-kpi-icon">!</span>
+      <div>
+        <span class="dc-kpi-label">{{ 'Expired'|t }}</span>
+        <strong>{{ summary.expired_subscriptions|default(0) }}</strong>
+        <small>{{ '@count nearing renewal'|t({'@count': summary.expiring_soon|default(0)}) }}</small>
+      </div>
+    </article>
+  </section>
+
+  <section class="dc-dashboard-grid dc-dashboard-grid--main">
+    <article class="dc-panel dc-panel--capacity dc-panel--featured">
+      <div class="dc-panel-header">
+        <div>
+          <span class="dc-eyebrow">{{ 'Capacity'|t }}</span>
+          <h2>{{ 'Platform card capacity'|t }}</h2>
+        </div>
+        <span class="dc-pill dc-pill--info">{{ quota_percent }}%</span>
+      </div>
+      <div class="dc-capacity-meter dc-capacity-meter--large" aria-label="{{ 'Platform card capacity usage'|t }}">
+        <div class="dc-capacity-meter__fill" style="width: {{ quota_percent }}%"></div>
+      </div>
+      <div class="dc-capacity-numbers">
+        <div><strong>{{ summary.quota_used|default(0) }}</strong><span>{{ 'Cards in use'|t }}</span></div>
+        <div><strong>{{ summary.quota_total|default(0) }}</strong><span>{{ 'Total card allowance'|t }}</span></div>
+        <div><strong>{{ summary.org_admins|default(0) }}</strong><span>{{ 'Organization administrators'|t }}</span></div>
+      </div>
+    </article>
+
+    <article class="dc-panel dc-panel--glass">
+      <div class="dc-panel-header">
+        <div>
+          <span class="dc-eyebrow">{{ 'Card workflow'|t }}</span>
+          <h2>{{ 'Cards by approval stage'|t }}</h2>
+        </div>
+      </div>
+      <div class="dc-pipeline">
+        <div><span class="dc-dot dc-dot--muted"></span><strong>{{ summary.draft_cards|default(0) }}</strong><small>{{ 'Draft'|t }}</small></div>
+        <div><span class="dc-dot dc-dot--amber"></span><strong>{{ summary.pending_cards|default(0) }}</strong><small>{{ 'Pending'|t }}</small></div>
+        <div><span class="dc-dot dc-dot--green"></span><strong>{{ summary.approved_cards|default(0) }}</strong><small>{{ 'Approved'|t }}</small></div>
+        <div><span class="dc-dot dc-dot--red"></span><strong>{{ summary.rejected_cards|default(0) }}</strong><small>{{ 'Rejected'|t }}</small></div>
+      </div>
+    </article>
+  </section>
+
+  <section class="dc-dashboard-grid dc-dashboard-grid--tables">
+    <article class="dc-panel dc-panel--wide">
+      <div class="dc-panel-header">
+        <div>
+          <span class="dc-eyebrow">{{ 'Organizations'|t }}</span>
+          <h2>{{ 'Organization overview'|t }}</h2>
+        </div>
+        <a class="dc-text-link" href="{{ path('<front>') ~ '/platform-organizations' }}">{{ 'View all'|t }}</a>
+      </div>
+
+      {% if organizations %}
+        <div class="dc-table-wrap">
+          <table class="dc-table">
+            <thead>
+              <tr>
+                <th>{{ 'Organization'|t }}</th>
+                <th>{{ 'Plan'|t }}</th>
+                <th>{{ 'Subscription'|t }}</th>
+                <th>{{ 'Card usage'|t }}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for organization in organizations %}
+                <tr>
+                  <td><a class="dc-strong-link" href="{{ organization.url }}">{{ organization.name }}</a></td>
+                  <td>{{ organization.plan }}</td>
+                  <td><span class="dc-pill dc-pill--{{ organization.subscription_class }}">{{ organization.subscription_status }}</span></td>
+                  <td>
+                    <div class="dc-mini-progress"><span style="width: {{ organization.usage_percent }}%"></span></div>
+                    <small>{{ organization.approved_cards }} / {{ organization.max_cards }}</small>
+                  </td>
+                  <td><a class="dc-text-link" href="{{ path('<front>') ~ '/group/' ~ organization.id }}">{{ 'Open'|t }}</a></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="dc-empty-state">{{ 'No organizations have been added yet.'|t }}</div>
+      {% endif %}
+    </article>
+
+    <article class="dc-panel">
+      <div class="dc-panel-header">
+        <div>
+          <span class="dc-eyebrow">{{ 'Latest activity'|t }}</span>
+          <h2>{{ 'Recently updated cards'|t }}</h2>
+        </div>
+      </div>
+
+      {% if cards %}
+        <div class="dc-card-list">
+          {% for card in cards %}
+            <div class="dc-card-list-item">
+              <div>
+                <a class="dc-strong-link" href="{{ card.view_url }}">{{ card.title }}</a>
+                <small>{{ card.organization }} • {{ card.changed }}</small>
+              </div>
+              <span class="dc-pill dc-pill--{{ card.status_class }}">{{ card.status }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="dc-empty-state">{{ 'No digital cards have been created yet.'|t }}</div>
+      {% endif %}
+    </article>
+  </section>
+</div>

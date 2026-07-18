@@ -1,0 +1,14 @@
+name: Digital Card Arabic & Multilingual Support
+type: module
+description: Arabic language defaults, editable platform translations, and content translation enablement.
+package: Digital Card
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:language
+  - drupal:locale
+  - drupal:content_translation
+  - drupal:config_translation
+  - drupal:views
+  - digital_card_admin:digital_card_admin
+  - digital_card_delivery:digital_card_delivery
+  - digital_card_offers:digital_card_offers

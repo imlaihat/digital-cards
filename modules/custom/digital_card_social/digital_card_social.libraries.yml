@@ -1,0 +1,7 @@
+admin:
+  css:
+    theme:
+      css/social-platforms.css: {}
+  dependencies:
+    - digital_card_admin/dashboards
+

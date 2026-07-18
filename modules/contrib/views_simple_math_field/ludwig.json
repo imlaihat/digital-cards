@@ -1,0 +1,8 @@
+{
+  "require": {
+    "andileco/eval-math": {
+      "version": "3.0.1",
+      "url": "https://github.com/andileco/eval-math/archive/3.0.1.zip"
+    }
+  }
+}

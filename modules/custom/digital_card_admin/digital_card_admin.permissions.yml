@@ -1,0 +1,15 @@
+access platform admin dashboard:
+  title: 'Access Platform Admin dashboard'
+  description: 'View the global platform dashboard and operational summaries.'
+
+access organization portal dashboard:
+  title: 'Access Organization Portal dashboard'
+  description: 'View the organization dashboard for the current organization administrator.'
+
+create organization administrators:
+  title: 'Create Organization Administrators'
+  description: 'Create users and assign them as organization administrators.'
+
+manage digital card workflow:
+  title: 'Manage Digital Card Workflow'
+  description: 'Change Digital Business Card workflow states from admin actions.'

@@ -1,0 +1,959 @@
+<?php
+
+/**
+ * @file
+ * Runtime multilingual UX helpers for custom platform pages and Views.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_page_attachments().
+ */
+function digital_card_i18n_page_attachments(array &$attachments): void {
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() === 'ar') {
+    $attachments['#attached']['library'][] = 'digital_card_i18n/platform_arabic';
+    $sources = [
+      'Skip to main content', 'Manage', 'Shortcuts', 'Close', 'Members', 'Nodes',
+      'Add member', 'Add new content', 'Employee', 'Org Admin', 'Joined',
+      'Operations', 'List additional actions', '- Any -', '- None -', 'Type',
+      'Article', 'Basic page', 'Digital Business Card',
+      'Organization Subscription', 'Subscription Plan', 'Title', 'Content type',
+      'Content',
+      'Current state', 'Sort ascending', 'Edit', 'View', 'Delete', 'Add Digital Card',
+      'Digital Card Platform', 'Back to site', 'Return to site content',
+      'Site administration toolbar', 'Site header', 'Toggle navigation',
+      'Arabic', 'Password strength:', 'Passwords match:',
+      'Choose the language used for account notifications and portal pages.',
+    ];
+    foreach ($sources as $source) {
+      $attachments['#attached']['drupalSettings']['digitalCardI18n']['labels'][$source] = (string) t($source, [], ['langcode' => 'ar']);
+    }
+  }
+}
+
+/**
+ * Implements hook_views_pre_view().
+ *
+ * Views labels and header text are configuration values and therefore are not
+ * passed through t() automatically. Translate a strict allow-list at runtime
+ * so customized Locale translations remain authoritative and editable.
+ */
+function digital_card_i18n_views_pre_view(ViewExecutable $view, string $display_id, array &$args): void {
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() !== 'ar' || !$view->display_handler) {
+    return;
+  }
+
+  $titles = [
+    'platform_organizations' => 'Organizations',
+    'platform_plans' => 'Plans',
+    'platform_subscriptions' => 'Subscriptions',
+    'organization_administrators' => 'Organization Administrators',
+    'card_approval_queue' => 'Card Approval Queue',
+  ];
+  if (isset($titles[$view->id()])) {
+    $view->setTitle(t($titles[$view->id()], [], ['langcode' => 'ar']));
+  }
+
+  foreach (['fields', 'filters', 'header', 'footer', 'empty', 'pager'] as $option_name) {
+    $option = $view->display_handler->getOption($option_name);
+    if (is_array($option)) {
+      if ($option_name === 'fields') {
+        digital_card_i18n_rewrite_view_actions($view->id(), $option);
+      }
+      $option = digital_card_i18n_translate_config_value($option);
+      if ($option_name === 'fields') {
+        digital_card_i18n_normalize_arabic_dates($option);
+      }
+      $view->display_handler->setOption($option_name, $option);
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function digital_card_i18n_preprocess_views_view(array &$variables): void {
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() !== 'ar' || empty($variables['view'])) {
+    return;
+  }
+  $descriptions = [
+    'platform_organizations' => 'Create organizations, review their subscriptions, and monitor card usage.',
+    'organization_administrators' => 'Manage organization administrator accounts and their organization assignments.',
+    'card_approval_queue' => 'Review submitted cards and update their approval status.',
+  ];
+  $view_id = $variables['view']->id();
+  if (isset($descriptions[$view_id])) {
+    $variables['header'] = $variables['header'] ?? [];
+    $variables['header']['digital_card_i18n_intro'] = [
+      '#weight' => -100,
+      '#markup' => '<div class="dc-i18n-page-intro"><p>' . t($descriptions[$view_id], [], ['langcode' => 'ar']) . '</p></div>',
+    ];
+  }
+}
+
+/**
+ * Implements hook_preprocess_page_title().
+ */
+function digital_card_i18n_preprocess_page_title(array &$variables): void {
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() !== 'ar' || !isset($variables['title'])) {
+    return;
+  }
+  $title = trim(strip_tags((string) $variables['title']));
+  if (digital_card_i18n_is_card_group_create_route() || str_starts_with($title, 'Add Group node (Digital Business Card)')) {
+    $variables['title'] = t('Add Digital Card', [], ['langcode' => 'ar']);
+    return;
+  }
+  if (in_array($title, digital_card_i18n_translatable_sources(), TRUE)) {
+    $variables['title'] = t($title, [], ['langcode' => 'ar']);
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function digital_card_i18n_preprocess_html(array &$variables): void {
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() !== 'ar') {
+    return;
+  }
+  $path_title = digital_card_i18n_is_card_group_create_route()
+    ? 'Add Digital Card'
+    : digital_card_i18n_path_title();
+  if ($path_title !== NULL) {
+    $variables['head_title']['title'] = t($path_title, [], ['langcode' => 'ar']);
+  }
+  elseif (!empty($variables['head_title']['title']) && str_starts_with((string) $variables['head_title']['title'], 'Add Group node (Digital Business Card)')) {
+    $variables['head_title']['title'] = t('Add Digital Card', [], ['langcode' => 'ar']);
+  }
+  elseif (!empty($variables['head_title']['title'])) {
+    $title = (string) $variables['head_title']['title'];
+    if (in_array($title, digital_card_i18n_translatable_sources(), TRUE)) {
+      $variables['head_title']['title'] = t($title, [], ['langcode' => 'ar']);
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function digital_card_i18n_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() === 'ar') {
+    digital_card_i18n_translate_form_elements($form);
+  }
+
+  if (in_array($form_id, ['node_subscription_plan_form', 'node_subscription_plan_edit_form'], TRUE)) {
+    if (isset($form['title']['widget'][0]['value'])) {
+      $form['title']['widget'][0]['value']['#title'] = t('Plan name');
+      $form['title']['widget'][0]['value']['#description'] = t('Enter the name organizations will see when this plan is assigned.');
+    }
+    digital_card_i18n_set_field_description($form, 'field_price', t('Enter the plan price for one billing cycle.'));
+    digital_card_i18n_set_field_description($form, 'field_max_cards', t('Maximum number of approved digital cards included in this plan.'));
+    digital_card_i18n_set_field_description($form, 'field_billing_cycle', t('Choose how often this plan is renewed and billed.'));
+    if (isset($form['promote'])) {
+      $form['promote']['#access'] = FALSE;
+    }
+    if (isset($form['sticky'])) {
+      $form['sticky']['#access'] = FALSE;
+    }
+    foreach (['revision_information', 'author'] as $advanced_section) {
+      if (isset($form[$advanced_section])) {
+        $form[$advanced_section]['#access'] = FALSE;
+      }
+    }
+    if (isset($form['advanced'])) {
+      $form['advanced']['#access'] = FALSE;
+    }
+  }
+
+  if (in_array($form_id, ['node_organization_subscription_form', 'node_organization_subscription_edit_form'], TRUE)) {
+    if (isset($form['title']['widget'][0]['value'])) {
+      $form['title']['widget'][0]['value']['#title'] = t('Subscription name');
+      $form['title']['widget'][0]['value']['#description'] = t('Use a clear name that identifies the organization and plan.');
+    }
+    digital_card_i18n_set_field_description($form, 'field_organization_subscribed', t('Select the organization receiving this subscription.'));
+    digital_card_i18n_set_field_description($form, 'field_plan', t('Select the plan that defines the card allowance and billing cycle.'));
+    digital_card_i18n_set_field_description($form, 'field_start_date', t('Date on which the subscription becomes active.'));
+    digital_card_i18n_set_field_description($form, 'field_end_date', t('Renew or replace the subscription before this date to avoid service interruption.'));
+    digital_card_i18n_set_field_description($form, 'field_sub_status', t('Only active subscriptions allow approved public cards to remain available.'));
+    if (isset($form['promote'])) {
+      $form['promote']['#access'] = FALSE;
+    }
+    if (isset($form['sticky'])) {
+      $form['sticky']['#access'] = FALSE;
+    }
+    foreach (['revision_information', 'author'] as $advanced_section) {
+      if (isset($form[$advanced_section])) {
+        $form[$advanced_section]['#access'] = FALSE;
+      }
+    }
+    if (isset($form['advanced'])) {
+      $form['advanced']['#access'] = FALSE;
+    }
+  }
+
+  if ($form_id === 'node_digital_business_card_delete_form') {
+    $form['digital_card_portal_intro'] = [
+      '#type' => 'container',
+      '#weight' => -200,
+      '#attributes' => ['class' => ['dc-form-intro']],
+      'title' => ['#markup' => '<h1>' . t('Delete Digital Card') . '</h1>'],
+      'description' => ['#markup' => '<p>' . t('Deleting this card removes it permanently and it will no longer be available to visitors.') . '</p>'],
+    ];
+  }
+
+  if ($form_id === 'user_form' && in_array('organization_admin', \Drupal::currentUser()->getRoles(), TRUE)) {
+    $form['organization_account_intro'] = [
+      '#type' => 'container',
+      '#weight' => -200,
+      '#attributes' => ['class' => ['dc-form-intro']],
+      'title' => ['#markup' => '<h1>' . t('Account settings') . '</h1>'],
+      'description' => ['#markup' => '<p>' . t('Update the email address or password used to access your organization portal.') . '</p>'],
+    ];
+    if (isset($form['account']['current_pass'])) {
+      $form['account']['current_pass']['#title'] = t('Current password');
+      $form['account']['current_pass']['#description'] = t('Enter your current password before changing the email address or password.');
+    }
+    if (isset($form['account']['mail'])) {
+      $form['account']['mail']['#title'] = t('Email address');
+      $form['account']['mail']['#description'] = t('Used for account notifications and password recovery. It is not shown publicly.');
+    }
+    if (isset($form['account']['pass'])) {
+      $form['account']['pass']['#title'] = t('Password');
+      $form['account']['pass']['#title_display'] = 'invisible';
+      $form['account']['pass']['#description'] = t('To set a new password, enter it in both password fields. Otherwise leave them empty.');
+    }
+    foreach (['user_picture', 'contact', 'timezone'] as $section) {
+      if (isset($form[$section])) {
+        $form[$section]['#access'] = FALSE;
+      }
+    }
+    if (isset($form['language'])) {
+      $form['language']['#title'] = t('Language settings');
+      if (isset($form['language']['preferred_langcode'])) {
+        $form['language']['preferred_langcode']['#title'] = t('Site language');
+        $form['language']['preferred_langcode']['#description'] = t('Choose the language used for account notifications and portal pages.');
+      }
+    }
+    $form['#after_build'][] = 'digital_card_i18n_organization_user_after_build';
+  }
+
+  $form_object = $form_state->getFormObject();
+  if (
+    in_array($form_id, ['node_digital_business_card_form', 'node_digital_business_card_edit_form'], TRUE)
+    && is_object($form_object)
+    && method_exists($form_object, 'getEntity')
+  ) {
+    $entity = $form_object->getEntity();
+    if ($entity && method_exists($entity, 'bundle') && $entity->bundle() === 'digital_business_card') {
+      digital_card_i18n_prepare_digital_card_form($form);
+    }
+  }
+
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() === 'ar') {
+    digital_card_i18n_translate_none_options($form);
+    digital_card_i18n_apply_current_language_to_urls($form);
+  }
+}
+
+/**
+ * Finalizes the organization administrator account form after contrib alters.
+ */
+function digital_card_i18n_organization_user_after_build(array $form, FormStateInterface $form_state): array {
+  foreach (['user_picture', 'contact', 'timezone'] as $section) {
+    if (isset($form[$section])) {
+      $form[$section]['#access'] = FALSE;
+    }
+  }
+  if (isset($form['language']['preferred_langcode'])) {
+    $form['language']['preferred_langcode']['#title'] = t('Site language');
+    $form['language']['preferred_langcode']['#description'] = t('Choose the language used for account notifications and portal pages.');
+  }
+  if (isset($form['account']['pass'])) {
+    $form['account']['pass']['#title_display'] = 'invisible';
+    $form['account']['pass']['#description'] = t('To set a new password, enter it in both password fields. Otherwise leave them empty.');
+  }
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() === 'ar') {
+    digital_card_i18n_translate_form_elements($form);
+    digital_card_i18n_apply_current_language_to_urls($form);
+  }
+  return $form;
+}
+
+/**
+ * Makes the Digital Business Card form clear for organization administrators.
+ */
+function digital_card_i18n_prepare_digital_card_form(array &$form): void {
+  $form['digital_card_portal_intro'] = [
+    '#type' => 'container',
+    '#weight' => -200,
+    '#attributes' => ['class' => ['dc-form-intro']],
+    'title' => ['#markup' => '<h1>' . t('Add or update a Digital Card') . '</h1>'],
+    'description' => ['#markup' => '<p>' . t('Enter the card-holder information that will appear on the organization card.') . '</p>'],
+  ];
+
+  if (in_array('organization_admin', \Drupal::currentUser()->getRoles(), TRUE)) {
+    $form['digital_card_approval_policy'] = [
+      '#type' => 'container',
+      '#weight' => -190,
+      '#attributes' => [
+        'class' => ['alert', 'alert-info', 'dc-card-approval-policy'],
+        'role' => 'status',
+      ],
+      'message' => [
+        '#markup' => '<strong>' . t('Approval policy') . ':</strong> ' . t('Organization Administrators can submit cards for approval, but only Platform Administrators can approve them.') . ' ' . t('Saving changes to an approved card returns it to Waiting Approval for review.'),
+      ],
+    ];
+  }
+
+  $fields = [
+    'field_full_name' => ['Full Name', 'Enter the card holder name exactly as it should appear on the card.'],
+    'field_job_title' => ['Job Title', 'Enter the card holder role or professional title.'],
+    'field_department' => ['Department', 'Select the department associated with the card holder.'],
+    'field_mobile' => ['Mobile', 'Enter a reachable mobile number, including the country code when needed.'],
+    'field_email' => ['Email', 'Enter the business email address displayed on the card.'],
+    'field_social_links' => ['Social Links', 'Add only public professional or organization social links.'],
+    'field_profile_image' => ['Profile Image', 'Upload a clear and recent card-holder photo.'],
+    'field_card_language' => ['Static card language override', 'Keep the organization default, or choose a different language for this card.'],
+    'field_qr_code' => ['QR Code', 'The QR code is generated after approval. Leave this empty unless an authorized replacement is required.'],
+  ];
+
+  foreach ($fields as $field_name => [$title, $description]) {
+    digital_card_i18n_set_field_title($form, $field_name, t($title));
+    digital_card_i18n_set_field_description($form, $field_name, t($description));
+  }
+
+  // Revision controls are internal implementation details for organization
+  // administrators; Workflow state actions remain available on the form.
+  if (!\Drupal::currentUser()->hasPermission('administer nodes')) {
+    foreach (['revision_information', 'advanced', 'author'] as $section) {
+      if (isset($form[$section])) {
+        $form[$section]['#access'] = FALSE;
+      }
+    }
+  }
+
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() === 'ar') {
+    $form['#after_build'][] = 'digital_card_i18n_digital_card_after_build';
+  }
+}
+
+/**
+ * Translates Paragraph/widget controls that are created after form alteration.
+ */
+function digital_card_i18n_digital_card_after_build(array $form, FormStateInterface $form_state): array {
+  digital_card_i18n_translate_form_elements($form);
+  digital_card_i18n_translate_none_options($form);
+  digital_card_i18n_apply_current_language_to_urls($form);
+  return $form;
+}
+
+/**
+ * Translates empty select choices that some widgets add late in form building.
+ */
+function digital_card_i18n_translate_none_options(array &$element): void {
+  if (isset($element['#options']['_none'])) {
+    $element['#options']['_none'] = t('- None -', [], ['langcode' => 'ar']);
+  }
+  foreach ($element as $key => &$child) {
+    if (is_string($key) && str_starts_with($key, '#')) {
+      continue;
+    }
+    if (is_array($child)) {
+      digital_card_i18n_translate_none_options($child);
+    }
+  }
+}
+
+/**
+ * Identifies the Group relationship form used to create a digital card.
+ */
+function digital_card_i18n_is_card_group_create_route(): bool {
+  $route_match = \Drupal::routeMatch();
+  return $route_match->getRouteName() === 'entity.group_relationship.create_form';
+}
+
+/**
+ * Sets a field widget title across common widget structures.
+ */
+function digital_card_i18n_set_field_title(array &$form, string $field_name, mixed $title): void {
+  if (!isset($form[$field_name]) || !is_array($form[$field_name])) {
+    return;
+  }
+  if (isset($form[$field_name]['widget']['#title'])) {
+    $form[$field_name]['widget']['#title'] = $title;
+  }
+  if (isset($form[$field_name]['widget'][0]['#title'])) {
+    $form[$field_name]['widget'][0]['#title'] = $title;
+  }
+  if (isset($form[$field_name]['widget'][0]['value']['#title'])) {
+    $form[$field_name]['widget'][0]['value']['#title'] = $title;
+  }
+  if (isset($form[$field_name]['#title'])) {
+    $form[$field_name]['#title'] = $title;
+  }
+}
+
+/**
+ * Keeps form links in the active interface language.
+ */
+function digital_card_i18n_apply_current_language_to_urls(array &$element): void {
+  $language = \Drupal::languageManager()->getCurrentLanguage();
+  if (isset($element['#url']) && $element['#url'] instanceof \Drupal\Core\Url) {
+    $element['#url']->setOption('language', $language);
+  }
+  foreach ($element as $key => &$child) {
+    if (is_string($key) && str_starts_with($key, '#')) {
+      continue;
+    }
+    if (is_array($child)) {
+      digital_card_i18n_apply_current_language_to_urls($child);
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_field().
+ */
+function digital_card_i18n_preprocess_field(array &$variables): void {
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() !== 'ar') {
+    return;
+  }
+  if (empty($variables['items']) || !is_array($variables['items'])) {
+    $variables['items'] = $variables['items'] ?? [];
+  }
+  if (!empty($variables['label'])) {
+    $label = trim((string) $variables['label']);
+    if (in_array($label, digital_card_i18n_translatable_sources(), TRUE)) {
+      $variables['label'] = t($label, [], ['langcode' => 'ar']);
+    }
+  }
+  foreach ($variables['items'] as &$item) {
+    if (isset($item['content']) && is_array($item['content'])) {
+      digital_card_i18n_apply_current_language_to_urls($item['content']);
+    }
+  }
+  unset($item);
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function digital_card_i18n_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display): void {
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() !== 'ar') {
+    return;
+  }
+
+  digital_card_i18n_apply_current_language_to_urls($build);
+
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'organization_subscription') {
+    foreach (['field_start_date', 'field_end_date'] as $field_name) {
+      if (isset($build[$field_name]) && $entity->hasField($field_name) && !$entity->get($field_name)->isEmpty()) {
+        $timestamp = strtotime((string) $entity->get($field_name)->value);
+        if ($timestamp !== FALSE) {
+          $weight = $build[$field_name]['#weight'] ?? 0;
+          $build[$field_name] = [
+            '#type' => 'item',
+            '#title' => $field_name === 'field_start_date' ? t('Start Date') : t('End Date'),
+            '#markup' => date('d/m/Y H:i', $timestamp),
+            '#weight' => $weight,
+          ];
+        }
+      }
+    }
+
+    foreach (['field_sub_status', 'field_subscription_status'] as $field_name) {
+      if (isset($build[$field_name]) && $entity->hasField($field_name) && !$entity->get($field_name)->isEmpty()) {
+        $raw_status = strtolower((string) $entity->get($field_name)->value);
+        $status = match (TRUE) {
+          str_contains($raw_status, 'active') => t('Active'),
+          str_contains($raw_status, 'expired') => t('Expired'),
+          str_contains($raw_status, 'suspend'), str_contains($raw_status, 'pause') => t('Suspended'),
+          default => $entity->get($field_name)->value,
+        };
+        $weight = $build[$field_name]['#weight'] ?? 0;
+        $build[$field_name] = [
+          '#type' => 'item',
+          '#title' => t('Status'),
+          '#markup' => $status,
+          '#weight' => $weight,
+        ];
+      }
+    }
+  }
+
+  if (
+    $entity instanceof \Drupal\user\UserInterface
+    && in_array('organization_admin', \Drupal::currentUser()->getRoles(), TRUE)
+  ) {
+    unset($build['member_for']);
+    $email = $entity->getEmail() ?: (string) t('Not provided');
+    $status = $entity->isActive() ? t('Active') : t('Blocked');
+    $build['digital_card_account_summary'] = [
+      '#weight' => -100,
+      '#markup' => '<section class="dc-profile-summary"><span class="dc-eyebrow">' . t('User profile') . '</span><h1>' . htmlspecialchars($entity->getDisplayName(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</h1><dl><div><dt>' . t('Email address') . '</dt><dd>' . htmlspecialchars($email, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</dd></div><div><dt>' . t('Account status') . '</dt><dd>' . $status . '</dd></div></dl></section>',
+    ];
+  }
+}
+
+/**
+ * Implements hook_link_alter().
+ */
+function digital_card_i18n_link_alter(array &$variables): void {
+  if (
+    \Drupal::languageManager()->getCurrentLanguage()->getId() === 'ar'
+    && isset($variables['url'])
+    && $variables['url'] instanceof \Drupal\Core\Url
+    && !$variables['url']->isExternal()
+  ) {
+    $variables['url']->setOption('language', \Drupal::languageManager()->getCurrentLanguage());
+  }
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function digital_card_i18n_preprocess_node(array &$variables): void {
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() !== 'ar' || empty($variables['node'])) {
+    return;
+  }
+  if (in_array($variables['node']->bundle(), ['digital_business_card', 'organization_subscription', 'subscription_plan'], TRUE)) {
+    $variables['display_submitted'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_preprocess_select().
+ */
+function digital_card_i18n_preprocess_select(array &$variables): void {
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() !== 'ar' || empty($variables['options'])) {
+    return;
+  }
+  digital_card_i18n_translate_select_options($variables['options']);
+}
+
+/**
+ * Implements hook_preprocess_menu_local_task().
+ */
+function digital_card_i18n_preprocess_menu_local_task(array &$variables): void {
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() !== 'ar' || empty($variables['link']['#title'])) {
+    return;
+  }
+  $title = trim((string) $variables['link']['#title']);
+  if (in_array($title, ['Members', 'Nodes'], TRUE)) {
+    $variables['link']['#title'] = t($title, [], ['langcode' => 'ar']);
+  }
+}
+
+/**
+ * Translates late-rendered select option labels.
+ */
+function digital_card_i18n_translate_select_options(array &$options): void {
+  foreach ($options as &$option) {
+    if (!is_array($option)) {
+      continue;
+    }
+    if (($option['type'] ?? '') === 'option' && (string) ($option['value'] ?? '') === '_none') {
+      $option['label'] = t('- None -', [], ['langcode' => 'ar']);
+    }
+    if (!empty($option['options']) && is_array($option['options'])) {
+      digital_card_i18n_translate_select_options($option['options']);
+    }
+  }
+  unset($option);
+}
+
+/**
+ * Recursively translates allow-listed Views configuration strings.
+ */
+function digital_card_i18n_translate_config_value(mixed $value): mixed {
+  if (is_array($value)) {
+    foreach ($value as $key => $child) {
+      $value[$key] = digital_card_i18n_translate_config_value($child);
+    }
+    return $value;
+  }
+  if ($value instanceof \Stringable) {
+    $value = (string) $value;
+  }
+  if (!is_string($value) || $value === '') {
+    return $value;
+  }
+  $sources = digital_card_i18n_translatable_sources();
+  if (in_array(trim($value), $sources, TRUE)) {
+    return (string) t(trim($value), [], ['langcode' => 'ar']);
+  }
+  foreach (digital_card_i18n_embedded_sources() as $source) {
+    $value = str_replace($source, (string) t($source, [], ['langcode' => 'ar']), $value);
+  }
+  if (preg_match('/^to\s+(<em\b)/i', $value)) {
+    $value = preg_replace('/^to\s+/i', (string) t('to', [], ['langcode' => 'ar']) . ' ', $value, 1);
+  }
+  return $value;
+}
+
+/**
+ * Translates common form labels/options stored as configuration.
+ */
+function digital_card_i18n_translate_form_elements(array &$element): void {
+  foreach (['#title', '#description', '#value', '#empty_option', '#markup', '#prefix', '#suffix'] as $key) {
+    if (isset($element[$key]) && (is_string($element[$key]) || $element[$key] instanceof \Stringable)) {
+      $element[$key] = digital_card_i18n_translate_config_value((string) $element[$key]);
+    }
+  }
+  if (isset($element['#options']) && is_array($element['#options'])) {
+    $element['#options'] = digital_card_i18n_translate_config_value($element['#options']);
+  }
+  foreach ($element as $key => &$child) {
+    if (is_string($key) && str_starts_with($key, '#')) {
+      continue;
+    }
+    if (is_array($child)) {
+      digital_card_i18n_translate_form_elements($child);
+    }
+  }
+}
+
+/**
+ * Uses stable, locale-neutral date formats in Arabic tables.
+ */
+function digital_card_i18n_normalize_arabic_dates(array &$fields): void {
+  foreach ($fields as $id => &$field) {
+    if (!is_array($field)) {
+      continue;
+    }
+    $identity = strtolower($id . ' ' . ($field['field'] ?? ''));
+    $type = (string) ($field['type'] ?? '');
+    if ($type === 'datetime_custom') {
+      $field['settings']['date_format'] = 'd/m/Y';
+      unset($field['settings']['custom_date_format']);
+    }
+    elseif (str_contains($identity, 'created') || str_contains($identity, 'changed') || str_contains($identity, 'redeemed')) {
+      $field['settings']['date_format'] = 'custom';
+      $field['settings']['custom_date_format'] = 'd/m/Y H:i';
+    }
+    elseif (str_contains($identity, 'date') || str_contains($identity, 'starts') || str_contains($identity, 'ends')) {
+      $field['settings']['date_format'] = 'custom';
+      $field['settings']['custom_date_format'] = 'd/m/Y';
+    }
+  }
+}
+
+/**
+ * Replaces malformed manually-authored View links with base-path-safe links.
+ */
+function digital_card_i18n_rewrite_view_actions(string $view_id, array &$fields): void {
+  $base = \Drupal\Core\Url::fromUri('internal:/')->toString();
+  if (!str_ends_with($base, '/')) {
+    $base .= '/';
+  }
+
+  if ($view_id === 'card_approval_queue' && isset($fields['nothing']['alter']['text'])) {
+    $workflow_states = digital_card_i18n_card_workflow_action_states();
+    $status_actions = '';
+    foreach ($workflow_states as $workflow_state) {
+      $status_actions .= '<li><a class="dropdown-item ' . $workflow_state['class'] . '" href="' . $base . 'platform/cards/{{ nid }}/change-status/' . $workflow_state['id'] . '"><i class="bi ' . $workflow_state['icon'] . '"></i> ' . t($workflow_state['label']) . '</a></li>';
+    }
+
+    $fields['nothing']['alter']['text'] = '<div class="dropdown card-actions-menu">'
+      . '<button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-expanded="false">' . t('Actions') . '</button>'
+      . '<ul class="dropdown-menu dropdown-menu-end">'
+      . '<li><a class="dropdown-item" href="' . $base . 'node/{{ nid }}"><i class="bi bi-eye"></i> ' . t('View') . '</a></li>'
+      . '<li><a class="dropdown-item" href="' . $base . 'node/{{ nid }}/edit"><i class="bi bi-pencil"></i> ' . t('Edit') . '</a></li>'
+      . '<li><a class="dropdown-item text-danger" href="' . $base . 'node/{{ nid }}/delete"><i class="bi bi-trash"></i> ' . t('Delete') . '</a></li>'
+      . '<li><hr class="dropdown-divider"></li>'
+      . $status_actions
+      . '</ul></div>';
+  }
+
+  if ($view_id === 'platform_organizations' && isset($fields['nothing_1']['alter']['text'])) {
+    $fields['nothing_1']['alter']['text'] = '<div class="dropdown organization-actions">'
+      . '<button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-expanded="false">' . t('Actions') . '</button>'
+      . '<ul class="dropdown-menu dropdown-menu-end">'
+      . '<li><a class="dropdown-item" href="' . $base . 'group/{{ id }}"><i class="bi bi-eye"></i> ' . t('View Organization') . '</a></li>'
+      . '<li><a class="dropdown-item" href="' . $base . 'group/{{ id }}/edit"><i class="bi bi-pencil"></i> ' . t('Edit') . '</a></li>'
+      . '<li><a class="dropdown-item" href="' . $base . 'group/{{ id }}/content"><i class="bi bi-person-vcard"></i> ' . t('Digital Cards') . '</a></li>'
+      . '<li><a class="dropdown-item" href="' . $base . 'platform/organizations/{{ id }}/card-theme"><i class="bi bi-palette"></i> ' . t('Card Theme') . '</a></li>'
+      . '<li><a class="dropdown-item" href="' . $base . 'organization-administrators"><i class="bi bi-people"></i> ' . t('Organization Administrators') . '</a></li>'
+      . '<li><a class="dropdown-item" href="' . $base . 'platform-subscriptions"><i class="bi bi-credit-card"></i> ' . t('Subscriptions') . '</a></li>'
+      . '<li><hr class="dropdown-divider"></li>'
+      . '<li><a class="dropdown-item text-danger" href="' . $base . 'group/{{ id }}/delete"><i class="bi bi-trash"></i> ' . t('Delete') . '</a></li>'
+      . '</ul></div>';
+  }
+}
+
+/**
+ * Resolves action targets from the site's real Workflow state entities.
+ *
+ * This deliberately uses labels instead of assumed IDs because Workflow state
+ * IDs are site configuration and can contain historical spelling differences.
+ * Missing states are omitted from the action menu instead of producing a link
+ * that can never succeed.
+ */
+function digital_card_i18n_card_workflow_action_states(): array {
+  static $resolved;
+  if (isset($resolved)) {
+    return $resolved;
+  }
+
+  $resolved = [];
+
+  try {
+    $states = \Drupal::entityTypeManager()->getStorage('workflow_state')->loadMultiple();
+    foreach ($states as $id => $state) {
+      if (!str_starts_with((string) $id, 'card_workflow_')) {
+        continue;
+      }
+      $label = strtolower(trim((string) $state->label()));
+      $display_label = trim((string) $state->label());
+      $class = '';
+      $icon = 'bi-arrow-repeat';
+      if ($label === 'approved') {
+        $display_label = 'Approved';
+        $class = 'text-success';
+        $icon = 'bi-check-circle';
+      }
+      elseif ($label === 'rejected') {
+        $display_label = 'Rejected';
+        $class = 'text-danger';
+        $icon = 'bi-x-circle';
+      }
+      elseif (str_contains($label, 'pending') || str_contains($label, 'waiting approval') || str_contains($label, 'wating approval')) {
+        $display_label = 'Waiting Approval';
+        $class = 'text-warning';
+        $icon = 'bi-hourglass-split';
+      }
+      elseif ($label === 'draft') {
+        $display_label = 'Draft';
+        $class = 'text-secondary';
+        $icon = 'bi-file-earmark';
+      }
+      elseif ($label === 'creation') {
+        $display_label = 'Creation';
+        $class = 'text-primary';
+        $icon = 'bi-pencil-square';
+      }
+
+      $resolved[] = [
+        'id' => (string) $id,
+        'label' => $display_label,
+        'class' => $class,
+        'icon' => $icon,
+      ];
+    }
+  }
+  catch (\Throwable $exception) {
+    \Drupal::logger('digital_card_i18n')->error('Could not resolve card Workflow states: @message', [
+      '@message' => $exception->getMessage(),
+    ]);
+  }
+
+  return $resolved;
+}
+
+/**
+ * Sets a field widget description when present.
+ */
+function digital_card_i18n_set_field_description(array &$form, string $field_name, mixed $description): void {
+  if (isset($form[$field_name]['widget']) && is_array($form[$field_name]['widget'])) {
+    $form[$field_name]['widget']['#description'] = $description;
+  }
+  if (isset($form[$field_name]['widget'][0])) {
+    $form[$field_name]['widget'][0]['#description'] = $description;
+    foreach (['value', 'target_id'] as $input_key) {
+      if (isset($form[$field_name]['widget'][0][$input_key])) {
+        $form[$field_name]['widget'][0][$input_key]['#description'] = $description;
+      }
+    }
+  }
+  elseif (isset($form[$field_name]['#description'])) {
+    $form[$field_name]['#description'] = $description;
+  }
+}
+
+/**
+ * Strings that may originate from Views or field configuration.
+ */
+function digital_card_i18n_translatable_sources(): array {
+  return [
+    'Add New Organization', 'Organization Administrators', 'Card Approval Queue',
+    'Card-holder Offers', 'Organization Card Themes', 'Organizations', 'Plans',
+    'Subscriptions', 'Organization', 'Created', 'Expiry', 'Subscription status',
+    'Plan Name', 'Card Usage', 'Actions', 'Plan', 'Max Cards', 'Published',
+    'Updated', 'Subscription', 'Status', 'End Date', 'Name', 'Roles',
+    'Partner', 'Merchant User', 'Email', 'Offer', 'Benefit', 'Loyalty Behavior',
+    'Per Holder', 'Per Organization', 'Global', 'Starts', 'Ends', 'Reference',
+    'Card / NFC', 'Card Holder', 'Offer / Benefit', 'Points', 'Redeemed By',
+    'Redeemed', 'NFC ID', 'Full Name', 'Job Title', 'Department', 'Mobile',
+    'Profile Image', 'Social Link', 'Social Links', 'Static card language override',
+    'Approval Status', 'QR Code', 'Apply', 'Title', 'Price', 'Active',
+    'Platform', 'URL', 'Show row weights', 'Hide row weights',
+    'Toggle Actions', 'Drag & drop', 'Collapse', 'Remove', 'Duplicate',
+    'Add Social Link', 'Upload', 'Vertical Tabs', 'Revision log message',
+    'Revision information', 'Create new revision', 'Content', 'Behavior',
+    'Organization Subscriptions', 'View profile', 'Edit profile', 'Log out',
+    'Vertical orientation', 'Toolbar items', 'Administration menu',
+    'User-defined shortcuts', 'User account actions', 'Next page',
+    'Previous page', 'Items per page', 'Reset', 'Sort by', 'Asc', 'Desc',
+    'Billing Cycle', 'Start Date', 'Date', 'Time', 'Password',
+    'Confirm password', 'Preview', 'Partner name', 'Language',
+    'Translate', 'Translation', 'Not translated', 'Original language',
+    'Revisions', 'Arabic', 'English', 'active',
+    'Change Status', 'Waiting Approval', 'Wating Approval',
+    'Draft', 'Approved', 'Rejected', 'Creation',
+    'Change status of @title to @status?',
+    'This action will update the Workflow status safely through a Workflow transition.',
+    'Card status changed to @status using Workflow transition.',
+    'Card status changed to @status.',
+    'Card already has the selected status: @status.',
+    'If this card already has generated static files, they will be deleted by the delivery cleanup process because the card is no longer approved.',
+    'Before approving the card, the system will check the organization subscription and card limit. If a check fails, the card will not be approved and the static card will not be generated.',
+    'Card approval checks passed. Static card generation is allowed.',
+    'Card approval checks passed.', 'Static card generation is allowed.',
+    'This action cannot be undone.',
+    'Clear filters', 'Clear all column filters',
+    'Digital Card Platform', 'Digital identity, loyalty, and partner offers',
+    'Connect organizations, card holders, and merchants.',
+    'Turn every card into lasting customer value',
+    'Issue branded digital cards, reward engagement, and deliver partner offers—all from one scalable platform.',
+    'Branded cards for every organization',
+    'Loyalty points and exclusive offers',
+    'Fast merchant verification and redemption',
+    'Built for business growth',
+    'Manage subscriptions, usage, partners, and performance from one place.',
+    'Welcome back', 'Sign in to manage your business workspace.',
+    'Email or username',
+    'Enter the username or email address assigned to your platform account.',
+    'Sign in securely', 'Forgot your password?', 'Reset it here',
+    'One workspace for your business network',
+    'My Digital Cards', 'Manage your organization cards', 'Add New Card',
+    'No status', 'Expired', 'Suspended', 'Blocked', 'Not available',
+    'Organization dashboard', 'Organization Portal header',
+    'Organization Portal navigation', 'User', 'User profile',
+    'Email address', 'Account status', 'Not provided',
+    'Address', 'Telephone', 'email', 'Members', 'Nodes', 'Member for',
+    'Add member', 'Add new content', 'Employee', 'Org Admin', 'Joined',
+    'Operations', 'List additional actions', '- Any -', 'Type',
+    'Article', 'Basic page', 'Digital Business Card',
+    'Organization Subscription', 'Subscription Plan', 'Content type',
+    'Current state', 'Sort ascending',
+    'The user you want to make a member',
+    'Delete Digital Card',
+    'Deleting this card removes it permanently and it will no longer be available to visitors.',
+    'Account settings',
+    'Update the email address or password used to access your organization portal.',
+    'Current password',
+    'Enter your current password before changing the email address or password.',
+    'Used for account notifications and password recovery. It is not shown publicly.',
+    'To set a new password, enter it in both password fields. Otherwise leave them empty.',
+    'Language settings', 'Site language',
+    'Choose the language used for account notifications and portal pages.',
+    'Page not found', 'The requested page could not be found.',
+    'Access denied', 'You are not authorized to access this page.',
+    'Organization Dashboard', 'My Cards', 'My Subscription',
+    '- None -', 'Arabic and English', 'Change order', 'Weight for row 1', 'to',
+    'View and manage the administrators who are allowed to maintain this organization.',
+    'No organization administrators are available.',
+    'Enter the card holder name exactly as it should appear on the card.',
+    'Add or update a Digital Card',
+    'Enter the card-holder information that will appear on the organization card.',
+    'Enter the card holder role or professional title.',
+    'Select the department associated with the card holder.',
+    'Enter a reachable mobile number, including the country code when needed.',
+    'Enter the business email address displayed on the card.',
+    'Add only public professional or organization social links.',
+    'Upload a clear and recent card-holder photo.',
+    'Keep the organization default, or choose a different language for this card.',
+    'The QR code is generated after approval. Leave this empty unless an authorized replacement is required.',
+    'Add Plan', 'Add Subscription', 'Create Organization Administrator',
+    'View', 'Edit', 'Delete', 'Mark as Pending', 'Approve', 'Reject',
+    'Reset password', 'Reset Password', 'Block', 'Activate', 'Open', 'Inactive', 'Unlimited',
+    'Merchant user', 'Loyalty behavior', 'Per holder', 'Per organization',
+    'Card holder', 'Redeemed by', 'nfc id',
+    'Choose an organization to configure the shared theme used by all of its generated cards.',
+    'This account receives only the Merchant role. Assign it to a partner after creation.',
+    'Update this Merchant account without granting general user-administration access.',
+    'Leave both fields empty to keep the current password. If entered, the Merchant can be emailed the new temporary password.',
+    'Add New Organization', 'View Organization', 'Digital Cards', 'Card Theme',
+    'Create Subscription Plan', 'Create Organization Subscription',
+    'Add Merchant User', 'Add Merchant Partner', 'Add Offer',
+    'Plan name', 'Subscription name',
+    'Create organizations, review their subscriptions, and monitor card usage.',
+    'Manage organization administrator accounts and their organization assignments.',
+    'Review submitted cards and update their approval status.',
+    'Manage card limits and subscription plan definitions.',
+    'Manage organization plans, validity dates, and subscription status.',
+    'Create Merchant users first, then assign them to contracted partners.',
+    'Contracted merchants and their assigned Merchant user accounts.',
+    'Offers visible only to verified card holders and authorized merchants.',
+    'Completed redemptions with understandable card-holder, organization, offer, partner, and Merchant details.',
+    'Only users assigned the Merchant role are listed.',
+    'Example: 15% discount or Free coffee.',
+    'Approval policy',
+    'Organization Administrators can submit cards for approval, but only Platform Administrators can approve them.',
+    'Only Platform Administrators can approve cards.',
+    'Only Platform Administrators can approve cards. The card was moved to Waiting Approval.',
+    'Your changes were saved and the card was moved to Waiting Approval for Platform Admin review.',
+    'Saving changes to an approved card returns it to Waiting Approval for review.',
+    'Organization cards',
+    'View and maintain card-holder profiles, photos, and approval status.',
+    'View card', 'Edit card',
+    'Optional CSS example',
+    'Copy any rules you want into Additional card CSS and adjust the values for this organization.',
+  ];
+}
+
+/**
+ * Complete phrases that may be embedded in Views HTML configuration.
+ */
+function digital_card_i18n_embedded_sources(): array {
+  return [
+    'Create organizations, review their subscriptions, and monitor card usage.',
+    'Manage organization administrator accounts and their organization assignments.',
+    'Review submitted cards and update their approval status.',
+    'Manage card limits and subscription plan definitions.',
+    'Manage organization plans, validity dates, and subscription status.',
+    'Create Merchant users first, then assign them to contracted partners.',
+    'Contracted merchants and their assigned Merchant user accounts.',
+    'Offers visible only to verified card holders and authorized merchants.',
+    'Completed redemptions with understandable card-holder, organization, offer, partner, and Merchant details.',
+    'Add Plan', 'Add Subscription', 'Create Organization Administrator',
+    'Mark as Pending', 'Reset password', 'Reset Password', 'View', 'Edit', 'Delete',
+    'Approve', 'Reject', 'Block', 'Activate',
+    'Plans', 'Subscriptions', 'Organization Administrators', 'Card Approval Queue',
+    'Add New Organization', 'View Organization', 'Digital Cards', 'Card Theme',
+    'Social Links', 'Social Link', 'Change order',
+  ];
+}
+
+/**
+ * Returns the source title for custom/View routes whose titles are config.
+ */
+function digital_card_i18n_path_title(): ?string {
+  $path = \Drupal::service('path.current')->getPath();
+  if (preg_match('#^/group/\d+/content/create/group_node(?::|%3A)digital_business_card$#i', $path)) {
+    return 'Add Digital Card';
+  }
+  if (preg_match('#^/group/\d+/members$#', $path)) {
+    return 'Members';
+  }
+  if (preg_match('#^/group/\d+/nodes$#', $path)) {
+    return 'Content';
+  }
+  if (preg_match('#^/group/\d+/content/add/group_membership$#', $path)) {
+    return 'Add member';
+  }
+  return match ($path) {
+    '/organization/dashboard' => 'Organization Dashboard',
+    '/organization/my-cards', '/organization/my-cards-legacy', '/organization/cards' => 'My Cards',
+    '/organization/subscription', '/organization/subscriptions' => 'My Subscription',
+    '/organization/administrators' => 'Organization Administrators',
+    '/platform-plans' => 'Plans',
+    '/platform-subscriptions', '/node/organization_subscription' => 'Subscriptions',
+    '/organization-administrators' => 'Organization Administrators',
+    '/platform-digital-Cards' => 'Card Approval Queue',
+    default => NULL,
+  };
+}

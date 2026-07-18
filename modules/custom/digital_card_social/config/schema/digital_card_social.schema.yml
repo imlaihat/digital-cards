@@ -1,0 +1,46 @@
+digital_card_social.platforms:
+  type: config_object
+  label: 'Digital card social platforms'
+  mapping:
+    platforms:
+      type: mapping
+      label: 'Platforms'
+      mapping:
+        '*':
+          type: mapping
+          label: 'Social platform'
+          mapping:
+            label:
+              type: label
+              label: 'English label'
+            label_ar:
+              type: label
+              label: 'Arabic label'
+            icon:
+              type: string
+              label: 'Approved icon key'
+            domains:
+              type: sequence
+              label: 'Allowed domains'
+              sequence:
+                type: string
+                label: 'Domain'
+            aliases:
+              type: sequence
+              label: 'Legacy names and aliases'
+              sequence:
+                type: string
+                label: 'Alias'
+            example:
+              type: string
+              label: 'URL example'
+            brand_color:
+              type: string
+              label: 'Brand color'
+            enabled:
+              type: boolean
+              label: 'Enabled'
+            weight:
+              type: integer
+              label: 'Weight'
+

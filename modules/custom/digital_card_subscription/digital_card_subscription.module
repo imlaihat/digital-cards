@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Hooks for the Digital Card Subscription module.
+ */
+
+/**
+ * Implements hook_cron().
+ *
+ * Periodically expires organization subscriptions whose end date is before
+ * today's date.
+ */
+function digital_card_subscription_cron(): void {
+  \Drupal::service('digital_card_subscription.manager')->expireOldSubscriptions();
+}

@@ -1,0 +1,32 @@
+qrcode_page_config.settings:
+  route_name : qrcode_page_config.settings
+  title: Add Page Override
+  base_route: qrcode_page_config.settings
+  weight: 20
+
+qrcode_page_config.page_qr_list:
+  route_name: qrcode_page_config.page_qr_list
+  title: QR Page List
+  base_route: qrcode_page_config.settings
+  weight: 30
+
+qrcode_generator.settings:
+  title: Global Page QR Configs
+  route_name: qrcode_generator.settings
+  base_route: qrcode_page_config.settings
+  weight: 10
+  description: 'Manage Current Page QR code configuration.'
+  
+qrcode_page_config.text_url:
+  title: Generate QR from Text or URL
+  route_name: qrcode_page_config.text_url
+  base_route: qrcode_page_config.settings
+  weight: 40
+  description: 'Generate QR code for given text and provide download option.'
+
+qrcode_page_config.scanner:
+  title: QRCode Scanner
+  route_name: qrcode_generator.scanqrcode
+  base_route: qrcode_page_config.settings
+  weight: 41
+  description: 'Scan any kind of QRCode and get results.'

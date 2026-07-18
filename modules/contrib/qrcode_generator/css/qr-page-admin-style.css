@@ -1,0 +1,122 @@
+.qr_preview {
+  height: 450px;
+  width: 100%;
+  box-shadow: 0 0px 3px black;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+}
+.prev-text {
+  margin: auto;
+  color: #eee6e1;
+  font-size: 3rem;
+}
+.admin-qr.fa-qrcode {
+  padding: 10px;
+  position: absolute;
+  font-size: 2rem;
+}
+.blockasitis {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+.blockasitis .admin-qr.fa-qrcode {
+  margin: -80px;
+  font-size: 18rem;
+  background-color: black !important;
+  color: white !important;
+}
+
+.qr_preview.sidebarhover.rightbottom .admin-qr.fa-qrcode {
+  right: 0;
+  bottom: 10%;
+}
+.qr_preview.sidebarhover.righttop .admin-qr.fa-qrcode {
+  top: 10%;
+  right: 0;
+}
+.qr_preview.sidebarhover.leftbottom .admin-qr.fa-qrcode {
+  bottom: 10%;
+}
+.qr_preview.sidebarhover.lefttop .admin-qr.fa-qrcode {
+  top: 10%;
+}
+.qr_preview.sidebarhover.leftcenter .admin-qr.fa-qrcode {
+  top: 45%;
+}
+.qr_preview.sidebarhover.rightcenter .admin-qr.fa-qrcode {
+  top: 45%;
+  right: 0;
+}
+.qr_preview.floatingonscreen .admin-qr.fa-qrcode {
+  bottom: 10%;
+  right: 5%;
+  width: 40px;
+  display: flex;
+  height: 40px;
+  border-radius: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-row.page-qr-form {
+  width: 100%;
+}
+
+.qr-row.page-qr-form  .qr-col-left {
+  width: 40%;
+  float: left;
+}
+.qr-row.page-qr-form  .qr-col-right {
+  width: 60%;
+  float: left;
+}
+
+.page-qr-form .form-actions {
+  display: inline-block;
+  width: 100%;
+}
+
+.ajax-response-container img {
+  width: 300px;
+  margin: auto;
+}
+.qr-page-admin form {
+  display: flex;
+  flex-wrap: wrap;
+}
+.qr-page-admin .admin-qr-form-actions {
+  width: 100%;
+}
+.qr-page-admin .left-container-form {
+  width: 50%;
+}
+.qr-page-admin .right-container-form {
+  display: flex;
+  width: 45%;
+  border: 1px solid #f1ece7;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.qr-page-admin .right-container-form .ajax-response-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.qr-page-admin .right-container-form .ajax-response-container span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #f1ece7;
+}
+.download-page-qr i.fa-download::before {
+  content: "\f019";
+  font-family: 'font awesome 5 free';
+  font-weight: 900;
+  font-style: normal;
+  font-size: 2rem;
+  color: #000000;
+}

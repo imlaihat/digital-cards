@@ -1,0 +1,4 @@
+# This module does not create menu links.
+# Keep Platform Admin and Organization Portal menus managed manually from:
+# /admin/structure/menu
+# This prevents duplicate menu parents and prevents module updates from changing the Primary menu.

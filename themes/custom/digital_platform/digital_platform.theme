@@ -1,0 +1,149 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the SASS Starterkit digital_platform.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Translates select placeholders that are finalized during theme preprocessing.
+ */
+function digital_platform_preprocess_select(array &$variables): void {
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() !== 'ar' || empty($variables['options'])) {
+    return;
+  }
+  foreach ($variables['options'] as &$option) {
+    if (is_array($option) && ($option['type'] ?? '') === 'option' && (string) ($option['value'] ?? '') === '_none') {
+      $option['label'] = t('- None -', [], ['langcode' => 'ar']);
+    }
+  }
+  unset($option);
+}
+
+/**
+ * Uses a user-facing title for the Group card-creation route.
+ */
+function digital_platform_preprocess_html(array &$variables): void {
+  if (
+    \Drupal::languageManager()->getCurrentLanguage()->getId() === 'ar'
+    && \Drupal::routeMatch()->getRouteName() === 'entity.group_relationship.create_form'
+  ) {
+    $variables['head_title']['title'] = t('Add Digital Card', [], ['langcode' => 'ar']);
+  }
+}
+
+/**
+ * Uses a user-facing visible title for the Group card-creation route.
+ */
+function digital_platform_preprocess_page_title(array &$variables): void {
+  if (
+    \Drupal::languageManager()->getCurrentLanguage()->getId() === 'ar'
+    && \Drupal::routeMatch()->getRouteName() === 'entity.group_relationship.create_form'
+  ) {
+    $variables['title'] = t('Add Digital Card', [], ['langcode' => 'ar']);
+  }
+}
+
+/**
+ * Keeps organization-facing entity pages focused on business information.
+ */
+function digital_platform_preprocess_node(array &$variables): void {
+  if (
+    \Drupal::languageManager()->getCurrentLanguage()->getId() === 'ar'
+    && !empty($variables['node'])
+    && in_array($variables['node']->bundle(), ['digital_business_card', 'organization_subscription', 'subscription_plan'], TRUE)
+  ) {
+    $variables['display_submitted'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_form_system_theme_settings_alter() for settings form.
+ *
+ * Replace Barrio setting options with subtheme ones.
+ *
+ * Example on how to alter theme settings form
+ */
+function digital_platform_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  $form['components']['navbar']['bootstrap_barrio_navbar_top_background']['#options'] = [
+    'bg-primary' => t('Primary'),
+    'bg-secondary' => t('Secondary'),
+    'bg-light' => t('Light'),
+    'bg-dark' => t('Dark'),
+    'bg-white' => t('White'),
+    'bg-transparent' => t('Transparent'),
+  ];
+  $form['components']['navbar']['bootstrap_barrio_navbar_background']['#options'] = [
+    'bg-primary' => t('Primary'),
+    'bg-secondary' => t('Secondary'),
+    'bg-light' => t('Light'),
+    'bg-dark' => t('Dark'),
+    'bg-white' => t('White'),
+    'bg-transparent' => t('Transparent'),
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the core login form.
+ */
+function digital_platform_form_user_login_form_alter(array &$form, FormStateInterface $form_state): void {
+  $form['#attributes']['class'][] = 'dp-login-form';
+  $form['#attached']['library'][] = 'digital_platform/login';
+
+  $form['name']['#title'] = t('Email or username');
+  $form['name']['#description'] = t('Enter the username or email address assigned to your platform account.');
+  $form['name']['#attributes']['autocomplete'] = 'username';
+  $form['name']['#attributes']['autofocus'] = 'autofocus';
+
+  $form['pass']['#title'] = t('Password');
+  $form['pass']['#attributes']['autocomplete'] = 'current-password';
+
+  $form['actions']['submit']['#value'] = t('Sign in securely');
+  $form['actions']['submit']['#attributes']['class'][] = 'dp-login-submit';
+
+  $form['password_help'] = [
+    '#type' => 'container',
+    '#attributes' => ['class' => ['dp-login-help']],
+    'label' => ['#markup' => '<span>' . t('Forgot your password?') . '</span>'],
+    'link' => [
+      '#type' => 'link',
+      '#title' => t('Reset it here'),
+      '#url' => \Drupal\Core\Url::fromRoute('user.pass'),
+      '#attributes' => ['class' => ['dp-login-help__link']],
+    ],
+    '#weight' => 110,
+  ];
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function digital_platform_preprocess_page(array &$variables): void {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $is_login_gateway = $route_name === 'system.403' && \Drupal::currentUser()->isAnonymous();
+
+  if ($route_name === 'user.login' || $is_login_gateway) {
+    $variables['#attached']['library'][] = 'digital_platform/login';
+  }
+
+  // The anonymous front-page access-denied response includes both the system
+  // error block and the login block. The branded gateway needs only the form.
+  if ($is_login_gateway && isset($variables['page']['content'])) {
+    foreach ($variables['page']['content'] as $key => $build) {
+      if (is_array($build) && ($build['#plugin_id'] ?? '') === 'system_main_block') {
+        unset($variables['page']['content'][$key]);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ */
+function digital_platform_theme_suggestions_page_alter(array &$suggestions, array $variables): void {
+  if (\Drupal::routeMatch()->getRouteName() === 'system.403' && \Drupal::currentUser()->isAnonymous()) {
+    $suggestions[] = 'page__login_gateway';
+  }
+}

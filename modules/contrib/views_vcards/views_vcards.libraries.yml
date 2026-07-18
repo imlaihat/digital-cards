@@ -1,0 +1,5 @@
+vcard_icon:
+  version: VERSION
+  css:
+    component:
+      templates/views_vcards.icon.css: {}

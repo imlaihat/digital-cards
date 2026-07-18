@@ -1,0 +1,8 @@
+services:
+  digital_card_enforcement.checker:
+    class: Drupal\digital_card_enforcement\Service\CardLimitChecker
+    arguments:
+      - '@digital_card_subscription.manager'
+      - '@entity_type.manager'
+      - '@entity_field.manager'
+      - '@logger.factory'

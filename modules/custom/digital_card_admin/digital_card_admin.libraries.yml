@@ -1,0 +1,11 @@
+dashboards:
+  version: 1.8.1
+  css:
+    theme:
+      css/dashboards.css: {}
+  js:
+    js/xlsx-export.js: {}
+    js/table-tools.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

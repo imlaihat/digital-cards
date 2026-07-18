@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * QR Code Generator.
+ *
+ * QR Code generator module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function qrcode_generator_theme($existing, $type, $theme, $path): array {
+  return [
+    'qrcode' => [
+      'variables' => [
+        'response' => NULL,
+      ],
+    ],
+    'scanqrpage' => [
+      'variables' => [
+        'qrcode' => NULL,
+        'title' => NULL,
+      ],
+      'template' => 'scanqrpage',
+    ],
+  ];
+}

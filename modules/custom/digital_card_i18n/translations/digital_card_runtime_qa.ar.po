@@ -1,0 +1,826 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Digital Card Platform Runtime QA 1.3\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0?0:n==1?1:n==2?2:n%100>=3 && n%100<=10?3:n%100>=11 && n%100<=99?4:5;\n"
+
+msgid "One subscription is due for renewal within 30 days."
+msgid_plural "@count subscriptions are due for renewal within 30 days."
+msgstr[0] "لا توجد اشتراكات تستحق التجديد خلال 30 يوماً."
+msgstr[1] "يوجد اشتراك واحد يستحق التجديد خلال 30 يوماً."
+msgstr[2] "يوجد اشتراكان يستحقان التجديد خلال 30 يوماً."
+msgstr[3] "توجد @count اشتراكات تستحق التجديد خلال 30 يوماً."
+msgstr[4] "يوجد @count اشتراكاً يستحق التجديد خلال 30 يوماً."
+msgstr[5] "يوجد @count اشتراك يستحق التجديد خلال 30 يوماً."
+
+msgid "One card is waiting for approval."
+msgid_plural "@count cards are waiting for approval."
+msgstr[0] "لا توجد بطاقات بانتظار الاعتماد."
+msgstr[1] "توجد بطاقة واحدة بانتظار الاعتماد."
+msgstr[2] "توجد بطاقتان بانتظار الاعتماد."
+msgstr[3] "توجد @count بطاقات بانتظار الاعتماد."
+msgstr[4] "توجد @count بطاقة بانتظار الاعتماد."
+msgstr[5] "توجد @count بطاقة بانتظار الاعتماد."
+
+msgid "One expired subscription was detected. Public cards for this organization may be unavailable until service is renewed."
+msgid_plural "@count expired subscriptions were detected. Public cards for these organizations may be unavailable until service is renewed."
+msgstr[0] "لم يتم اكتشاف اشتراكات منتهية."
+msgstr[1] "تم اكتشاف اشتراك منتهٍ واحد. قد تتوقف البطاقات العامة لهذه المؤسسة حتى تجديد الخدمة."
+msgstr[2] "تم اكتشاف اشتراكين منتهيين. قد تتوقف البطاقات العامة لهاتين المؤسستين حتى تجديد الخدمة."
+msgstr[3] "تم اكتشاف @count اشتراكات منتهية. قد تتوقف البطاقات العامة لهذه المؤسسات حتى تجديد الخدمة."
+msgstr[4] "تم اكتشاف @count اشتراكاً منتهياً. قد تتوقف البطاقات العامة لهذه المؤسسات حتى تجديد الخدمة."
+msgstr[5] "تم اكتشاف @count اشتراك منتهٍ. قد تتوقف البطاقات العامة لهذه المؤسسات حتى تجديد الخدمة."
+
+msgid "Organizations"
+msgstr "المؤسسات"
+msgid "Plans"
+msgstr "الخطط"
+msgid "Subscriptions"
+msgstr "الاشتراكات"
+msgid "Organization Administrators"
+msgstr "مسؤولو المؤسسات"
+msgid "Card Approval Queue"
+msgstr "قائمة اعتماد البطاقات"
+msgid "Card-holder Offers"
+msgstr "عروض حاملي البطاقات"
+msgid "Organization Card Themes"
+msgstr "قوالب بطاقات المؤسسات"
+msgid "Plan name"
+msgstr "اسم الخطة"
+msgid "Subscription name"
+msgstr "اسم الاشتراك"
+msgid "Create Subscription Plan"
+msgstr "إنشاء خطة اشتراك"
+msgid "Create Organization Subscription"
+msgstr "إنشاء اشتراك مؤسسة"
+msgid "Add Merchant User"
+msgstr "إضافة مستخدم تاجر"
+msgid "Add Merchant Partner"
+msgstr "إضافة شريك تجاري"
+msgid "Add Offer"
+msgstr "إضافة عرض"
+msgid "Password"
+msgstr "كلمة المرور"
+msgid "Confirm password"
+msgstr "تأكيد كلمة المرور"
+msgid "Preview"
+msgstr "معاينة"
+msgid "Date"
+msgstr "التاريخ"
+msgid "Time"
+msgstr "الوقت"
+msgid "Partner name"
+msgstr "اسم الشريك"
+msgid "Create organizations, review their subscriptions, and monitor card usage."
+msgstr "أنشئ المؤسسات، وراجع اشتراكاتها، وتابع استهلاك البطاقات."
+msgid "Manage organization administrator accounts and their organization assignments."
+msgstr "أدر حسابات مسؤولي المؤسسات وربط كل مسؤول بمؤسسته."
+msgid "Review submitted cards and update their approval status."
+msgstr "راجع البطاقات المقدمة وحدّث حالة اعتمادها."
+msgid "Manage card limits and subscription plan definitions."
+msgstr "أدر خطط الاشتراك وحدود البطاقات المضمنة في كل خطة."
+msgid "Manage organization plans, validity dates, and subscription status."
+msgstr "أدر اشتراكات المؤسسات والخطط المرتبطة بها وتواريخ صلاحيتها."
+msgid "Create Merchant users first, then assign them to contracted partners."
+msgstr "أنشئ حسابات التجار ثم اربطها بالشركاء التجاريين المتعاقدين."
+msgid "Contracted merchants and their assigned Merchant user accounts."
+msgstr "أدر الشركاء التجاريين وحسابات التجار المرتبطة بكل شريك."
+msgid "Offers visible only to verified card holders and authorized merchants."
+msgstr "أدر العروض المتاحة لحاملي البطاقات الموثقين والتجار المخولين."
+msgid "Completed redemptions with understandable card-holder, organization, offer, partner, and Merchant details."
+msgstr "راجع عمليات الاستفادة المكتملة مع بيانات البطاقة والمؤسسة والعرض والشريك والتاجر."
+msgid "Only users assigned the Merchant role are listed."
+msgstr "تظهر هنا الحسابات التي تحمل دور التاجر فقط."
+msgid "Example: 15% discount or Free coffee."
+msgstr "مثال: خصم 15% أو قهوة مجانية."
+msgid "Enter the name organizations will see when this plan is assigned."
+msgstr "أدخل اسماً واضحاً يظهر للمؤسسات عند إسناد هذه الخطة."
+msgid "Enter the plan price for one billing cycle."
+msgstr "أدخل سعر الخطة لدورة فوترة واحدة."
+msgid "Maximum number of approved digital cards included in this plan."
+msgstr "الحد الأقصى للبطاقات الرقمية المعتمدة المشمولة في هذه الخطة."
+msgid "Choose how often this plan is renewed and billed."
+msgstr "اختر وتيرة تجديد الخطة وإصدار الفاتورة."
+msgid "Use a clear name that identifies the organization and plan."
+msgstr "استخدم اسماً واضحاً يعرّف المؤسسة والخطة."
+msgid "Select the organization receiving this subscription."
+msgstr "اختر المؤسسة التي سيُسند إليها هذا الاشتراك."
+msgid "Select the plan that defines the card allowance and billing cycle."
+msgstr "اختر الخطة التي تحدد رصيد البطاقات ودورة الفوترة."
+msgid "Date on which the subscription becomes active."
+msgstr "التاريخ الذي يبدأ فيه تفعيل الاشتراك."
+msgid "Renew or replace the subscription before this date to avoid service interruption."
+msgstr "جدّد الاشتراك أو استبدله قبل هذا التاريخ لتجنب انقطاع الخدمة."
+msgid "Only active subscriptions allow approved public cards to remain available."
+msgstr "تبقى البطاقات العامة المعتمدة متاحة فقط عندما يكون الاشتراك فعالاً."
+
+msgid "Partner"
+msgstr "الشريك"
+msgid "Merchant user"
+msgstr "مستخدم التاجر"
+msgid "Email"
+msgstr "البريد الإلكتروني"
+msgid "Status"
+msgstr "الحالة"
+msgid "Actions"
+msgstr "الإجراءات"
+msgid "Offer"
+msgstr "العرض"
+msgid "Benefit"
+msgstr "الميزة"
+msgid "Loyalty behavior"
+msgstr "آلية نقاط الولاء"
+msgid "Per holder"
+msgstr "لكل حامل بطاقة"
+msgid "Per organization"
+msgstr "لكل مؤسسة"
+msgid "Global"
+msgstr "الإجمالي"
+msgid "Starts"
+msgstr "يبدأ"
+msgid "Ends"
+msgstr "ينتهي"
+msgid "Reference"
+msgstr "المرجع"
+msgid "Card holder"
+msgstr "حامل البطاقة"
+msgid "Redeemed by"
+msgstr "نفّذها"
+msgid "View"
+msgstr "عرض"
+msgid "Edit"
+msgstr "تعديل"
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Delete Digital Card"
+msgstr "حذف البطاقة الرقمية"
+
+msgid "Deleting this card removes it permanently and it will no longer be available to visitors."
+msgstr "سيؤدي حذف هذه البطاقة إلى إزالتها نهائيًا ولن تعود متاحة للزوار."
+
+msgid "Account settings"
+msgstr "إعدادات الحساب"
+
+msgid "Update the email address or password used to access your organization portal."
+msgstr "حدّث البريد الإلكتروني أو كلمة المرور المستخدمة للدخول إلى بوابة المؤسسة."
+
+msgid "Current password"
+msgstr "كلمة المرور الحالية"
+
+msgid "Enter your current password before changing the email address or password."
+msgstr "أدخل كلمة المرور الحالية قبل تغيير البريد الإلكتروني أو كلمة المرور."
+
+msgid "Used for account notifications and password recovery. It is not shown publicly."
+msgstr "يُستخدم لإشعارات الحساب واستعادة كلمة المرور، ولا يظهر للعامة."
+
+msgid "To set a new password, enter it in both password fields. Otherwise leave them empty."
+msgstr "لتعيين كلمة مرور جديدة، أدخلها في حقلي كلمة المرور. وإلا فاتركهما فارغين."
+
+msgid "Language settings"
+msgstr "إعدادات اللغة"
+
+msgid "Site language"
+msgstr "لغة البوابة"
+
+msgid "Choose the language used for account notifications and portal pages."
+msgstr "اختر اللغة المستخدمة لإشعارات الحساب وصفحات البوابة."
+
+msgid "Password strength:"
+msgstr "قوة كلمة المرور:"
+
+msgid "Passwords match:"
+msgstr "تطابق كلمتي المرور:"
+
+msgid "Page not found"
+msgstr "الصفحة غير موجودة"
+
+msgid "The requested page could not be found."
+msgstr "تعذر العثور على الصفحة المطلوبة."
+
+msgid "Access denied"
+msgstr "الوصول مرفوض"
+
+msgid "You are not authorized to access this page."
+msgstr "ليس لديك صلاحية للوصول إلى هذه الصفحة."
+
+msgid "Organization Dashboard"
+msgstr "لوحة معلومات المؤسسة"
+
+msgid "My Cards"
+msgstr "بطاقاتي"
+
+msgid "My Subscription"
+msgstr "اشتراكي"
+msgid "Mark as Pending"
+msgstr "إعادة إلى قيد المراجعة"
+msgid "Approve"
+msgstr "اعتماد"
+msgid "Reject"
+msgstr "رفض"
+msgid "Reset password"
+msgstr "إعادة تعيين كلمة المرور"
+msgid "Reset Password"
+msgstr "إعادة تعيين كلمة المرور"
+msgid "Block"
+msgstr "حظر"
+msgid "Activate"
+msgstr "تفعيل"
+msgid "Open"
+msgstr "فتح"
+msgid "Inactive"
+msgstr "غير فعال"
+msgid "Unlimited"
+msgstr "غير محدود"
+msgid "Price"
+msgstr "السعر"
+msgid "Billing Cycle"
+msgstr "دورة الفوترة"
+msgid "Add Plan"
+msgstr "إضافة خطة"
+msgid "Add Subscription"
+msgstr "إضافة اشتراك"
+msgid "Create Organization Administrator"
+msgstr "إنشاء مسؤول مؤسسة"
+msgid "Add merchant partner"
+msgstr "إضافة شريك تجاري"
+msgid "Add offer"
+msgstr "إضافة عرض"
+msgid "Choose an organization to configure the shared theme used by all of its generated cards."
+msgstr "اختر مؤسسة لضبط القالب المشترك المستخدم في جميع بطاقاتها المنشأة."
+msgid "This account receives only the Merchant role. Assign it to a partner after creation."
+msgstr "سيحصل هذا الحساب على دور التاجر فقط. اربطه بشريك تجاري بعد إنشائه."
+msgid "nfc id"
+msgstr "معرّف NFC"
+msgid "Configure Card Theme"
+msgstr "إعداد قالب البطاقة"
+msgid "Edit Merchant User"
+msgstr "تعديل مستخدم التاجر"
+msgid "Edit Merchant Partner"
+msgstr "تعديل الشريك التجاري"
+msgid "Edit Offer"
+msgstr "تعديل العرض"
+msgid "Merchant Offer Validation"
+msgstr "التحقق من أهلية العرض"
+msgid "Confirm Offer Redemption"
+msgstr "تأكيد الاستفادة من العرض"
+msgid "Edit Organization Administrator"
+msgstr "تعديل مسؤول المؤسسة"
+msgid "Block Organization Administrator"
+msgstr "حظر مسؤول المؤسسة"
+msgid "Activate Organization Administrator"
+msgstr "تفعيل مسؤول المؤسسة"
+msgid "Reset Organization Administrator Password"
+msgstr "إعادة تعيين كلمة مرور مسؤول المؤسسة"
+msgid "Change Card Status"
+msgstr "تغيير حالة البطاقة"
+msgid "Update this Merchant account without granting general user-administration access."
+msgstr "حدّث حساب التاجر دون منحه صلاحيات إدارة المستخدمين العامة."
+msgid "Leave both fields empty to keep the current password. If entered, the Merchant can be emailed the new temporary password."
+msgstr "اترك حقلي كلمة المرور فارغين للاحتفاظ بكلمة المرور الحالية. عند إدخال كلمة مرور مؤقتة جديدة يمكن إرسالها إلى التاجر بالبريد الإلكتروني."
+msgid "Add New Organization"
+msgstr "إضافة مؤسسة جديدة"
+msgid "View Organization"
+msgstr "عرض المؤسسة"
+msgid "Digital Cards"
+msgstr "البطاقات الرقمية"
+msgid "Card Theme"
+msgstr "قالب البطاقة"
+msgid "Search @column"
+msgstr "البحث في @column"
+msgid "Filter @column"
+msgstr "تصفية @column"
+
+msgid "Language"
+msgstr "اللغة"
+
+msgid "Translate"
+msgstr "ترجمة"
+
+msgid "Translation"
+msgstr "الترجمة"
+
+msgid "Not translated"
+msgstr "غير مترجم"
+
+msgid "Original language"
+msgstr "اللغة الأصلية"
+
+msgid "Revisions"
+msgstr "المراجعات"
+
+msgid "Arabic"
+msgstr "العربية"
+
+msgid "Approval policy"
+msgstr "سياسة الاعتماد"
+
+msgid "Organization Administrators can submit cards for approval, but only Platform Administrators can approve them."
+msgstr "يمكن لمسؤولي المؤسسة إرسال البطاقات للاعتماد، ولكن لا يمكن اعتمادها إلا من قِبل مسؤولي المنصة."
+
+msgid "Only Platform Administrators can approve cards."
+msgstr "لا يمكن اعتماد البطاقات إلا من قِبل مسؤولي المنصة."
+
+msgid "Only Platform Administrators can approve cards. The card was moved to Waiting Approval."
+msgstr "لا يمكن اعتماد البطاقات إلا من قِبل مسؤولي المنصة. نُقلت البطاقة إلى حالة بانتظار الاعتماد."
+
+msgid "Your changes were saved and the card was moved to Waiting Approval for Platform Admin review."
+msgstr "حُفظت تغييراتك ونُقلت البطاقة إلى حالة بانتظار الاعتماد لمراجعتها من مسؤول المنصة."
+
+msgid "Saving changes to an approved card returns it to Waiting Approval for review."
+msgstr "يؤدي حفظ التغييرات على بطاقة معتمدة إلى إعادتها لحالة بانتظار الاعتماد من أجل المراجعة."
+
+msgid "Organization cards"
+msgstr "بطاقات المؤسسة"
+
+msgid "View and maintain card-holder profiles, photos, and approval status."
+msgstr "اعرض بيانات حاملي البطاقات وصورهم وحالة الاعتماد وحدّثها."
+
+msgid "View card"
+msgstr "عرض البطاقة"
+
+msgid "Edit card"
+msgstr "تعديل البطاقة"
+
+msgid "Optional CSS example"
+msgstr "مثال CSS اختياري"
+
+msgid "Copy any rules you want into Additional card CSS and adjust the values for this organization."
+msgstr "انسخ القواعد التي تحتاجها إلى حقل CSS الإضافي للبطاقة، ثم عدّل القيم بما يناسب هذه المؤسسة."
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "English"
+msgstr "الإنجليزية"
+
+msgid "active"
+msgstr "فعال"
+
+msgid "Change Status"
+msgstr "تغيير الحالة"
+
+msgid "Waiting Approval"
+msgstr "بانتظار الاعتماد"
+
+msgid "Draft"
+msgstr "مسودة"
+
+msgid "Approved"
+msgstr "معتمدة"
+
+msgid "Rejected"
+msgstr "مرفوضة"
+
+msgid "Creation"
+msgstr "قيد الإنشاء"
+
+msgid "Change status of @title to @status?"
+msgstr "هل تريد تغيير حالة @title إلى @status؟"
+
+msgid "This action will update the Workflow status safely through a Workflow transition."
+msgstr "سيتم تحديث حالة سير العمل بأمان من خلال انتقال معتمد."
+
+msgid "Card status changed to @status using Workflow transition."
+msgstr "تم تغيير حالة البطاقة إلى @status باستخدام انتقال سير العمل."
+
+msgid "Card status changed to @status."
+msgstr "تم تغيير حالة البطاقة إلى @status."
+
+msgid "Card already has the selected status: @status."
+msgstr "البطاقة بالحالة المحددة مسبقًا: @status."
+
+msgid "If this card already has generated static files, they will be deleted by the delivery cleanup process because the card is no longer approved."
+msgstr "إذا كانت للبطاقة ملفات ثابتة مُنشأة مسبقًا، فستحذفها عملية تنظيف التسليم لأن البطاقة لم تعد معتمدة."
+
+msgid "Before approving the card, the system will check the organization subscription and card limit. If a check fails, the card will not be approved and the static card will not be generated."
+msgstr "قبل اعتماد البطاقة، سيتحقق النظام من اشتراك المؤسسة وحد البطاقات. إذا فشل أي تحقق فلن تُعتمد البطاقة ولن تُنشأ البطاقة الثابتة."
+
+msgid "Card approval checks passed. Static card generation is allowed."
+msgstr "اجتازت البطاقة فحوصات الاعتماد، ويُسمح بإنشاء البطاقة الثابتة."
+
+msgid "Card approval checks passed."
+msgstr "تم اجتياز فحوصات اعتماد البطاقة."
+
+msgid "Static card generation is allowed."
+msgstr "يُسمح بإنشاء البطاقة الثابتة."
+
+msgid "This action cannot be undone."
+msgstr "لا يمكن التراجع عن هذا الإجراء."
+
+msgid "Clear filters"
+msgstr "مسح عوامل التصفية"
+
+msgid "Clear all column filters"
+msgstr "مسح جميع عوامل تصفية الأعمدة"
+
+msgid "Digital Card Platform"
+msgstr "منصة البطاقات الرقمية"
+
+msgid "Secure identity and loyalty workspace"
+msgstr "مساحة آمنة للهوية والولاء"
+
+msgid "One platform. Every relationship."
+msgstr "منصة واحدة لكل علاقاتك."
+
+msgid "Secure access for every role"
+msgstr "دخول آمن لكل دور"
+
+msgid "Manage cards, subscriptions, merchants, and offers from one protected workspace."
+msgstr "أدر البطاقات والاشتراكات والتجار والعروض من مساحة عمل واحدة محمية."
+
+msgid "Built for Platform Administrators"
+msgstr "مصممة لمسؤولي المنصة"
+
+msgid "Organization portal access"
+msgstr "دخول إلى بوابة المؤسسة"
+
+msgid "Fast merchant validation"
+msgstr "تحقق سريع للتجار"
+
+msgid "Protected access"
+msgstr "دخول محمي"
+
+msgid "Your account and session are protected by Drupal security controls."
+msgstr "حسابك وجلستك محميان بضوابط أمان دروبال."
+
+msgid "Welcome back"
+msgstr "مرحبًا بعودتك"
+
+msgid "Sign in to continue to your portal."
+msgstr "سجّل الدخول للمتابعة إلى بوابتك."
+
+msgid "Email or username"
+msgstr "البريد الإلكتروني أو اسم المستخدم"
+
+msgid "Enter the username or email address assigned to your platform account."
+msgstr "أدخل اسم المستخدم أو البريد الإلكتروني المخصص لحسابك في المنصة."
+
+msgid "Sign in securely"
+msgstr "تسجيل الدخول بأمان"
+
+msgid "Forgot your password?"
+msgstr "هل نسيت كلمة المرور؟"
+
+msgid "Reset it here"
+msgstr "أعد تعيينها من هنا"
+
+msgid "Secure platform access"
+msgstr "دخول آمن إلى المنصة"
+
+msgid "Digital identity, loyalty, and partner offers"
+msgstr "الهوية الرقمية والولاء وعروض الشركاء"
+
+msgid "Connect organizations, card holders, and merchants."
+msgstr "اربط المؤسسات وحاملي البطاقات والتجار."
+
+msgid "Turn every card into lasting customer value"
+msgstr "حوّل كل بطاقة إلى قيمة مستدامة للعميل"
+
+msgid "Issue branded digital cards, reward engagement, and deliver partner offers—all from one scalable platform."
+msgstr "أصدر بطاقات رقمية بهوية مؤسستك، وكافئ التفاعل، وقدّم عروض الشركاء عبر منصة واحدة قابلة للنمو."
+
+msgid "Branded cards for every organization"
+msgstr "بطاقات بهوية مميزة لكل مؤسسة"
+
+msgid "Loyalty points and exclusive offers"
+msgstr "نقاط ولاء وعروض حصرية"
+
+msgid "Fast merchant verification and redemption"
+msgstr "تحقق واستبدال سريع لدى التجار"
+
+msgid "Built for business growth"
+msgstr "مصممة لنمو الأعمال"
+
+msgid "Manage subscriptions, usage, partners, and performance from one place."
+msgstr "أدر الاشتراكات والاستخدام والشركاء والأداء من مكان واحد."
+
+msgid "Sign in to manage your business workspace."
+msgstr "سجّل الدخول لإدارة مساحة أعمالك."
+
+msgid "One workspace for your business network"
+msgstr "مساحة واحدة لشبكة أعمالك"
+
+msgid "Platform"
+msgstr "المنصة"
+
+msgid "URL"
+msgstr "الرابط"
+
+msgid "Show row weights"
+msgstr "إظهار ترتيب الصفوف"
+
+msgid "Hide row weights"
+msgstr "إخفاء ترتيب الصفوف"
+
+msgid "Toggle Actions"
+msgstr "إظهار أو إخفاء الإجراءات"
+
+msgid "Drag & drop"
+msgstr "السحب والإفلات"
+
+msgid "Collapse"
+msgstr "طي"
+
+msgid "Remove"
+msgstr "إزالة"
+
+msgid "Duplicate"
+msgstr "تكرار"
+
+msgid "Add Social Link"
+msgstr "إضافة رابط اجتماعي"
+
+msgid "Upload"
+msgstr "رفع"
+
+msgid "Vertical Tabs"
+msgstr "تبويبات النموذج"
+
+msgid "Revision log message"
+msgstr "ملاحظة المراجعة"
+
+msgid "Revision information"
+msgstr "معلومات المراجعة"
+
+msgid "Create new revision"
+msgstr "إنشاء مراجعة جديدة"
+
+msgid "Content"
+msgstr "المحتوى"
+
+msgid "Behavior"
+msgstr "السلوك"
+
+msgid "Organization Subscriptions"
+msgstr "اشتراكات المؤسسة"
+
+msgid "View profile"
+msgstr "عرض الملف الشخصي"
+
+msgid "Edit profile"
+msgstr "تعديل الملف الشخصي"
+
+msgid "Log out"
+msgstr "تسجيل الخروج"
+
+msgid "Vertical orientation"
+msgstr "عرض شريط الإدارة عموديًا"
+
+msgid "Toolbar items"
+msgstr "عناصر شريط الإدارة"
+
+msgid "Administration menu"
+msgstr "قائمة الإدارة"
+
+msgid "User-defined shortcuts"
+msgstr "اختصارات المستخدم"
+
+msgid "User account actions"
+msgstr "إجراءات حساب المستخدم"
+
+msgid "Next page"
+msgstr "الصفحة التالية"
+
+msgid "Previous page"
+msgstr "الصفحة السابقة"
+
+msgid "Items per page"
+msgstr "عدد العناصر في الصفحة"
+
+msgid "Reset"
+msgstr "إعادة تعيين"
+
+msgid "Sort by"
+msgstr "الترتيب حسب"
+
+msgid "Asc"
+msgstr "تصاعدي"
+
+msgid "Desc"
+msgstr "تنازلي"
+
+msgid "My Digital Cards"
+msgstr "بطاقاتي الرقمية"
+
+msgid "Manage your organization cards"
+msgstr "إدارة بطاقات مؤسستك"
+
+msgid "Add New Card"
+msgstr "إضافة بطاقة جديدة"
+
+msgid "No status"
+msgstr "بلا حالة"
+
+msgid "Expired"
+msgstr "منتهي"
+
+msgid "Suspended"
+msgstr "معلّق"
+
+msgid "Not available"
+msgstr "غير متاح"
+
+msgid "Enter the card holder name exactly as it should appear on the card."
+msgstr "أدخل اسم حامل البطاقة كما يجب أن يظهر على البطاقة."
+
+msgid "Enter the card holder role or professional title."
+msgstr "أدخل دور حامل البطاقة أو مسماه المهني."
+
+msgid "Select the department associated with the card holder."
+msgstr "اختر القسم المرتبط بحامل البطاقة."
+
+msgid "Enter a reachable mobile number, including the country code when needed."
+msgstr "أدخل رقم جوال متاحًا للتواصل، مع رمز الدولة عند الحاجة."
+
+msgid "Enter the business email address displayed on the card."
+msgstr "أدخل بريد العمل الإلكتروني الذي سيظهر على البطاقة."
+
+msgid "Add only public professional or organization social links."
+msgstr "أضف فقط الروابط المهنية أو روابط المؤسسة المتاحة للعامة."
+
+msgid "Upload a clear and recent card-holder photo."
+msgstr "ارفع صورة واضحة وحديثة لحامل البطاقة."
+
+msgid "Keep the organization default, or choose a different language for this card."
+msgstr "احتفظ بلغة المؤسسة الافتراضية أو اختر لغة مختلفة لهذه البطاقة."
+
+msgid "The QR code is generated after approval. Leave this empty unless an authorized replacement is required."
+msgstr "يُنشأ رمز QR بعد الاعتماد. اترك هذا الحقل فارغًا ما لم يلزم استبداله بتفويض."
+
+msgid "Organization dashboard"
+msgstr "لوحة معلومات المؤسسة"
+
+msgid "Organization Portal header"
+msgstr "رأس بوابة المؤسسة"
+
+msgid "Organization Portal navigation"
+msgstr "التنقل في بوابة المؤسسة"
+
+msgid "User"
+msgstr "المستخدم"
+
+msgid "Blocked"
+msgstr "محظور"
+
+msgid "View and manage the administrators who are allowed to maintain this organization."
+msgstr "اعرض مسؤولي المؤسسة المخولين بإدارتها وتابع حساباتهم."
+
+msgid "No organization administrators are available."
+msgstr "لا يوجد مسؤولون متاحون لهذه المؤسسة."
+
+msgid "Social Link"
+msgstr "رابط اجتماعي"
+
+msgid "Social Links"
+msgstr "روابط التواصل الاجتماعي"
+
+msgid "Change order"
+msgstr "تغيير الترتيب"
+
+msgid "Weight for row @number"
+msgstr "ترتيب الصف @number"
+
+msgid "Weight for row 1"
+msgstr "ترتيب الصف 1"
+
+msgid "to"
+msgstr "إلى"
+
+msgid "- None -"
+msgstr "- لا يوجد -"
+
+msgid "Arabic and English"
+msgstr "العربية والإنجليزية"
+
+msgid "Add Digital Card"
+msgstr "إضافة بطاقة رقمية"
+
+msgid "Add or update a Digital Card"
+msgstr "إضافة بطاقة رقمية أو تحديثها"
+
+msgid "Enter the card-holder information that will appear on the organization card."
+msgstr "أدخل بيانات حامل البطاقة التي ستظهر على بطاقة المؤسسة."
+
+msgid "Skip to main content"
+msgstr "الانتقال إلى المحتوى الرئيسي"
+
+msgid "Manage"
+msgstr "إدارة"
+
+msgid "Shortcuts"
+msgstr "الاختصارات"
+
+msgid "Primary tabs"
+msgstr "علامات التبويب الرئيسية"
+
+msgid "Tabs"
+msgstr "علامات التبويب"
+
+msgid "User profile"
+msgstr "الملف الشخصي للمستخدم"
+
+msgid "Email address"
+msgstr "عنوان البريد الإلكتروني"
+
+msgid "Account status"
+msgstr "حالة الحساب"
+
+msgid "Not provided"
+msgstr "غير متوفر"
+
+msgid "Address"
+msgstr "العنوان"
+
+msgid "Telephone"
+msgstr "الهاتف"
+
+msgid "email"
+msgstr "البريد الإلكتروني"
+
+msgid "Members"
+msgstr "الأعضاء"
+
+msgid "Nodes"
+msgstr "المحتوى"
+
+msgid "Member for"
+msgstr "مدة العضوية"
+
+msgid "Add member"
+msgstr "إضافة عضو"
+
+msgid "Add new content"
+msgstr "إضافة محتوى جديد"
+
+msgid "Employee"
+msgstr "موظف"
+
+msgid "Org Admin"
+msgstr "مسؤول المؤسسة"
+
+msgid "Joined"
+msgstr "تاريخ الانضمام"
+
+msgid "Operations"
+msgstr "الإجراءات"
+
+msgid "List additional actions"
+msgstr "عرض الإجراءات الإضافية"
+
+msgid "- Any -"
+msgstr "- الكل -"
+
+msgid "Type"
+msgstr "النوع"
+
+msgid "Article"
+msgstr "مقال"
+
+msgid "Basic page"
+msgstr "صفحة أساسية"
+
+msgid "Digital Business Card"
+msgstr "بطاقة أعمال رقمية"
+
+msgid "Organization Subscription"
+msgstr "اشتراك مؤسسة"
+
+msgid "Subscription Plan"
+msgstr "خطة اشتراك"
+
+msgid "Content type"
+msgstr "نوع المحتوى"
+
+msgid "Current state"
+msgstr "الحالة الحالية"
+
+msgid "Sort ascending"
+msgstr "ترتيب تصاعدي"
+
+msgid "Title"
+msgstr "العنوان"
+
+msgid "The user you want to make a member"
+msgstr "اختر المستخدم الذي تريد إضافته إلى المؤسسة."
+
+msgid "Back to site"
+msgstr "العودة إلى الموقع"
+
+msgid "Return to site content"
+msgstr "العودة إلى محتوى الموقع"
+
+msgid "Site administration toolbar"
+msgstr "شريط إدارة الموقع"
+
+msgid "Site header"
+msgstr "رأس الموقع"
+
+msgid "Toggle navigation"
+msgstr "فتح أو إغلاق قائمة التنقل"
+
+msgid "Arabic"
+msgstr "العربية"

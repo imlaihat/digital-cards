@@ -1,0 +1,12 @@
+name: Digital Card Admin
+type: module
+description: 'Administration dashboards, organization admin management, and card workflow actions for the Digital Business Card Platform.'
+package: Digital Card
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:node
+  - drupal:user
+  - drupal:views
+  - group:group
+  - digital_card_subscription
+  - digital_card_enforcement

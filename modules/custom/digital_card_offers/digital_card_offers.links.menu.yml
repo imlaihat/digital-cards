@@ -1,0 +1,26 @@
+digital_card_offers.partners:
+  title: 'Merchant Partners'
+  route_name: digital_card_offers.partners
+  menu_name: platform-admin
+  weight: 70
+digital_card_offers.merchant_users:
+  title: 'Merchant Users'
+  route_name: digital_card_offers.merchant_users
+  menu_name: platform-admin
+  weight: 69
+digital_card_offers.offers:
+  title: 'Offers'
+  route_name: digital_card_offers.offers
+  menu_name: platform-admin
+  weight: 71
+digital_card_offers.report:
+  title: 'Offer Redemptions'
+  route_name: digital_card_offers.report
+  menu_name: platform-admin
+  weight: 72
+digital_card_offers.merchant_portal:
+  title: 'Merchant Portal'
+  description: 'Verify card holders and redeem eligible offers.'
+  route_name: digital_card_offers.merchant_portal
+  menu_name: account
+  weight: 20

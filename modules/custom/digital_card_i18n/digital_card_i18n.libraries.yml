@@ -1,0 +1,10 @@
+platform_arabic:
+  css:
+    theme:
+      css/platform-arabic.css: {}
+  js:
+    js/platform-arabic-v3.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once

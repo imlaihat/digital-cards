@@ -1,0 +1,384 @@
+.dashboard-container {
+    padding: 24px;
+    background: #f6f8fb;
+    min-height: 100vh;
+}
+
+.dashboard-card {
+
+    background:white;
+    border-radius:18px;
+
+    padding:24px;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.06);
+
+    transition:.25s;
+
+    height:100%;
+
+}
+
+
+.dashboard-card:hover {
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 14px 35px rgba(0,0,0,.12);
+
+}
+
+
+
+.card-icon {
+
+    width:55px;
+    height:55px;
+
+    border-radius:16px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:26px;
+
+}
+
+
+
+.card-title {
+
+    color:#6b7280;
+    margin-top:20px;
+
+}
+
+
+
+.card-value {
+
+    font-size:38px;
+    font-weight:700;
+
+    margin-top:8px;
+
+}
+
+
+
+.card-footer {
+
+    color:#9ca3af;
+    margin-top:12px;
+
+}
+
+
+/*----------quota card-----------------*/
+
+.quota-card {
+
+background:white;
+
+border-radius:18px;
+
+padding:28px;
+
+box-shadow:
+0 8px 25px rgba(0,0,0,.06);
+
+}
+
+
+.quota-number {
+
+font-size:42px;
+
+font-weight:700;
+
+}
+
+
+.quota-number span {
+
+font-size:18px;
+color:#777;
+
+}
+
+
+
+.progress {
+
+height:12px;
+
+border-radius:20px;
+
+background:#e5e7eb;
+
+overflow:hidden;
+
+}
+
+
+
+.progress-bar {
+
+height:100%;
+
+background:#2563eb;
+
+}
+
+
+/*Dashboard Sections*/
+
+.dashboard-section {
+
+background:white;
+
+border-radius:20px;
+
+padding:25px;
+
+margin-top:25px;
+
+box-shadow:
+0 8px 25px rgba(0,0,0,.05);
+
+}
+
+
+
+/*----------Subscription card-----------------*/
+
+.subscription-card {
+
+background:#fff;
+
+border-radius:20px;
+
+padding:28px;
+
+box-shadow:
+0 8px 25px rgba(0,0,0,.07);
+
+height:100%;
+
+}
+
+
+.subscription-card h3 {
+
+font-weight:700;
+
+}
+
+
+.price {
+
+font-size:38px;
+
+font-weight:700;
+
+}
+
+
+.price span {
+
+font-size:16px;
+color:#777;
+
+}
+
+
+.usage-number {
+
+font-size:42px;
+font-weight:700;
+
+}
+
+
+.progress {
+
+height:12px;
+border-radius:20px;
+background:#eee;
+
+}
+
+
+.progress-bar {
+
+border-radius:20px;
+
+}
+
+
+.info-row {
+
+display:flex;
+justify-content:space-between;
+
+padding:12px 0;
+
+border-bottom:1px solid #eee;
+
+}
+
+
+.feature-list {
+
+list-style:none;
+padding:0;
+
+}
+
+
+.feature-list li {
+
+margin:15px 0;
+
+}
+
+
+.organization-logo img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  border-radius: 12px;
+  padding: 5px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+}
+
+.organization-name {
+  font-weight: 700;
+  color: #111827;
+}
+
+
+.subscription-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-expired {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-suspended {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.organization-usage {
+  min-width: 90px;
+}
+
+.organization-usage strong {
+  font-size: 15px;
+  color: #111827;
+}
+
+.organization-usage span {
+  color: #6b7280;
+}
+
+
+
+
+
+.view-platform-organizations,
+.view-platform-organizations .view-content,
+.view-platform-organizations .table-responsive {
+  overflow: visible !important;
+}
+
+.view-platform-organizations table {
+  overflow: visible !important;
+}
+
+.view-platform-organizations tbody,
+.view-platform-organizations tr,
+.view-platform-organizations td {
+  overflow: visible !important;
+}
+
+.organization-actions {
+  position: relative;
+}
+
+.organization-actions .dropdown-menu {
+  z-index: 3000;
+}
+
+
+.table-responsive {
+  overflow: visible !important;
+}
+
+.dropdown-menu {
+  z-index: 3000;
+}
+
+
+-----------
+
+
+.card-actions-menu .dropdown-toggle {
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 6px 12px;
+}
+
+.card-actions-menu .dropdown-menu {
+  min-width: 230px;
+  padding: 8px;
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.14);
+  z-index: 3000;
+}
+
+.card-actions-menu .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 14px;
+}
+
+.card-actions-menu .dropdown-item:hover {
+  background: #f3f4f6;
+}
+
+.card-actions-menu .dropdown-item i {
+  width: 18px;
+  text-align: center;
+}
+
+.view-card_approval_queue,
+.view-card_approval_queue .view-content,
+.view-card_approval_queue .table-responsive,
+.view-card_approval_queue table,
+.view-card_approval_queue tbody,
+.view-card_approval_queue tr,
+.view-card_approval_queue td {
+  overflow: visible !important;
+}

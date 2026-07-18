@@ -1,0 +1,41 @@
+<div class="dashboard-wrapper">
+
+
+  <div class="dashboard-header">
+
+    <div>
+      <h1>
+        {{ 'My Digital Cards'|t }}
+      </h1>
+
+      <p class="dashboard-subtitle">
+        {{ 'Manage your organization cards'|t }}
+      </p>
+    </div>
+
+
+    <div>
+
+      <a class="btn btn-primary" href="{{ path('digital_card_admin.organization_cards') }}"> 
+
+        <i class="bi bi-plus-circle"></i>
+
+        {{ 'Add New Card'|t }}
+
+      </a>
+
+    </div>
+
+
+  </div>
+
+
+
+  <div class="dashboard-content">
+
+      {{ rows }}
+
+  </div>
+
+
+</div>

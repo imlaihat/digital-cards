@@ -1,0 +1,77 @@
+<?php
+
+/**
+ * @file
+ * Hooks for the Digital Card Enforcement module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\digital_card_enforcement\Service\CardLimitChecker;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_entity_presave().
+ *
+ * Safety net: prevents a Digital Business Card from becoming Approved when
+ * subscription or card-limit checks fail. This also catches direct node edits,
+ * not only the custom approval action.
+ */
+function digital_card_enforcement_entity_presave(EntityInterface $entity): void {
+  if (!$entity instanceof NodeInterface) {
+    return;
+  }
+
+  if ($entity->bundle() !== CardLimitChecker::CARD_TYPE) {
+    return;
+  }
+
+  /** @var \Drupal\digital_card_enforcement\Service\CardLimitChecker $checker */
+  $checker = \Drupal::service('digital_card_enforcement.checker');
+  $status_field = $checker->getCardStatusFieldName();
+
+  if (!$status_field || !$entity->hasField($status_field)) {
+    return;
+  }
+
+  $new_status = (string) ($entity->get($status_field)->value ?? '');
+
+  if ($new_status !== CardLimitChecker::STATUS_APPROVED) {
+    return;
+  }
+
+  $old_status = '';
+
+  if (isset($entity->original) && $entity->original instanceof NodeInterface && $entity->original->hasField($status_field)) {
+    $old_status = (string) ($entity->original->get($status_field)->value ?? '');
+  }
+
+  // Already approved cards should not be checked again on every edit.
+  if ($old_status === CardLimitChecker::STATUS_APPROVED) {
+    return;
+  }
+
+  $result = $checker->checkCard($entity, 'approval presave');
+  $checker->logResult($entity, $result);
+
+  if (!empty($result['allowed'])) {
+    \Drupal::messenger()->addStatus(t('Card approval checks passed.'));
+
+    foreach ($result['messages'] as $message) {
+      \Drupal::messenger()->addStatus($message);
+    }
+
+    \Drupal::messenger()->addStatus(t('Static card generation is allowed.'));
+    return;
+  }
+
+  $fallback_status = $old_status ?: CardLimitChecker::STATUS_PENDING;
+  $entity->set($status_field, $fallback_status);
+  $entity->setNewRevision(TRUE);
+  $entity->setRevisionLogMessage('Approval blocked by enforcement checker: ' . $checker->buildUserMessage($result));
+
+  \Drupal::messenger()->addError(t('Card was not approved. Static card will not be generated.'));
+
+  foreach ($result['messages'] as $message) {
+    \Drupal::messenger()->addWarning($message);
+  }
+}

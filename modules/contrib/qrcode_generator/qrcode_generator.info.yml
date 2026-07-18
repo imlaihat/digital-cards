@@ -1,0 +1,15 @@
+name: QR Code Generator
+type: module
+description: A module to generate QR code for each page and place as block.
+package: Administration
+configure: qrcode_generator.settings
+core_version_requirement: ^9 || ^10
+
+# Information added by Drupal.org packaging script on 2024-10-19
+# version: "1.0.0"
+# project: "qrcode_generator"
+
+# Information added by Drupal.org packaging script on 2025-07-23
+version: '1.0.1'
+project: 'qrcode_generator'
+datestamp: 1753301096

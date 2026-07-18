@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * Implements hook_cron().
+ */
+function digital_card_public_cron(): void {
+  \Drupal::service('digital_card_public.scan_logger')->purgeExpired();
+}

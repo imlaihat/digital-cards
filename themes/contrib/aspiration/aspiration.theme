@@ -1,0 +1,826 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the FlexiStyle Bootstrap theme.
+ */
+
+use Drupal\block\Entity\Block;
+use Drupal\Component\Render\MarkupInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Template\Attribute;
+use Drupal\file\Entity\File;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_preprocess_HOOK() for HTML document templates.
+ */
+function aspiration_preprocess_html(array &$variables): void {
+  // Theme setting: Global style.
+  $variables['global_style'] = theme_get_setting('global_style');
+
+  // Bootstrap settings.
+  $bootstrap_type = theme_get_setting('bootstrap');
+  $bootstrap_local = theme_get_setting('bootstrap_local');
+  $bootstrap_cdn = theme_get_setting('bootstrap_cdn');
+
+  $variables['bootstrap'] = $bootstrap_type;
+  $variables['bootstrap_local'] = $bootstrap_local;
+  $variables['bootstrap_cdn'] = $bootstrap_cdn;
+
+  switch ($bootstrap_type) {
+    case 'local':
+      if (!empty($bootstrap_local)) {
+        $variables['#attached']['library'][] = "aspiration/{$bootstrap_local}";
+      }
+      break;
+
+    case 'cdn':
+      if (!empty($bootstrap_cdn)) {
+        $variables['#attached']['library'][] = "aspiration/cdn-{$bootstrap_cdn}";
+      }
+      break;
+
+    case 'libraries':
+      $variables['#attached']['library'][] = 'aspiration/bs-libraries';
+      break;
+  }
+
+  $font = theme_get_setting('google_fonts');
+
+  // Theme setting: Fonts.
+  foreach (['local_fonts', 'google_fonts'] as $font_type) {
+    $font = theme_get_setting($font_type);
+    if (!empty($font) && $font !== 'none') {
+      $variables['attributes']['class'][] = "{$font}-regular";
+      $variables['#attached']['library'][] = "aspiration/{$font}";
+    }
+  }
+
+  // Theme setting: Icons.
+  $icons = array_filter(theme_get_setting('global_icons') ?? []);
+  $fontawesome = theme_get_setting('global_icons_fontawesome');
+
+  $variables['icons'] = $icons;
+  $variables['fontawesome'] = $fontawesome;
+
+  if (in_array('fontawesome', $icons, TRUE) && !empty($fontawesome)) {
+    $variables['#attached']['library'][] = "aspiration/{$fontawesome}";
+  }
+
+  foreach ($icons as $icon) {
+    $variables['#attached']['library'][] = "aspiration/{$icon}";
+  }
+
+  // Add class if on a node page.
+  $route_match = \Drupal::routeMatch();
+  if ($route_match->getRouteName() === 'entity.node.canonical') {
+    $node = $route_match->getParameter('node');
+    if ($node instanceof NodeInterface) {
+      $variables['attributes']['class'][] = 'content-node';
+      $variables['attributes']['class'][] = 'node-' . $node->bundle();
+    }
+  }
+
+  $style_attributes = [];
+  $color_theme = theme_get_setting('color_theme');
+  if ($color_theme == 'custom') {
+    $default_colors = aspiration_get_default_colors();
+
+    foreach ($default_colors as $var => $fallback) {
+      $style_attributes[$var] = theme_get_setting($var) ?: $fallback;
+    }
+
+  }
+  else {
+    $variables['attributes']['class'][] = $color_theme;
+    $variables['#attached']['library'][] = "aspiration/color-palette";
+  }
+
+  $show_preloader_text = theme_get_setting('show_preloader_text');
+  if ($show_preloader_text) {
+    $custom_preloader_css = theme_get_setting('custom_preloader_css');
+    if ($custom_preloader_css || $color_theme == 'custom') {
+      $style_attributes['aptn_preloader_text_color'] = theme_get_setting('aptn_preloader_txt_color');
+      $style_attributes['aptn_preloader_text_stroke_color'] = theme_get_setting('aptn_preloader_txt_stroke_color');
+      $style_attributes['aptn_preloader_background'] = theme_get_setting('aptn_preloader_background');
+    }
+    else {
+      $variables['attributes']['class'][] = 'theme-preloader';
+    }
+  }
+
+  $enable_backtotop = theme_get_setting('enable_backtotop');
+  if ($enable_backtotop) {
+    $custom_backtotop_css = theme_get_setting('custom_backtotop_css');
+    if ($custom_backtotop_css || $color_theme == 'custom') {
+      $style_attributes['aptn_backtotop_arrow_color'] = theme_get_setting('backtotop_arrow_color');
+      $style_attributes['aptn_backtotop_circle_color'] = theme_get_setting('backtotop_circle_color');
+    }
+    else {
+      $variables['attributes']['class'][] = 'theme-backtotop';
+    }
+  }
+
+  if ($style_attributes) {
+    $variables['#attached']['html_head'][] = [
+      [
+        '#type' => 'inline_template',
+        '#template' => '<style>
+          :root {
+            {% for var, value in style_attributes %}
+              --{{ var|replace({"_": "-"}) }}: {{ value }};
+            {% endfor %}
+          }
+        </style>',
+        '#context' => ['style_attributes' => $style_attributes],
+      ],
+      'aspiration_color_variables',
+    ];
+  }
+
+  $dark_header = theme_get_setting('dark_header');
+  if ($dark_header) {
+    $variables['attributes']['class'][] = 'dark-theme';
+  }
+  $button_style = theme_get_setting('button_style');
+  if ($button_style) {
+    $variables['attributes']['class'][] = $button_style;
+  }
+
+  $variables['#attached']['library'][] = "aspiration/main-styling";
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page templates.
+ */
+function aspiration_preprocess_page(array &$variables): void {
+  // Check if the current page is the front page.
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    aspiration_update_slider_images();
+  }
+
+  // Basic settings.
+  $variables['icons'] = theme_get_setting('global_icons');
+  $variables['container'] = theme_get_setting('bootstrap_container');
+  $variables['top_header_classes'] = theme_get_setting('top_header_classes');
+
+  // Header settings.
+  $header_settings = [
+    'header_position',
+    'header_style',
+    'header_classes',
+    'sticky_header',
+    'show_header_top',
+    'header_address',
+    'header_email',
+    'header_link_1_title',
+    'header_link_1_url',
+    'header_link_2_title',
+    'header_link_2_url',
+    'header_social_media',
+    'social_media_prefix',
+    'hdr_sidebar_icn_pos',
+    'hdr_sidebar_txt',
+    'footer_branding_txt',
+    'hdr_sidebar_social_media',
+    'mobile_nav_search',
+  ];
+
+  foreach ($header_settings as $key) {
+    $setting = theme_get_setting($key);
+    $variables['theme_settings'][$key] = is_array($setting) && isset($setting['value'], $setting['format'])
+      ? ['#markup' => check_markup($setting['value'], $setting['format'])]
+      : $setting;
+  }
+
+  // Social media links setup.
+  $platforms = aspiration_get_social_media_platforms();
+
+  $social_links = theme_get_setting('social_links') ?? [];
+  $sorted_links = [];
+
+  foreach ($platforms as $key => $label) {
+    $data = $social_links[$key] ?? [];
+    $sorted_links[$key] = [
+      'platform' => $key,
+      'label' => $label,
+      'url' => $data['url'] ?? '',
+      'weight' => isset($data['weight']) ? (int) $data['weight'] : 0,
+    ];
+  }
+
+  uasort($sorted_links, fn($a, $b) => $a['weight'] <=> $b['weight']);
+  $variables['theme_settings']['social_links'] = array_values($sorted_links);
+
+  // Slideshow settings.
+  $slideshow_enabled = theme_get_setting('slideshow_display');
+  $variables['theme_settings']['slideshow_display'] = $slideshow_enabled;
+  $is_front_page = \Drupal::service('path.matcher')->isFrontPage();
+  if ($slideshow_enabled && $is_front_page) {
+    $file_url_generator = \Drupal::service('file_url_generator');
+    $slider_data = [];
+
+    $total_slide = theme_get_setting('slide_num');
+
+    for ($i = 1; $i <= $total_slide; $i++) {
+
+      $slide_key = 'slide' . $i;
+
+      $image_data = theme_get_setting("{$slide_key}_image");
+      $image_url = '';
+
+      if (!empty($image_data[0])) {
+        if ($file = File::load($image_data[0])) {
+          $image_url = $file_url_generator->generateAbsoluteString($file->getFileUri());
+        }
+      }
+
+      $subtitle = theme_get_setting("{$slide_key}_subtitle");
+      $head = theme_get_setting("{$slide_key}_head");
+      $desc = theme_get_setting("{$slide_key}_desc");
+
+      if (!empty($head) && $image_url) {
+        $slider_data[] = [
+          'subtitle' => ['#markup' => check_markup($subtitle, 'basic_html')],
+          'head' => ['#markup' => check_markup($head, 'basic_html')],
+          'desc' => ['#markup' => check_markup($desc, 'basic_html')],
+          'url' => theme_get_setting("{$slide_key}_url"),
+          'text' => theme_get_setting("{$slide_key}_text"),
+          'image' => $image_url,
+        ];
+      }
+    }
+
+    $variables['theme_settings']['slider_data'] = $slider_data;
+    $variables['#attached']['library'][] = 'aspiration/slider';
+  }
+
+  // Footer logo.
+  $footer_logo_type = theme_get_setting('footer_logo_type');
+  $variables['theme_settings']['footer_logo_type'] = $footer_logo_type;
+
+  if ($footer_logo_type === 'custom') {
+    $logo_data = theme_get_setting('footer_logo');
+    $logo_url = '';
+
+    if (!empty($logo_data[0]) && ($file = File::load($logo_data[0]))) {
+      $logo_url = \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
+    }
+
+    $variables['theme_settings']['footer_logo_url'] = $logo_url;
+  }
+
+  // Footer contact info.
+  $show_footer_contact = theme_get_setting('show_footer_contact');
+  $variables['theme_settings']['show_footer_contact'] = $show_footer_contact;
+
+  if ($show_footer_contact) {
+    $contact_keys = [
+      'footer_contact_title',
+      'footer_location',
+      'footer_contact',
+      'footer_aspiration_time',
+    ];
+
+    foreach ($contact_keys as $key) {
+      $variables['theme_settings'][$key] = [
+        '#markup' => theme_get_setting($key),
+        '#allowed_tags' => ['br', 'a', 'p', 'div', 'span', 'ul', 'ol', 'li', 'em', 'b', 'strong'],
+      ];
+    }
+  }
+
+  // Footer copyright.
+  $copyright = str_replace(
+    '[current_year]',
+    date('Y'),
+    theme_get_setting('footer_copyright_text')
+  );
+
+  $variables['theme_settings']['footer_copyright_text'] = [
+    '#markup' => $copyright,
+    '#allowed_tags' => ['a', 'span', 'div', 'p', 'em', 'strong'],
+  ];
+
+  // Additional settings.
+  $variables['theme_settings']['footer_social_icons'] = theme_get_setting('footer_social_icons');
+  $variables['theme_settings']['hdr_sidebar_social_media'] = theme_get_setting('hdr_sidebar_social_media');
+
+  $show_preloader_text = theme_get_setting('show_preloader_text');
+  if ($show_preloader_text) {
+    $variables['theme_settings']['show_preloader_text'] = $show_preloader_text;
+    $variables['theme_settings']['preloader_text'] = theme_get_setting('preloader_text');
+  }
+  $variables['theme_settings']['enable_backtotop'] = theme_get_setting('enable_backtotop');
+
+  // Add theme path.
+  $theme = \Drupal::theme()->getActiveTheme();
+  $variables['theme_path'] = base_path() . $theme->getPath();
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for menu-local-task.html.twig.
+ */
+function aspiration_preprocess_menu_local_task(&$variables): void {
+  $link = $variables['element']['#link'];
+  $url = $link['url'];
+  $options = $url->getOptions();
+  $url->setOptions($options + $link['localized_options']);
+  $variables['item'] = Link::fromTextAndUrl($link['title'], $url);
+
+  // Ensure is-active class is set when the tab is active. The generic active
+  // link handler applies stricter comparison rules than what is necessary for
+  // tabs.
+  if (isset($variables['is_active']) && $variables['is_active'] === TRUE) {
+    $variables['link']['#options']['attributes']['class'][] = 'nav-link active is-active';
+  }
+  else {
+    $variables['link']['#options']['attributes']['class'][] = 'nav-link';
+  }
+
+  if (isset($variables['element']['#level'])) {
+    $variables['level'] = $variables['element']['#level'];
+  }
+
+  // Ensure is-active class is set when the tab is active. The generic active
+  // link handler applies stricter comparison rules than what is necessary for
+  // tabs.
+  if (isset($variables['is_active']) && $variables['is_active'] === TRUE) {
+    $variables['link']['#options']['attributes']['class'][] = 'nav-link active is-active';
+  }
+  else {
+    $variables['link']['#options']['attributes']['class'][] = 'nav-link';
+  }
+
+  if (isset($variables['element']['#level'])) {
+    $variables['level'] = $variables['element']['#level'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for menu-local-action.html.twig.
+ */
+function aspiration_preprocess_menu_local_action(&$variables): void {
+  $link = $variables['element']['#link'];
+  $url = $link['url'];
+  $variables['item'] = Link::fromTextAndUrl($link['title'], $url);
+}
+
+/**
+ * Implements hook_form_alter() for adding classes, markup and placeholders to the forms.
+ */
+function aspiration_form_alter(&$form, &$form_state, $form_id): void {
+  if ($form_id == 'search_block_form') {
+    $form['keys']['#attributes']['placeholder'] = t('Search');
+  }
+  if ($form_id == 'user_login_form') {
+    $form['markup'] = [
+      '#markup' => '<div class="text-end reset-pass"><a href="/user/password" title="Forgot password?" class="request-password-link">Forgot password?</a></div>',
+    ];
+    $form['name']['#attributes']['placeholder'] = t('Username or email address');
+    $form['pass']['#attributes']['placeholder'] = t('Password');
+  }
+  if ($form_id == 'user_pass') {
+    $form['name']['#attributes']['placeholder'] = t('Entetr your email address');
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for form elements.
+ */
+function aspiration_preprocess_form_element(&$variables) {
+  if (isset($variables['label']['#title'])) {
+    if (is_object($variables['label']['#title']) && !$variables['label']['#title'] instanceof MarkupInterface) {
+      $variables['input_title'] = NULL;
+    }
+    elseif (is_object($variables['label']['#title'])) {
+      $variables['input_title'] = $variables['label']['#title'];
+    }
+    else {
+      $variables['input_title'] = $variables['label']['#title'];
+    }
+  }
+  if (isset($variables['element']['#attributes'])) {
+    $variables['input_attributes'] = new Attribute($variables['element']['#attributes']);
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for form templates.
+ */
+function aspiration_theme_suggestions_form_alter(array &$suggestions, array &$variables, $hook): void {
+  if ($hook == 'form' & !empty($variables['element']['#id'])) {
+    $suggestions[] = 'form__' . str_replace('-', '_', $variables['element']['#id']);
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for page templates.
+ */
+function aspiration_theme_suggestions_page_alter(array &$suggestions, array &$variables): void {
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $suggestions[] = 'page__' . $node->bundle();
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for user templates.
+ */
+function aspiration_theme_suggestions_user_alter(array &$suggestions, array &$variables, $hook): void {
+  if ($hook == 'user' & !empty($variables['elements']['#view_mode'])) {
+    $view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+    $user_id = \Drupal::service('current_user')->id();
+    $suggestions[] = 'user__' . $view_mode;
+    $suggestions[] = 'user__' . $user_id;
+    $suggestions[] = 'user__' . $user_id . '__' . $view_mode;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for views templates.
+ */
+function aspiration_theme_suggestions_views_view_alter(array &$suggestions, array &$variables, $hook): void {
+  $view_id = $variables['view']->id();
+  $suggestions[] = 'views__' . $view_id;
+}
+
+/**
+ * Callback to convert attributes class which is string to array.
+ *
+ * @param array $variables
+ *   The variables to render from preprocess function.
+ */
+function _aspiration_attributes_class_string_to_array(&$variables) {
+  if (isset($variables['attributes']) &&
+    isset($variables['attributes']['class']) &&
+    !is_array($variables['attributes']['class'])) {
+    $variables['attributes']['class'] = [$variables['attributes']['class']];
+  }
+}
+
+/**
+ * Implements theme_preprocess_textarea().
+ */
+function aspiration_preprocess_textarea(&$variables) {
+  _aspiration_attributes_class_string_to_array($variables);
+  $variables['attributes']['class'][] = 'form-control';
+}
+
+/**
+ * Implements template_preprocess_HOOK() for input.
+ */
+function aspiration_preprocess_input(&$variables) {
+  _aspiration_attributes_class_string_to_array($variables);
+
+  $type_html = $variables['attributes']['type'];
+  $text_types_html = [
+    'text',
+    'email',
+    'tel',
+    'number',
+    'search',
+    'password',
+    'url',
+    'month',
+    'week',
+    'date',
+    'time',
+  ];
+
+  if (in_array($type_html, $text_types_html)) {
+    $variables['attributes']['class'][] = 'form-control';
+  }
+
+  if (in_array($type_html, ['checkbox'])) {
+    $variables['attributes']['class'][] = 'form-check-input';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for menu-local-tasks templates.
+ *
+ * Use preprocess hook to set #attached to child elements
+ * because they will be processed by Twig and drupal_render will
+ * be invoked.
+ */
+function aspiration_preprocess_menu_local_tasks(&$variables) {
+  if (!empty($variables['primary'])) {
+    $variables['primary']['#attached'] = [
+      'library' => [
+        'aspiration/drupal.nav-tabs',
+      ],
+    ];
+  }
+  elseif (!empty($variables['secondary'])) {
+    $variables['secondary']['#attached'] = [
+      'library' => [
+        'aspiration/drupal.nav-tabs',
+      ],
+    ];
+  }
+
+  foreach (Element::children($variables['primary']) as $key) {
+    $variables['primary'][$key]['#level'] = 'primary';
+  }
+  foreach (Element::children($variables['secondary']) as $key) {
+    $variables['secondary'][$key]['#level'] = 'secondary';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Pass block region value to content so this can be used in
+ * aspiration_theme_suggestions_menu_alter.
+ */
+function aspiration_preprocess_block(&$variables) {
+  if (isset($variables['elements']['#id'])) {
+    $block = Block::load($variables['elements']['#id']);
+    if ($block) {
+      $region = Block::load($variables['elements']['#id'])->getRegion();
+      $variables['content']['#attributes']['region'] = $region;
+
+      // Specify the regions to target.
+      $target_regions = ['sidebar_first', 'sidebar_second'];
+
+      // Check if the block is in one of the specified regions.
+      if (in_array($region, $target_regions)) {
+        $variables['attributes']['class'][] = 'sidebar__single sidebar__post';
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * Provide region based menu suggestions.
+ */
+function aspiration_theme_suggestions_menu_alter(&$suggestions, array $variables) {
+  if (isset($variables['attributes']['region'])) {
+    $suggestions[] = 'menu__' . $variables['menu_name'] . '__' . $variables['attributes']['region'];
+  }
+}
+
+/**
+ * Returns a list of supported social media platforms.
+ *
+ * Other modules or themes can alter this list by implementing
+ * `hook_aspiration_social_media_platforms_alter()`.
+ *
+ * Example implementation to add or remove platforms:
+ *
+ * @code
+ * function my_module_aspiration_social_media_platforms_alter(array &$platforms): void {
+ *   // Add a new platform.
+ *   $platforms['tiktok'] = 'TikTok';
+ *
+ *   // Remove an existing platform.
+ *   unset($platforms['vk']);
+ * }
+ * @endcode
+ *
+ * @return array
+ *   An associative array of social media platforms in the format:
+ *   [
+ *     'facebook' => 'Facebook',
+ *     'x-twitter' => 'X',
+ *     ...
+ *   ]
+ */
+function aspiration_get_social_media_platforms(): array {
+  $platforms = [
+    'facebook'      => 'Facebook',
+    'x-twitter'     => 'X',
+    'instagram'     => 'Instagram',
+    'whatsapp'      => 'WhatsApp',
+    'linkedin'      => 'LinkedIn',
+    'youtube'       => 'YouTube',
+    'pinterest'     => 'Pinterest',
+    'vimeo'         => 'Vimeo',
+    'vk'            => 'VK',
+    'github'        => 'GitHub',
+    'telegram'      => 'Telegram',
+    'snapchat'      => 'Snapchat',
+    'tiktok'        => 'TikTok',
+    'tumblr'        => 'Tumblr',
+    'reddit'        => 'Reddit',
+    'discord'       => 'Discord',
+    'flickr'        => 'Flickr',
+    'weibo'         => 'Weibo',
+    'quora'         => 'Quora',
+    'slack'         => 'Slack',
+    'skype'         => 'Skype',
+    'meetup'        => 'Meetup',
+    'periscope'     => 'Periscope',
+    'dailymotion'   => 'Dailymotion',
+    'medium'        => 'Medium',
+    'xing'          => 'Xing',
+    'line'          => 'Line',
+  ];
+
+  // Allow other modules/themes to alter the list.
+  \Drupal::moduleHandler()->alter('aspiration_social_media_platforms', $platforms);
+
+  return $platforms;
+}
+
+/**
+ * Returns the default color settings array.
+ *
+ * @return array
+ *   An associative array of color variable names and their fallback hex values.
+ */
+function aspiration_get_default_colors() {
+  $color_settings = [
+    'aptn_body_color' => '#666666',
+    'aptn_heading_color' => '#000038',
+    'aptn_theme_primary' => '#001b90',
+    'aptn_theme_secondary' => '#29abe2',
+    'aptn_color_white_default' => '#ffffff',
+    'aptn_color_gray_1' => '#dcdcec',
+    'aptn_color_gray_3' => '#edf6fa',
+    'aptn_color_gray_5' => '#dde3ff',
+    'aptn_color_gray_6' => '#96a1b8',
+    'aptn_color_gray_7' => '#4c4c5b',
+    'aptn_color_gray_8' => '#a6a6a6',
+    'aptn_color_gray_9' => '#fceff0',
+    'aptn_color_gray_10' => '#f6f6f6',
+    'aptn_color_dark' => '#1c1a4a',
+    'aptn_color_black_1' => '#06042e',
+    'aptn_color_black_2' => '#151515',
+    'aptn_color_black_3' => '#00002f',
+    'aptn_border_1' => '#5a5a8e',
+    'aptn_border_2' => '#dce5e9',
+    'aptn_border_3' => '#b2bfc5',
+    'aptn_border_5' => '#c3c3e1',
+    'aptn_border_7' => '#e2e2e2',
+    'aptn_border_8' => '#dbdbdb',
+  ];
+
+  return $color_settings;
+}
+
+/**
+ * Retrieves a list of color palette options with their labels.
+ *
+ * This function defines and returns an associative array of color options
+ * used in the system, where the key represents a unique identifier for
+ * each color palette, and the value represents the display name for the
+ * color palette.
+ *
+ * The returned array is primarily used to provide color choices for
+ * users in a UI or settings interface.
+ *
+ * @return array
+ *   An associative array of color options where the key is
+ *   a unique color identifier and the value is the color name.
+ */
+function aspiration_color_palettes() {
+  // Define the options.
+  $color_options = [
+    'deep-ocean' => t('Deep Ocean'),
+    'forest-green' => t('Forest Green'),
+    'warm-desert' => t('Warm Desert'),
+    'berry-purple' => t('Berry Purple'),
+    'coastal-blue' => t('Coastal Blue'),
+    'ruby-red' => t('Ruby Red'),
+    'midnight-tech' => t('Midnight Tech'),
+    'golden-amber' => t('Golden Amber'),
+    'olive-green' => t('Olive Green'),
+    'sunset-orange' => t('Sunset Orange'),
+    'lavender-dream' => t('Lavender Dream'),
+    'emerald-isle' => t('Emerald Isle'),
+    'nordic-frost' => t('Nordic Frost'),
+    'rose-gold' => t('Rose Gold'),
+    'matcha-green' => t('Matcha Green'),
+    'indigo-night' => t('Indigo Night'),
+    'coral-sunset' => t('Coral Sunset'),
+    'slate-blue' => t('Slate Blue'),
+    'autumn-harvest' => t('Autumn Harvest'),
+    'turquoise-bay' => t('Turquoise Bay'),
+    'midnight-sapphire' => t('Midnight Sapphire'),
+    'carbon-elegance' => t('Carbon Elegance'),
+    'teal-fusion' => t('Teal Fusion'),
+    'crimson-elegance' => t('Crimson Elegance'),
+    'driftwood-neutrals' => t('Driftwood Neutrals'),
+    'electric-violet' => t('Electric Violet'),
+    'aquamarine-breeze' => t('Aquamarine Breeze'),
+    'amber-glow' => t('Amber Glow'),
+    'urban-concrete' => t('Urban Concrete'),
+    'moroccan-spice' => t('Moroccan Spice'),
+    'custom' => t('Custom'),
+  ];
+
+  return $color_options;
+}
+
+/**
+ * Updates the slider images for the Aspiration theme if not already updated.
+ *
+ * This function checks if the slideshow display setting is enabled and if the 
+ * slider images have not been previously updated. If these conditions are met,
+ * it will copy the image files from the theme directory to the public file system,
+ * create file entities, and save the image IDs in the theme settings.
+ * 
+ * Specifically:
+ * - It verifies if the slider images need to be updated by checking the 'slideshow_display' 
+ *   and 'slider_img_updated' settings.
+ * - If images are missing in the public file system, they are copied from the theme's
+ *   assets directory to the public file system.
+ * - Each image is saved as a permanent file entity in Drupal, and the IDs of these 
+ *   file entities are stored in the theme settings for later use.
+ * - The 'slider_img_updated' setting is updated to `TRUE` once the images are successfully updated.
+ * 
+ * This function is typically used to initialize or update the slider images upon theme setup.
+ *
+ * @return void
+ */
+function aspiration_update_slider_images() {
+  if (theme_get_setting('slideshow_display') && !theme_get_setting('slider_img_updated')) {
+    // Define the path to the theme using Drupal's API.
+    $themeHandler = \Drupal::service('theme_handler');
+    $theme_path = $themeHandler->getTheme('aspiration')->getPath();
+    $image_directory = $theme_path . '/assets/img/slider/';
+
+    // Image file names.
+    $image_files = [
+      'aspiration-slider-1.png',
+      'aspiration-slider-2.jpg',
+      'aspiration-slider-3.png',
+    ];
+
+    // Prepare an array to store file IDs for the theme settings.
+    $file_ids = [];
+
+    // Image file names.
+    $image_files = [
+      'aspiration-slider-1.png',
+      'aspiration-slider-2.jpg',
+      'aspiration-slider-3.png',
+    ];
+    
+    foreach ($image_files as $image_file) {
+      // Check if the file exists in the theme directory.
+      $file_path = $image_directory . $image_file;
+      if (file_exists($file_path)) {
+        // Define the public path where we will save the file.
+        $public_file_path = 'public://themes/aspiration/slider/' . $image_file;
+
+        // Check if the realpath is not empty and file doesn't exist yet.
+        if (!$public_file_path || !file_exists($public_file_path)) {
+          // Read the file contents from the theme directory.
+          $file_contents = file_get_contents($file_path);
+
+          // Ensure the public directory exists, otherwise create it.
+          $directory = dirname($public_file_path);
+          if (!file_exists($directory)) {
+            mkdir($directory, 0775, TRUE);
+          }
+
+          // Check if the directory exists now.
+          if (file_exists($directory)) {
+            // Save the file to the public file system.
+            file_put_contents($public_file_path, $file_contents);
+
+            // Create a file entity to track the file in Drupal.
+            $file = File::create([
+              'uri' => $public_file_path,
+            ]);
+            $file->setPermanent();
+            $file->save();
+          }
+        }
+        else {
+          // If the file already exists, load the existing file object by URI.
+          $file = \Drupal::entityTypeManager()
+            ->getStorage('file')
+            ->loadByProperties(['uri' => $public_file_path]);
+
+          // Get the first file object from the result set (it should be unique)
+          $file = reset($file);
+        }
+
+        // If a valid file object exists, store its file ID.
+        if ($file) {
+          $file_ids[] = $file->id();
+        }
+      }
+    }
+
+    // Get the config object for the theme settings.
+    $config = \Drupal::configFactory()->getEditable('aspiration.settings');
+
+    // If the files were successfully uploaded or found, update the theme settings.
+    if (!empty($file_ids)) {
+      $config->set('slide1_image', [$file_ids[0]]);
+      $config->set('slide2_image', [$file_ids[1]]);
+      $config->set('slide3_image', [$file_ids[2]]);
+    }
+
+    $config->set('slider_img_updated', true);
+    $config->save();
+  }
+}

@@ -1,0 +1,95 @@
+/* Arabic platform QA layer: consistent tables, forms, dates, and actions. */
+html[dir="rtl"] .dc-i18n-page-intro,
+html[dir="rtl"] .view-header .dc-view-toolbar,
+html[dir="rtl"] .dco-toolbar-copy {
+  text-align: right;
+}
+
+html[dir="rtl"] .dc-i18n-page-intro {
+  margin-block-end: 1rem;
+  padding: 1rem 1.25rem;
+  border-inline-start: 4px solid #2563eb;
+  border-radius: 14px;
+  color: #475569;
+  background: #f8fafc;
+}
+
+html[dir="rtl"] .dc-i18n-page-intro p { margin: 0; }
+
+html[dir="rtl"] table th {
+  text-align: right;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  white-space: nowrap;
+}
+
+html[dir="rtl"] input[type="date"],
+html[dir="rtl"] input[type="time"],
+html[dir="rtl"] input[type="datetime-local"],
+html[dir="rtl"] input[type="number"],
+html[dir="rtl"] input[type="password"],
+html[dir="rtl"] time,
+html[dir="rtl"] td[class*="date"],
+html[dir="rtl"] td[class*="created"],
+html[dir="rtl"] td[class*="changed"],
+html[dir="rtl"] td[class*="redeemed"] {
+  direction: ltr;
+  text-align: right;
+  unicode-bidi: isolate;
+}
+
+html[dir="rtl"] .view-header a.button[href*="/add"]::before,
+html[dir="rtl"] .view-header a[href*="/add"].btn::before,
+html[dir="rtl"] .dco-toolbar a[href*="/add"]::before {
+  content: "+";
+  display: inline-grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-inline-end: .45rem;
+  border-radius: 50%;
+  font-weight: 900;
+  background: rgba(255,255,255,.2);
+}
+
+html[dir="rtl"] .form-item--error-message,
+html[dir="rtl"] .messages,
+html[dir="rtl"] [role="alert"] { text-align: right; }
+
+html[dir="rtl"] input[type="search"],
+html[dir="rtl"] input[type="text"]:not([dir="ltr"]),
+html[dir="rtl"] textarea:not([dir="ltr"]),
+html[dir="rtl"] select {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .dc-input-ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+html[dir="rtl"] .form-check,
+html[dir="rtl"] .form-type-checkbox,
+html[dir="rtl"] .form-type-radio {
+  padding-inline-start: 1.75rem;
+  padding-inline-end: 0;
+  text-align: right;
+}
+
+html[dir="rtl"] .form-check .form-check-input,
+html[dir="rtl"] .form-type-checkbox input[type="checkbox"],
+html[dir="rtl"] .form-type-radio input[type="radio"] {
+  float: right;
+  margin-inline-start: -1.75rem;
+  margin-inline-end: 0;
+}
+
+@media (max-width: 767px) {
+  html[dir="rtl"] .dc-table-tools,
+  html[dir="rtl"] .dc-view-toolbar,
+  html[dir="rtl"] .dco-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

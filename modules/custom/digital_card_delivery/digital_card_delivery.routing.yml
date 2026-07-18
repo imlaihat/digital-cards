@@ -1,0 +1,21 @@
+digital_card_delivery.organization_themes:
+  path: '/platform/organization-card-themes'
+  defaults:
+    _controller: '\Drupal\digital_card_delivery\Controller\OrganizationThemeController::listing'
+    _title: 'Organization Card Themes'
+  requirements:
+    _permission: 'manage organization card themes'
+  methods: [GET]
+
+digital_card_delivery.organization_theme_edit:
+  path: '/platform/organizations/{group}/card-theme'
+  defaults:
+    _form: '\Drupal\digital_card_delivery\Form\OrganizationThemeForm'
+    _title: 'Configure Card Theme'
+  requirements:
+    _permission: 'manage organization card themes'
+    group: '\d+'
+  options:
+    parameters:
+      group:
+        type: entity:group

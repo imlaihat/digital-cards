@@ -1,0 +1,24 @@
+{
+  "name": "drupal/workflow",
+  "description": "Defines a field type with Workflows, containing customizable state transitions.",
+  "type": "drupal-module",
+  "homepage": "http://drupal.org/project/workflow",
+  "authors": [
+    {
+      "name": "John Voskuilen",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "http://drupal.org/project/workflow",
+    "irc": "irc://irc.freenode.org/drupal-contribute",
+    "source": "http://cgit.drupalcode.org/workflow"
+  },
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "require": { },
+  "require-dev": {
+    "drupal/diff": "^1 || ^2",
+    "drupal/feeds": "^3"
+  }
+}

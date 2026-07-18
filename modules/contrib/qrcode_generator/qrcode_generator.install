@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the animate any module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function qrcode_generator_schema() {
+  $schema['qrcode_generator_settings'] = [
+    'description' => 'The base table for nodes.',
+    'fields' => [
+      'pid' => [
+        'description' => 'The primary identifier for a page wise QR config.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'pageurl' => [
+        'description' => 'Page url entry',
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'identifier' => [
+        'description' => 'JSON data of identifier for a page wise QR config',
+        'type' => 'text',
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['pid'],
+  ];
+  return $schema;
+}

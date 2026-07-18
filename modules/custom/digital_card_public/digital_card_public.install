@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function digital_card_public_schema(): array {
+  $schema['digital_card_scan_log'] = [
+    'description' => 'Privacy-conscious digital card scan events.',
+    'fields' => [
+      'id' => ['type' => 'serial', 'not null' => TRUE],
+      'card_nid' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'organization_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE],
+      'scanner_uid' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE],
+      'scanner_type' => ['type' => 'varchar', 'length' => 32, 'not null' => TRUE],
+      'is_owner' => ['type' => 'int', 'size' => 'tiny', 'not null' => TRUE, 'default' => 0],
+      'device_type' => ['type' => 'varchar', 'length' => 16, 'not null' => TRUE, 'default' => 'unknown'],
+      'ip_hash' => ['type' => 'varchar', 'length' => 64, 'not null' => TRUE],
+      'user_agent_hash' => ['type' => 'varchar', 'length' => 64, 'not null' => TRUE],
+      'created' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'card_created' => ['card_nid', 'created'],
+      'organization_created' => ['organization_id', 'created'],
+      'scanner_created' => ['scanner_uid', 'created'],
+      'created' => ['created'],
+    ],
+  ];
+  return $schema;
+}
+
+/**
+ * Creates the scan log table for sites upgrading from an earlier release.
+ */
+function digital_card_public_update_10001(): string {
+  $schema = \Drupal::database()->schema();
+  if (!$schema->tableExists('digital_card_scan_log')) {
+    $definitions = digital_card_public_schema();
+    $schema->createTable('digital_card_scan_log', $definitions['digital_card_scan_log']);
+    return 'Created the privacy-conscious digital card scan log table.';
+  }
+  return 'The digital card scan log table already exists.';
+}

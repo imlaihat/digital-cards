@@ -1,0 +1,347 @@
+<?php
+
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\locale\Gettext;
+
+/**
+ * Implements hook_install().
+ */
+function digital_card_social_install(): void {
+  digital_card_social_configure_widget();
+  digital_card_social_grant_platform_permissions();
+  digital_card_social_import_arabic();
+  $updated = digital_card_social_normalize_legacy_values();
+  \Drupal::logger('digital_card_social')->notice('Digital Card Social Platforms installed. @count legacy platform value(s) were normalized.', ['@count' => $updated]);
+}
+
+/**
+ * Restores the normal text widget if the registry module is uninstalled.
+ */
+function digital_card_social_uninstall(): void {
+  $display = EntityFormDisplay::load('paragraph.social_link.default');
+  if ($display) {
+    $component = $display->getComponent('field_platform') ?: [];
+    $component['type'] = 'string_textfield';
+    $component['region'] = $component['region'] ?? 'content';
+    $component['weight'] = $component['weight'] ?? 0;
+    $display->setComponent('field_platform', $component)->save();
+  }
+}
+
+/**
+ * Configures the controlled widget and normalizes recognized legacy values.
+ */
+function digital_card_social_update_10001(): string {
+  digital_card_social_configure_widget();
+  digital_card_social_grant_platform_permissions();
+  digital_card_social_import_arabic();
+  $updated = digital_card_social_normalize_legacy_values();
+  return sprintf('Configured the controlled social-platform widget and normalized %d legacy value(s).', $updated);
+}
+
+/**
+ * Adds Google Maps and normalizes legacy Google/Instagram spellings.
+ */
+function digital_card_social_update_10002(): string {
+  $config = \Drupal::configFactory()->getEditable('digital_card_social.platforms');
+  $platforms = $config->get('platforms');
+  $platforms = is_array($platforms) ? $platforms : [];
+  if (isset($platforms['instagram'])) {
+    $aliases = (array) ($platforms['instagram']['aliases'] ?? []);
+    $aliases[] = 'inesta';
+    $platforms['instagram']['aliases'] = array_values(array_unique($aliases));
+  }
+  if (!isset($platforms['google_maps'])) {
+    $platforms['google_maps'] = [
+      'label' => 'Google Maps',
+      'label_ar' => 'خرائط Google',
+      'icon' => 'google_maps',
+      'domains' => ['google.com', 'maps.google.com', 'maps.app.goo.gl', 'goo.gl'],
+      'aliases' => ['google', 'googlemap', 'google map', 'googlemaps'],
+      'example' => 'https://maps.google.com/?q=Palestine',
+      'brand_color' => '#4285F4',
+      'enabled' => TRUE,
+      'weight' => 105,
+    ];
+  }
+  $config->set('platforms', $platforms)->save();
+  $updated = digital_card_social_normalize_legacy_values();
+  return sprintf('Added Google Maps and normalized %d additional legacy platform value(s).', $updated);
+}
+
+/**
+ * Imports the complete editable Arabic catalog for the new administration UI.
+ */
+function digital_card_social_update_10003(): string {
+  digital_card_social_import_arabic();
+  return 'Imported editable Arabic translations for social-platform administration and validation.';
+}
+
+/**
+ * Improves editor guidance and removes invalid current social-link records.
+ */
+function digital_card_social_update_10004(): string {
+  digital_card_social_configure_widget();
+  digital_card_social_import_arabic();
+  $result = digital_card_social_cleanup_invalid_links();
+  return sprintf(
+    'Improved social-link editing and removed %d invalid social link(s) from %d card(s). %d record(s) could not be removed and were logged.',
+    $result['removed'],
+    $result['parents_updated'],
+    $result['failed'],
+  );
+}
+
+/**
+ * Grants the registry only to existing trusted platform administration roles.
+ */
+function digital_card_social_grant_platform_permissions(): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('user_role');
+  foreach (['platform_admin', 'administrator'] as $role_id) {
+    $role = $storage->load($role_id);
+    if ($role && !$role->hasPermission('manage digital card social platforms')) {
+      $role->grantPermission('manage digital card social platforms')->save();
+    }
+  }
+}
+
+/**
+ * Imports Arabic as customized Locale data so administrators can edit it.
+ */
+function digital_card_social_import_arabic(): void {
+  if (!\Drupal::moduleHandler()->moduleExists('locale') || !\Drupal::languageManager()->getLanguage('ar')) {
+    return;
+  }
+  $path = DRUPAL_ROOT . '/' . \Drupal::service('extension.list.module')->getPath('digital_card_social') . '/translations/digital_card_social.ar.po';
+  if (!is_file($path)) {
+    return;
+  }
+  $file = (object) ['langcode' => 'ar', 'uri' => $path];
+  Gettext::fileToDatabase($file, [
+    'customized' => LOCALE_CUSTOMIZED,
+    'overwrite_options' => ['customized' => TRUE, 'not_customized' => TRUE],
+  ]);
+}
+
+/**
+ * Uses the registry widget without changing the existing string storage.
+ */
+function digital_card_social_configure_widget(): void {
+  $field = FieldConfig::loadByName('paragraph', 'social_link', 'field_platform');
+  if ($field) {
+    $field->setDescription('Select the social network for this link. The card will automatically use its approved name and icon.');
+    $field->save();
+
+    if (\Drupal::languageManager()->getLanguage('ar')) {
+      \Drupal::languageManager()
+        ->getLanguageConfigOverride('ar', 'field.field.paragraph.social_link.field_platform')
+        ->set('label', 'منصة التواصل')
+        ->set('description', 'اختر شبكة التواصل الخاصة بهذا الرابط. ستستخدم البطاقة الاسم والأيقونة المعتمدين تلقائياً.')
+        ->save();
+    }
+  }
+  $display = EntityFormDisplay::load('paragraph.social_link.default');
+  if ($display && $field) {
+    $component = $display->getComponent('field_platform') ?: [];
+    $component['type'] = 'digital_card_social_platform_select';
+    $component['region'] = $component['region'] ?? 'content';
+    $component['weight'] = $component['weight'] ?? 0;
+    $display->setComponent('field_platform', $component)->save();
+  }
+}
+
+/**
+ * Removes invalid Social Link Paragraphs from active cards and the database.
+ *
+ * A recovery snapshot is stored in State API before any record is removed.
+ * Invalid references are removed from historic node revisions as well, so old
+ * card revisions do not retain unsafe or misleading social URLs.
+ */
+function digital_card_social_cleanup_invalid_links(): array {
+  $result = [
+    'audited' => 0,
+    'removed' => 0,
+    'parents_updated' => 0,
+    'failed' => 0,
+  ];
+  if (!\Drupal::hasService('digital_card_social.registry')) {
+    return $result;
+  }
+
+  $registry = \Drupal::service('digital_card_social.registry');
+  $storage = \Drupal::entityTypeManager()->getStorage('paragraph');
+  $ids = $storage->getQuery()
+    ->condition('type', 'social_link')
+    ->accessCheck(FALSE)
+    ->execute();
+  if (!$ids) {
+    return $result;
+  }
+
+  $invalid = [];
+  $backup = [
+    'created' => gmdate(DATE_ATOM),
+    'records' => [],
+  ];
+  foreach ($storage->loadMultiple($ids) as $paragraph) {
+    $result['audited']++;
+    $platform = $paragraph->hasField('field_platform') ? trim((string) $paragraph->get('field_platform')->value) : '';
+    $url = $paragraph->hasField('field_url') ? trim((string) $paragraph->get('field_url')->value) : '';
+    $platform_id = $registry->resolveId($platform);
+    $validation = $platform_id
+      ? $registry->normalizeUrl($platform_id, $url)
+      : ['url' => '', 'error' => 'Unknown or empty platform.'];
+    if ($validation['url'] !== '') {
+      continue;
+    }
+
+    $pid = (int) $paragraph->id();
+    $parent = NULL;
+    try {
+      $parent = $paragraph->getParentEntity();
+    }
+    catch (\Throwable) {
+      // Empty/orphaned Paragraphs are still safe to clean below.
+    }
+    $parent_key = NULL;
+    if ($parent && $parent->hasField('field_social_links')) {
+      $parent_key = $parent->getEntityTypeId() . ':' . $parent->id();
+    }
+
+    $invalid[$pid] = $paragraph;
+    $backup['records'][] = [
+      'paragraph_id' => $pid,
+      'revision_id' => (int) $paragraph->getRevisionId(),
+      'platform' => $platform,
+      'url' => $url,
+      'reason' => (string) $validation['error'],
+      'parent' => $parent_key,
+    ];
+  }
+
+  if (!$invalid) {
+    return $result;
+  }
+  $backup_key = 'digital_card_social.invalid_links_backup.' . \Drupal::time()->getRequestTime();
+  \Drupal::state()->set($backup_key, $backup);
+  \Drupal::state()->set('digital_card_social.invalid_links_last_backup', $backup);
+
+  $delete_ids = array_keys($invalid);
+  $database = \Drupal::database();
+  $affected_node_ids = [];
+  try {
+    foreach (['node__field_social_links', 'node_revision__field_social_links'] as $table) {
+      if (!$database->schema()->tableExists($table)) {
+        continue;
+      }
+      if ($table === 'node__field_social_links') {
+        $affected_node_ids = array_map('intval', $database->select($table, 'links')
+          ->distinct()
+          ->fields('links', ['entity_id'])
+          ->condition('field_social_links_target_id', $delete_ids, 'IN')
+          ->execute()
+          ->fetchCol());
+      }
+      $database->delete($table)
+        ->condition('field_social_links_target_id', $delete_ids, 'IN')
+        ->execute();
+      digital_card_social_compact_reference_deltas($table);
+    }
+
+    $entities = $storage->loadMultiple($delete_ids);
+    if ($entities) {
+      $storage->delete($entities);
+      $result['removed'] = count($entities);
+    }
+    $result['parents_updated'] = count(array_unique($affected_node_ids));
+    if ($affected_node_ids) {
+      \Drupal::entityTypeManager()->getStorage('node')->resetCache($affected_node_ids);
+      \Drupal::service('cache_tags.invalidator')->invalidateTags(array_map(
+        static fn(int $nid): string => 'node:' . $nid,
+        array_unique($affected_node_ids),
+      ));
+    }
+  }
+  catch (\Throwable $e) {
+    $result['failed'] = count($delete_ids) - $result['removed'];
+    \Drupal::logger('digital_card_social')->error('Invalid social-link cleanup failed after creating backup @backup: @message', [
+      '@backup' => $backup_key,
+      '@message' => $e->getMessage(),
+    ]);
+  }
+
+  \Drupal::logger('digital_card_social')->notice('Invalid social-link cleanup audited @audited record(s), removed @removed record(s), updated @parents parent card(s), and failed @failed record(s).', [
+    '@audited' => $result['audited'],
+    '@removed' => $result['removed'],
+    '@parents' => $result['parents_updated'],
+    '@failed' => $result['failed'],
+  ]);
+  return $result;
+}
+
+/**
+ * Reindexes multi-value reference deltas after direct invalid-row cleanup.
+ */
+function digital_card_social_compact_reference_deltas(string $table): void {
+  $database = \Drupal::database();
+  $rows = $database->select($table, 'links')
+    ->fields('links', ['entity_id', 'revision_id', 'langcode', 'deleted', 'delta'])
+    ->orderBy('entity_id')
+    ->orderBy('revision_id')
+    ->orderBy('langcode')
+    ->orderBy('deleted')
+    ->orderBy('delta')
+    ->execute()
+    ->fetchAll();
+  $next = [];
+  foreach ($rows as $row) {
+    $key = implode(':', [$row->entity_id, $row->revision_id, $row->langcode, $row->deleted]);
+    $new_delta = $next[$key] ?? 0;
+    $next[$key] = $new_delta + 1;
+    if ((int) $row->delta === $new_delta) {
+      continue;
+    }
+    $database->update($table)
+      ->fields(['delta' => $new_delta])
+      ->condition('entity_id', $row->entity_id)
+      ->condition('revision_id', $row->revision_id)
+      ->condition('langcode', $row->langcode)
+      ->condition('deleted', $row->deleted)
+      ->condition('delta', $row->delta)
+      ->execute();
+  }
+}
+
+/**
+ * Normalizes values in both live and revision field tables, in place.
+ */
+function digital_card_social_normalize_legacy_values(): int {
+  if (!\Drupal::hasService('digital_card_social.registry')) {
+    return 0;
+  }
+  $database = \Drupal::database();
+  $registry = \Drupal::service('digital_card_social.registry');
+  $updated = 0;
+  foreach (['paragraph__field_platform', 'paragraph_revision__field_platform'] as $table) {
+    if (!$database->schema()->tableExists($table)) {
+      continue;
+    }
+    $values = $database->select($table, 'p')
+      ->distinct()
+      ->fields('p', ['field_platform_value'])
+      ->execute()
+      ->fetchCol();
+    foreach ($values as $legacy) {
+      $legacy = trim((string) $legacy);
+      $canonical = $registry->resolveId($legacy);
+      if ($canonical && $canonical !== $legacy) {
+        $updated += $database->update($table)
+          ->fields(['field_platform_value' => $canonical])
+          ->condition('field_platform_value', $legacy)
+          ->execute();
+      }
+    }
+  }
+  return $updated;
+}

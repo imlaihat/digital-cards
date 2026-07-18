@@ -1,0 +1,225 @@
+@font-face {
+  font-family: "flaticon";
+  src: url("../fonts/flaticon_lgdt.eot");
+  src: url("../fonts/flaticon_lgdt.eot?#iefix") format("embedded-opentype"), url("../fonts/flaticon_lgdt.woff2") format("woff2"), url("../fonts/flaticon_lgdt.woff") format("woff"), url("../fonts/flaticon_lgdt.ttf") format("truetype"), url("../fonts/flaticon_lgdt.svg#Flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before,
+i[class*=" flaticon-"]:before {
+  font-family: flaticon !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-cargo:before {
+  content: "\f101";
+}
+
+.flaticon-ship:before {
+  content: "\f102";
+}
+
+.flaticon-protected:before {
+  content: "\f103";
+}
+
+.flaticon-truck:before {
+  content: "\f104";
+}
+
+.flaticon-train:before {
+  content: "\f105";
+}
+
+.flaticon-oil-train:before {
+  content: "\f106";
+}
+
+.flaticon-crane:before {
+  content: "\f107";
+}
+
+.flaticon-tank-truck:before {
+  content: "\f108";
+}
+
+.flaticon-tank-truck-1:before {
+  content: "\f109";
+}
+
+.flaticon-cargo-1:before {
+  content: "\f10a";
+}
+
+.flaticon-box:before {
+  content: "\f10b";
+}
+
+.flaticon-warehouse:before {
+  content: "\f10c";
+}
+
+.flaticon-forklift:before {
+  content: "\f10d";
+}
+
+.flaticon-container:before {
+  content: "\f10e";
+}
+
+.flaticon-warehouse-1:before {
+  content: "\f10f";
+}
+
+.flaticon-delivery:before {
+  content: "\f110";
+}
+
+.flaticon-delivery-cart:before {
+  content: "\f111";
+}
+
+.flaticon-air-freight:before {
+  content: "\f112";
+}
+
+.flaticon-air-plane:before {
+  content: "\f113";
+}
+
+.flaticon-delivery-man:before {
+  content: "\f114";
+}
+
+.flaticon-global-distribution:before {
+  content: "\f115";
+}
+
+.flaticon-placeholder:before {
+  content: "\f116";
+}
+
+.flaticon-package:before {
+  content: "\f117";
+}
+
+.flaticon-planet-earth:before {
+  content: "\f118";
+}
+
+.flaticon-replacement:before {
+  content: "\f119";
+}
+
+.flaticon-location:before {
+  content: "\f11a";
+}
+
+.flaticon-supplies:before {
+  content: "\f11b";
+}
+
+.flaticon-money:before {
+  content: "\f11c";
+}
+
+.flaticon-parcels:before {
+  content: "\f11d";
+}
+
+.flaticon-parcel:before {
+  content: "\f11e";
+}
+
+.flaticon-support:before {
+  content: "\f11f";
+}
+
+.flaticon-hand-shake:before {
+  content: "\f120";
+}
+
+.flaticon-location-1:before {
+  content: "\f121";
+}
+
+.flaticon-envelope:before {
+  content: "\f122";
+}
+
+.flaticon-time:before {
+  content: "\f123";
+}
+
+.flaticon-telephone:before {
+  content: "\f124";
+}
+
+.flaticon-search:before {
+  content: "\f125";
+}
+
+.flaticon-down:before {
+  content: "\f126";
+}
+
+.flaticon-uptrend:before {
+  content: "\f127";
+}
+
+.flaticon-right-up:before {
+  content: "\f128";
+}
+
+.flaticon-diagonal-arrow:before {
+  content: "\f129";
+}
+
+.flaticon-up-right-arrow:before {
+  content: "\f12a";
+}
+
+.flaticon-check:before {
+  content: "\f12b";
+}
+
+.flaticon-play:before {
+  content: "\f12c";
+}
+
+.flaticon-big-box:before {
+  content: "\f12d";
+}
+
+.flaticon-send:before {
+  content: "\f12e";
+}
+
+.flaticon-down-arrow:before {
+  content: "\f12f";
+}
+
+.flaticon-left-arrow:before {
+  content: "\f130";
+}
+
+.flaticon-right-arrow:before {
+  content: "\f131";
+}
+
+.flaticon-calendar:before {
+  content: "\f132";
+}
+
+.flaticon-calendar-1:before {
+  content: "\f133";
+}
+
+.flaticon-waving-flag:before {
+  content: "\f134";
+}

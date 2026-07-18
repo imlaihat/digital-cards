@@ -1,0 +1,41 @@
+<ul class="navbar-nav">
+
+  {% for item in items %}
+
+    <li class="nav-item {{ item.below ? 'dropdown' : '' }}">
+
+      {% if item.below %}
+
+        <a href="#"
+           class="nav-link dropdown-toggle"
+           data-bs-toggle="dropdown">
+
+          {{ item.title }}
+
+        </a>
+
+        <ul class="dropdown-menu">
+
+          {% for child in item.below %}
+            <li>
+              <a class="dropdown-item" href="{{ child.url }}">
+                {{ child.title }}
+              </a>
+            </li>
+          {% endfor %}
+
+        </ul>
+
+      {% else %}
+
+        <a class="nav-link" href="{{ item.url }}">
+          {{ item.title }}
+        </a>
+
+      {% endif %}
+
+    </li>
+
+  {% endfor %}
+
+</ul>

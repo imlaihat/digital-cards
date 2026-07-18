@@ -1,0 +1,50 @@
+/*
+ * Optional organization-card styling example.
+ *
+ * Copy only the rules you want into the "Additional card CSS" field. The
+ * organization primary and secondary colors remain available through
+ * --dc-primary and --dc-secondary. This example deliberately uses each color
+ * independently and does not combine them in gradients.
+ */
+
+.dc-card {
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-block-start: 7px solid var(--dc-primary);
+  border-radius: 24px;
+}
+
+.dc-cover {
+  background: var(--dc-primary);
+  border-block-end: 7px solid var(--dc-secondary);
+}
+
+.dc-name,
+.dc-org {
+  color: var(--dc-secondary-text);
+}
+
+.dc-avatar {
+  border-color: #ffffff;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.20);
+}
+
+.dc-contact a {
+  border-inline-start: 4px solid var(--dc-primary);
+  background: #ffffff;
+}
+
+.dc-actions a {
+  background: var(--dc-primary);
+  color: var(--dc-on-primary);
+}
+
+.dc-social a {
+  color: var(--dc-secondary-text);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.dc-social a:hover {
+  color: var(--dc-on-primary);
+  background: var(--dc-primary);
+}

@@ -1,0 +1,108 @@
+views.display.views_vcard:
+  type: views_display_path
+  label: 'vCard display options'
+  mapping:
+    displays:
+      type: sequence
+      label: 'The vCard icon will be available only to the selected displays.'
+      sequence:
+        type: string
+        label: 'Display'
+
+views.row.views_vcard_fields:
+  type: views_row
+  label: 'vCard field options'
+  mapping:
+    name_email:
+      type: mapping
+      label: 'Name and mail fields'
+      mapping:
+        first:
+          type: string
+          label: 'First name field from view'
+        middle:
+          type: string
+          label: 'Middle name field from view'
+        last:
+          type: string
+          label: 'Last name field from view'
+        full:
+          type: string
+          label: 'Full name field from view'
+        title:
+          type: string
+          label: 'Title field from view'
+        email:
+          type: string
+          label: 'Primary Email field from view'
+        email2:
+          type: string
+          label: 'Secondary Email field from view'
+        email3:
+          type: string
+          label: 'Tertiary Email field from view'
+        photo:
+          type: string
+          label: 'Photo field from view'
+    home:
+      type: mapping
+      label: 'Home fields'
+      mapping:
+        home_address:
+          type: string
+          label: 'Address field from view'
+        home_city:
+          type: string
+          label: 'City field from view'
+        home_state:
+          type: string
+          label: 'State/Province field from view'
+        home_zip:
+          type: string
+          label: 'Zip field from view'
+        home_country:
+          type: string
+          label: 'Country field from view'
+        home_phone:
+          type: string
+          label: 'Phone field from view'
+        home_cellphone:
+          type: string
+          label: 'Cellphone field from view'
+        home_website:
+          type: string
+          label: 'Website field from view'
+    work:
+      type: mapping
+      label: 'Work fields'
+      mapping:
+        work_title:
+          type: string
+          label: 'Title field from view'
+        work_company:
+          type: string
+          label: 'Company field from view'
+        work_address:
+          type: string
+          label: 'Address field from view'
+        work_city:
+          type: string
+          label: 'City field from view'
+        work_state:
+          type: string
+          label: 'State/Province field from view'
+        work_zip:
+          type: string
+          label: 'Zip field from view'
+        work_country:
+          type: string
+          label: 'Country field from view'
+        work_phone:
+          type: string
+          label: 'Phone field from view'
+        work_fax:
+          type: string
+          label: 'Fax field from view'
+        work_website:
+          type: string
+          label: 'Website field from view'
