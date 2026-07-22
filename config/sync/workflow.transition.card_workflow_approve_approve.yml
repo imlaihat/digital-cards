@@ -1,0 +1,12 @@
+uuid: 071c07d3-0c95-4270-b130-a31e7d7050c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.card_workflow_approve
+id: card_workflow_approve_approve
+label: null
+module: workflow
+from_sid: card_workflow_approve
+to_sid: card_workflow_approve
+roles: {  }

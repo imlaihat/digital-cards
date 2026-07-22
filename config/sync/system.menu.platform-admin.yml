@@ -1,0 +1,8 @@
+uuid: cadea10a-d4e3-48b4-98b8-5dd52e0c2a87
+langcode: en
+status: true
+dependencies: {  }
+id: platform-admin
+label: 'Platform Admin'
+description: ''
+locked: false

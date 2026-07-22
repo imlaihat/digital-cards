@@ -1,0 +1,11 @@
+uuid: 08b5c100-a48f-4ca8-8b0d-6941193021e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.dashboard
+id: block_content.dashboard
+target_entity_type_id: block_content
+target_bundle: dashboard
+default_langcode: site_default
+language_alterable: false

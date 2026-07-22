@@ -1,0 +1,23 @@
+uuid: 71758957-d216-4371-b7eb-d1c6ec78f218
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_card_language
+    - group.type.organizations
+  module:
+    - options
+id: group.organizations.field_card_language
+field_name: field_card_language
+entity_type: group
+bundle: organizations
+label: 'Default static card language'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: en
+default_value_callback: ''
+settings: {  }
+field_type: list_string

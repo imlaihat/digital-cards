@@ -1,0 +1,16 @@
+uuid: eb9d42be-f50e-4529-b5c9-1e8b97ef1a7d
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.organizations
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: group.organizations
+target_entity_type_id: group
+target_bundle: organizations
+default_langcode: site_default
+language_alterable: true

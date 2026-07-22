@@ -1,0 +1,10 @@
+uuid: 31d1b022-21e9-4f82-8c3c-c3c0233ad4e0
+langcode: en
+status: true
+dependencies: {  }
+id: social_link
+label: 'Social Link'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

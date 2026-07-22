@@ -1,0 +1,29 @@
+uuid: 26899330-4d6b-4077-9179-22bbe3c96c99
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_department
+    - node.type.digital_business_card
+    - taxonomy.vocabulary.tags
+id: node.digital_business_card.field_department
+field_name: field_department
+entity_type: node
+bundle: digital_business_card
+label: Department
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tags: tags
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

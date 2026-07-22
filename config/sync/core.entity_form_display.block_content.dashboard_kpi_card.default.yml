@@ -1,0 +1,76 @@
+uuid: e91231ef-a73f-4e57-9943-ef974bcb402f
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.dashboard_kpi_card
+    - field.field.block_content.dashboard_kpi_card.body
+    - field.field.block_content.dashboard_kpi_card.field_description
+    - field.field.block_content.dashboard_kpi_card.field_icon
+    - field.field.block_content.dashboard_kpi_card.field_title
+    - field.field.block_content.dashboard_kpi_card.field_value
+  module:
+    - media_library
+    - text
+id: block_content.dashboard_kpi_card.default
+targetEntityType: block_content
+bundle: dashboard_kpi_card
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 26
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  field_description:
+    type: string_textfield
+    weight: 29
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_icon:
+    type: media_library_widget
+    weight: 30
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 27
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_value:
+    type: string_textfield
+    weight: 28
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden: {  }

@@ -1,0 +1,21 @@
+uuid: c6a27cfd-ceba-4077-9857-041a45e53f4f
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.field_secondary_color
+field_name: field_secondary_color
+entity_type: group
+type: string
+settings:
+  max_length: 7
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,18 @@
+uuid: deb335b7-7193-441b-9e03-cf5b6820342f
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.field_email
+field_name: field_email
+entity_type: group
+type: email
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

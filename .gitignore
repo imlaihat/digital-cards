@@ -8,7 +8,7 @@
 # Sensitive local settings
 /sites/*/settings.php
 /sites/*/services.yml
-/sites/*/settings.local.php
+
 
 # Composer dependencies
 /vendor/

@@ -1,0 +1,21 @@
+uuid: 42d7ec5a-a120-416f-baf4-9b861fd0188a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_card_language
+    - node.type.digital_business_card
+  module:
+    - options
+id: node.digital_business_card.field_card_language
+field_name: field_card_language
+entity_type: node
+bundle: digital_business_card
+label: 'Static card language override'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

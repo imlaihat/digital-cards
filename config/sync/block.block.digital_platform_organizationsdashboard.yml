@@ -1,0 +1,25 @@
+uuid: 78dfc734-c766-456c-a05c-34cde7b386e3
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:dashboard:0f2ee9b1-3e3c-4887-99a0-47a062284d97'
+  module:
+    - block_content
+  theme:
+    - digital_platform
+id: digital_platform_organizationsdashboard
+theme: digital_platform
+region: dashboard_content
+weight: 0
+provider: null
+plugin: 'block_content:0f2ee9b1-3e3c-4887-99a0-47a062284d97'
+settings:
+  id: 'block_content:0f2ee9b1-3e3c-4887-99a0-47a062284d97'
+  label: 'Organizations dashboard'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

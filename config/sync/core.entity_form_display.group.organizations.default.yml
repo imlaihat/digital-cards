@@ -1,0 +1,107 @@
+uuid: c2263a60-ce18-4e3d-9a10-e061398a0abb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.group.organizations.field_address
+    - field.field.group.organizations.field_card_background
+    - field.field.group.organizations.field_card_custom_css
+    - field.field.group.organizations.field_card_language
+    - field.field.group.organizations.field_email
+    - field.field.group.organizations.field_logo
+    - field.field.group.organizations.field_primary_color
+    - field.field.group.organizations.field_secondary_color
+    - field.field.group.organizations.field_slug
+    - field.field.group.organizations.field_telephone
+    - field.field.group.organizations.layout_builder__layout
+    - group.type.organizations
+    - image.style.thumbnail
+  module:
+    - field_group
+    - image
+third_party_settings:
+  field_group:
+    group_logo:
+      children:
+        - field_logo
+      label: logo
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        required_fields: true
+id: group.organizations.default
+targetEntityType: group
+bundle: organizations
+mode: default
+content:
+  field_address:
+    type: string_textfield
+    weight: 121
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_email:
+    type: email_default
+    weight: 122
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  field_logo:
+    type: image_image
+    weight: 124
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_telephone:
+    type: string_textfield
+    weight: 123
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  label:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 150
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  field_card_background: true
+  field_card_custom_css: true
+  field_card_language: true
+  field_primary_color: true
+  field_secondary_color: true
+  field_slug: true
+  langcode: true
+  layout_builder__layout: true
+  path: true
+  uid: true

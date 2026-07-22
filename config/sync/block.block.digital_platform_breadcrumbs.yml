@@ -1,0 +1,22 @@
+uuid: a7d8a0e8-bf17-4a3a-be6c-9835800a8cd5
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - digital_platform
+_core:
+  default_config_hash: NjcxOBrPOiK5-38t56DwFBDVY4yer7YSlbRWXFuHe7A
+id: digital_platform_breadcrumbs
+theme: digital_platform
+region: breadcrumb
+weight: -3
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

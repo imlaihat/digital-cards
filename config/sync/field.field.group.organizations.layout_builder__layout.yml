@@ -1,0 +1,21 @@
+uuid: dad495fb-248c-48a2-970b-5a9e67697aab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.layout_builder__layout
+    - group.type.organizations
+  module:
+    - layout_builder
+id: group.organizations.layout_builder__layout
+field_name: layout_builder__layout
+entity_type: group
+bundle: organizations
+label: Layout
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: layout_section

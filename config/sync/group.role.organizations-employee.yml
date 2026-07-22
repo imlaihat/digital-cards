@@ -1,0 +1,17 @@
+uuid: 01004d3b-b1e4-4007-ba93-b16a42d64650
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.organizations
+id: organizations-employee
+label: Employee
+weight: 104
+admin: false
+scope: individual
+global_role: null
+group_type: organizations
+permissions:
+  - 'update own group_node:digital_business_card entity'
+  - 'view latest group version'
+  - 'view own unpublished group_node:digital_business_card entity'

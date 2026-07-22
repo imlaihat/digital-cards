@@ -1,0 +1,19 @@
+uuid: 243db976-f176-4a42-86c2-93103af70340
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.dashboard_kpi_card
+    - field.storage.block_content.field_description
+id: block_content.dashboard_kpi_card.field_description
+field_name: field_description
+entity_type: block_content
+bundle: dashboard_kpi_card
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

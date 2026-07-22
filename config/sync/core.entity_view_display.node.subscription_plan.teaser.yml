@@ -1,0 +1,29 @@
+uuid: 6b84daed-4c51-4512-9033-df39708eed01
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.subscription_plan.field_active
+    - field.field.node.subscription_plan.field_billing_cycle
+    - field.field.node.subscription_plan.field_max_cards
+    - field.field.node.subscription_plan.field_price
+    - node.type.subscription_plan
+  module:
+    - user
+id: node.subscription_plan.teaser
+targetEntityType: node
+bundle: subscription_plan
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_active: true
+  field_billing_cycle: true
+  field_max_cards: true
+  field_price: true
+  langcode: true

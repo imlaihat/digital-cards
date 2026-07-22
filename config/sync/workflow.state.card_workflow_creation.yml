@@ -1,0 +1,13 @@
+uuid: 5b0ea2d7-1024-4dd8-89c3-59ead427d1fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.card_workflow
+id: card_workflow_creation
+label: Creation
+weight: -1000
+module: workflow
+wid: card_workflow
+sysid: 1
+single_state_widget: ''

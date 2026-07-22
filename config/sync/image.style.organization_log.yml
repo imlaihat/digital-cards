@@ -1,0 +1,21 @@
+uuid: 0595be4e-6684-4867-a1be-18b14623f01b
+langcode: en
+status: true
+dependencies: {  }
+name: organization_log
+label: Organization_log
+effects:
+  5ccea600-9d81-448f-b540-224108148530:
+    uuid: 5ccea600-9d81-448f-b540-224108148530
+    id: image_scale
+    weight: 1
+    data:
+      width: 64
+      height: 64
+      upscale: false
+  1141d5fc-3846-4492-8872-e3d70290390a:
+    uuid: 1141d5fc-3846-4492-8872-e3d70290390a
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

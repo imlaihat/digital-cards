@@ -1,0 +1,29 @@
+uuid: 919c47c4-46ca-4a53-8925-2a9f9ac80c14
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_plan
+    - node.type.organization_subscription
+    - node.type.subscription_plan
+id: node.organization_subscription.field_plan
+field_name: field_plan
+entity_type: node
+bundle: organization_subscription
+label: Plan
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      subscription_plan: subscription_plan
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

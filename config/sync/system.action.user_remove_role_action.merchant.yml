@@ -1,0 +1,14 @@
+uuid: a2c05576-8e32-4e8d-b2d0-d5d3576f50e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.merchant
+  module:
+    - user
+id: user_remove_role_action.merchant
+label: 'Remove the Merchant role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: merchant

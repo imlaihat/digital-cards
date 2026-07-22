@@ -1,0 +1,8 @@
+uuid: 5114fbd5-e82c-484a-94cd-a5e56fa7dd8d
+langcode: en
+status: true
+dependencies: {  }
+id: dashboard_kpi_card
+label: 'Dashboard KPI Card'
+revision: false
+description: null

@@ -1,0 +1,27 @@
+uuid: 648fa72e-1585-4ff2-9d41-c57c254a30af
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_billing_cycle
+field_name: field_billing_cycle
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: monthly
+      label: Monthly
+    -
+      value: yearly
+      label: Yearly
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

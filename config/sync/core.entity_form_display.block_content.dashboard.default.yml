@@ -1,0 +1,42 @@
+uuid: d113fc03-4f3b-46f0-9419-88f1aa7aa330
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.dashboard
+    - field.field.block_content.dashboard.body
+    - field.field.block_content.dashboard.layout_builder__layout
+  module:
+    - text
+id: block_content.dashboard.default
+targetEntityType: block_content
+bundle: dashboard
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 26
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden:
+  layout_builder__layout: true

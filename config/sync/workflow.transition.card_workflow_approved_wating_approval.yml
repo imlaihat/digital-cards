@@ -1,0 +1,20 @@
+uuid: cc1cb1ee-da4c-4edd-84a5-b94ff1afd11e
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.card_workflow_approved
+    - workflow.state.card_workflow_wating_approval
+id: card_workflow_approved_wating_approval
+label: null
+module: workflow
+from_sid: card_workflow_approved
+to_sid: card_workflow_wating_approval
+roles:
+  administrator: administrator
+  platform_admin: platform_admin
+  organization_admin: organization_admin
+  workflow_author: '0'
+  anonymous: '0'
+  authenticated: '0'
+  content_editor: '0'

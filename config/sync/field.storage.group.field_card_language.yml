@@ -1,0 +1,30 @@
+uuid: 65795151-e270-468a-bc0f-e6919e6991a6
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+    - options
+id: group.field_card_language
+field_name: field_card_language
+entity_type: group
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: en
+      label: English
+    -
+      value: ar
+      label: Arabic
+    -
+      value: bilingual
+      label: 'Arabic and English'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

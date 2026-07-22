@@ -1,0 +1,28 @@
+uuid: 78849e73-a792-4bdf-b48f-b1f8dc9a3e6b
+langcode: en
+status: true
+dependencies:
+  module:
+    - digital_card_admin
+    - user
+  theme:
+    - digital_platform
+id: digital_platform_digitalcardplatformadminheader
+theme: digital_platform
+region: primary_menu
+weight: -5
+provider: null
+plugin: digital_card_platform_admin_header
+settings:
+  id: digital_card_platform_admin_header
+  label: 'Digital Card: Platform Admin Header'
+  label_display: '0'
+  provider: digital_card_admin
+visibility:
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      platform_admin: platform_admin

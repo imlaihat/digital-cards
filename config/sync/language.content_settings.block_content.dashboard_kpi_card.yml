@@ -1,0 +1,11 @@
+uuid: 58cf1ab7-5221-4da2-ac27-9fdf5da4733b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.dashboard_kpi_card
+id: block_content.dashboard_kpi_card
+target_entity_type_id: block_content
+target_bundle: dashboard_kpi_card
+default_langcode: site_default
+language_alterable: false

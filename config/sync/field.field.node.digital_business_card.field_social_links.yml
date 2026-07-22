@@ -1,0 +1,31 @@
+uuid: 8a3dbd55-6d8c-40ca-9d66-ce8f7b630356
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_social_links
+    - node.type.digital_business_card
+    - paragraphs.paragraphs_type.social_link
+  module:
+    - entity_reference_revisions
+id: node.digital_business_card.field_social_links
+field_name: field_social_links
+entity_type: node
+bundle: digital_business_card
+label: 'Social Links'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      social_link: social_link
+    negate: 0
+    target_bundles_drag_drop:
+      social_link:
+        weight: 2
+        enabled: true
+field_type: entity_reference_revisions

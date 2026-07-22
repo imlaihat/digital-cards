@@ -1,0 +1,29 @@
+uuid: 5cdd2bba-7655-467e-a64b-6118b4cc01c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.dashboard_kpi_card
+    - field.storage.block_content.field_icon
+    - media.type.image
+id: block_content.dashboard_kpi_card.field_icon
+field_name: field_icon
+entity_type: block_content
+bundle: dashboard_kpi_card
+label: Icon
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,13 @@
+uuid: 34e7239e-f906-4460-be86-524fd3019bdd
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.card_workflow
+id: card_workflow_wating_approval
+label: 'Wating Approval'
+weight: -48
+module: workflow
+wid: card_workflow
+sysid: 0
+single_state_widget: ''

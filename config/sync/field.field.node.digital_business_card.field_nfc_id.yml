@@ -1,0 +1,19 @@
+uuid: 718be9c2-c687-413d-a774-feb86bcd7064
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_nfc_id
+    - node.type.digital_business_card
+id: node.digital_business_card.field_nfc_id
+field_name: field_nfc_id
+entity_type: node
+bundle: digital_business_card
+label: 'NFC ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

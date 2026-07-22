@@ -1,0 +1,14 @@
+uuid: b7d62f6d-c2c0-42ce-ae48-67cf28a7a7e8
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.merchant
+  module:
+    - user
+id: user_add_role_action.merchant
+label: 'Add the Merchant role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: merchant

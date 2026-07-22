@@ -1,0 +1,19 @@
+uuid: c3e70296-ad51-4086-bb53-a5105a1ed7fe
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.field_card_custom_css
+field_name: field_card_custom_css
+entity_type: group
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,14 @@
+uuid: 20e15337-2ccd-4214-900f-4c0edc2012d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.platform_admin
+  module:
+    - user
+id: user_remove_role_action.platform_admin
+label: 'Remove the Platform admin role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: platform_admin

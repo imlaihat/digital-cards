@@ -1,0 +1,24 @@
+uuid: 37eecbc8-a99e-4f6d-9602-81ea10c79f22
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_start_date
+    - node.type.organization_subscription
+  module:
+    - datetime
+id: node.organization_subscription.field_start_date
+field_name: field_start_date
+entity_type: node
+bundle: organization_subscription
+label: 'Start Date'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

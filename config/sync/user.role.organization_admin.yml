@@ -1,0 +1,25 @@
+uuid: 7c2074aa-8280-4475-84d3-304885970916
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.card_workflow
+    - workflow.workflow.test
+    - workflows.workflow.card_approval
+  module:
+    - content_moderation
+    - digital_card_admin
+    - toolbar
+    - workflow
+id: organization_admin
+label: 'Organization admin'
+weight: 5
+is_admin: null
+permissions:
+  - 'access card_workflow workflow_transition form'
+  - 'access organization portal dashboard'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'create card_workflow workflow_transition'
+  - 'create test workflow_transition'
+  - 'use card_approval transition to_pending_approval'

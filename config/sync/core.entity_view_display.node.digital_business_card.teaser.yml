@@ -1,0 +1,50 @@
+uuid: 8518365c-c012-4898-aa0b-1a27f09483e4
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.digital_business_card.field_card_language
+    - field.field.node.digital_business_card.field_department
+    - field.field.node.digital_business_card.field_email
+    - field.field.node.digital_business_card.field_full_name
+    - field.field.node.digital_business_card.field_job_title
+    - field.field.node.digital_business_card.field_mobile
+    - field.field.node.digital_business_card.field_nfc_id
+    - field.field.node.digital_business_card.field_organization
+    - field.field.node.digital_business_card.field_profile_image
+    - field.field.node.digital_business_card.field_qr_code
+    - field.field.node.digital_business_card.field_social_links
+    - field.field.node.digital_business_card.field_status
+    - node.type.digital_business_card
+  module:
+    - user
+id: node.digital_business_card.teaser
+targetEntityType: node
+bundle: digital_business_card
+mode: teaser
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_card_language: true
+  field_department: true
+  field_email: true
+  field_full_name: true
+  field_job_title: true
+  field_mobile: true
+  field_nfc_id: true
+  field_organization: true
+  field_profile_image: true
+  field_qr_code: true
+  field_social_links: true
+  field_status: true
+  langcode: true

@@ -1,0 +1,19 @@
+uuid: ee09d6fd-869d-4fd9-9cf4-f2ec3eb08f83
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_full_name
+    - node.type.digital_business_card
+id: node.digital_business_card.field_full_name
+field_name: field_full_name
+entity_type: node
+bundle: digital_business_card
+label: 'Full Name'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

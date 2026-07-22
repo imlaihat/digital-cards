@@ -1,0 +1,13 @@
+uuid: 0c632716-9019-45f9-8966-2310e778ca1e
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.card_workflow
+id: card_workflow_approve
+label: Draft
+weight: -49
+module: workflow
+wid: card_workflow
+sysid: 0
+single_state_widget: ''

@@ -1,0 +1,13 @@
+uuid: 12cb264c-7684-4d56-a3f8-29e2e23fe304
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.test
+id: test_creation
+label: Creation
+weight: -50
+module: workflow
+wid: test
+sysid: 1
+single_state_widget: ''

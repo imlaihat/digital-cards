@@ -1,0 +1,20 @@
+uuid: 97bd6895-48a8-4bef-8a67-ebc4963521f6
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+  theme:
+    - digital_platform
+id: digital_platform_userlogin
+theme: digital_platform
+region: content
+weight: -1
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'User login'
+  label_display: '0'
+  provider: user
+visibility: {  }

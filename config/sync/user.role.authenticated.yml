@@ -1,0 +1,40 @@
+uuid: c0c2c566-3687-4fb7-887a-3a67a14c8ae1
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - node.type.digital_business_card
+    - workflow.workflow.card_workflow
+    - workflow.workflow.test
+  module:
+    - comment
+    - contact
+    - file
+    - filter
+    - media
+    - node
+    - search
+    - shortcut
+    - system
+    - workflow
+_core:
+  default_config_hash: cFrlqjtkTfvY3RGccjJkPf1SGIfJ942IrxTLWAO4mgA
+id: authenticated
+label: 'Authenticated user'
+weight: 1
+is_admin: false
+permissions:
+  - 'access content'
+  - 'access shortcuts'
+  - 'access site-wide contact form'
+  - 'create card_workflow workflow_transition'
+  - 'create test workflow_transition'
+  - 'delete own files'
+  - 'edit own digital_business_card content'
+  - 'post comments'
+  - 'search content'
+  - 'skip comment approval'
+  - 'use text format basic_html'
+  - 'view media'
+  - 'view own unpublished content'

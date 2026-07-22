@@ -1,0 +1,10 @@
+status: 0
+pattern: 'will be overwrite '
+escape: false
+preserve_titles: false
+save: false
+chunk: 50
+dependencies:
+  config:
+    - node.type.digital_business_card
+new_content_behavior: 0

@@ -1,0 +1,29 @@
+uuid: 62c587a5-4c42-49fe-8be2-9ccfe924d368
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.relationship_type.organizations-4162a2c5fd449a6c33
+id: group_relationship.organizations-4162a2c5fd449a6c33.default
+targetEntityType: group_relationship
+bundle: organizations-4162a2c5fd449a6c33
+mode: default
+content:
+  entity_id:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  uid:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true

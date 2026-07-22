@@ -1,0 +1,22 @@
+uuid: ed4534aa-3bfb-4a18-adc1-6631c28decdc
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - workflow
+id: node.field_status
+field_name: field_status
+entity_type: node
+type: workflow
+settings:
+  workflow_type: card_workflow
+  allowed_values: {  }
+  allowed_values_function: workflow_state_allowed_values
+module: workflow
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

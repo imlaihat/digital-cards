@@ -1,0 +1,23 @@
+uuid: 53e00891-457d-40cf-be05-a3eb826ed9dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.digital_business_card
+  module:
+    - node
+id: digital_card_url
+label: 'Digital card URL'
+type: 'canonical_entities:node'
+pattern: '/org/[node:field_organization]/card/[node:nid]'
+selection_criteria:
+  83354a8b-e0d9-48b1-86ce-e09fd8ff6e21:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      digital_business_card: digital_business_card
+selection_logic: and
+weight: -5
+relationships: {  }

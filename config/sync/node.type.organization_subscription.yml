@@ -1,0 +1,19 @@
+uuid: 1814d4c4-de12-4bc0-a842-20f717b47a8d
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+      - platform-admin
+    parent: 'main:'
+name: 'Organization Subscription'
+type: organization_subscription
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

@@ -1,0 +1,180 @@
+_core:
+  default_config_hash: neZstVReJdMKFdQ4IPjuOrYKAVXpLuVtkFY-h46cSDw
+platforms:
+  facebook:
+    label: Facebook
+    label_ar: فيسبوك
+    icon: facebook
+    domains:
+      - facebook.com
+      - fb.com
+    aliases:
+      - fb
+      - 'face book'
+    example: 'https://www.facebook.com/your-page'
+    brand_color: '#1877F2'
+    enabled: true
+    weight: 0
+  instagram:
+    label: Instagram
+    label_ar: إنستغرام
+    icon: instagram
+    domains:
+      - instagram.com
+    aliases:
+      - insta
+      - ig
+      - inesta
+    example: 'https://www.instagram.com/your-account'
+    brand_color: '#E4405F'
+    enabled: true
+    weight: 10
+  linkedin:
+    label: LinkedIn
+    label_ar: لينكدإن
+    icon: linkedin
+    domains:
+      - linkedin.com
+    aliases:
+      - 'linked in'
+      - linked-in
+    example: 'https://www.linkedin.com/in/your-profile'
+    brand_color: '#0A66C2'
+    enabled: true
+    weight: 20
+  whatsapp:
+    label: WhatsApp
+    label_ar: واتساب
+    icon: whatsapp
+    domains:
+      - wa.me
+      - whatsapp.com
+    aliases:
+      - 'whats app'
+      - wa
+    example: 'https://wa.me/970599000000'
+    brand_color: '#25D366'
+    enabled: true
+    weight: 30
+  x:
+    label: X
+    label_ar: إكس
+    icon: x
+    domains:
+      - x.com
+      - twitter.com
+    aliases:
+      - twitter
+      - 'x twitter'
+    example: 'https://x.com/your-account'
+    brand_color: '#0F172A'
+    enabled: true
+    weight: 40
+  youtube:
+    label: YouTube
+    label_ar: يوتيوب
+    icon: youtube
+    domains:
+      - youtube.com
+      - youtu.be
+    aliases:
+      - 'you tube'
+    example: 'https://www.youtube.com/@your-channel'
+    brand_color: '#FF0000'
+    enabled: true
+    weight: 50
+  tiktok:
+    label: TikTok
+    label_ar: 'تيك توك'
+    icon: tiktok
+    domains:
+      - tiktok.com
+    aliases:
+      - 'tik tok'
+    example: 'https://www.tiktok.com/@your-account'
+    brand_color: '#0F172A'
+    enabled: true
+    weight: 60
+  telegram:
+    label: Telegram
+    label_ar: تيليغرام
+    icon: telegram
+    domains:
+      - t.me
+      - telegram.me
+      - telegram.org
+    aliases:
+      - تلغرام
+    example: 'https://t.me/your-account'
+    brand_color: '#26A5E4'
+    enabled: true
+    weight: 70
+  snapchat:
+    label: Snapchat
+    label_ar: 'سناب شات'
+    icon: snapchat
+    domains:
+      - snapchat.com
+    aliases:
+      - 'snap chat'
+      - snap
+    example: 'https://www.snapchat.com/add/your-account'
+    brand_color: '#FACC15'
+    enabled: true
+    weight: 80
+  threads:
+    label: Threads
+    label_ar: ثريدز
+    icon: threads
+    domains:
+      - threads.net
+    aliases:
+      - thread
+    example: 'https://www.threads.net/@your-account'
+    brand_color: '#0F172A'
+    enabled: true
+    weight: 90
+  github:
+    label: GitHub
+    label_ar: 'غيت هب'
+    icon: github
+    domains:
+      - github.com
+    aliases:
+      - 'git hub'
+    example: 'https://github.com/your-account'
+    brand_color: '#181717'
+    enabled: true
+    weight: 100
+  website:
+    label: Website
+    label_ar: 'الموقع الإلكتروني'
+    icon: website
+    domains: {  }
+    aliases:
+      - web
+      - site
+      - homepage
+      - url
+    example: 'https://www.example.com'
+    brand_color: '#2563EB'
+    enabled: true
+    weight: 110
+  google_maps:
+    label: 'Google Maps'
+    label_ar: 'خرائط Google'
+    icon: google_maps
+    domains:
+      - google.com
+      - maps.google.com
+      - maps.app.goo.gl
+      - goo.gl
+    aliases:
+      - google
+      - googlemap
+      - 'google map'
+      - googlemaps
+    example: 'https://maps.google.com/?q=Palestine'
+    brand_color: '#4285F4'
+    enabled: true
+    weight: 105

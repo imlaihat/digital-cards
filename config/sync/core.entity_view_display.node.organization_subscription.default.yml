@@ -1,0 +1,68 @@
+uuid: c05636a1-f842-48a0-9a8b-d91babffbc3e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.organization_subscription.field_end_date
+    - field.field.node.organization_subscription.field_organization_subscribed
+    - field.field.node.organization_subscription.field_plan
+    - field.field.node.organization_subscription.field_start_date
+    - field.field.node.organization_subscription.field_sub_status
+    - node.type.organization_subscription
+  module:
+    - datetime
+    - options
+    - user
+id: node.organization_subscription.default
+targetEntityType: node
+bundle: organization_subscription
+mode: default
+content:
+  field_end_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_organization_subscribed:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_plan:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_start_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_sub_status:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

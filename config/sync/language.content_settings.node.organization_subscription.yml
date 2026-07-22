@@ -1,0 +1,16 @@
+uuid: 8bf94d61-e71d-4806-bba1-36c5fd59ab05
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.organization_subscription
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: node.organization_subscription
+target_entity_type_id: node
+target_bundle: organization_subscription
+default_langcode: site_default
+language_alterable: true

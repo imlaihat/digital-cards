@@ -1,0 +1,25 @@
+uuid: b9d50922-bf34-4531-b6df-762b1e0ed8a1
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - digital_platform
+id: digital_platform_mainnavigation
+theme: digital_platform
+region: header
+weight: -6
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

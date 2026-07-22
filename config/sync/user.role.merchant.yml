@@ -1,0 +1,13 @@
+uuid: 73fa8de0-e549-4d83-9e54-d8f001158aec
+langcode: en
+status: true
+dependencies:
+  module:
+    - digital_card_offers
+id: merchant
+label: Merchant
+weight: 6
+is_admin: null
+permissions:
+  - 'check card holder offer eligibility'
+  - 'redeem card holder offers'

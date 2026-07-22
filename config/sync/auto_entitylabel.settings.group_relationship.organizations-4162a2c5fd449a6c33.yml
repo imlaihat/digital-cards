@@ -1,0 +1,10 @@
+status: 1
+pattern: ''
+escape: false
+preserve_titles: false
+save: false
+chunk: 50
+dependencies:
+  config:
+    - group.relationship_type.organizations-4162a2c5fd449a6c33
+new_content_behavior: 0

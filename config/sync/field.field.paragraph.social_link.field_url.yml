@@ -1,0 +1,19 @@
+uuid: c8109f0e-ba61-4c04-a5d0-2b524748e738
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_url
+    - paragraphs.paragraphs_type.social_link
+id: paragraph.social_link.field_url
+field_name: field_url
+entity_type: paragraph
+bundle: social_link
+label: URL
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,87 @@
+card_workflow_approve:
+  authenticated:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  administrator:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+  platform_admin:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+  organization_admin:
+    grant_view: true
+    grant_update: true
+    grant_delete: 0
+  workflow_author:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  anonymous:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  content_editor:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+card_workflow_wating_approval:
+  authenticated:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  administrator:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+  platform_admin:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+  organization_admin:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  workflow_author:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  anonymous:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+  content_editor:
+    grant_view: 0
+    grant_update: 0
+    grant_delete: 0
+card_workflow_approved:
+  authenticated:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  administrator:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+  platform_admin:
+    grant_view: true
+    grant_update: true
+    grant_delete: true
+  organization_admin:
+    grant_view: true
+    grant_update: true
+    grant_delete: 0
+  workflow_author:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  anonymous:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0
+  content_editor:
+    grant_view: true
+    grant_update: 0
+    grant_delete: 0

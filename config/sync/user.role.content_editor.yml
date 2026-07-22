@@ -1,0 +1,57 @@
+uuid: c018088b-a9c1-4177-9815-586cfc099503
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.article
+    - node.type.page
+    - taxonomy.vocabulary.tags
+    - workflow.workflow.card_workflow
+    - workflow.workflow.test
+    - workflows.workflow.card_approval
+  module:
+    - comment
+    - content_moderation
+    - contextual
+    - field_ui
+    - file
+    - node
+    - path
+    - system
+    - taxonomy
+    - toolbar
+    - workflow
+_core:
+  default_config_hash: e_wG1u7SrGaJbY2-Szgbgl-c8T3kdirU3uTNq2c_QJQ
+id: content_editor
+label: 'Content editor'
+weight: 2
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access toolbar'
+  - 'administer url aliases'
+  - 'administer workflow_transition display'
+  - 'create article content'
+  - 'create card_workflow workflow_transition'
+  - 'create page content'
+  - 'create terms in tags'
+  - 'create test workflow_transition'
+  - 'create url aliases'
+  - 'delete article revisions'
+  - 'delete own article content'
+  - 'delete own files'
+  - 'delete own page content'
+  - 'delete page revisions'
+  - 'edit own article content'
+  - 'edit own comments'
+  - 'edit own page content'
+  - 'edit terms in tags'
+  - 'revert all revisions'
+  - 'use card_approval transition to_pending_approval'
+  - 'view all revisions'
+  - 'view own unpublished content'
+  - 'view the administration theme'

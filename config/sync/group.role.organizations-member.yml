@@ -1,0 +1,15 @@
+uuid: dbf65aa3-603b-4014-b695-c46bd7d3f6a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.organizations
+    - user.role.authenticated
+id: organizations-member
+label: Member
+weight: -100
+admin: false
+scope: insider
+global_role: authenticated
+group_type: organizations
+permissions: {  }

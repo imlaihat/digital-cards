@@ -1,0 +1,12 @@
+uuid: 3ab1a21b-885d-48db-bc15-c7167f7ddc60
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.state.card_workflow_wating_approval
+id: card_workflow_wating_approval_wating_approval
+label: null
+module: workflow
+from_sid: card_workflow_wating_approval
+to_sid: card_workflow_wating_approval
+roles: {  }

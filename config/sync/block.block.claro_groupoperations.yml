@@ -1,0 +1,22 @@
+uuid: 3c97bd04-a989-431e-8c0f-992ecb584490
+langcode: en
+status: false
+dependencies:
+  module:
+    - group
+  theme:
+    - claro
+id: claro_groupoperations
+theme: claro
+region: header
+weight: -3
+provider: null
+plugin: group_operations
+settings:
+  id: group_operations
+  label: 'Group operations'
+  label_display: visible
+  provider: group
+  context_mapping:
+    group: '@group.group_route_context:group'
+visibility: {  }

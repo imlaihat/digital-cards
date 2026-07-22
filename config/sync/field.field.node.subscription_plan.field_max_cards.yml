@@ -1,0 +1,23 @@
+uuid: 6ffd9222-fbf0-4d6f-976c-2d6d8170ac7f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_max_cards
+    - node.type.subscription_plan
+id: node.subscription_plan.field_max_cards
+field_name: field_max_cards
+entity_type: node
+bundle: subscription_plan
+label: 'Max Cards'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

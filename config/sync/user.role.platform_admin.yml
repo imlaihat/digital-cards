@@ -1,0 +1,81 @@
+uuid: 1cb1a8a6-fc87-4d71-88c4-c1f40c461099
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.digital_business_card
+    - node.type.organization_subscription
+    - node.type.subscription_plan
+    - taxonomy.vocabulary.card_theme
+    - taxonomy.vocabulary.tags
+    - workflow.workflow.card_workflow
+    - workflow.workflow.test
+    - workflows.workflow.card_approval
+  module:
+    - content_moderation
+    - content_translation
+    - digital_card_admin
+    - digital_card_delivery
+    - digital_card_offers
+    - digital_card_public
+    - digital_card_social
+    - group
+    - node
+    - paragraphs
+    - system
+    - taxonomy
+    - toolbar
+    - workflow
+id: platform_admin
+label: 'Platform admin'
+weight: 4
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access card_workflow workflow_transition form'
+  - 'access content overview'
+  - 'access platform admin dashboard'
+  - 'access toolbar'
+  - 'administer digital card merchant users'
+  - 'administer digital card offers'
+  - 'administer digital card partners'
+  - 'administer nodes'
+  - 'create card_workflow workflow_transition'
+  - 'create digital_business_card content'
+  - 'create organization administrators'
+  - 'create organization_subscription content'
+  - 'create organizations group'
+  - 'create subscription_plan content'
+  - 'create terms in card_theme'
+  - 'create test workflow_transition'
+  - 'delete any digital_business_card content'
+  - 'delete any organization_subscription content'
+  - 'delete any subscription_plan content'
+  - 'delete own digital_business_card content'
+  - 'delete own organization_subscription content'
+  - 'delete term revisions in card_theme'
+  - 'delete terms in card_theme'
+  - 'edit any digital_business_card content'
+  - 'edit any organization_subscription content'
+  - 'edit any subscription_plan content'
+  - 'edit own digital_business_card content'
+  - 'edit own organization_subscription content'
+  - 'edit own subscription_plan content'
+  - 'edit terms in card_theme'
+  - 'manage digital card social platforms'
+  - 'manage digital card workflow'
+  - 'manage organization card themes'
+  - 'revert digital_business_card revisions'
+  - 'revert term revisions in card_theme'
+  - 'schedule card_workflow workflow_transition'
+  - 'translate organization_subscription node'
+  - 'translate subscription_plan node'
+  - 'translate tags taxonomy_term'
+  - 'use card_approval transition publish'
+  - 'use card_approval transition reject'
+  - 'use card_approval transition to_pending_approval'
+  - 'view digital card redemption reports'
+  - 'view digital card scan analytics'
+  - 'view digital_business_card revisions'
+  - 'view term revisions in card_theme'
+  - 'view unpublished paragraphs'

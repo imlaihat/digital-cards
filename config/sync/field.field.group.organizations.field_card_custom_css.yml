@@ -1,0 +1,19 @@
+uuid: 49b6ef7f-c4c3-475b-a05f-5e2a5624a083
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_card_custom_css
+    - group.type.organizations
+id: group.organizations.field_card_custom_css
+field_name: field_card_custom_css
+entity_type: group
+bundle: organizations
+label: 'Additional card CSS'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

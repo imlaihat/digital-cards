@@ -1,0 +1,9 @@
+uuid: 8fd1ca37-c4a2-4a6f-a596-4527fd61a564
+langcode: en
+status: true
+dependencies: {  }
+name: 'Card Theme'
+vid: card_theme
+description: null
+weight: 0
+new_revision: false

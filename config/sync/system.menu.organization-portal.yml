@@ -1,0 +1,8 @@
+uuid: d0c8c8b7-2c2f-4c0b-bcb0-924c4f3200f2
+langcode: en
+status: true
+dependencies: {  }
+id: organization-portal
+label: 'Organization Portal'
+description: ''
+locked: false

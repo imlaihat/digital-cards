@@ -1,0 +1,14 @@
+uuid: 01e2d1cc-362a-4512-9d8f-b937f465abb0
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.organization_admin
+  module:
+    - user
+id: user_remove_role_action.organization_admin
+label: 'Remove the Organization admin role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: organization_admin

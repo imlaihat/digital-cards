@@ -1,0 +1,18 @@
+uuid: 3768bd8d-4836-42e3-be32-05e54cf83a3b
+langcode: en
+status: true
+dependencies:
+  config:
+    - workflow.workflow.card_workflow
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: true
+id: workflow_transition.card_workflow.default
+targetEntityType: workflow_transition
+bundle: card_workflow
+mode: default
+content: {  }
+hidden: {  }

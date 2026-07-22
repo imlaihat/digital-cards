@@ -1,0 +1,19 @@
+uuid: 88394018-c409-49db-a649-f1ebc9c563da
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_platform
+    - paragraphs.paragraphs_type.social_link
+id: paragraph.social_link.field_platform
+field_name: field_platform
+entity_type: paragraph
+bundle: social_link
+label: Platform
+description: 'Select the social network for this link. The card will automatically use its approved name and icon.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

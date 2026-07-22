@@ -1,0 +1,62 @@
+uuid: 4b756c6a-3d8d-4109-a0a1-1f37472e4879
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.subscription_plan.field_active
+    - field.field.node.subscription_plan.field_billing_cycle
+    - field.field.node.subscription_plan.field_max_cards
+    - field.field.node.subscription_plan.field_price
+    - node.type.subscription_plan
+  module:
+    - options
+    - user
+id: node.subscription_plan.default
+targetEntityType: node
+bundle: subscription_plan
+mode: default
+content:
+  field_active:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_billing_cycle:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  field_max_cards:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_price:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

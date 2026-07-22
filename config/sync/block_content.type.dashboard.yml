@@ -1,0 +1,8 @@
+uuid: de05f0ef-8f7e-4bd8-9453-f2bf5a1368b3
+langcode: en
+status: true
+dependencies: {  }
+id: dashboard
+label: Dashboard
+revision: false
+description: null

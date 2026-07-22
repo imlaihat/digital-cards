@@ -1,0 +1,16 @@
+uuid: 8c13c4b3-5b5d-4052-92dc-3c3edf4a2620
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.digital_business_card
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: node.digital_business_card
+target_entity_type_id: node
+target_bundle: digital_business_card
+default_langcode: site_default
+language_alterable: true

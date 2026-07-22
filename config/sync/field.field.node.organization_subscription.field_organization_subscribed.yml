@@ -1,0 +1,29 @@
+uuid: b1b4fbed-b582-472a-80af-4c624a3b6ecf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_organization_subscribed
+    - group.type.organizations
+    - node.type.organization_subscription
+id: node.organization_subscription.field_organization_subscribed
+field_name: field_organization_subscribed
+entity_type: node
+bundle: organization_subscription
+label: Organization
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:group'
+  handler_settings:
+    target_bundles:
+      organizations: organizations
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

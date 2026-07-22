@@ -1,0 +1,24 @@
+uuid: 7de1091d-499c-4db4-accb-7e2677eb3b77
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_end_date
+    - node.type.organization_subscription
+  module:
+    - datetime
+id: node.organization_subscription.field_end_date
+field_name: field_end_date
+entity_type: node
+bundle: organization_subscription
+label: 'End Date'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: relative
+    default_date: '+30 days'
+default_value_callback: ''
+settings: {  }
+field_type: datetime

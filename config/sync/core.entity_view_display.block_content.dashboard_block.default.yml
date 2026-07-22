@@ -1,0 +1,141 @@
+uuid: 778f5ddc-e102-47b1-b650-18461c6f7d8f
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.dashboard_block
+    - field.field.block_content.dashboard_block.body
+    - field.field.block_content.dashboard_block.layout_builder__layout
+    - views.view.digital_card_dashboard
+    - views.view.digital_dashboard_groups
+  module:
+    - bootstrap_layout_builder
+    - layout_builder
+    - text
+    - views
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: true
+    sections:
+      -
+        layout_id: 'bootstrap_layout_builder:blb_col_4'
+        layout_settings:
+          label: ''
+          container_wrapper_classes: container
+          container_wrapper_attributes: null
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: null
+              background_color:
+                class: null
+              box_shadow:
+                class: null
+          container_wrapper_bg_color_class: ''
+          container_wrapper_bg_media: null
+          container: container
+          section_classes: 'row g-4'
+          section_attributes: null
+          regions_classes:
+            blb_region_col_1: 'col-12 col-md-6 col-xl-3'
+            blb_region_col_2: 'col-12 col-md-6 col-xl-3'
+            blb_region_col_3: 'col-12 col-md-6 col-xl-3'
+            blb_region_col_4: ''
+          regions_attributes:
+            blb_region_col_1: null
+            blb_region_col_2: null
+            blb_region_col_3: null
+            blb_region_col_4: null
+          breakpoints:
+            desktop: null
+            tablet: null
+            mobile: null
+          layout_regions_classes:
+            blb_region_col_1:
+              - null
+              - null
+              - null
+            blb_region_col_2:
+              - null
+              - null
+              - null
+            blb_region_col_3:
+              - null
+              - null
+              - null
+            blb_region_col_4:
+              - null
+              - null
+              - null
+          remove_gutters: '0'
+          context_mapping: {  }
+        components:
+          9ac591d8-2bf1-46ae-8e30-27df97345331:
+            uuid: 9ac591d8-2bf1-46ae-8e30-27df97345331
+            region: blb_region_col_1
+            configuration:
+              id: 'views_block:digital_card_dashboard-block_1'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional: {  }
+          b32f9c13-416e-49df-a4be-033aa1924091:
+            uuid: b32f9c13-416e-49df-a4be-033aa1924091
+            region: blb_region_col_2
+            configuration:
+              id: 'views_block:digital_card_dashboard-block_2'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional: {  }
+          a14f77ff-7d0d-469e-8050-f307c69078d2:
+            uuid: a14f77ff-7d0d-469e-8050-f307c69078d2
+            region: blb_region_col_3
+            configuration:
+              id: 'views_block:digital_dashboard_groups-block_1'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional: {  }
+          a4e63ad8-b840-48f7-88e1-979c41bd904e:
+            uuid: a4e63ad8-b840-48f7-88e1-979c41bd904e
+            region: blb_region_col_4
+            configuration:
+              id: 'views_block:digital_card_dashboard-block_3'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: block_content.dashboard_block.default
+targetEntityType: block_content
+bundle: dashboard_block
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  layout_builder__layout: true

@@ -1,0 +1,14 @@
+uuid: bfd4d902-ccff-4b13-940b-d7b3227ab6f1
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.organization_admin
+  module:
+    - user
+id: user_add_role_action.organization_admin
+label: 'Add the Organization admin role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: organization_admin

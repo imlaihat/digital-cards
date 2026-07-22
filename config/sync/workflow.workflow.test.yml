@@ -1,0 +1,16 @@
+uuid: 483a5c26-8d3e-4933-9b6c-737eed4f1141
+langcode: en
+status: true
+dependencies: {  }
+id: test
+label: test
+module: workflow
+options:
+  name_as_title: 1
+  fieldset: 0
+  options: radios
+  schedule_enable: true
+  schedule_timezone: 1
+  always_update_entity: 0
+  comment_log_node: 1
+  watchdog_log: 1

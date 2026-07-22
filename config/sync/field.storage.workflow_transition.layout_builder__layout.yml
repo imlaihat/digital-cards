@@ -1,0 +1,19 @@
+uuid: e19148b8-4680-4e8f-952f-52f4bbac6497
+langcode: en
+status: true
+dependencies:
+  module:
+    - layout_builder
+    - workflow
+id: workflow_transition.layout_builder__layout
+field_name: layout_builder__layout
+entity_type: workflow_transition
+type: layout_section
+settings: {  }
+module: layout_builder
+locked: true
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

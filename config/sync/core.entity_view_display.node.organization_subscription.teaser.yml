@@ -1,0 +1,31 @@
+uuid: 521811b3-2eef-4954-aaaf-63cd07bc2fff
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.organization_subscription.field_end_date
+    - field.field.node.organization_subscription.field_organization_subscribed
+    - field.field.node.organization_subscription.field_plan
+    - field.field.node.organization_subscription.field_start_date
+    - field.field.node.organization_subscription.field_sub_status
+    - node.type.organization_subscription
+  module:
+    - user
+id: node.organization_subscription.teaser
+targetEntityType: node
+bundle: organization_subscription
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_end_date: true
+  field_organization_subscribed: true
+  field_plan: true
+  field_start_date: true
+  field_sub_status: true
+  langcode: true

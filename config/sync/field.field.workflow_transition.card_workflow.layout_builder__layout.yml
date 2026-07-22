@@ -1,0 +1,21 @@
+uuid: ef041151-d1ed-4d51-9d66-428a607c1852
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.workflow_transition.layout_builder__layout
+    - workflow.workflow.card_workflow
+  module:
+    - layout_builder
+id: workflow_transition.card_workflow.layout_builder__layout
+field_name: layout_builder__layout
+entity_type: workflow_transition
+bundle: card_workflow
+label: Layout
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: layout_section

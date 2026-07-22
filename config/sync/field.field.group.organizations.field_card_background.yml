@@ -1,0 +1,19 @@
+uuid: c305a6ef-5544-422f-96b2-9a7b83f12596
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_card_background
+    - group.type.organizations
+id: group.organizations.field_card_background
+field_name: field_card_background
+entity_type: group
+bundle: organizations
+label: 'Card page background'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

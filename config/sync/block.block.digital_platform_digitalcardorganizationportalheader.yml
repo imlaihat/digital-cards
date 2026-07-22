@@ -1,0 +1,28 @@
+uuid: 8eaab96d-855d-4bfa-b2c6-2be0f52fc28a
+langcode: en
+status: true
+dependencies:
+  module:
+    - digital_card_admin
+    - user
+  theme:
+    - digital_platform
+id: digital_platform_digitalcardorganizationportalheader
+theme: digital_platform
+region: primary_menu
+weight: -6
+provider: null
+plugin: digital_card_organization_portal_header
+settings:
+  id: digital_card_organization_portal_header
+  label: 'Digital Card: Organization Portal Header'
+  label_display: '0'
+  provider: digital_card_admin
+visibility:
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      organization_admin: organization_admin

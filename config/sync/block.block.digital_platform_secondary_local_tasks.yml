@@ -1,0 +1,22 @@
+uuid: 29a27303-1e8f-4b1c-9cb7-8eef61c449f7
+langcode: en
+status: true
+dependencies:
+  theme:
+    - digital_platform
+_core:
+  default_config_hash: 2L0geP-ixCbCkEpW6BVF6H7vDUZN4ea07_Y9CociQm4
+id: digital_platform_secondary_local_tasks
+theme: digital_platform
+region: breadcrumb
+weight: -6
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Secondary tabs'
+  label_display: '0'
+  provider: core
+  primary: false
+  secondary: true
+visibility: {  }

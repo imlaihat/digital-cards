@@ -1,0 +1,16 @@
+uuid: 52c13ee3-2a24-490b-8590-0d90ee2fe6b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.organizations
+    - user.role.anonymous
+id: organizations-anonymous
+label: Anonymous
+weight: -102
+admin: false
+scope: outsider
+global_role: anonymous
+group_type: organizations
+permissions:
+  - 'view group_node:digital_business_card entity'
