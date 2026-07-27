@@ -1,10 +1,9 @@
-name: Digital Card Social Platforms
+name: Ropleon Cards Social Platforms
 type: module
 description: 'Provides a controlled, bilingual, and administrator-managed social platform registry for digital cards.'
-package: Digital Card
+package: Ropleon Cards
 core_version_requirement: ^10 || ^11
 dependencies:
   - drupal:field
   - paragraphs:paragraphs
   - digital_card_admin:digital_card_admin
-

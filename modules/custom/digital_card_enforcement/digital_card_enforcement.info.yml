@@ -1,7 +1,7 @@
-name: 'Digital Card Enforcement'
+name: 'Ropleon Cards Enforcement'
 type: module
 description: 'Enforces subscription validity and card limits before Digital Business Cards are approved or generated.'
-package: 'Digital Card'
+package: 'Ropleon Cards'
 core_version_requirement: ^10 || ^11
 dependencies:
   - drupal:node

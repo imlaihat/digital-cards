@@ -112,3 +112,42 @@ function digital_card_admin_update_10004(): string {
   $role->save();
   return 'Removed card workflow management permission from Organization Administrators.';
 }
+
+/**
+ * Migrate known legacy organization portal links to current working routes.
+ */
+function digital_card_admin_update_10005(): string {
+  $replacements = [
+    'internal:/my/cards' => 'internal:/organization/my-cards',
+    'internal:/my-cards' => 'internal:/organization/my-cards',
+    'internal:/my/subscription' => 'internal:/organization/subscription',
+  ];
+
+  $storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+  $ids = $storage->getQuery()->accessCheck(FALSE)->execute();
+  $updated = [];
+
+  foreach ($storage->loadMultiple($ids) as $menu_link) {
+    $link_item = $menu_link->get('link')->first();
+    $value = $link_item ? $link_item->getValue() : [];
+    $current_uri = (string) ($value['uri'] ?? '');
+    if (!isset($replacements[$current_uri])) {
+      continue;
+    }
+
+    $value['uri'] = $replacements[$current_uri];
+    $menu_link->set('link', $value);
+    $menu_link->save();
+    $updated[] = $menu_link->label() . ': ' . $current_uri . ' -> ' . $value['uri'];
+  }
+
+  if (!$updated) {
+    return 'No legacy organization portal menu links required migration.';
+  }
+
+  \Drupal::logger('digital_card_admin')->notice('Migrated legacy portal menu links: @links', [
+    '@links' => implode(' | ', $updated),
+  ]);
+
+  return 'Migrated legacy organization portal menu links: ' . implode('; ', $updated);
+}

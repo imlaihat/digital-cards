@@ -1,0 +1,63 @@
+ropleon_brand.home:
+  path: '/ropleon'
+  defaults:
+    _controller: '\Drupal\ropleon_brand\Controller\CorporateController::home'
+    _title: 'Ropleon | Enterprise Software, Integration and Digital Platforms'
+  requirements:
+    _access: 'TRUE'
+
+ropleon_brand.products:
+  path: '/products'
+  defaults:
+    _controller: '\Drupal\ropleon_brand\Controller\CorporateController::products'
+    _title: 'Ropleon Products'
+  requirements:
+    _access: 'TRUE'
+
+ropleon_brand.cards:
+  path: '/products/cards'
+  defaults:
+    _controller: '\Drupal\ropleon_brand\Controller\CorporateController::cards'
+    _title: 'Ropleon Cards | Enterprise Digital Business Card Platform'
+  requirements:
+    _access: 'TRUE'
+
+ropleon_brand.solutions:
+  path: '/solutions'
+  defaults:
+    _controller: '\Drupal\ropleon_brand\Controller\CorporateController::solutions'
+    _title: 'Ropleon Solutions'
+  requirements:
+    _access: 'TRUE'
+
+ropleon_brand.about:
+  path: '/about'
+  defaults:
+    _controller: '\Drupal\ropleon_brand\Controller\CorporateController::about'
+    _title: 'About Ropleon Technologies'
+  requirements:
+    _access: 'TRUE'
+
+ropleon_brand.privacy:
+  path: '/privacy'
+  defaults:
+    _controller: '\Drupal\ropleon_brand\Controller\CorporateController::privacy'
+    _title: 'Privacy'
+  requirements:
+    _access: 'TRUE'
+
+ropleon_brand.terms:
+  path: '/terms'
+  defaults:
+    _controller: '\Drupal\ropleon_brand\Controller\CorporateController::terms'
+    _title: 'Terms of Use'
+  requirements:
+    _access: 'TRUE'
+
+ropleon_brand.settings:
+  path: '/admin/config/system/ropleon-branding'
+  defaults:
+    _form: '\Drupal\ropleon_brand\Form\BrandSettingsForm'
+    _title: 'Ropleon branding'
+  requirements:
+    _permission: 'administer site configuration'

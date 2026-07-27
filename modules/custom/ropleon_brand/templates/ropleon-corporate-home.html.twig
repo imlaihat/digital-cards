@@ -1,0 +1,160 @@
+<div class="rp-page rp-home">
+  <section class="rp-hero rp-hero--corporate" aria-labelledby="rp-home-title">
+    <div class="rp-shell rp-hero__grid">
+      <div class="rp-hero__content" data-rp-reveal>
+        <span class="rp-eyebrow rp-eyebrow--dark">{{ 'Enterprise Technology · Connected'|t }}</span>
+        <h1 id="rp-home-title">{{ 'Connected technology for modern organizations.'|t }}</h1>
+        <p class="rp-lead">{{ 'Ropleon builds secure enterprise software, connected digital platforms, AI-enabled solutions, cloud services, and integration products that help organizations operate with greater clarity, speed, and control.'|t }}</p>
+        <div class="rp-actions">
+          <a class="rp-button rp-button--primary" href="{{ urls.cards }}">{{ 'Explore Ropleon Cards'|t }} <span aria-hidden="true">→</span></a>
+          <a class="rp-button rp-button--secondary-dark" href="{{ urls.contact }}">{{ 'Talk to Ropleon'|t }}</a>
+        </div>
+      </div>
+
+      <div class="rp-architecture" aria-hidden="true" data-rp-reveal>
+        <svg class="rp-architecture__paths" viewBox="0 0 620 540" preserveAspectRatio="none">
+          <path d="M40 122C170 122 135 267 278 267S430 94 580 94"></path>
+          <path d="M70 450C210 450 180 318 309 318s125 113 252 113"></path>
+          <path d="M105 65c84 0 101 95 202 95s91-69 200-69"></path>
+          <path d="M310 160v158"></path>
+        </svg>
+        <div class="rp-architecture__panel rp-architecture__panel--systems">
+          <small>{{ 'Connected systems'|t }}</small>
+          <i></i><i></i><i></i>
+        </div>
+        <div class="rp-architecture__panel rp-architecture__panel--data">
+          <small>{{ 'Trusted data paths'|t }}</small>
+          <span><i></i><i></i><i></i><i></i></span>
+        </div>
+        <div class="rp-architecture__panel rp-architecture__panel--identity">
+          <small>{{ 'Digital identity'|t }}</small>
+          <strong>{{ 'Always connected'|t }}</strong>
+        </div>
+        <div class="rp-architecture__mark">
+          <img src="{{ ropleon_assets.favicon }}" alt="">
+        </div>
+        <i class="rp-node rp-node--one"></i>
+        <i class="rp-node rp-node--two"></i>
+        <i class="rp-node rp-node--three"></i>
+        <i class="rp-node rp-node--four"></i>
+      </div>
+    </div>
+  </section>
+
+  <section class="rp-capability-strip" aria-label="{{ 'Ropleon capabilities'|t }}">
+    <div class="rp-shell">
+      <span>{{ 'Enterprise Software'|t }}</span>
+      <span>{{ 'System Integration'|t }}</span>
+      <span>{{ 'AI-Enabled Solutions'|t }}</span>
+      <span>{{ 'Cloud Platforms'|t }}</span>
+      <span>{{ 'Digital Identity'|t }}</span>
+    </div>
+  </section>
+
+  <section class="rp-section rp-positioning" aria-labelledby="rp-positioning-title">
+    <div class="rp-shell">
+      <div class="rp-editorial-heading" data-rp-reveal>
+        <span class="rp-eyebrow">{{ 'What we build'|t }}</span>
+        <h2 id="rp-positioning-title">{{ 'Technology designed to work together.'|t }}</h2>
+        <p>{{ 'Modern organizations depend on many systems, channels, teams, and digital experiences. Ropleon connects those elements through secure, scalable, and carefully engineered technology.'|t }}</p>
+      </div>
+      <div class="rp-capability-grid">
+        <article class="rp-capability-card" data-rp-reveal>
+          <div class="rp-icon-wrap">{% include '@ropleon_brand/components/ropleon-icon.html.twig' with {icon: 'software'} only %}</div>
+          <h3>{{ 'Enterprise Software'|t }}</h3>
+          <p>{{ 'Custom platforms and business applications designed around real operational requirements.'|t }}</p>
+          <span>01</span>
+        </article>
+        <article class="rp-capability-card" data-rp-reveal>
+          <div class="rp-icon-wrap">{% include '@ropleon_brand/components/ropleon-icon.html.twig' with {icon: 'integration'} only %}</div>
+          <h3>{{ 'Integration and APIs'|t }}</h3>
+          <p>{{ 'Reliable connections between enterprise systems, services, channels, and data.'|t }}</p>
+          <span>02</span>
+        </article>
+        <article class="rp-capability-card" data-rp-reveal>
+          <div class="rp-icon-wrap">{% include '@ropleon_brand/components/ropleon-icon.html.twig' with {icon: 'ai'} only %}</div>
+          <h3>{{ 'AI and Automation'|t }}</h3>
+          <p>{{ 'Practical AI-enabled solutions that improve decisions, productivity, and customer experiences.'|t }}</p>
+          <span>03</span>
+        </article>
+        <article class="rp-capability-card" data-rp-reveal>
+          <div class="rp-icon-wrap">{% include '@ropleon_brand/components/ropleon-icon.html.twig' with {icon: 'cloud'} only %}</div>
+          <h3>{{ 'Cloud and Digital Platforms'|t }}</h3>
+          <p>{{ 'Scalable platforms built for performance, continuity, security, and growth.'|t }}</p>
+          <span>04</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="rp-section rp-product-spotlight" aria-labelledby="rp-product-spotlight-title">
+    <div class="rp-shell rp-product-spotlight__grid">
+      <div class="rp-product-spotlight__visual" data-rp-reveal>
+        {% include '@ropleon_brand/components/product-interface.html.twig' with {ropleon_assets: ropleon_assets, compact: true} only %}
+      </div>
+      <div class="rp-product-spotlight__content" data-rp-reveal>
+        <span class="rp-eyebrow">{{ 'Our first product'|t }}</span>
+        <img class="rp-product-lockup" src="{{ ropleon_assets.product_logo }}" alt="{{ brand.product_name }}">
+        <h2 id="rp-product-spotlight-title">{{ 'Professional digital identities, managed at enterprise scale.'|t }}</h2>
+        <p>{{ 'Ropleon Cards enables organizations to create, approve, publish, and manage professional digital business cards for their teams from one secure platform.'|t }}</p>
+        <ul class="rp-check-list" role="list">
+          <li>{{ 'Centralized organization administration'|t }}</li>
+          <li>{{ 'Approval and publishing workflows'|t }}</li>
+          <li>{{ 'Branded employee digital identities'|t }}</li>
+          <li>{{ 'QR code and NFC-ready public profiles'|t }}</li>
+          <li>{{ 'Fast, mobile-first card experiences'|t }}</li>
+          <li>{{ 'Contact download and social connectivity'|t }}</li>
+        </ul>
+        <div class="rp-actions">
+          <a class="rp-button rp-button--primary" href="{{ urls.cards }}">{{ 'Discover Ropleon Cards'|t }} <span aria-hidden="true">→</span></a>
+          <a class="rp-text-link" href="{{ urls.login }}">{{ 'Sign in to the platform'|t }}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rp-section rp-proof" aria-labelledby="rp-proof-title">
+    <div class="rp-shell">
+      <div class="rp-editorial-heading rp-editorial-heading--compact">
+        <span class="rp-eyebrow">{{ 'Why Ropleon'|t }}</span>
+        <h2 id="rp-proof-title">{{ 'Built for organizations that expect more.'|t }}</h2>
+      </div>
+      <div class="rp-proof-grid">
+        <article><span>01</span><h3>{{ 'Connected by Design'|t }}</h3><p>{{ 'Products and services designed to work across teams, systems, and channels.'|t }}</p></article>
+        <article><span>02</span><h3>{{ 'Enterprise Ready'|t }}</h3><p>{{ 'Structured access, governance, workflows, and scalable technical foundations.'|t }}</p></article>
+        <article><span>03</span><h3>{{ 'Secure and Reliable'|t }}</h3><p>{{ 'Security, operational continuity, and controlled access treated as core requirements.'|t }}</p></article>
+        <article><span>04</span><h3>{{ 'Built to Evolve'|t }}</h3><p>{{ 'Modular platforms that can grow with new products, integrations, and business requirements.'|t }}</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="rp-section rp-ecosystem" aria-labelledby="rp-ecosystem-title">
+    <div class="rp-shell rp-ecosystem__grid">
+      <div>
+        <span class="rp-eyebrow">{{ 'Product ecosystem'|t }}</span>
+        <h2 id="rp-ecosystem-title">{{ 'One company. A connected product ecosystem.'|t }}</h2>
+        <p>{{ 'Ropleon Cards is the first product in a broader vision for connected enterprise technology. Every Ropleon product will share the same commitment to clarity, interoperability, security, and purposeful design.'|t }}</p>
+      </div>
+      <a class="rp-ecosystem-product" href="{{ urls.cards }}">
+        <img src="{{ ropleon_assets.product_logo }}" alt="{{ brand.product_name }}">
+        <span>{{ 'Active product'|t }}</span>
+        <strong>{{ 'Enterprise Digital Identity Platform'|t }}</strong>
+        <i aria-hidden="true">→</i>
+      </a>
+    </div>
+  </section>
+
+  <section class="rp-section rp-dark-cta">
+    <div class="rp-shell rp-dark-cta__inner">
+      <div>
+        <span class="rp-eyebrow rp-eyebrow--dark">{{ 'Technology, Connected.'|t }}</span>
+        <h2>{{ 'Let’s build technology that connects.'|t }}</h2>
+        <p>{{ 'Explore Ropleon Cards or speak with us about your organization’s software, integration, cloud, and digital platform requirements.'|t }}</p>
+      </div>
+      <div class="rp-actions">
+        <a class="rp-button rp-button--primary" href="{{ urls.cards }}">{{ 'Explore Ropleon Cards'|t }}</a>
+        <a class="rp-button rp-button--secondary-dark" href="{{ urls.contact }}">{{ 'Contact Ropleon'|t }}</a>
+      </div>
+    </div>
+  </section>
+</div>

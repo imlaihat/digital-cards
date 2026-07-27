@@ -12,6 +12,7 @@ dependencies:
     - workflow.workflow.test
     - workflows.workflow.card_approval
   module:
+    - contact
     - content_moderation
     - content_translation
     - digital_card_admin
@@ -19,12 +20,12 @@ dependencies:
     - digital_card_offers
     - digital_card_public
     - digital_card_social
+    - field_ui
     - group
     - node
     - paragraphs
     - system
     - taxonomy
-    - toolbar
     - workflow
 id: platform_admin
 label: 'Platform admin'
@@ -35,7 +36,7 @@ permissions:
   - 'access card_workflow workflow_transition form'
   - 'access content overview'
   - 'access platform admin dashboard'
-  - 'access toolbar'
+  - 'administer contact_message display'
   - 'administer digital card merchant users'
   - 'administer digital card offers'
   - 'administer digital card partners'

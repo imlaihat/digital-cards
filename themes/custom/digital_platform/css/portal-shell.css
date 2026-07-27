@@ -1,0 +1,616 @@
+/**
+ * Ropleon authenticated workspace shell.
+ *
+ * This layer is intentionally loaded after the product modules. It unifies the
+ * Platform, Organization, and Merchant workspaces without exposing corporate
+ * public navigation inside a secure application.
+ */
+.rp-authenticated-portal {
+  color: var(--ropleon-text);
+  background:
+    linear-gradient(rgba(216, 226, 240, .34) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(216, 226, 240, .34) 1px, transparent 1px),
+    var(--ropleon-surface);
+  background-size: 36px 36px;
+  font-family: var(--ropleon-font-sans);
+}
+
+.rp-portal-shell {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.rp-portal-shell__main {
+  width: min(1440px, calc(100% - 40px));
+  flex: 1 0 auto;
+  margin-inline: auto;
+  padding-block: 18px 56px;
+}
+
+.rp-portal-shell__main > .region-breadcrumb {
+  margin-block-end: 12px;
+}
+
+.rp-authenticated-portal .block-language {
+  display: none !important;
+}
+
+.rp-portal-language {
+  grid-area: language;
+  align-self: center;
+  justify-self: end;
+}
+
+.rp-portal-language .rp-language-nav {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  border: 1px solid var(--ropleon-border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .96);
+  box-shadow: 0 4px 14px rgba(7, 26, 51, .08);
+}
+
+.rp-portal-language .rp-language-nav__link {
+  min-width: 38px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  color: var(--ropleon-text-muted);
+  font-size: .69rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.rp-portal-language .rp-language-nav__link:hover,
+.rp-portal-language .rp-language-nav__link:focus-visible,
+.rp-portal-language .rp-language-nav__link.is-active {
+  color: #fff;
+  background: var(--ropleon-blue-700);
+  box-shadow: 0 5px 12px rgba(28, 84, 204, .22);
+  text-decoration: none;
+}
+
+.rp-portal-shell .dc-portal-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 400;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-block-end: 1px solid rgba(216, 226, 240, .9);
+  border-radius: 0;
+  background: rgba(255, 255, 255, .97);
+  box-shadow: 0 8px 28px rgba(7, 26, 51, .08);
+  backdrop-filter: blur(16px);
+}
+
+.rp-portal-shell .dc-portal-header::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ropleon-blue-700), var(--ropleon-blue-500), var(--ropleon-cyan-400));
+  content: "";
+}
+
+.rp-portal-shell .dc-portal-header__inner {
+  display: grid;
+  width: min(1480px, 100%);
+  min-height: 78px;
+  grid-template-areas: "brand nav language";
+  grid-template-columns: max-content minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  margin-inline: auto;
+  padding: 13px 24px 11px;
+}
+
+.rp-portal-shell .dc-portal-brand {
+  grid-area: brand;
+  min-width: 0;
+}
+
+.rp-portal-shell .dc-portal-brand__company-logo {
+  display: block;
+  width: auto;
+  max-width: 166px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.rp-portal-shell .dc-portal-brand--company {
+  gap: 16px;
+}
+
+.rp-portal-shell .dc-portal-brand--company .dc-portal-brand__text {
+  padding-inline-start: 15px;
+  border-inline-start: 1px solid var(--ropleon-border);
+}
+
+.rp-portal-shell .dc-portal-brand--company .dc-portal-kicker {
+  color: var(--ropleon-blue-700);
+}
+
+.rp-portal-shell .dc-portal-nav {
+  grid-area: nav;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 4px;
+  padding-block: 3px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.rp-portal-shell .dc-portal-menu-toggle {
+  grid-area: toggle;
+}
+
+.rp-portal-shell .dc-portal-header--platform .dc-portal-header__inner {
+  grid-template-areas:
+    "brand language"
+    "nav nav";
+  grid-template-columns: minmax(0, 1fr) auto;
+  row-gap: 7px;
+}
+
+.rp-portal-shell .dc-portal-header--platform .dc-portal-nav {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.rp-portal-shell .dc-portal-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.rp-portal-shell .dc-portal-nav__link {
+  flex: 0 0 auto;
+  min-height: 40px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: var(--ropleon-text);
+  background: transparent;
+  box-shadow: none;
+  font-size: .79rem;
+  font-weight: 700;
+}
+
+.rp-portal-shell .dc-portal-nav__link:hover,
+.rp-portal-shell .dc-portal-nav__link:focus-visible {
+  color: var(--ropleon-blue-700);
+  background: var(--ropleon-surface-alt);
+  border-color: transparent;
+  transform: none;
+}
+
+.rp-portal-shell .dc-portal-header--platform .dc-portal-nav__link.is-active {
+  color: #fff;
+  background: var(--ropleon-blue-700);
+  box-shadow: 0 8px 18px rgba(28, 84, 204, .2);
+}
+
+.rp-portal-shell .dc-portal-header--platform .dc-portal-nav__link.is-highlight:not(.is-active) {
+  color: var(--ropleon-blue-700);
+  border-color: var(--ropleon-border);
+  background: #fff;
+}
+
+/* Organization identity is preserved while the layout remains Ropleon Cards. */
+.rp-portal-shell .dc-portal-header--organization {
+  color: var(--dc-org-on-primary, #fff);
+  background: var(--dc-org-primary, var(--ropleon-blue-700));
+  border-color: transparent;
+}
+
+.rp-portal-shell .dc-portal-header--organization::before {
+  background: var(--dc-org-secondary, var(--ropleon-cyan-400));
+}
+
+.rp-portal-shell .dc-portal-header--organization .dc-portal-header__inner {
+  grid-template-columns: minmax(230px, max-content) minmax(0, 1fr) auto;
+}
+
+.rp-portal-shell .dc-portal-header--organization .dc-portal-brand,
+.rp-portal-shell .dc-portal-header--organization .dc-portal-brand strong,
+.rp-portal-shell .dc-portal-header--organization .dc-portal-kicker,
+.rp-portal-shell .dc-portal-header--organization .dc-portal-powered,
+.rp-portal-shell .dc-portal-header--organization .dc-portal-nav__link {
+  color: var(--dc-org-on-primary, #fff);
+}
+
+.rp-portal-shell .dc-portal-header--organization .dc-portal-nav {
+  flex-wrap: nowrap;
+}
+
+.rp-portal-shell .dc-portal-header--organization .dc-portal-nav__link:hover,
+.rp-portal-shell .dc-portal-header--organization .dc-portal-nav__link:focus-visible,
+.rp-portal-shell .dc-portal-header--organization .dc-portal-nav__link.is-active {
+  color: var(--dc-org-on-primary, #fff);
+  background: color-mix(in srgb, var(--dc-org-on-primary, #fff) 18%, transparent);
+  border-color: color-mix(in srgb, var(--dc-org-on-primary, #fff) 24%, transparent);
+  box-shadow: none;
+}
+
+.rp-portal-shell .dc-portal-header--organization .dc-portal-nav__link.is-highlight:not(.is-active) {
+  color: var(--dc-org-primary, var(--ropleon-blue-700));
+  background: var(--dc-org-on-primary, #fff);
+  border-color: transparent;
+}
+
+.rp-portal-shell .dc-portal-header--organization .dc-portal-menu-toggle {
+  color: var(--dc-org-primary, var(--ropleon-blue-700));
+  background: var(--dc-org-on-primary, #fff);
+  border-color: transparent;
+}
+
+/* Merchant navigation uses the product identity and the corporate navy. */
+.rp-merchant-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 400;
+  color: #fff;
+  background:
+    radial-gradient(circle at 86% -120%, rgba(34, 211, 238, .3), transparent 34%),
+    var(--ropleon-navy-950);
+  box-shadow: 0 10px 30px rgba(7, 26, 51, .2);
+}
+
+.rp-merchant-header__inner {
+  display: grid;
+  width: min(1440px, 100%);
+  min-height: 78px;
+  grid-template-areas: "brand nav language toggle";
+  grid-template-columns: max-content minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 24px;
+  margin-inline: auto;
+  padding: 12px 24px;
+}
+
+.rp-merchant-brand {
+  grid-area: brand;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.rp-merchant-brand img {
+  display: block;
+  width: auto;
+  max-width: 180px;
+  height: 39px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  background: #fff;
+  object-fit: contain;
+}
+
+.rp-merchant-brand span {
+  display: grid;
+  padding-inline-start: 14px;
+  border-inline-start: 1px solid rgba(255, 255, 255, .22);
+}
+
+.rp-merchant-brand small {
+  color: var(--ropleon-cyan-300);
+  font-size: .67rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.rp-merchant-brand strong {
+  color: #fff;
+  font-size: .92rem;
+}
+
+.rp-merchant-nav {
+  grid-area: nav;
+  display: flex;
+  min-width: 0;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.rp-merchant-nav a {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  padding: 8px 13px;
+  border-radius: 10px;
+  color: #d5e2f1;
+  font-size: .82rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.rp-merchant-nav a:hover,
+.rp-merchant-nav a:focus-visible,
+.rp-merchant-nav a.is-active {
+  color: #fff;
+  background: rgba(255, 255, 255, .12);
+}
+
+.rp-merchant-menu-toggle {
+  grid-area: toggle;
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 11px;
+  color: #fff;
+  background: rgba(255, 255, 255, .08);
+}
+
+.rp-merchant-menu-toggle i {
+  display: block;
+  height: 2px;
+  margin: 4px 0;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.rp-portal-footer {
+  flex: 0 0 auto;
+  color: #b6c8db;
+  background: var(--ropleon-navy-950);
+}
+
+.rp-portal-footer__inner {
+  display: grid;
+  width: min(1440px, calc(100% - 40px));
+  min-height: 112px;
+  grid-template-columns: minmax(260px, 1fr) auto;
+  align-items: center;
+  gap: 28px;
+  margin-inline: auto;
+  padding-block: 24px;
+}
+
+.rp-portal-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.rp-portal-footer__brand img {
+  display: block;
+  width: auto;
+  max-width: 180px;
+  height: 36px;
+  padding: 7px 10px;
+  border-radius: 9px;
+  background: #fff;
+  object-fit: contain;
+}
+
+.rp-portal-footer__brand strong,
+.rp-portal-footer__brand span {
+  display: block;
+}
+
+.rp-portal-footer__brand strong {
+  color: #fff;
+  font-size: .85rem;
+}
+
+.rp-portal-footer__brand span {
+  margin-block-start: 3px;
+  color: #8fa7c0;
+  font-size: .73rem;
+}
+
+.rp-portal-footer__links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+
+.rp-portal-footer__links a {
+  color: #b6c8db;
+  font-size: .76rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.rp-portal-footer__links a:hover,
+.rp-portal-footer__links a:focus-visible {
+  color: var(--ropleon-cyan-300);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 1180px) and (min-width: 901px) {
+  .rp-portal-shell .dc-portal-header--platform .dc-portal-header__inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .rp-portal-shell .dc-portal-header--platform .dc-portal-nav {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .rp-portal-shell .dc-portal-header--organization .dc-portal-header__inner {
+    grid-template-areas:
+      "brand language"
+      "nav nav";
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 8px;
+  }
+
+  .rp-portal-shell .dc-portal-header--organization .dc-portal-nav {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 900px) {
+  .rp-portal-shell__main {
+    width: min(100% - 28px, 1440px);
+    padding-block-start: 14px;
+  }
+
+  .rp-portal-shell .dc-portal-header__inner,
+  .rp-portal-shell .dc-portal-header--organization .dc-portal-header__inner {
+    grid-template-areas:
+      "brand language toggle"
+      "nav nav nav";
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    min-height: 70px;
+    gap: 9px;
+    padding: 11px 14px;
+  }
+
+  .rp-portal-shell .dc-portal-brand__company-logo {
+    max-width: min(145px, 38vw);
+    height: 32px;
+  }
+
+  .rp-portal-shell .dc-portal-brand--company .dc-portal-brand__text {
+    display: none;
+  }
+
+  .rp-portal-shell .dc-portal-nav {
+    grid-area: nav;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 7px;
+    width: 100%;
+    max-height: min(66vh, 520px);
+    padding-block: 8px 2px;
+    overflow-y: auto;
+  }
+
+  .rp-portal-shell .dc-portal-header[data-portal-navigation-enhanced="true"] .dc-portal-menu-toggle {
+    display: inline-flex !important;
+  }
+
+  .rp-portal-shell .dc-portal-header[data-portal-navigation-enhanced="true"][data-portal-menu-open="false"] .dc-portal-nav {
+    display: none;
+  }
+
+  .rp-portal-shell .dc-portal-header[data-portal-navigation-enhanced="true"][data-portal-menu-open="true"] .dc-portal-nav {
+    display: grid;
+  }
+
+  .rp-portal-shell .dc-portal-header--organization .dc-portal-powered {
+    display: none;
+  }
+
+  .rp-portal-shell .dc-portal-header--organization .dc-portal-brand__text strong {
+    display: block;
+    max-width: 24vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .rp-portal-shell .dc-portal-nav__link {
+    width: 100%;
+    justify-content: flex-start;
+    border: 1px solid var(--ropleon-border);
+    background: #fff;
+  }
+
+  .rp-portal-shell .dc-portal-header--organization .dc-portal-nav__link {
+    color: var(--dc-org-on-primary, #fff);
+    border-color: color-mix(in srgb, var(--dc-org-on-primary, #fff) 20%, transparent);
+    background: color-mix(in srgb, var(--dc-org-on-primary, #fff) 10%, transparent);
+  }
+
+  .rp-merchant-header__inner {
+    grid-template-areas:
+      "brand language toggle"
+      "nav nav nav";
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    min-height: 70px;
+    gap: 12px;
+    padding: 10px 14px;
+  }
+
+  .rp-merchant-menu-toggle {
+    display: block;
+  }
+
+  .rp-merchant-nav {
+    grid-area: nav;
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    padding-block-start: 8px;
+  }
+
+  .rp-merchant-header[data-menu-open="true"] .rp-merchant-nav {
+    display: flex;
+  }
+
+  .rp-merchant-nav a {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, .12);
+  }
+
+  .rp-portal-footer__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .rp-portal-footer__links {
+    justify-content: flex-start;
+  }
+
+  .rp-portal-language .rp-language-nav__link {
+    min-width: 34px;
+    padding-inline: 6px;
+    font-size: .65rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .rp-portal-shell .dc-portal-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .rp-merchant-brand img {
+    max-width: min(132px, 34vw);
+    height: 34px;
+  }
+
+  .rp-merchant-brand span {
+    display: none;
+  }
+
+  .rp-portal-footer__inner {
+    width: min(100% - 28px, 1440px);
+  }
+
+  .rp-portal-footer__brand {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+[dir="rtl"] .rp-portal-shell .dc-portal-nav__link,
+[dir="rtl"] .rp-merchant-nav a {
+  text-align: right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rp-portal-shell *,
+  .rp-merchant-header * {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}

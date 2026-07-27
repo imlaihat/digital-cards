@@ -1,7 +1,7 @@
-name: Digital Card Admin
+name: Ropleon Cards Administration
 type: module
-description: 'Administration dashboards, organization admin management, and card workflow actions for the Digital Business Card Platform.'
-package: Digital Card
+description: 'Ropleon Cards dashboards, organization administration, and card workflow actions.'
+package: Ropleon Cards
 core_version_requirement: ^10 || ^11
 dependencies:
   - drupal:node

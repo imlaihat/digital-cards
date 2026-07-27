@@ -63,6 +63,11 @@
         'Sort ascending': tr('Sort ascending'),
         'Arabic': tr('Arabic'),
       };
+      Object.entries(configuredLabels).forEach(([source, translated]) => {
+        if (source && translated) {
+          groupLabels[source] = translated;
+        }
+      });
       once('digital-card-arabic-group-ui-v2', 'main a, main button, main th, main td, main li, main label, main option, main span', context).forEach((element) => {
         if (element.children.length > 0) {
           return;
@@ -71,12 +76,40 @@
         if (groupLabels[source]) {
           element.textContent = groupLabels[source];
         }
+        else if (/^\d+\s+records?$/.test(source)) {
+          const count = Number.parseInt(source, 10);
+          element.textContent = Drupal.formatPlural(count, '1 record', '@count records');
+        }
+        else if (/^Page\s+\d+$/.test(source)) {
+          const page = source.match(/\d+/)?.[0] || '';
+          element.textContent = tr('Page @number').replace('@number', page);
+        }
+        else if (/^card_workflow_rejected$/i.test(source)) {
+          element.textContent = tr('Rejected');
+        }
         else if (source === 'تعديل node') {
           element.textContent = tr('Edit');
         }
         else if (source === 'عرض member') {
           element.textContent = tr('View');
         }
+      });
+      once('digital-card-arabic-toolbar-ui-v3', '#toolbar-administration a, #toolbar-administration button, #toolbar-administration span', context).forEach((element) => {
+        if (element.children.length > 0) {
+          return;
+        }
+        const source = element.textContent.trim();
+        if (groupLabels[source]) {
+          element.textContent = groupLabels[source];
+        }
+      });
+      once('digital-card-arabic-runtime-attributes-v3', 'main [title], main [aria-label], main input[placeholder], #toolbar-administration [title], #toolbar-administration [aria-label]', context).forEach((element) => {
+        ['title', 'aria-label', 'placeholder'].forEach((attribute) => {
+          const source = (element.getAttribute(attribute) || '').trim();
+          if (source && groupLabels[source]) {
+            element.setAttribute(attribute, groupLabels[source]);
+          }
+        });
       });
       once('digital-card-arabic-group-search-v2', 'main input[placeholder]', context).forEach((input) => {
         let placeholder = input.getAttribute('placeholder') || '';
@@ -141,7 +174,7 @@
         document.documentElement.lang === 'ar'
         && /\/group\/\d+\/content\/create\/group_node(?::|%3A)digital_business_card/i.test(window.location.pathname)
       ) {
-        document.title = tr('Add Digital Card') + ' | ' + tr('Digital Card Platform');
+        document.title = tr('Add Digital Card') + ' | ' + tr('Ropleon Cards');
       }
       else if (document.documentElement.lang === 'ar') {
         const titleRules = [

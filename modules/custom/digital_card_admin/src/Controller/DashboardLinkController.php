@@ -546,7 +546,7 @@ class DashboardLinkController extends ControllerBase {
       '#type' => 'container',
       '#attributes' => ['class' => $dashboard_classes],
       'welcome' => [
-        '#markup' => '<section class="' . $welcome_class . '"><div class="dc-welcome-card__content"><span class="dc-eyebrow">' . ($organization_portal ? $this->t('Organization Portal') : $this->t('Digital Card Platform')) . '</span><h1>' . $this->escape($title) . '</h1><p>' . $this->escape($description) . '</p></div></section>',
+        '#markup' => '<section class="' . $welcome_class . '"><div class="dc-welcome-card__content"><span class="dc-eyebrow">' . ($organization_portal ? $this->t('Organization Portal') : $this->t('Ropleon Cards')) . '</span><h1>' . $this->escape($title) . '</h1><p>' . $this->escape($description) . '</p></div></section>',
       ],
       '#attached' => ['library' => ['digital_card_admin/dashboards']],
     ];

@@ -1,0 +1,7 @@
+ropleon_brand.settings:
+  title: 'Ropleon branding'
+  description: 'Manage the public company and Ropleon Cards product identity.'
+  route_name: ropleon_brand.settings
+  parent: system.admin_config_system
+  weight: 30
+

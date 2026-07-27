@@ -1,7 +1,7 @@
-name: 'Digital Card Subscription'
+name: 'Ropleon Cards Subscriptions'
 type: module
-description: 'Manages organization subscriptions for the Digital Business Card platform.'
-package: 'Digital Card'
+description: 'Manages organization subscriptions for Ropleon Cards.'
+package: 'Ropleon Cards'
 core_version_requirement: ^10 || ^11
 dependencies:
   - drupal:node

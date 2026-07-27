@@ -347,7 +347,7 @@ function digital_card_admin_mail($key, &$message, $params): void {
   switch ($key) {
     case 'organization_admin_welcome':
     case 'organization_admin_password_reset':
-      $message['subject'] = $params['subject'] ?? 'Digital Business Card Platform';
+      $message['subject'] = $params['subject'] ?? 'Ropleon Cards';
       $message['body'][] = $params['message'] ?? '';
       $message['headers']['Content-Type'] = 'text/plain; charset=UTF-8';
       break;
@@ -383,7 +383,9 @@ function digital_card_admin_theme($existing, $type, $theme, $path): array {
         'subscription' => [],
         'portal_theme' => [],
         'navigation' => [],
+        'languages' => [],
         'account_name' => '',
+        'product_logo_url' => '',
       ],
       'template' => 'digital-card-organization-portal-header',
     ],
@@ -391,7 +393,10 @@ function digital_card_admin_theme($existing, $type, $theme, $path): array {
       'variables' => [
         'summary' => [],
         'navigation' => [],
+        'languages' => [],
         'account_name' => '',
+        'product_logo_url' => '',
+        'company_logo_url' => '',
       ],
       'template' => 'digital-card-platform-admin-header',
     ],

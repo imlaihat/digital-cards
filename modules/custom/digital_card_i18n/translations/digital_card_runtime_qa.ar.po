@@ -315,6 +315,114 @@ msgstr "المراجعات"
 msgid "Arabic"
 msgstr "العربية"
 
+msgid "Platform Dashboard"
+msgstr "لوحة تحكم المنصة"
+
+msgid "1 record"
+msgid_plural "@count records"
+msgstr[0] "لا توجد سجلات"
+msgstr[1] "سجل واحد"
+msgstr[2] "سجلان"
+msgstr[3] "@count سجلات"
+msgstr[4] "@count سجلاً"
+msgstr[5] "@count سجل"
+
+msgid "Pagination"
+msgstr "التنقل بين الصفحات"
+
+msgid "Page @number"
+msgstr "الصفحة @number"
+
+msgid "cancelled"
+msgstr "ملغي"
+
+msgid "Deleted or unavailable card"
+msgstr "بطاقة محذوفة أو غير متاحة"
+
+msgid "Unavailable organization"
+msgstr "مؤسسة غير متاحة"
+
+msgid "Menu settings"
+msgstr "إعدادات القائمة"
+
+msgid "URL alias"
+msgstr "المسار البديل للرابط"
+
+msgid "- Not specified -"
+msgstr "- غير محدد -"
+
+msgid "- Not applicable -"
+msgstr "- لا ينطبق -"
+
+msgid "Monthly"
+msgstr "شهري"
+
+msgid "Yearly"
+msgstr "سنوي"
+
+msgid "- Select Merchant user -"
+msgstr "- اختر مستخدم التاجر -"
+
+msgid "- Select -"
+msgstr "- اختر -"
+
+msgid "Your name"
+msgstr "اسمك"
+
+msgid "Your email address"
+msgstr "بريدك الإلكتروني"
+
+msgid "Subject"
+msgstr "الموضوع"
+
+msgid "Message"
+msgstr "الرسالة"
+
+msgid "Send yourself a copy"
+msgstr "أرسل نسخة إلى بريدك"
+
+msgid "Structure"
+msgstr "الهيكل"
+
+msgid "Appearance"
+msgstr "المظهر"
+
+msgid "Extend"
+msgstr "الإضافات"
+
+msgid "Configuration"
+msgstr "الإعدادات"
+
+msgid "Groups"
+msgstr "المؤسسات"
+
+msgid "People"
+msgstr "المستخدمون"
+
+msgid "Reports"
+msgstr "التقارير"
+
+msgid "Help"
+msgstr "المساعدة"
+
+msgid "Announcements"
+msgstr "الإعلانات"
+
+msgid "On"
+msgstr "مفعّل"
+
+msgid "Off"
+msgstr "معطّل"
+
+msgid "Platform organizations"
+msgstr "مؤسسات المنصة"
+
+msgid "platform organizations"
+msgstr "مؤسسات المنصة"
+
+msgid "card_workflow_rejected"
+msgstr "مرفوضة"
+
 msgid "Approval policy"
 msgstr "سياسة الاعتماد"
 

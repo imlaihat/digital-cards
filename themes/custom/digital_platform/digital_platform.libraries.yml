@@ -1,5 +1,5 @@
 global-styling:
-  version: 1.8.0
+  version: 2.1.0
 
   dependencies:
     - bootstrap_barrio/global-styling
@@ -7,6 +7,7 @@ global-styling:
 
   css:
     component:
+      css/brand-tokens.css: {}
       css/style.css: {}
       css/colors.css: {}
 
@@ -33,9 +34,33 @@ color.preview:
     color/preview.js: {}
 
 login:
-  version: 1.0.0
+  version: 2.1.0
   css:
     theme:
       css/login.css: {}
+
+ropleon-public:
+  version: 3.1.0
+  dependencies:
+    - digital_platform/global-styling
+    - core/drupal
+  css:
+    theme:
+      css/ropleon-public.css: {}
+  js:
+    js/ropleon-public.js: {}
+
+portal-shell:
+  version: 3.2.0
+  dependencies:
+    - digital_platform/global-styling
+    - digital_card_admin/dashboards
+    - core/drupal
+    - core/once
+  css:
+    theme:
+      css/portal-shell.css: {}
+  js:
+    js/portal-shell.js: {}
 
   

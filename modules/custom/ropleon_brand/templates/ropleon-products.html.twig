@@ -1,0 +1,33 @@
+<div class="rp-page rp-products">
+  <section class="rp-subhero" aria-labelledby="rp-products-title">
+    <div class="rp-shell rp-subhero__grid">
+      <div>
+        <span class="rp-eyebrow">{{ 'Ropleon products'|t }}</span>
+        <h1 id="rp-products-title">{{ 'Products built to connect organizations.'|t }}</h1>
+      </div>
+      <p class="rp-lead">{{ 'Ropleon develops focused digital products that solve real organizational challenges while sharing a common foundation of security, scalability, and connected design.'|t }}</p>
+    </div>
+  </section>
+
+  <section class="rp-section rp-products-active" aria-labelledby="rp-active-product-title">
+    <div class="rp-shell rp-products-active__grid">
+      <div class="rp-products-active__visual">
+        {% include '@ropleon_brand/components/product-interface.html.twig' with {ropleon_assets: ropleon_assets, compact: true} only %}
+      </div>
+      <div>
+        <span class="rp-product-parent">{{ 'Available now'|t }}</span>
+        <img class="rp-product-lockup" src="{{ ropleon_assets.product_logo }}" alt="{{ brand.product_name }}">
+        <h2 id="rp-active-product-title">{{ 'Enterprise digital identity and business card management for organizations.'|t }}</h2>
+        <p>{{ 'Create, govern, publish, and maintain professional digital identities through one secure platform designed for organizations and their teams.'|t }}</p>
+        <a class="rp-button rp-button--primary" href="{{ urls.cards }}">{{ 'Explore Ropleon Cards'|t }} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="rp-section rp-ecosystem-note">
+    <div class="rp-shell rp-editorial-split">
+      <div><span class="rp-eyebrow">{{ 'A connected foundation'|t }}</span><h2>{{ 'Focused products built for real needs.'|t }}</h2></div>
+      <p>{{ 'Ropleon Cards is the first product in a broader connected technology vision. New products will be introduced only when they are ready to solve a clear organizational need.'|t }}</p>
+    </div>
+  </section>
+</div>

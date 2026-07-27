@@ -1,0 +1,29 @@
+<div class="rp-page rp-legal">
+  <section class="rp-subhero">
+    <div class="rp-shell">
+      {% if page_type == 'privacy' %}
+        <span class="rp-eyebrow">{{ 'Trust and transparency'|t }}</span>
+        <h1>{{ 'Privacy'|t }}</h1>
+        <p class="rp-lead">{{ 'Ropleon is committed to handling information responsibly and explaining how information is used across its public websites and digital services.'|t }}</p>
+      {% else %}
+        <span class="rp-eyebrow">{{ 'Using Ropleon services'|t }}</span>
+        <h1>{{ 'Terms of Use'|t }}</h1>
+        <p class="rp-lead">{{ 'These general terms describe the responsible use of Ropleon public websites and digital services.'|t }}</p>
+      {% endif %}
+    </div>
+  </section>
+  <section class="rp-section">
+    <div class="rp-shell rp-legal__layout">
+      {% if page_type == 'privacy' %}
+        <article><h2>{{ 'Information you provide'|t }}</h2><p>{{ 'Information submitted through contact, account, organization, card, or merchant workflows is used to provide and operate the requested service.'|t }}</p></article>
+        <article><h2>{{ 'Service and security information'|t }}</h2><p>{{ 'Technical and activity information may be processed to protect accounts, maintain reliability, understand service usage, and improve platform performance.'|t }}</p></article>
+        <article><h2>{{ 'Your choices'|t }}</h2><p>{{ 'Use the relevant account or organization controls when available, or contact Ropleon about an information request.'|t }}</p></article>
+      {% else %}
+        <article><h2>{{ 'Responsible use'|t }}</h2><p>{{ 'Use Ropleon services lawfully, protect account credentials, and provide accurate information when creating or managing digital identities.'|t }}</p></article>
+        <article><h2>{{ 'Service availability'|t }}</h2><p>{{ 'Features may evolve as products improve. Subscription, organization, and role permissions continue to control access to managed platform capabilities.'|t }}</p></article>
+        <article><h2>{{ 'Brand and content'|t }}</h2><p>{{ 'Ropleon names, product identities, interfaces, and supplied brand assets may not be misrepresented or used outside authorized service activity.'|t }}</p></article>
+      {% endif %}
+      <aside><span class="rp-eyebrow">{{ 'Questions'|t }}</span><h2>{{ 'Contact Ropleon'|t }}</h2><p>{{ 'Use the contact page for questions about these terms, privacy, or a Ropleon service.'|t }}</p><a class="rp-button rp-button--primary" href="{{ urls.contact }}">{{ 'Contact'|t }}</a></aside>
+    </div>
+  </section>
+</div>

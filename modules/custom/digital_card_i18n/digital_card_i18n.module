@@ -16,7 +16,7 @@ use Drupal\views\ViewExecutable;
 function digital_card_i18n_page_attachments(array &$attachments): void {
   if (\Drupal::languageManager()->getCurrentLanguage()->getId() === 'ar') {
     $attachments['#attached']['library'][] = 'digital_card_i18n/platform_arabic';
-    $sources = [
+    $sources = array_values(array_unique(array_merge(digital_card_i18n_translatable_sources(), [
       'Skip to main content', 'Manage', 'Shortcuts', 'Close', 'Members', 'Nodes',
       'Add member', 'Add new content', 'Employee', 'Org Admin', 'Joined',
       'Operations', 'List additional actions', '- Any -', '- None -', 'Type',
@@ -24,11 +24,11 @@ function digital_card_i18n_page_attachments(array &$attachments): void {
       'Organization Subscription', 'Subscription Plan', 'Title', 'Content type',
       'Content',
       'Current state', 'Sort ascending', 'Edit', 'View', 'Delete', 'Add Digital Card',
-      'Digital Card Platform', 'Back to site', 'Return to site content',
+      'Ropleon Cards', 'Back to Ropleon Technologies', 'Return to site content',
       'Site administration toolbar', 'Site header', 'Toggle navigation',
       'Arabic', 'Password strength:', 'Passwords match:',
       'Choose the language used for account notifications and portal pages.',
-    ];
+    ])));
     foreach ($sources as $source) {
       $attachments['#attached']['drupalSettings']['digitalCardI18n']['labels'][$source] = (string) t($source, [], ['langcode' => 'ar']);
     }
@@ -635,8 +635,9 @@ function digital_card_i18n_normalize_arabic_dates(array &$fields): void {
       $field['settings']['custom_date_format'] = 'd/m/Y H:i';
     }
     elseif (str_contains($identity, 'date') || str_contains($identity, 'starts') || str_contains($identity, 'ends')) {
-      $field['settings']['date_format'] = 'custom';
-      $field['settings']['custom_date_format'] = 'd/m/Y';
+      $field['type'] = 'datetime_custom';
+      $field['settings']['date_format'] = 'd/m/Y';
+      unset($field['settings']['custom_date_format']);
     }
   }
 }
@@ -814,7 +815,7 @@ function digital_card_i18n_translatable_sources(): array {
     'Card approval checks passed.', 'Static card generation is allowed.',
     'This action cannot be undone.',
     'Clear filters', 'Clear all column filters',
-    'Digital Card Platform', 'Digital identity, loyalty, and partner offers',
+    'Ropleon Cards', 'Enterprise digital identity, loyalty, and partner offers',
     'Connect organizations, card holders, and merchants.',
     'Turn every card into lasting customer value',
     'Issue branded digital cards, reward engagement, and deliver partner offers—all from one scalable platform.',
@@ -902,6 +903,15 @@ function digital_card_i18n_translatable_sources(): array {
     'View card', 'Edit card',
     'Optional CSS example',
     'Copy any rules you want into Additional card CSS and adjust the values for this organization.',
+    'Platform Dashboard', 'No plan', 'No subscription', '1 record', '@count records',
+    'Pagination', 'Page @number', 'cancelled', 'Deleted or unavailable card',
+    'Unavailable organization', 'Menu settings', 'URL alias',
+    '- Not specified -', '- Not applicable -', 'Monthly', 'Yearly',
+    '- Select Merchant user -', '- Select -', 'Your name', 'Your email address',
+    'Subject', 'Message', 'Send yourself a copy', 'Structure', 'Appearance',
+    'Extend', 'Configuration', 'Groups', 'People', 'Reports', 'Help',
+    'Announcements', 'On', 'Off', 'No records found.', 'Platform organizations',
+    'platform organizations', 'Card Workflow Rejected', 'card_workflow_rejected',
   ];
 }
 

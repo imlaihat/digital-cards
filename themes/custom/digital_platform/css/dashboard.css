@@ -5,7 +5,7 @@ background:white;
 
 border-radius:20px;
 
-padding:25px;
+padding:20px;
 
 }
 
@@ -16,7 +16,7 @@ padding:25px;
 
     border-radius:20px;
 
-    padding:25px;
+    padding:20px;
 
 
     box-shadow:
@@ -64,7 +64,7 @@ padding:25px;
 
 .dashboard-wrapper {
 
-    padding:30px;
+    padding:20px;
 
 }
 
@@ -79,7 +79,7 @@ padding:25px;
     align-items:center;
 
 
-    margin-bottom:30px;
+    margin-bottom:20px;
 
 
 }
@@ -112,7 +112,7 @@ padding:25px;
 
     flex-direction:column;
 
-    gap:25px;
+    gap:18px;
 
 
 }

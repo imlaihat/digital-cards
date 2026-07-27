@@ -1,0 +1,3 @@
+services:
+  ropleon_brand.controller:
+    class: Drupal\ropleon_brand\Controller\CorporateController

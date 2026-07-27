@@ -1,0 +1,40 @@
+ropleon_brand.settings:
+  type: config_object
+  label: 'Ropleon brand settings'
+  mapping:
+    company_name:
+      type: label
+      label: 'Company brand'
+      translatable: true
+    company_legal_name:
+      type: label
+      label: 'Legal company name'
+      translatable: true
+    company_name_ar:
+      type: label
+      label: 'Arabic company name'
+      translatable: true
+    company_tagline:
+      type: label
+      label: 'Company tagline'
+      translatable: true
+    product_name:
+      type: label
+      label: 'Product name'
+      translatable: true
+    product_tagline:
+      type: label
+      label: 'Product tagline'
+      translatable: true
+    product_description:
+      type: text
+      label: 'Product description'
+      translatable: true
+    product_branding_line:
+      type: label
+      label: 'Product branding line'
+      translatable: true
+    contact_email:
+      type: email
+      label: 'Public contact email'
+

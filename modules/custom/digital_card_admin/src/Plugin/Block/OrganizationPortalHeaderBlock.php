@@ -17,8 +17,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @Block(
  *   id = "digital_card_organization_portal_header",
- *   admin_label = @Translation("Digital Card: Organization Portal Header"),
- *   category = @Translation("Digital Card")
+ *   admin_label = @Translation("Ropleon Cards: Organization Portal Header"),
+ *   category = @Translation("Ropleon Cards")
  * )
  */
 class OrganizationPortalHeaderBlock extends BlockBase implements ContainerFactoryPluginInterface {
@@ -100,6 +100,8 @@ class OrganizationPortalHeaderBlock extends BlockBase implements ContainerFactor
     }
     unset($item);
 
+    $theme_path = \Drupal::service('extension.list.theme')->getPath('digital_platform');
+
     return [
       '#theme' => 'digital_card_organization_portal_header',
       '#summary' => $summary,
@@ -107,6 +109,7 @@ class OrganizationPortalHeaderBlock extends BlockBase implements ContainerFactor
       '#portal_theme' => $portal_theme,
       '#navigation' => $navigation,
       '#account_name' => $this->currentUser->getAccountName(),
+      '#product_logo_url' => base_path() . $theme_path . '/assets/brand/ropleon-cards.svg',
       '#attached' => [
         'library' => ['digital_card_admin/dashboards'],
       ],

@@ -1,0 +1,103 @@
+/**
+ * Ropleon approved brand and interface tokens.
+ */
+:root {
+  --ropleon-navy-950: #071a33;
+  --ropleon-navy-900: #0b2447;
+  --ropleon-navy-800: #10345f;
+  --ropleon-blue-700: #1c54cc;
+  --ropleon-blue-600: #246bfd;
+  --ropleon-blue-500: #2f80ff;
+  --ropleon-cyan-400: #22d3ee;
+  --ropleon-cyan-300: #67e8f9;
+  --ropleon-ink: #0f172a;
+  --ropleon-text: #334155;
+  --ropleon-text-muted: #64748b;
+  --ropleon-border: #d8e2f0;
+  --ropleon-surface: #f6f9fd;
+  --ropleon-surface-alt: #eef4fb;
+  --ropleon-white: #fff;
+  --ropleon-success: #0f9d76;
+  --ropleon-warning: #d97706;
+  --ropleon-danger: #dc2626;
+  --ropleon-info: #2563eb;
+
+  --ropleon-gradient-brand: linear-gradient(135deg, #246bfd 0%, #22d3ee 100%);
+  --ropleon-gradient-hero: linear-gradient(135deg, #071a33 0%, #0b2447 55%, #10345f 100%);
+  --ropleon-gradient-surface: linear-gradient(180deg, #f6f9fd 0%, #fff 100%);
+
+  --ropleon-font-sans: Manrope, Inter, "Segoe UI", Arial, sans-serif;
+  --ropleon-font-arabic: "IBM Plex Sans Arabic", "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+  --ropleon-font-display: clamp(2.75rem, 5vw, 4.5rem);
+  --ropleon-font-h1: clamp(2.5rem, 4.5vw, 4rem);
+  --ropleon-font-h2: clamp(2rem, 3.5vw, 3rem);
+  --ropleon-font-h3: clamp(1.5rem, 2.5vw, 2rem);
+  --ropleon-font-h4: clamp(1.25rem, 2vw, 1.5rem);
+  --ropleon-font-body-large: clamp(1.0625rem, 1.5vw, 1.25rem);
+  --ropleon-font-body: 1.0625rem;
+  --ropleon-font-small: .875rem;
+
+  --ropleon-container-wide: 1440px;
+  --ropleon-container-main: 1240px;
+  --ropleon-container-content: 840px;
+  --ropleon-section-desktop: 112px;
+  --ropleon-section-tablet: 80px;
+  --ropleon-section-mobile: 56px;
+  --ropleon-gap: 24px;
+  --ropleon-gap-large: 32px;
+
+  --ropleon-radius-small: 8px;
+  --ropleon-radius-medium: 12px;
+  --ropleon-radius-large: 20px;
+  --ropleon-radius-xl: 28px;
+  --ropleon-radius-pill: 999px;
+  --ropleon-shadow-small: 0 4px 16px rgba(7, 26, 51, .06);
+  --ropleon-shadow-medium: 0 16px 45px rgba(7, 26, 51, .1);
+  --ropleon-shadow-large: 0 28px 80px rgba(7, 26, 51, .14);
+  --ropleon-transition: 220ms ease;
+
+  /* Existing authenticated components keep their stable aliases. */
+  --rp-ink-950: var(--ropleon-navy-950);
+  --rp-ink-900: var(--ropleon-navy-900);
+  --rp-ink-800: var(--ropleon-navy-800);
+  --rp-ink-700: #274b73;
+  --rp-blue-700: var(--ropleon-blue-700);
+  --rp-blue-600: var(--ropleon-blue-600);
+  --rp-blue-500: var(--ropleon-blue-500);
+  --rp-cyan-500: var(--ropleon-cyan-400);
+  --rp-cyan-300: var(--ropleon-cyan-300);
+  --rp-white: var(--ropleon-white);
+  --rp-surface: var(--ropleon-surface);
+  --rp-surface-strong: var(--ropleon-surface-alt);
+  --rp-border: var(--ropleon-border);
+  --rp-text: var(--ropleon-ink);
+  --rp-muted: var(--ropleon-text-muted);
+  --rp-success: var(--ropleon-success);
+  --rp-warning: var(--ropleon-warning);
+  --rp-danger: var(--ropleon-danger);
+  --rp-gradient-corporate: var(--ropleon-gradient-hero);
+  --rp-gradient-product: var(--ropleon-gradient-brand);
+  --rp-gradient-soft: var(--ropleon-gradient-surface);
+  --rp-font-sans: var(--ropleon-font-sans);
+  --rp-font-arabic: var(--ropleon-font-arabic);
+  --rp-radius-sm: var(--ropleon-radius-small);
+  --rp-radius-md: var(--ropleon-radius-medium);
+  --rp-radius-lg: var(--ropleon-radius-large);
+  --rp-radius-xl: var(--ropleon-radius-xl);
+  --rp-shadow-sm: var(--ropleon-shadow-small);
+  --rp-shadow-md: var(--ropleon-shadow-medium);
+  --rp-shadow-lg: var(--ropleon-shadow-large);
+  --rp-container: var(--ropleon-container-main);
+  --rp-transition: var(--ropleon-transition);
+  --brand-primary: var(--ropleon-blue-600);
+  --brand-dark: var(--ropleon-navy-900);
+  --page-bg: var(--ropleon-surface);
+  --card-bg: var(--ropleon-white);
+  --text-color: var(--ropleon-ink);
+  --muted-color: var(--ropleon-text-muted);
+}
+
+[dir="rtl"] {
+  --ropleon-font-sans: var(--ropleon-font-arabic);
+  --rp-font-sans: var(--ropleon-font-arabic);
+}

@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Theme and page integration for the Ropleon corporate brand.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function ropleon_brand_theme($existing, $type, $theme, $path): array {
+  return [
+    'ropleon_corporate_home' => [
+      'variables' => [
+        'brand' => [],
+        'urls' => [],
+        'ropleon_assets' => [],
+      ],
+      'template' => 'ropleon-corporate-home',
+    ],
+    'ropleon_cards_landing' => [
+      'variables' => [
+        'brand' => [],
+        'urls' => [],
+        'ropleon_assets' => [],
+      ],
+      'template' => 'ropleon-cards-landing',
+    ],
+    'ropleon_products' => [
+      'variables' => [
+        'brand' => [],
+        'urls' => [],
+        'ropleon_assets' => [],
+      ],
+      'template' => 'ropleon-products',
+    ],
+    'ropleon_solutions' => [
+      'variables' => [
+        'brand' => [],
+        'urls' => [],
+        'ropleon_assets' => [],
+      ],
+      'template' => 'ropleon-solutions',
+    ],
+    'ropleon_about' => [
+      'variables' => [
+        'brand' => [],
+        'urls' => [],
+        'ropleon_assets' => [],
+      ],
+      'template' => 'ropleon-about',
+    ],
+    'ropleon_legal' => [
+      'variables' => [
+        'brand' => [],
+        'urls' => [],
+        'ropleon_assets' => [],
+        'page_type' => '',
+      ],
+      'template' => 'ropleon-legal',
+    ],
+  ];
+}

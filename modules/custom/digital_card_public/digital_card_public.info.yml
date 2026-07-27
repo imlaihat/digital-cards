@@ -1,7 +1,7 @@
-name: Digital Card Public API
+name: Ropleon Cards Public API
 type: module
 description: Provides performant, privacy-aware scanner detection for static digital cards.
-package: Digital Card
+package: Ropleon Cards
 core_version_requirement: ^10 || ^11
 dependencies:
   - drupal:node

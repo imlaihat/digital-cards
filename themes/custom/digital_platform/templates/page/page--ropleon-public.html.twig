@@ -1,0 +1,141 @@
+{% set page_titles = {
+  products: 'Products'|t,
+  cards: 'Ropleon Cards',
+  solutions: 'Solutions'|t,
+  about: 'Company'|t,
+  contact: 'Contact'|t,
+  privacy: 'Privacy'|t,
+  terms: 'Terms of Use'|t
+} %}
+
+<a class="rp-skip-link" href="#main-content">{{ 'Skip to main content'|t }}</a>
+
+<header class="rp-corporate-header" data-rp-header>
+  <div class="rp-shell rp-corporate-header__inner">
+    <a class="rp-wordmark" href="{{ path('<front>') }}" aria-label="{{ 'Ropleon home'|t }}">
+      <img src="{{ ropleon_assets.company_logo }}" alt="{{ ropleon_brand.company_legal_name }}">
+    </a>
+
+    <nav class="rp-corporate-nav" id="rp-corporate-nav" aria-label="{{ 'Corporate navigation'|t }}" data-rp-nav>
+      <div class="rp-corporate-nav__mobile-head">
+        <span>{{ 'Menu'|t }}</span>
+        <button class="rp-nav-close" type="button" aria-label="{{ 'Close navigation'|t }}" data-rp-nav-close>
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="rp-corporate-nav__links">
+        {% for item in ropleon_navigation %}
+          <a class="rp-corporate-nav__link{{ item.active ? ' is-active' : '' }}"
+             href="{{ item.url }}"
+             {% if item.active %}aria-current="page"{% endif %}>
+            {{ item.title }}
+          </a>
+        {% endfor %}
+      </div>
+      <a class="rp-header-product-cta" href="{{ ropleon_product_action.url }}">
+        {{ ropleon_product_action.title }}
+      </a>
+    </nav>
+
+    <div class="rp-header-actions">
+      <div class="rp-language-nav" aria-label="{{ 'Language selection'|t }}">
+        {% for language in ropleon_languages %}
+          <a class="rp-language-nav__link{{ language.active ? ' is-active' : '' }}"
+             href="{{ language.url }}"
+             lang="{{ language.langcode }}"
+             hreflang="{{ language.langcode }}"
+             {% if language.active %}aria-current="true"{% endif %}>
+            {{ language.label }}
+          </a>
+        {% endfor %}
+      </div>
+      <button class="rp-nav-toggle" type="button" aria-expanded="false" aria-controls="rp-corporate-nav" aria-label="{{ 'Open navigation'|t }}" data-rp-nav-toggle>
+        <i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+  <div class="rp-nav-backdrop" data-rp-nav-backdrop hidden></div>
+</header>
+
+{% if page.breadcrumb %}
+  <div class="rp-system-region" aria-live="polite">
+    <div class="rp-shell">{{ page.breadcrumb }}</div>
+  </div>
+{% endif %}
+
+{% if ropleon_public_page != 'home' and page_titles[ropleon_public_page] %}
+  <nav class="rp-breadcrumb" aria-label="{{ 'Breadcrumb'|t }}">
+    <div class="rp-shell">
+      <ol>
+        <li><a href="{{ path('<front>') }}">{{ 'Home'|t }}</a></li>
+        <li aria-current="page">{{ page_titles[ropleon_public_page] }}</li>
+      </ol>
+    </div>
+  </nav>
+{% endif %}
+
+<main id="main-content" class="rp-public-main" tabindex="-1">
+  {% if ropleon_public_page == 'contact' %}
+    <div class="rp-page rp-contact-page">
+      <section class="rp-subhero rp-subhero--contact">
+        <div class="rp-shell rp-subhero__grid">
+          <div>
+            <span class="rp-eyebrow">{{ 'Start a conversation'|t }}</span>
+            <h1>{{ 'Let’s discuss what you are building.'|t }}</h1>
+          </div>
+          <p class="rp-lead">{{ 'Contact Ropleon about Ropleon Cards, enterprise software, system integration, AI-enabled solutions, cloud platforms, or custom digital products.'|t }}</p>
+        </div>
+      </section>
+      <section class="rp-section rp-contact-section">
+        <div class="rp-shell rp-contact-layout">
+          <aside class="rp-contact-context" aria-label="{{ 'Areas of expertise'|t }}">
+            <span class="rp-eyebrow">{{ 'Ropleon Technologies'|t }}</span>
+            <h2>{{ 'Connected expertise for complex requirements.'|t }}</h2>
+            <ul role="list">
+              <li>{{ 'Enterprise software'|t }}</li>
+              <li>{{ 'System integration'|t }}</li>
+              <li>{{ 'AI and automation'|t }}</li>
+              <li>{{ 'Cloud and digital platforms'|t }}</li>
+              <li>{{ 'Ropleon Cards' }}</li>
+            </ul>
+          </aside>
+          <div class="rp-contact-form-wrap">{{ page.content }}</div>
+        </div>
+      </section>
+    </div>
+  {% else %}
+    {{ page.content }}
+  {% endif %}
+</main>
+
+<footer class="rp-corporate-footer">
+  <div class="rp-shell rp-corporate-footer__grid">
+    <div class="rp-footer-brand">
+      <a class="rp-footer-logo" href="{{ path('<front>') }}" aria-label="{{ 'Ropleon home'|t }}">
+        <img src="{{ ropleon_assets.company_logo }}" alt="{{ ropleon_brand.company_legal_name }}">
+      </a>
+      <p>{{ 'Connected technology for modern organizations.'|t }}</p>
+    </div>
+    <div class="rp-footer-column">
+      <strong>{{ 'Company'|t }}</strong>
+      <a href="{{ path('ropleon_brand.about') }}">{{ 'About'|t }}</a>
+      <a href="{{ path('ropleon_brand.solutions') }}">{{ 'Solutions'|t }}</a>
+      <a href="{{ path('contact.site_page') }}">{{ 'Contact'|t }}</a>
+    </div>
+    <div class="rp-footer-column">
+      <strong>{{ 'Products'|t }}</strong>
+      <a href="{{ path('ropleon_brand.cards') }}">{{ ropleon_brand.product_name }}</a>
+      <span>{{ 'Enterprise Digital Identity Platform'|t }}</span>
+    </div>
+    <div class="rp-footer-column">
+      <strong>{{ 'Access'|t }}</strong>
+      <a href="{{ path('user.login') }}">{{ 'Sign in'|t }}</a>
+      <a href="{{ path('ropleon_brand.privacy') }}">{{ 'Privacy'|t }}</a>
+      <a href="{{ path('ropleon_brand.terms') }}">{{ 'Terms of Use'|t }}</a>
+    </div>
+  </div>
+  <div class="rp-shell rp-corporate-footer__bottom">
+    <span>© {{ 'now'|date('Y') }} {{ ropleon_brand.company_legal_name }}. {{ 'All rights reserved.'|t }}</span>
+    <span>{{ 'Ropleon Cards is a product of Ropleon Technologies.'|t }}</span>
+  </div>
+</footer>

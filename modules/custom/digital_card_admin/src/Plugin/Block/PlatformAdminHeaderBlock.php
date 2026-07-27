@@ -17,8 +17,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @Block(
  *   id = "digital_card_platform_admin_header",
- *   admin_label = @Translation("Digital Card: Platform Admin Header"),
- *   category = @Translation("Digital Card")
+ *   admin_label = @Translation("Ropleon Cards: Platform Admin Header"),
+ *   category = @Translation("Ropleon Cards")
  * )
  */
 class PlatformAdminHeaderBlock extends BlockBase implements ContainerFactoryPluginInterface {
@@ -56,89 +56,89 @@ class PlatformAdminHeaderBlock extends BlockBase implements ContainerFactoryPlug
     $navigation = [
       [
         'title' => $this->t('Dashboard'),
-        'icon' => '⌂',
+        'icon' => 'bi bi-speedometer2',
         'path' => '/platform/dashboard',
         'url' => Url::fromRoute('digital_card_admin.platform_dashboard')->toString(),
       ],
       [
         'title' => $this->t('Organizations'),
-        'icon' => '▥',
+        'icon' => 'bi bi-buildings',
         'path' => '/platform-organizations',
-        'url' => Url::fromUri('internal:/platform-organizations')->toString(),
+        'url' => Url::fromRoute('view.platform_organizations.page_1')->toString(),
       ],
       [
         'title' => $this->t('Card Themes'),
-        'icon' => "\u{1F3A8}",
+        'icon' => 'bi bi-palette',
         'path' => '/platform/organization-card-themes',
         'active_prefix' => '/platform/organizations/',
-        'url' => Url::fromUri('internal:/platform/organization-card-themes')->toString(),
+        'url' => Url::fromRoute('digital_card_delivery.organization_themes')->toString(),
         'permission' => 'manage organization card themes',
       ],
       [
         'title' => $this->t('Social Platforms'),
-        'icon' => "\u{1F517}",
+        'icon' => 'bi bi-share',
         'path' => '/platform/social-platforms',
-        'url' => Url::fromUri('internal:/platform/social-platforms')->toString(),
+        'url' => Url::fromRoute('digital_card_social.platforms')->toString(),
         'permission' => 'manage digital card social platforms',
       ],
       [
         'title' => $this->t('Plans'),
-        'icon' => '◈',
+        'icon' => 'bi bi-layers',
         'path' => '/platform-plans',
-        'url' => Url::fromUri('internal:/platform-plans')->toString(),
+        'url' => Url::fromRoute('view.platform_plans.page_1')->toString(),
       ],
       [
         'title' => $this->t('Subscriptions'),
-        'icon' => '▤',
+        'icon' => 'bi bi-credit-card',
         'path' => '/platform-subscriptions',
-        'url' => Url::fromUri('internal:/platform-subscriptions')->toString(),
+        'url' => Url::fromRoute('view.platform_subscriptions.page_1')->toString(),
       ],
       [
         'title' => $this->t('Merchant Users'),
-        'icon' => "\u{1F464}",
+        'icon' => 'bi bi-person-badge',
         'path' => '/platform/merchant-users',
-        'url' => Url::fromUri('internal:/platform/merchant-users')->toString(),
+        'url' => Url::fromRoute('digital_card_offers.merchant_users')->toString(),
         'permission' => 'administer digital card merchant users',
       ],
       [
         'title' => $this->t('Merchants'),
-        'icon' => "\u{1F3EA}",
+        'icon' => 'bi bi-shop',
         'path' => '/platform/merchant-partners',
-        'url' => Url::fromUri('internal:/platform/merchant-partners')->toString(),
+        'url' => Url::fromRoute('digital_card_offers.partners')->toString(),
         'permission' => 'administer digital card partners',
       ],
       [
         'title' => $this->t('Offers'),
-        'icon' => "\u{1F381}",
+        'icon' => 'bi bi-gift',
         'path' => '/platform/offers',
-        'url' => Url::fromUri('internal:/platform/offers')->toString(),
+        'url' => Url::fromRoute('digital_card_offers.offers')->toString(),
         'permission' => 'administer digital card offers',
       ],
       [
         'title' => $this->t('Redemptions'),
-        'icon' => "\u{1F9FE}",
+        'icon' => 'bi bi-receipt',
         'path' => '/platform/offer-redemptions',
-        'url' => Url::fromUri('internal:/platform/offer-redemptions')->toString(),
+        'url' => Url::fromRoute('digital_card_offers.report')->toString(),
         'permission' => 'view digital card redemption reports',
       ],
       [
         'title' => $this->t('Organization Admins'),
-        'icon' => '◉',
+        'icon' => 'bi bi-people',
         'path' => '/organization-administrators',
-        'url' => Url::fromUri('internal:/organization-administrators')->toString(),
+        'url' => Url::fromRoute('view.organization_administrators.page_1')->toString(),
       ],
       [
         'title' => $this->t('Approval Queue'),
-        'icon' => '✓',
+        'icon' => 'bi bi-check2-square',
         'path' => '/platform-digital-Cards',
-        'url' => Url::fromUri('internal:/platform-digital-Cards')->toString(),
+        'url' => Url::fromRoute('view.card_approval_queue.page_1')->toString(),
         'highlight' => TRUE,
       ],
       [
         'title' => $this->t('Scan Analytics'),
-        'icon' => "\u{1F4CA}",
+        'icon' => 'bi bi-bar-chart',
         'path' => '/platform/card-scans',
-        'url' => Url::fromUri('internal:/platform/card-scans')->toString(),
+        'url' => Url::fromRoute('digital_card_public.scan_report')->toString(),
         'permission' => 'view digital card scan analytics',
       ],
     ];
@@ -172,11 +172,15 @@ class PlatformAdminHeaderBlock extends BlockBase implements ContainerFactoryPlug
     }
     unset($item);
 
+    $theme_path = \Drupal::service('extension.list.theme')->getPath('digital_platform');
+
     return [
       '#theme' => 'digital_card_platform_admin_header',
       '#summary' => $summary,
       '#navigation' => $navigation,
       '#account_name' => $this->currentUser->getAccountName(),
+      '#product_logo_url' => base_path() . $theme_path . '/assets/brand/ropleon-cards.svg',
+      '#company_logo_url' => base_path() . $theme_path . '/assets/brand/ropleon.svg',
       '#attached' => [
         'library' => ['digital_card_admin/dashboards'],
       ],

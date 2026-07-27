@@ -1,0 +1,10 @@
+name: Ropleon Corporate Brand
+type: module
+description: 'Provides the Ropleon Technologies corporate website and Ropleon Cards product experience.'
+package: Ropleon
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:contact
+  - drupal:language
+  - drupal:locale
+  - drupal:system

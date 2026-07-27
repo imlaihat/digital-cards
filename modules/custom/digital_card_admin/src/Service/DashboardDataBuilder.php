@@ -326,9 +326,9 @@ class DashboardDataBuilder {
         'id' => $organization_id,
         'name' => $organization->label(),
         'url' => Url::fromUri('internal:/group/' . $organization_id)->toString(),
-        'subscription_status' => $subscription_info['status_label'] ?? 'No subscription',
+        'subscription_status' => $subscription_info['status_label'] ?? (string) $this->t('No subscription'),
         'subscription_class' => $subscription_info['status_class'] ?? 'unknown',
-        'plan' => $subscription_info['plan'] ?? 'No plan',
+        'plan' => $subscription_info['plan'] ?? (string) $this->t('No plan'),
         'approved_cards' => $approved,
         'max_cards' => $max,
         'usage_percent' => $percent,
@@ -419,9 +419,9 @@ class DashboardDataBuilder {
     if (!$subscription) {
       return [
         'active' => FALSE,
-        'status_label' => 'No subscription',
+        'status_label' => (string) $this->t('No subscription'),
         'status_class' => 'missing',
-        'plan' => 'No plan',
+        'plan' => (string) $this->t('No plan'),
         'max_cards' => 0,
         'end_date' => '',
       ];
@@ -437,7 +437,7 @@ class DashboardDataBuilder {
       'active' => $active,
       'status_label' => $this->subscriptionStatusLabel($status),
       'status_class' => $this->statusClass($status, $end_date),
-      'plan' => $plan ? $plan->label() : 'No plan',
+      'plan' => $plan ? $plan->label() : (string) $this->t('No plan'),
       'max_cards' => $this->getMaxCardsFromSubscription($subscription),
       'end_date' => $end_date,
       'url' => Url::fromUri('internal:/node/' . $subscription->id())->toString(),

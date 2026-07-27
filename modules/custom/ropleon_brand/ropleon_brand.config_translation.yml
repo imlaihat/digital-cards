@@ -1,0 +1,6 @@
+ropleon_brand.settings:
+  title: 'Ropleon branding'
+  base_route_name: ropleon_brand.settings
+  names:
+    - ropleon_brand.settings
+

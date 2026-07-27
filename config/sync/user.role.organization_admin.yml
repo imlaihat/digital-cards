@@ -9,7 +9,6 @@ dependencies:
   module:
     - content_moderation
     - digital_card_admin
-    - toolbar
     - workflow
 id: organization_admin
 label: 'Organization admin'
@@ -18,7 +17,6 @@ is_admin: null
 permissions:
   - 'access card_workflow workflow_transition form'
   - 'access organization portal dashboard'
-  - 'access toolbar'
   - 'access user profiles'
   - 'create card_workflow workflow_transition'
   - 'create test workflow_transition'

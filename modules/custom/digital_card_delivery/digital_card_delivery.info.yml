@@ -1,7 +1,7 @@
-name: Digital Card Delivery
+name: Ropleon Cards Static Delivery
 type: module
-description: Generates organization-scoped, branded static digital card pages.
-package: Digital Card
+description: Generates organization-scoped, branded Ropleon Cards static pages.
+package: Ropleon Cards
 core_version_requirement: ^10 || ^11
 dependencies:
   - drupal:file

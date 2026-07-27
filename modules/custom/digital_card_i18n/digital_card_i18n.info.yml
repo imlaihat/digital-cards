@@ -1,7 +1,7 @@
-name: Digital Card Arabic & Multilingual Support
+name: Ropleon Cards Arabic & Multilingual Support
 type: module
 description: Arabic language defaults, editable platform translations, and content translation enablement.
-package: Digital Card
+package: Ropleon Cards
 core_version_requirement: ^10 || ^11
 dependencies:
   - drupal:language

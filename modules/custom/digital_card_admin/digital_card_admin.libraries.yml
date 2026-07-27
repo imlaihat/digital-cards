@@ -1,9 +1,10 @@
 dashboards:
-  version: 1.8.1
+  version: 2.1.0
   css:
     theme:
       css/dashboards.css: {}
   js:
+    js/portal-navigation.js: {}
     js/xlsx-export.js: {}
     js/table-tools.js: {}
   dependencies:

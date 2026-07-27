@@ -1,9 +1,8 @@
-name: Digital Card Offers
+name: Ropleon Cards Offers & Loyalty
 type: module
 description: Merchant partners, card-holder offers, eligibility, secure redemption, and audit reporting.
-package: Digital Card
+package: Ropleon Cards
 core_version_requirement: ^10 || ^11
 dependencies:
   - digital_card_public:digital_card_public
   - drupal:user
-

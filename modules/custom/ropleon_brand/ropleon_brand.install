@@ -1,0 +1,98 @@
+<?php
+
+use Drupal\locale\Gettext;
+
+/**
+ * Installs the public Ropleon corporate identity.
+ */
+function ropleon_brand_install(): void {
+  $editable = \Drupal::configFactory()->getEditable('system.site');
+  \Drupal::state()->set('ropleon_brand.previous_system_site', [
+    'name' => $editable->get('name'),
+    'slogan' => $editable->get('slogan'),
+    'front' => $editable->get('page.front'),
+  ]);
+
+  $editable
+    ->set('name', 'Ropleon Technologies')
+    ->set('slogan', 'Technology, Connected.')
+    ->set('page.front', '/ropleon')
+    ->save(TRUE);
+
+  ropleon_brand_import_arabic();
+  ropleon_brand_disable_global_login_block();
+}
+
+/**
+ * Imports editable Arabic branding and removes the globally placed login form.
+ */
+function ropleon_brand_update_10001(): string {
+  ropleon_brand_import_arabic();
+  ropleon_brand_disable_global_login_block();
+  return 'Ropleon Arabic translations were imported and the login form was limited to its dedicated page.';
+}
+
+/**
+ * Rebuilds public routes and imports the approved bilingual experience.
+ */
+function ropleon_brand_update_10002(): string {
+  ropleon_brand_import_arabic();
+  ropleon_brand_disable_global_login_block();
+  \Drupal::service('router.builder')->rebuild();
+  return 'Approved Ropleon public routes and Arabic translations were installed.';
+}
+
+/**
+ * Imports the unified authenticated portal labels.
+ */
+function ropleon_brand_update_10003(): string {
+  ropleon_brand_import_arabic();
+  return 'Ropleon portal branding and navigation translations were imported.';
+}
+
+/**
+ * Imports the Ropleon catalog as administrator-editable translations.
+ */
+function ropleon_brand_import_arabic(): void {
+  if (!class_exists(Gettext::class) || !defined('LOCALE_CUSTOMIZED')) {
+    return;
+  }
+  $module_path = \Drupal::service('extension.list.module')->getPath('ropleon_brand');
+  $path = DRUPAL_ROOT . '/' . $module_path . '/translations/ropleon_brand.ar.po';
+  if (!is_file($path)) {
+    return;
+  }
+  $file = (object) ['langcode' => 'ar', 'uri' => $path];
+  Gettext::fileToDatabase($file, [
+    'customized' => LOCALE_CUSTOMIZED,
+    'overwrite_options' => ['customized' => TRUE, 'not_customized' => TRUE],
+  ]);
+}
+
+/**
+ * Keeps the login form on /user/login instead of every public page.
+ */
+function ropleon_brand_disable_global_login_block(): void {
+  $block = \Drupal\block\Entity\Block::load('digital_platform_userlogin');
+  if ($block && $block->status()) {
+    $block->setStatus(FALSE)->save();
+  }
+}
+
+/**
+ * Restores the former site identity only when Ropleon still owns it.
+ */
+function ropleon_brand_uninstall(): void {
+  $editable = \Drupal::configFactory()->getEditable('system.site');
+  $previous = \Drupal::state()->get('ropleon_brand.previous_system_site', []);
+
+  if ($editable->get('page.front') === '/ropleon') {
+    $editable
+      ->set('name', $previous['name'] ?? 'Drupal')
+      ->set('slogan', $previous['slogan'] ?? '')
+      ->set('page.front', $previous['front'] ?? '/node')
+      ->save(TRUE);
+  }
+
+  \Drupal::state()->delete('ropleon_brand.previous_system_site');
+}

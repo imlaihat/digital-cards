@@ -1,0 +1,149 @@
+<div class="rp-page rp-cards-product">
+  <section class="rp-product-hero" aria-labelledby="rp-cards-title">
+    <div class="rp-shell rp-product-hero__grid">
+      <div class="rp-product-hero__content" data-rp-reveal>
+        <span class="rp-product-parent">{{ 'A Ropleon product'|t }}</span>
+        <img class="rp-product-hero__logo" src="{{ ropleon_assets.product_logo }}" alt="{{ brand.product_name }}">
+        <span class="rp-eyebrow">{{ 'Enterprise Digital Identity Platform'|t }}</span>
+        <h1 id="rp-cards-title">{{ 'Professional digital identities, managed at enterprise scale.'|t }}</h1>
+        <p class="rp-lead">{{ 'Create, approve, publish, and manage secure digital business cards for your organization from one centralized platform.'|t }}</p>
+        <div class="rp-actions">
+          <a class="rp-button rp-button--primary" href="{{ urls.contact }}">{{ 'Request a demonstration'|t }} <span aria-hidden="true">→</span></a>
+          <a class="rp-button rp-button--secondary" href="{{ urls.login }}">{{ 'Sign in'|t }}</a>
+        </div>
+      </div>
+      <div class="rp-product-hero__visual" data-rp-reveal>
+        {% include '@ropleon_brand/components/product-interface.html.twig' with {ropleon_assets: ropleon_assets} only %}
+      </div>
+    </div>
+  </section>
+
+  <section class="rp-section rp-product-value" aria-labelledby="rp-product-value-title">
+    <div class="rp-shell rp-editorial-split">
+      <div>
+        <span class="rp-eyebrow">{{ 'Enterprise control. Personal connection.'|t }}</span>
+        <h2 id="rp-product-value-title">{{ 'More than a digital business card.'|t }}</h2>
+      </div>
+      <p class="rp-lead">{{ 'Ropleon Cards gives organizations control over how employee identities are created, governed, published, and maintained while giving every employee a modern and convenient way to connect.'|t }}</p>
+    </div>
+  </section>
+
+  <section class="rp-section rp-feature-section" aria-labelledby="rp-features-title">
+    <div class="rp-shell">
+      <div class="rp-editorial-heading rp-editorial-heading--compact">
+        <span class="rp-eyebrow">{{ 'Platform capabilities'|t }}</span>
+        <h2 id="rp-features-title">{{ 'Everything required to govern professional identity.'|t }}</h2>
+      </div>
+      <div class="rp-feature-grid">
+        <article data-rp-reveal>
+          <div class="rp-icon-wrap">{% include '@ropleon_brand/components/ropleon-icon.html.twig' with {icon: 'software'} only %}</div>
+          <h3>{{ 'Centralized Administration'|t }}</h3>
+          <p>{{ 'Manage organizational cards, administrators, access, and platform activity from one place.'|t }}</p>
+        </article>
+        <article data-rp-reveal>
+          <div class="rp-icon-wrap">{% include '@ropleon_brand/components/ropleon-icon.html.twig' with {icon: 'workflow'} only %}</div>
+          <h3>{{ 'Approval Workflows'|t }}</h3>
+          <p>{{ 'Review and approve professional identity information before cards are published.'|t }}</p>
+        </article>
+        <article data-rp-reveal>
+          <div class="rp-icon-wrap">{% include '@ropleon_brand/components/ropleon-icon.html.twig' with {icon: 'brand'} only %}</div>
+          <h3>{{ 'Brand Consistency'|t }}</h3>
+          <p>{{ 'Maintain consistent organizational branding while supporting individual employee information.'|t }}</p>
+        </article>
+        <article data-rp-reveal>
+          <div class="rp-icon-wrap">{% include '@ropleon_brand/components/ropleon-icon.html.twig' with {icon: 'identity'} only %}</div>
+          <h3>{{ 'QR and NFC Ready'|t }}</h3>
+          <p>{{ 'Connect every approved card to a stable public URL that works with QR codes and NFC products.'|t }}</p>
+        </article>
+        <article data-rp-reveal>
+          <div class="rp-icon-wrap">{% include '@ropleon_brand/components/ropleon-icon.html.twig' with {icon: 'share'} only %}</div>
+          <h3>{{ 'Contact and Social Actions'|t }}</h3>
+          <p>{{ 'Enable visitors to call, email, download contact details, and open approved social profiles.'|t }}</p>
+        </article>
+        <article data-rp-reveal>
+          <div class="rp-icon-wrap">{% include '@ropleon_brand/components/ropleon-icon.html.twig' with {icon: 'performance'} only %}</div>
+          <h3>{{ 'Fast Public Delivery'|t }}</h3>
+          <p>{{ 'Deliver lightweight, mobile-first public card pages optimized for speed and reliability.'|t }}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="rp-section rp-how" aria-labelledby="rp-how-title">
+    <div class="rp-shell">
+      <div class="rp-editorial-heading rp-editorial-heading--compact">
+        <span class="rp-eyebrow">{{ 'How it works'|t }}</span>
+        <h2 id="rp-how-title">{{ 'From organization setup to a shareable identity.'|t }}</h2>
+      </div>
+      <ol class="rp-process">
+        <li><span>01</span><strong>{{ 'Configure the organization'|t }}</strong><p>{{ 'Set the brand, plan, administrators, and shared card experience.'|t }}</p></li>
+        <li><span>02</span><strong>{{ 'Create or invite cardholders'|t }}</strong><p>{{ 'Add accurate professional information for every person.'|t }}</p></li>
+        <li><span>03</span><strong>{{ 'Review and approve identities'|t }}</strong><p>{{ 'Apply a controlled approval workflow before publishing.'|t }}</p></li>
+        <li><span>04</span><strong>{{ 'Publish and share through QR or NFC'|t }}</strong><p>{{ 'Deliver a stable, fast public experience on every device.'|t }}</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="rp-section rp-governance" aria-labelledby="rp-governance-title">
+    <div class="rp-shell rp-governance__grid">
+      <div>
+        <span class="rp-eyebrow rp-eyebrow--dark">{{ 'Governance by design'|t }}</span>
+        <h2 id="rp-governance-title">{{ 'Control for the organization. Simplicity for the cardholder.'|t }}</h2>
+        <p>{{ 'Role-based access and transparent workflows keep professional identity accurate without adding complexity for cardholders.'|t }}</p>
+      </div>
+      <div class="rp-governance-list">
+        <span>{{ 'Platform administration'|t }}</span>
+        <span>{{ 'Organization administration'|t }}</span>
+        <span>{{ 'Role-based access'|t }}</span>
+        <span>{{ 'Card ownership'|t }}</span>
+        <span>{{ 'Approval states'|t }}</span>
+        <span>{{ 'Subscription and quota awareness'|t }}</span>
+        <span>{{ 'Archive and lifecycle controls'|t }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="rp-section rp-public-experience" aria-labelledby="rp-public-experience-title">
+    <div class="rp-shell rp-public-experience__grid">
+      <div class="rp-public-experience__phone" aria-hidden="true">
+        <div class="rp-public-card">
+          <div class="rp-public-card__brand"><img src="{{ ropleon_assets.favicon }}" alt=""><span>{{ brand.product_name }}</span></div>
+          <span class="rp-public-card__photo"></span>
+          <h3>{{ 'Cardholder name'|t }}</h3>
+          <p>{{ 'Professional role · Organization'|t }}</p>
+          <div class="rp-public-card__actions"><i></i><i></i><i></i><i></i></div>
+          <div class="rp-public-card__socials"><i></i><i></i><i></i></div>
+          <small>{{ brand.product_branding_line|t }}</small>
+        </div>
+      </div>
+      <div>
+        <span class="rp-eyebrow">{{ 'Public card experience'|t }}</span>
+        <h2 id="rp-public-experience-title">{{ 'A professional identity that works everywhere.'|t }}</h2>
+        <p>{{ 'Every approved identity is presented through a responsive, organization-branded public card built for fast access and clear action.'|t }}</p>
+        <ul class="rp-check-list rp-check-list--two" role="list">
+          <li>{{ 'Responsive mobile layout'|t }}</li>
+          <li>{{ 'Direct phone and email actions'|t }}</li>
+          <li>{{ 'Contact file download'|t }}</li>
+          <li>{{ 'Social profile access'|t }}</li>
+          <li>{{ 'QR and NFC compatibility'|t }}</li>
+          <li>{{ 'Stable public card URL'|t }}</li>
+          <li>{{ 'Organization branding'|t }}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="rp-section rp-dark-cta">
+    <div class="rp-shell rp-dark-cta__inner">
+      <div>
+        <span class="rp-eyebrow rp-eyebrow--dark">{{ brand.product_name }}</span>
+        <h2>{{ 'Bring your organization’s professional identities together.'|t }}</h2>
+      </div>
+      <div class="rp-actions">
+        <a class="rp-button rp-button--primary" href="{{ urls.contact }}">{{ 'Request a demonstration'|t }}</a>
+        <a class="rp-button rp-button--secondary-dark" href="{{ urls.contact }}">{{ 'Contact Ropleon'|t }}</a>
+        <a class="rp-text-link rp-text-link--dark" href="{{ urls.login }}">{{ 'Sign in'|t }}</a>
+      </div>
+    </div>
+  </section>
+</div>

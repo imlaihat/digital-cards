@@ -8,7 +8,7 @@ function digital_card_offers_mail(string $key, array &$message, array $params): 
     return;
   }
   $account = $params['account'];
-  $message['subject'] = t('Your merchant account on @site', ['@site' => \Drupal::config('system.site')->get('name')]);
+  $message['subject'] = t('Your Ropleon Cards merchant account');
   $message['body'][] = t('Hello @name,', ['@name' => $account->getDisplayName()]);
   $message['body'][] = t('Your Merchant account login information is available below.');
   if (!empty($params['temporary_password'])) {
@@ -21,4 +21,5 @@ function digital_card_offers_mail(string $key, array &$message, array $params): 
     $message['body'][] = $params['reset_url'];
   }
   $message['body'][] = t('After signing in, open the merchant validation portal: @url', ['@url' => $params['portal_url']]);
+  $message['body'][] = t('Powered by Ropleon Cards — a product of Ropleon Technologies.');
 }

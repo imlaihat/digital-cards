@@ -26,7 +26,7 @@ class OrganizationAdminMailer {
   public function sendWelcomeEmail(UserInterface $user, GroupInterface $group, string $password): bool {
     $langcode = $user->getPreferredLangcode() ?: 'en';
     $options = ['langcode' => $langcode];
-    $message = (string) $this->t("Hello @name,\n\nYou have been added as an administrator for: @organization\n\nLogin email: @email\nTemporary password: @password\n\nPlease log in and change your password as soon as possible.\n\nRegards,\nDigital Business Card Platform Team", [
+    $message = (string) $this->t("Hello @name,\n\nYou have been added as an administrator for: @organization\n\nLogin email: @email\nTemporary password: @password\n\nPlease log in to Ropleon Cards and change your password as soon as possible.\n\nRegards,\nRopleon Cards Team\nA product of Ropleon Technologies", [
       '@name' => $user->getDisplayName(), '@organization' => $group->label(), '@email' => $user->getEmail(), '@password' => $password,
     ], $options);
 
@@ -39,7 +39,7 @@ class OrganizationAdminMailer {
   public function sendPasswordResetEmail(UserInterface $user, string $password): bool {
     $langcode = $user->getPreferredLangcode() ?: 'en';
     $options = ['langcode' => $langcode];
-    $message = (string) $this->t("Hello @name,\n\nYour Digital Business Card Platform password was reset.\n\nTemporary password: @password\n\nPlease log in and change your password as soon as possible.\n\nRegards,\nDigital Business Card Platform Team", [
+    $message = (string) $this->t("Hello @name,\n\nYour Ropleon Cards password was reset.\n\nTemporary password: @password\n\nPlease log in and change your password as soon as possible.\n\nRegards,\nRopleon Cards Team\nA product of Ropleon Technologies", [
       '@name' => $user->getDisplayName(), '@password' => $password,
     ], $options);
 

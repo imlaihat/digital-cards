@@ -12,6 +12,7 @@
 
 # Composer dependencies
 /vendor/
+/core/
 
 # If using Composer-managed Drupal, also ignore these:
 # /core/
@@ -19,9 +20,9 @@
 # /themes/contrib/
 
 # Static generated cards - production generated output
-/c/*
-/cards/*
-/assets/*
+/c/
+/cards/
+/assets/
 
 # Keep organization CSS source/design assets if you manage them in Git
 # Do not ignore /cards/*/assets/card.css if this is your source design

@@ -1,0 +1,81 @@
+<a class="rp-skip-link" href="#main-content">{{ 'Skip to main content'|t }}</a>
+
+<div class="rp-portal-shell rp-portal-shell--{{ ropleon_portal_context }}">
+  {% if ropleon_portal_header %}
+    {{ ropleon_portal_header }}
+  {% elseif ropleon_portal_context == 'merchant' %}
+    <header class="rp-merchant-header" data-rp-merchant-header>
+      <div class="rp-merchant-header__inner">
+        <a class="rp-merchant-brand" href="{{ ropleon_portal_urls.merchant }}" aria-label="{{ 'Merchant Portal'|t }}">
+          <img src="{{ ropleon_assets.product_logo }}" alt="{{ 'Ropleon Cards'|t }}">
+          <span>
+            <small>{{ 'Merchant Portal'|t }}</small>
+            <strong>{{ ropleon_portal_account_name }}</strong>
+          </span>
+        </a>
+        <nav class="rp-merchant-nav" id="rp-merchant-navigation" aria-label="{{ 'Merchant Portal navigation'|t }}" data-rp-merchant-nav>
+          {% for item in ropleon_merchant_navigation %}
+            <a class="{{ item.active ? 'is-active' : '' }}" href="{{ item.url }}" {% if item.active %}aria-current="page"{% endif %}>{{ item.title }}</a>
+          {% endfor %}
+        </nav>
+        <div class="rp-portal-language">
+          <div class="rp-language-nav" aria-label="{{ 'Language selection'|t }}">
+            {% for language in ropleon_languages %}
+              <a class="rp-language-nav__link{{ language.active ? ' is-active' : '' }}"
+                 href="{{ language.url }}"
+                 lang="{{ language.langcode }}"
+                 dir="{{ language.direction }}"
+                 hreflang="{{ language.langcode }}"
+                 {% if language.active %}aria-current="page"{% endif %}>
+                {{ language.label }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+        <button class="rp-merchant-menu-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="rp-merchant-navigation"
+                aria-label="{{ 'Toggle Merchant Portal navigation'|t }}"
+                data-rp-merchant-toggle>
+          <i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+  {% endif %}
+
+  <main id="main-content" class="rp-portal-shell__main" tabindex="-1">
+    {{ page.breadcrumb }}
+    <div class="row row-offcanvas row-offcanvas-left clearfix">
+      <div class="col-12">
+        {{ page.content }}
+      </div>
+      {% if page.sidebar_first %}
+        <aside class="col-lg-3" role="complementary">{{ page.sidebar_first }}</aside>
+      {% endif %}
+      {% if page.sidebar_second %}
+        <aside class="col-lg-3" role="complementary">{{ page.sidebar_second }}</aside>
+      {% endif %}
+    </div>
+  </main>
+
+  <footer class="rp-portal-footer">
+    <div class="rp-portal-footer__inner">
+      <div class="rp-portal-footer__brand">
+        {% if ropleon_portal_context == 'platform' %}
+          <img src="{{ ropleon_assets.company_logo }}" alt="{{ 'Ropleon Technologies'|t }}">
+          <div><strong>{{ 'Platform Portal'|t }}</strong><span>{{ 'Technology, Connected.'|t }}</span></div>
+        {% else %}
+          <img src="{{ ropleon_assets.product_logo }}" alt="{{ 'Ropleon Cards'|t }}">
+          <div><strong>{{ ropleon_portal_context == 'merchant' ? 'Merchant Portal'|t : 'Organization Portal'|t }}</strong><span>{{ 'A product of Ropleon Technologies'|t }}</span></div>
+        {% endif %}
+      </div>
+      <nav class="rp-portal-footer__links" aria-label="{{ 'Portal footer'|t }}">
+        <a href="{{ ropleon_portal_urls.company }}">{{ 'Ropleon Technologies'|t }}</a>
+        <a href="{{ ropleon_portal_urls.cards }}">{{ 'Ropleon Cards'|t }}</a>
+        <a href="{{ ropleon_portal_urls.account }}">{{ 'My account'|t }}</a>
+        <a href="{{ ropleon_portal_urls.logout }}">{{ 'Sign out'|t }}</a>
+      </nav>
+    </div>
+  </footer>
+</div>

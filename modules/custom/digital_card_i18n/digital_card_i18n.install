@@ -153,6 +153,15 @@ function digital_card_i18n_update_10017(): string {
 }
 
 /**
+ * Imports the complete Ropleon interface QA catalog.
+ */
+function digital_card_i18n_update_10018(): string {
+  digital_card_i18n_import_arabic();
+  digital_card_i18n_apply_view_title_overrides();
+  return 'Complete Arabic menu, form, table, status, date, and notification translations were imported.';
+}
+
+/**
  * Enables editable content language selection and core Translate operations.
  */
 function digital_card_i18n_enable_content_language_controls(): void {

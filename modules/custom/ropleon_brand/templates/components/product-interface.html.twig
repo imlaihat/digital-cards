@@ -1,0 +1,52 @@
+<div class="rp-product-ui{{ compact|default(false) ? ' rp-product-ui--compact' : '' }}" aria-label="{{ 'Ropleon Cards platform interface preview'|t }}" role="img">
+  <div class="rp-product-ui__browser">
+    <div class="rp-product-ui__browser-bar" aria-hidden="true">
+      <i></i><i></i><i></i>
+      <span>app.ropleon.cards</span>
+    </div>
+    <div class="rp-product-ui__workspace">
+      <aside class="rp-product-ui__sidebar" aria-hidden="true">
+        <img src="{{ ropleon_assets.favicon }}" alt="">
+        <i class="is-active"></i><i></i><i></i><i></i><i></i>
+      </aside>
+      <div class="rp-product-ui__dashboard">
+        <div class="rp-product-ui__heading">
+          <div><small>{{ 'Organization workspace'|t }}</small><strong>{{ 'Digital identities'|t }}</strong></div>
+          <span>+ {{ 'Create card'|t }}</span>
+        </div>
+        <div class="rp-product-ui__metrics" aria-hidden="true">
+          <div><small>{{ 'Published'|t }}</small><strong>128</strong><i></i></div>
+          <div><small>{{ 'Waiting approval'|t }}</small><strong>06</strong><i></i></div>
+          <div><small>{{ 'Card usage'|t }}</small><strong>67%</strong><i></i></div>
+        </div>
+        <div class="rp-product-ui__list" aria-hidden="true">
+          <div class="rp-product-ui__list-head"><i></i><i></i><i></i></div>
+          <div><span class="rp-product-ui__avatar"></span><i></i><i></i><b></b></div>
+          <div><span class="rp-product-ui__avatar"></span><i></i><i></i><b></b></div>
+          <div><span class="rp-product-ui__avatar"></span><i></i><i></i><b></b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rp-product-ui__phone" aria-hidden="true">
+    <div class="rp-product-ui__phone-screen">
+      <img class="rp-product-ui__phone-mark" src="{{ ropleon_assets.favicon }}" alt="">
+      <span class="rp-product-ui__portrait"></span>
+      <strong>{{ 'Professional identity'|t }}</strong>
+      <small>{{ 'Connected. Verified. Ready.'|t }}</small>
+      <div class="rp-product-ui__phone-actions"><i></i><i></i><i></i></div>
+      <div class="rp-product-ui__qr">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <path d="M3 3h14v14H3zm4 4v6h6V7zM31 3h14v14H31zm4 4v6h6V7zM3 31h14v14H3zm4 4v6h6v-6zM22 3h4v4h-4zm0 8h5v5h-5zm-1 10h6v5h-6zm10 1h4v4h-4zm8 0h6v5h-6zm-9 9h5v5h-5zm9 0h4v4h-4zm-17 8h5v6h-5zm10 1h5v5h-5zm9-1h4v6h-4z" fill="currentColor"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <span class="rp-product-ui__status">{{ 'Approved'|t }}</span>
+  <span class="rp-product-ui__nfc" aria-hidden="true">
+    <i></i><i></i><i></i>
+    <small>NFC</small>
+  </span>
+</div>

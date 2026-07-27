@@ -1,0 +1,1230 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ropleon Corporate Brand 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+
+msgid "Home"
+msgstr "الرئيسية"
+
+msgid "Products"
+msgstr "المنتجات"
+
+msgid "About"
+msgstr "عن روبليون"
+
+msgid "Contact"
+msgstr "تواصل معنا"
+
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+msgid "Technology, Connected."
+msgstr "تقنية مترابطة."
+
+msgid "Your Identity. Always Connected."
+msgstr "هويتك. متصلة دائماً."
+
+msgid "Enterprise Digital Business Card and Digital Identity Platform."
+msgstr "منصة مؤسسية لبطاقات الأعمال الرقمية والهوية الرقمية."
+
+msgid "Connected technology for organizations, people, and commercial ecosystems."
+msgstr "تقنية مترابطة للمؤسسات والأفراد ومنظومات الأعمال."
+
+msgid "We build trusted digital products that connect organizations, people, and commercial partners—securely and at scale."
+msgstr "نبني منتجات رقمية موثوقة تربط المؤسسات والأفراد والشركاء التجاريين بأمان وعلى نطاق واسع."
+
+msgid "Explore Ropleon Cards"
+msgstr "استكشف روبليون كاردز"
+
+msgid "Talk to Ropleon"
+msgstr "تحدث مع روبليون"
+
+msgid "Our products"
+msgstr "منتجاتنا"
+
+msgid "Business value"
+msgstr "قيمة الأعمال"
+
+msgid "For organizations"
+msgstr "للمؤسسات"
+
+msgid "For people"
+msgstr "للأفراد"
+
+msgid "For partners"
+msgstr "للشركاء"
+
+msgid "Request a conversation"
+msgstr "اطلب التواصل"
+
+msgid "Sign in"
+msgstr "تسجيل الدخول"
+
+msgid "One connected platform"
+msgstr "منصة مترابطة واحدة"
+
+msgid "Designed around people"
+msgstr "مصممة حول احتياجات المستخدمين"
+
+msgid "Platform teams"
+msgstr "فرق إدارة المنصة"
+
+msgid "Organization administrators"
+msgstr "مسؤولو المؤسسات"
+
+msgid "Merchants"
+msgstr "التجار"
+
+msgid "Card holders"
+msgstr "حاملو البطاقات"
+
+msgid "Our approach"
+msgstr "منهجنا"
+
+msgid "Powered by Ropleon Cards."
+msgstr "بدعم من روبليون كاردز."
+
+msgid "Ropleon Cards"
+msgstr "روبليون كاردز"
+
+msgid "Ropleon Cards Team"
+msgstr "فريق روبليون كاردز"
+
+msgid "Ropleon Cards is a product of Ropleon Technologies."
+msgstr "روبليون كاردز هي أحد منتجات روبليون تكنولوجيز."
+
+msgid "Powered by Ropleon Cards"
+msgstr "بدعم من روبليون كاردز"
+
+msgid "Ropleon Technologies home"
+msgstr "الصفحة الرئيسية لروبليون تكنولوجيز"
+
+msgid "Back to Ropleon Technologies"
+msgstr "العودة إلى روبليون تكنولوجيز"
+
+msgid "Enterprise digital identity"
+msgstr "هوية رقمية للمؤسسات"
+
+msgid "Your identity. Always connected."
+msgstr "هويتك. متصلة دائماً."
+
+msgid "Manage branded digital cards, organization access, merchant benefits, and loyalty from one connected workspace."
+msgstr "أدر البطاقات الرقمية بهوية المؤسسة، وصلاحيات الوصول، ومزايا التجار، والولاء من مساحة عمل مترابطة واحدة."
+
+msgid "Corporate navigation"
+msgstr "التنقل في موقع الشركة"
+
+msgid "Toggle navigation"
+msgstr "فتح أو إغلاق قائمة التنقل"
+
+msgid "Skip to main content"
+msgstr "الانتقال إلى المحتوى الرئيسي"
+
+msgid "Product"
+msgstr "المنتج"
+
+msgid "Company"
+msgstr "الشركة"
+
+msgid "Enterprise-ready"
+msgstr "جاهزة للمؤسسات"
+
+msgid "Arabic and English"
+msgstr "العربية والإنجليزية"
+
+msgid "Built for connected growth"
+msgstr "مصممة للنمو المترابط"
+
+msgid "Practical platforms. Connected outcomes."
+msgstr "منصات عملية. ونتائج مترابطة."
+
+msgid "Ropleon products are designed around real operational workflows, measurable engagement, and long-term extensibility."
+msgstr "تُصمم منتجات روبليون حول مسارات عمل فعلية، وتفاعل قابل للقياس، وقابلية للتوسع على المدى الطويل."
+
+msgid "First Ropleon product"
+msgstr "أول منتجات روبليون"
+
+msgid "Discover the product"
+msgstr "اكتشف المنتج"
+
+msgid "Digital identity"
+msgstr "الهوية الرقمية"
+
+msgid "Branded cards for every organization"
+msgstr "بطاقات بهوية بصرية خاصة بكل مؤسسة"
+
+msgid "Fast, reliable public access"
+msgstr "وصول عام سريع وموثوق"
+
+msgid "Offers + loyalty"
+msgstr "العروض والولاء"
+
+msgid "Connect card holders with merchants"
+msgstr "ربط حاملي البطاقات بالتجار"
+
+msgid "Platform governance"
+msgstr "حوكمة المنصة"
+
+msgid "Subscriptions, workflows, and analytics"
+msgstr "الاشتراكات ومسارات العمل والتحليلات"
+
+msgid "Technology that connects the full value chain"
+msgstr "تقنية تربط سلسلة القيمة كاملة"
+
+msgid "Issue consistent digital identities, control approval, personalize presentation, and understand usage."
+msgstr "أصدر هويات رقمية متسقة، واضبط الاعتماد، وخصص العرض، وتابع الاستخدام."
+
+msgid "Keep identity accessible, shareable, and useful while unlocking verified benefits and loyalty."
+msgstr "حافظ على هوية سهلة الوصول والمشاركة ومفيدة، مع إتاحة المزايا الموثقة والولاء."
+
+msgid "Verify eligible card holders quickly, deliver targeted offers, and measure redemptions."
+msgstr "تحقق بسرعة من أهلية حاملي البطاقات، وقدم عروضاً موجهة، وقِس عمليات الاستبدال."
+
+msgid "Build the next connected experience with Ropleon."
+msgstr "ابنِ التجربة المترابطة التالية مع روبليون."
+
+msgid "Start a conversation"
+msgstr "ابدأ المحادثة"
+
+msgid "Give every person a secure, branded, and continuously useful digital identity—managed at enterprise scale."
+msgstr "امنح كل شخص هوية رقمية آمنة تحمل هوية المؤسسة وتظل مفيدة باستمرار، مع إدارتها على نطاق مؤسسي."
+
+msgid "Ropleon Cards capability preview"
+msgstr "معاينة قدرات روبليون كاردز"
+
+msgid "Enterprise Identity"
+msgstr "هوية مؤسسية"
+
+msgid "From card creation to measurable engagement"
+msgstr "من إنشاء البطاقة إلى تفاعل قابل للقياس"
+
+msgid "Ropleon Cards supports the full operating lifecycle without compromising the speed of the public card experience."
+msgstr "تدعم روبليون كاردز دورة التشغيل الكاملة مع الحفاظ على سرعة تجربة البطاقة العامة."
+
+msgid "Organization-branded cards"
+msgstr "بطاقات بهوية المؤسسة"
+
+msgid "Apply organization-specific colors, logos, layouts, languages, and approved social platforms."
+msgstr "طبّق ألوان المؤسسة وشعارها وتخطيطها ولغاتها ومنصات التواصل المعتمدة."
+
+msgid "QR and NFC access"
+msgstr "الوصول عبر QR وNFC"
+
+msgid "Keep the public /c/{nfc_id} experience fast, stable, and easy to share."
+msgstr "حافظ على تجربة ‎/c/{nfc_id}‎ العامة سريعة ومستقرة وسهلة المشاركة."
+
+msgid "Controlled workflows"
+msgstr "مسارات عمل مضبوطة"
+
+msgid "Separate card creation from platform approval while preserving static generation and auditability."
+msgstr "افصل إنشاء البطاقة عن اعتماد المنصة مع الحفاظ على التوليد الثابت وقابلية التدقيق."
+
+msgid "Subscriptions and capacity"
+msgstr "الاشتراكات والسعة"
+
+msgid "Manage plans, organization subscriptions, quotas, renewal status, and service continuity."
+msgstr "أدر الخطط واشتراكات المؤسسات والحصص وحالة التجديد واستمرارية الخدمة."
+
+msgid "Merchant offers"
+msgstr "عروض التجار"
+
+msgid "Verify card holders, deliver contracted offers, and redeem benefits through a dedicated merchant portal."
+msgstr "تحقق من حاملي البطاقات، وقدم العروض المتعاقد عليها، واستبدل المزايا عبر بوابة مخصصة للتجار."
+
+msgid "Loyalty and analytics"
+msgstr "الولاء والتحليلات"
+
+msgid "Reward engagement with points and understand scans, eligibility, redemption, and platform performance."
+msgstr "كافئ التفاعل بالنقاط وتابع المسح والأهلية والاستبدال وأداء المنصة."
+
+msgid "A clear workspace for every role"
+msgstr "مساحة عمل واضحة لكل دور"
+
+msgid "Govern organizations, plans, subscriptions, themes, approvals, merchants, and reports."
+msgstr "أدر المؤسسات والخطط والاشتراكات والسمات والاعتمادات والتجار والتقارير."
+
+msgid "Create cards, manage teams, follow subscription usage, and maintain organization identity."
+msgstr "أنشئ البطاقات، وأدر الفرق، وتابع استهلاك الاشتراك، وحافظ على هوية المؤسسة."
+
+msgid "Validate holders and complete eligible redemptions through a focused, fast portal."
+msgstr "تحقق من حاملي البطاقات وأكمل عمليات الاستبدال المؤهلة عبر بوابة سريعة ومركزة."
+
+msgid "Share identity instantly and see eligible offers, loyalty progress, and rewards when signed in."
+msgstr "شارك الهوية فوراً واطّلع على العروض المؤهلة وتقدم الولاء والمكافآت عند تسجيل الدخول."
+
+msgid "Your identity. Your network. Always connected."
+msgstr "هويتك. شبكتك. متصلة دائماً."
+
+msgid "Discuss Ropleon Cards"
+msgstr "ناقش روبليون كاردز معنا"
+
+msgid "Technology that connects business and people."
+msgstr "تقنية تربط الأعمال بالأفراد."
+
+msgid "Ropleon Technologies builds focused digital products that make identity, operations, and engagement work together."
+msgstr "تبني روبليون تكنولوجيز منتجات رقمية مركزة تجعل الهوية والعمليات والتفاعل تعمل معاً."
+
+msgid "Start with a real workflow. Build for a connected future."
+msgstr "ابدأ بمسار عمل فعلي. وابنِ لمستقبل مترابط."
+
+msgid "We design practical platforms around the people who operate them: platform teams, organizations, merchants, and end users."
+msgstr "نصمم منصات عملية حول من يستخدمونها: فرق المنصة والمؤسسات والتجار والمستخدمين النهائيين."
+
+msgid "Ropleon Cards is our first product—a foundation for trusted digital identity and value-added engagement."
+msgstr "روبليون كاردز هي أول منتجاتنا، وتشكل أساساً لهوية رقمية موثوقة وتفاعل ذي قيمة مضافة."
+
+msgid "Connected by design"
+msgstr "مترابطة من أساس التصميم"
+
+msgid "Built for trust"
+msgstr "مبنية للثقة"
+
+msgid "Ready to evolve"
+msgstr "جاهزة للتطور"
+
+msgid "Ropleon branding"
+msgstr "هوية روبليون"
+
+msgid "Company identity"
+msgstr "هوية الشركة"
+
+msgid "Product identity"
+msgstr "هوية المنتج"
+
+msgid "Public contact email"
+msgstr "بريد التواصل العام"
+
+msgid "Translations"
+msgstr "الترجمات"
+
+msgid ""
+"Hello @name,\n"
+"\n"
+"You have been added as an administrator for: @organization\n"
+"\n"
+"Login email: @email\n"
+"Temporary password: @password\n"
+"\n"
+"Please log in to Ropleon Cards and change your password as soon as possible.\n"
+"\n"
+"Regards,\n"
+"Ropleon Cards Team\n"
+"A product of Ropleon Technologies"
+msgstr ""
+"مرحباً @name،\n"
+"\n"
+"تمت إضافتك مسؤولاً للمؤسسة: @organization\n"
+"\n"
+"بريد تسجيل الدخول: @email\n"
+"كلمة المرور المؤقتة: @password\n"
+"\n"
+"يرجى تسجيل الدخول إلى روبليون كاردز وتغيير كلمة المرور في أقرب وقت.\n"
+"\n"
+"مع التحية،\n"
+"فريق روبليون كاردز\n"
+"أحد منتجات روبليون تكنولوجيز"
+
+msgid ""
+"Hello @name,\n"
+"\n"
+"Your Ropleon Cards password was reset.\n"
+"\n"
+"Temporary password: @password\n"
+"\n"
+"Please log in and change your password as soon as possible.\n"
+"\n"
+"Regards,\n"
+"Ropleon Cards Team\n"
+"A product of Ropleon Technologies"
+msgstr ""
+"مرحباً @name،\n"
+"\n"
+"تمت إعادة تعيين كلمة مرور روبليون كاردز الخاصة بك.\n"
+"\n"
+"كلمة المرور المؤقتة: @password\n"
+"\n"
+"يرجى تسجيل الدخول وتغيير كلمة المرور في أقرب وقت.\n"
+"\n"
+"مع التحية،\n"
+"فريق روبليون كاردز\n"
+"أحد منتجات روبليون تكنولوجيز"
+
+msgid "Your Ropleon Cards merchant account"
+msgstr "حساب التاجر الخاص بك على روبليون كاردز"
+
+msgid "Powered by Ropleon Cards — a product of Ropleon Technologies."
+msgstr "بدعم من روبليون كاردز — أحد منتجات روبليون تكنولوجيز."
+
+msgid "Menu"
+msgstr "القائمة"
+
+msgid "Open navigation"
+msgstr "فتح قائمة التنقل"
+
+msgid "Close navigation"
+msgstr "إغلاق قائمة التنقل"
+
+msgid "Open Platform Admin navigation"
+msgstr "فتح قائمة إدارة المنصة"
+
+msgid "Close Platform Admin navigation"
+msgstr "إغلاق قائمة إدارة المنصة"
+
+msgid "Open Organization Portal navigation"
+msgstr "فتح قائمة بوابة المؤسسة"
+
+msgid "Close Organization Portal navigation"
+msgstr "إغلاق قائمة بوابة المؤسسة"
+
+msgid "Powered by"
+msgstr "بدعم من"
+
+msgid "Ropleon home"
+msgstr "الصفحة الرئيسية لروبليون"
+
+msgid "Language selection"
+msgstr "اختيار اللغة"
+
+msgid "Ropleon Technologies"
+msgstr "روبليون تكنولوجيز"
+
+msgid "Identity"
+msgstr "الهوية"
+
+msgid "Always connected"
+msgstr "متصلة دائماً"
+
+msgid "Organizations"
+msgstr "المؤسسات"
+
+msgid "Governed at scale"
+msgstr "حوكمة قابلة للتوسع"
+
+msgid "Partners"
+msgstr "الشركاء"
+
+msgid "Engagement with value"
+msgstr "تفاعل يصنع قيمة"
+
+msgid "QR + NFC"
+msgstr "رمز QR وتقنية NFC"
+
+msgid "QR • NFC • Mobile"
+msgstr "QR • NFC • الهاتف المحمول"
+
+msgid "Products are structured to connect roles, data, and experiences without losing operational clarity."
+msgstr "نبني منتجات تربط الأدوار والبيانات والتجارب مع الحفاظ على وضوح العمليات."
+
+msgid "Governance, permissions, approvals, and transparent activity are treated as product fundamentals."
+msgstr "نجعل الحوكمة والصلاحيات والاعتمادات وشفافية النشاط ركائز أساسية في منتجاتنا."
+
+msgid "Stable internal architecture and reusable product capabilities support future Ropleon services."
+msgstr "تدعم البنية الداخلية المستقرة والقدرات القابلة لإعادة الاستخدام خدمات روبليون المستقبلية."
+
+msgid "Ropleon Technologies | Technology, Connected."
+msgstr "روبليون تكنولوجيز | تقنية مترابطة."
+
+msgid "Ropleon Technologies connects organizations, people, and commercial partners through secure, scalable digital products."
+msgstr "تربط روبليون تكنولوجيز المؤسسات والأفراد والشركاء التجاريين عبر منتجات رقمية آمنة وقابلة للتوسع."
+
+msgid "Ropleon Cards | Enterprise Digital Identity Platform"
+msgstr "روبليون كاردز | منصة الهوية الرقمية للمؤسسات"
+
+msgid "Ropleon Cards is an enterprise digital business card and digital identity platform with QR, NFC, organization governance, subscriptions, offers, and loyalty."
+msgstr "روبليون كاردز منصة مؤسسية لبطاقات الأعمال والهوية الرقمية، تدعم QR وNFC والحوكمة والاشتراكات والعروض والولاء."
+
+msgid "About Ropleon Technologies"
+msgstr "عن روبليون تكنولوجيز"
+
+msgid "Ropleon Technologies builds connected digital platforms that turn identity and engagement into measurable business value."
+msgstr "تبني روبليون تكنولوجيز منصات رقمية مترابطة تحوّل الهوية والتفاعل إلى قيمة أعمال قابلة للقياس."
+
+msgid "Company brand"
+msgstr "العلامة التجارية للشركة"
+
+msgid "Legal company name"
+msgstr "الاسم القانوني للشركة"
+
+msgid "Arabic company name"
+msgstr "اسم الشركة بالعربية"
+
+msgid "Company tagline"
+msgstr "شعار الشركة"
+
+msgid "Product name"
+msgstr "اسم المنتج"
+
+msgid "Product tagline"
+msgstr "شعار المنتج"
+
+msgid "Product description"
+msgstr "وصف المنتج"
+
+msgid "Product branding line"
+msgstr "عبارة العلامة التجارية للمنتج"
+
+msgid "Optional. The Contact page continues to use Drupal’s configured contact form."
+msgstr "اختياري. تستمر صفحة التواصل باستخدام نموذج التواصل المُعد في النظام."
+
+msgid "These settings use Drupal translatable configuration. Platform administrators can edit language-specific values from Configuration translation."
+msgstr "تدعم هذه الإعدادات الترجمة، ويمكن لمسؤولي المنصة تعديل القيم الخاصة بكل لغة من إعدادات الترجمة."
+
+# Approved Ropleon public experience — Arabic.
+msgid "- None -"
+msgstr "- لا شيء -"
+
+msgid "- Select -"
+msgstr "- اختر -"
+
+msgid "A Ropleon product"
+msgstr "أحد منتجات روبليون"
+
+msgid "A connected foundation"
+msgstr "أساس مترابط"
+
+msgid "A professional identity that works everywhere."
+msgstr "هوية مهنية تعمل في كل مكان."
+
+msgid "AI and Automation"
+msgstr "الذكاء الاصطناعي والأتمتة"
+
+msgid "AI and Intelligent Automation"
+msgstr "الذكاء الاصطناعي والأتمتة الذكية"
+
+msgid "AI and automation"
+msgstr "الذكاء الاصطناعي والأتمتة"
+
+msgid "AI-Enabled Solutions"
+msgstr "حلول مدعومة بالذكاء الاصطناعي"
+
+msgid "API, middleware, data, and channel integration across enterprise environments."
+msgstr "تكامل واجهات البرمجة والبرمجيات الوسيطة والبيانات والقنوات ضمن بيئات المؤسسات."
+
+msgid "Access"
+msgstr "الوصول"
+
+msgid "Active product"
+msgstr "منتج متاح"
+
+msgid "Add Digital Card"
+msgstr "إضافة بطاقة رقمية"
+
+msgid "Add accurate professional information for every person."
+msgstr "أضف معلومات مهنية دقيقة لكل شخص."
+
+msgid "All rights reserved."
+msgstr "جميع الحقوق محفوظة."
+
+msgid "Apply a controlled approval workflow before publishing."
+msgstr "طبّق مسار اعتماد منضبطاً قبل النشر."
+
+msgid "Approval Workflows"
+msgstr "مسارات الاعتماد"
+
+msgid "Approval and publishing workflows"
+msgstr "مسارات الاعتماد والنشر"
+
+msgid "Approval states"
+msgstr "حالات الاعتماد"
+
+msgid "Approved"
+msgstr "معتمدة"
+
+msgid "Archive and lifecycle controls"
+msgstr "الأرشفة وإدارة دورة الحياة"
+
+msgid "Area of interest"
+msgstr "مجال الاهتمام"
+
+msgid "Areas of expertise"
+msgstr "مجالات الخبرة"
+
+msgid "Available now"
+msgstr "متاح الآن"
+
+msgid "Brand Consistency"
+msgstr "اتساق الهوية المؤسسية"
+
+msgid "Brand and content"
+msgstr "الهوية المؤسسية والمحتوى"
+
+msgid "Branded employee digital identities"
+msgstr "هويات رقمية للموظفين بهوية المؤسسة"
+
+msgid "Breadcrumb"
+msgstr "مسار التنقل"
+
+msgid "Bring your organization’s professional identities together."
+msgstr "اجمع الهويات المهنية لمؤسستك في مكان واحد."
+
+msgid "Built for organizations that expect more."
+msgstr "مصممة للمؤسسات التي تتطلع إلى المزيد."
+
+msgid "Built to Evolve"
+msgstr "مصممة للتطور"
+
+msgid "Card ownership"
+msgstr "ملكية البطاقة"
+
+msgid "Card usage"
+msgstr "استخدام البطاقة"
+
+msgid "Cardholder name"
+msgstr "اسم حامل البطاقة"
+
+msgid "Centralized Administration"
+msgstr "إدارة مركزية"
+
+msgid "Centralized organization administration"
+msgstr "إدارة مركزية للمؤسسة"
+
+msgid "Clarity"
+msgstr "الوضوح"
+
+msgid "Cloud Platforms"
+msgstr "المنصات السحابية"
+
+msgid "Cloud and Digital Platforms"
+msgstr "المنصات السحابية والرقمية"
+
+msgid "Cloud and Platform Engineering"
+msgstr "هندسة السحابة والمنصات"
+
+msgid "Cloud and digital platforms"
+msgstr "المنصات السحابية والرقمية"
+
+msgid "Configure the organization"
+msgstr "تهيئة المؤسسة"
+
+msgid "Connect every approved card to a stable public URL that works with QR codes and NFC products."
+msgstr "اربط كل بطاقة معتمدة بعنوان عام ثابت يعمل مع رموز QR ومنتجات NFC."
+
+msgid "Connect the technology your organization depends on."
+msgstr "اربط التقنيات التي تعتمد عليها مؤسستك."
+
+msgid "Connected by Design"
+msgstr "مترابطة منذ التصميم"
+
+msgid "Connected expertise for complex requirements."
+msgstr "خبرات مترابطة للمتطلبات المعقدة."
+
+msgid "Connected software, integration, cloud, AI, and digital identity solutions for complex organizations."
+msgstr "حلول مترابطة للبرمجيات والتكامل والسحابة والذكاء الاصطناعي والهوية الرقمية للمؤسسات ذات المتطلبات المعقدة."
+
+msgid "Connected solutions for complex organizations."
+msgstr "حلول مترابطة للمؤسسات ذات المتطلبات المعقدة."
+
+msgid "Connected systems"
+msgstr "أنظمة مترابطة"
+
+msgid "Connected technology for modern organizations."
+msgstr "تقنية مترابطة للمؤسسات الحديثة."
+
+msgid "Connected. Verified. Ready."
+msgstr "مترابطة. موثّقة. جاهزة."
+
+msgid "Contact Ropleon"
+msgstr "تواصل مع روبليون"
+
+msgid "Contact Ropleon Technologies"
+msgstr "تواصل مع روبليون تكنولوجيز"
+
+msgid "Contact Ropleon about Ropleon Cards, enterprise software, system integration, AI-enabled solutions, cloud platforms, or custom digital products."
+msgstr "تواصل مع روبليون بشأن روبليون كاردز أو برمجيات المؤسسات أو تكامل الأنظمة أو الحلول المدعومة بالذكاء الاصطناعي أو المنصات السحابية أو المنتجات الرقمية المخصصة."
+
+msgid "Contact and Social Actions"
+msgstr "إجراءات التواصل والحسابات الاجتماعية"
+
+msgid "Contact download and social connectivity"
+msgstr "تنزيل بيانات الاتصال والتواصل الاجتماعي"
+
+msgid "Contact file download"
+msgstr "تنزيل ملف جهة الاتصال"
+
+msgid "Continuous improvement"
+msgstr "تحسين مستمر"
+
+msgid "Control for the organization. Simplicity for the cardholder."
+msgstr "تحكم للمؤسسة. وبساطة لحامل البطاقة."
+
+msgid "Create card"
+msgstr "إنشاء بطاقة"
+
+msgid "Create or invite cardholders"
+msgstr "أنشئ حاملي البطاقات أو ادعهم"
+
+msgid "Create, approve, publish, and manage professional digital identities and digital business cards for your organization with Ropleon Cards."
+msgstr "أنشئ الهويات المهنية وبطاقات الأعمال الرقمية لمؤسستك واعتمدها وانشرها وأدرها باستخدام روبليون كاردز."
+
+msgid "Create, approve, publish, and manage secure digital business cards for your organization from one centralized platform."
+msgstr "أنشئ بطاقات أعمال رقمية آمنة لمؤسستك واعتمدها وانشرها وأدرها من منصة مركزية واحدة."
+
+msgid "Create, govern, publish, and maintain professional digital identities through one secure platform designed for organizations and their teams."
+msgstr "أنشئ الهويات المهنية وأدر حوكمتها وانشرها وحافظ عليها عبر منصة آمنة واحدة مصممة للمؤسسات وفرقها."
+
+msgid "Custom platforms and business applications designed around real operational requirements."
+msgstr "منصات وتطبيقات أعمال مخصصة مصممة حول المتطلبات التشغيلية الفعلية."
+
+msgid "Dark"
+msgstr "داكن"
+
+msgid "Deliver a stable, fast public experience on every device."
+msgstr "قدّم تجربة عامة ثابتة وسريعة على كل جهاز."
+
+msgid "Deliver lightweight, mobile-first public card pages optimized for speed and reliability."
+msgstr "قدّم صفحات بطاقات عامة خفيفة تبدأ من الهاتف ومهيأة للسرعة والموثوقية."
+
+msgid "Digital Identity"
+msgstr "الهوية الرقمية"
+
+msgid "Digital Identity Products"
+msgstr "منتجات الهوية الرقمية"
+
+msgid "Digital identities"
+msgstr "الهويات الرقمية"
+
+msgid "Direct phone and email actions"
+msgstr "إجراءات مباشرة للاتصال والبريد الإلكتروني"
+
+msgid "Discover Ropleon Cards"
+msgstr "اكتشف روبليون كاردز"
+
+msgid "Discuss your requirements"
+msgstr "ناقش متطلباتك"
+
+msgid "Email or username"
+msgstr "البريد الإلكتروني أو اسم المستخدم"
+
+msgid "Enable visitors to call, email, download contact details, and open approved social profiles."
+msgstr "مكّن الزوار من الاتصال وإرسال البريد وتنزيل بيانات جهة الاتصال وفتح الحسابات الاجتماعية المعتمدة."
+
+msgid "Engineering depth across the connected enterprise."
+msgstr "خبرة هندسية عميقة في مختلف جوانب المؤسسة المترابطة."
+
+msgid "Enter the username or email address assigned to your platform account."
+msgstr "أدخل اسم المستخدم أو البريد الإلكتروني المخصص لحسابك في المنصة."
+
+msgid "Enterprise Digital Identity Platform"
+msgstr "منصة الهوية الرقمية للمؤسسات"
+
+msgid "Enterprise Ready"
+msgstr "جاهزة للمؤسسات"
+
+msgid "Enterprise Software"
+msgstr "برمجيات المؤسسات"
+
+msgid "Enterprise Software Development"
+msgstr "تطوير برمجيات المؤسسات"
+
+msgid "Enterprise Technology · Connected"
+msgstr "تقنية مؤسسية · مترابطة"
+
+msgid "Enterprise control. Personal connection."
+msgstr "تحكم مؤسسي. وتواصل شخصي."
+
+msgid "Enterprise digital identity and business card management for organizations."
+msgstr "إدارة الهوية الرقمية وبطاقات الأعمال للمؤسسات."
+
+msgid "Enterprise software"
+msgstr "برمجيات المؤسسات"
+
+msgid "Every approved identity is presented through a responsive, organization-branded public card built for fast access and clear action."
+msgstr "تُعرض كل هوية معتمدة في بطاقة عامة متجاوبة تحمل هوية المؤسسة ومصممة للوصول السريع والإجراءات الواضحة."
+
+msgid "Everything required to govern professional identity."
+msgstr "كل ما يلزم لحوكمة الهوية المهنية."
+
+msgid "Explore Ropleon Cards or speak with us about your organization’s software, integration, cloud, and digital platform requirements."
+msgstr "استكشف روبليون كاردز أو تحدث معنا حول احتياجات مؤسستك للبرمجيات والتكامل والسحابة والمنصات الرقمية."
+
+msgid "Fast Public Delivery"
+msgstr "عرض عام سريع"
+
+msgid "Fast, mobile-first card experiences"
+msgstr "تجارب بطاقات سريعة تبدأ من الهاتف"
+
+msgid "Features may evolve as products improve. Subscription, organization, and role permissions continue to control access to managed platform capabilities."
+msgstr "قد تتطور المزايا مع تحسين المنتجات. ويظل الوصول إلى إمكانات المنصة المُدارة خاضعاً للاشتراك والمؤسسة وصلاحيات الأدوار."
+
+msgid "Forgot your password?"
+msgstr "هل نسيت كلمة المرور؟"
+
+msgid "From organization setup to a shareable identity."
+msgstr "من تهيئة المؤسسة إلى هوية جاهزة للمشاركة."
+
+msgid "Full name"
+msgstr "الاسم الكامل"
+
+msgid "Governance by design"
+msgstr "حوكمة مدمجة في التصميم"
+
+msgid "How Ropleon approaches privacy, responsible information handling, and your choices."
+msgstr "نهج روبليون في الخصوصية والتعامل المسؤول مع المعلومات والخيارات المتاحة لك."
+
+msgid "How it works"
+msgstr "كيف تعمل"
+
+msgid "How we work"
+msgstr "كيف نعمل"
+
+msgid "I agree that Ropleon may use the information provided to respond to this enquiry."
+msgstr "أوافق على أن تستخدم روبليون المعلومات المقدمة للرد على هذا الاستفسار."
+
+msgid "Information submitted through contact, account, organization, card, or merchant workflows is used to provide and operate the requested service."
+msgstr "تُستخدم المعلومات المقدمة عبر نماذج التواصل أو الحساب أو المؤسسة أو البطاقة أو التاجر لتقديم الخدمة المطلوبة وتشغيلها."
+
+msgid "Information you provide"
+msgstr "المعلومات التي تقدمها"
+
+msgid "Integration and APIs"
+msgstr "التكامل وواجهات البرمجة"
+
+msgid "Interoperability"
+msgstr "قابلية التشغيل البيني"
+
+msgid "Let’s build technology that connects."
+msgstr "لنبنِ تقنية تربط كل ما يهم."
+
+msgid "Let’s discuss what you are building."
+msgstr "لنتحدث عما تعمل على بنائه."
+
+msgid "Light"
+msgstr "فاتح"
+
+msgid "Maintain consistent organizational branding while supporting individual employee information."
+msgstr "حافظ على اتساق هوية المؤسسة مع دعم المعلومات الفردية لكل موظف."
+
+msgid "Manage organizational cards, administrators, access, and platform activity from one place."
+msgstr "أدر بطاقات المؤسسة ومسؤوليها وصلاحيات الوصول ونشاط المنصة من مكان واحد."
+
+msgid "Mission"
+msgstr "رسالتنا"
+
+msgid "Modern identity, profile, and professional presence products led by Ropleon Cards."
+msgstr "منتجات حديثة للهوية والملف الشخصي والحضور المهني، تتقدمها روبليون كاردز."
+
+msgid "Modern organizations depend on many systems, channels, teams, and digital experiences. Ropleon connects those elements through secure, scalable, and carefully engineered technology."
+msgstr "تعتمد المؤسسات الحديثة على أنظمة وقنوات وفرق وتجارب رقمية عديدة. تربط روبليون هذه العناصر عبر تقنية آمنة وقابلة للتوسع ومصممة بعناية."
+
+msgid "Modular platforms that can grow with new products, integrations, and business requirements."
+msgstr "منصات معيارية تنمو مع المنتجات وعمليات التكامل ومتطلبات الأعمال الجديدة."
+
+msgid "More than a digital business card."
+msgstr "أكثر من بطاقة أعمال رقمية."
+
+msgid "Not provided"
+msgstr "غير متوفر"
+
+msgid "One company. A connected product ecosystem."
+msgstr "شركة واحدة. ومنظومة منتجات مترابطة."
+
+msgid "Optional"
+msgstr "اختياري"
+
+msgid "Organization"
+msgstr "المؤسسة"
+
+msgid "Organization administration"
+msgstr "إدارة المؤسسة"
+
+msgid "Organization branding"
+msgstr "هوية المؤسسة"
+
+msgid "Organization workspace"
+msgstr "مساحة عمل المؤسسة"
+
+msgid "Other"
+msgstr "أخرى"
+
+msgid "Our approach combines practical engineering, thoughtful design, and a clear understanding of how technology must support real organizational operations."
+msgstr "يجمع نهجنا بين الهندسة العملية والتصميم المدروس والفهم الواضح لكيفية دعم التقنية لعمليات المؤسسة الفعلية."
+
+msgid "Our first product"
+msgstr "منتجنا الأول"
+
+msgid "Partnership"
+msgstr "شراكة"
+
+msgid "Password"
+msgstr "كلمة المرور"
+
+msgid "Phone number"
+msgstr "رقم الهاتف"
+
+msgid "Platform administration"
+msgstr "إدارة المنصة"
+
+msgid "Platform capabilities"
+msgstr "إمكانات المنصة"
+
+msgid "Practical AI-enabled solutions that improve decisions, productivity, and customer experiences."
+msgstr "حلول عملية مدعومة بالذكاء الاصطناعي تحسّن القرارات والإنتاجية وتجارب العملاء."
+
+msgid "Practical automation and AI-enabled services designed around measurable business value."
+msgstr "خدمات عملية للأتمتة والذكاء الاصطناعي مصممة لتحقيق قيمة أعمال قابلة للقياس."
+
+msgid "Practical engineering shaped around real operations."
+msgstr "هندسة عملية مصممة حول عمليات حقيقية."
+
+msgid "Primary"
+msgstr "أساسي"
+
+msgid "Principles that guide every Ropleon product."
+msgstr "مبادئ توجه كل منتج من روبليون."
+
+msgid "Privacy"
+msgstr "الخصوصية"
+
+msgid "Product ecosystem"
+msgstr "منظومة المنتجات"
+
+msgid "Products and services designed to work across teams, systems, and channels."
+msgstr "منتجات وخدمات مصممة للعمل عبر الفرق والأنظمة والقنوات."
+
+msgid "Products built to connect organizations."
+msgstr "منتجات مصممة لربط المؤسسات."
+
+msgid "Professional digital identities, managed at enterprise scale."
+msgstr "هويات رقمية مهنية، تُدار على نطاق المؤسسات."
+
+msgid "Professional identity"
+msgstr "الهوية المهنية"
+
+msgid "Professional role · Organization"
+msgstr "الدور المهني · المؤسسة"
+
+msgid "Public card experience"
+msgstr "تجربة البطاقة العامة"
+
+msgid "Publish and share through QR or NFC"
+msgstr "انشر وشارك عبر QR أو NFC"
+
+msgid "Published"
+msgstr "منشورة"
+
+msgid "Purposeful products, not artificial placeholders."
+msgstr "منتجات ذات غاية، وليست مجرد أسماء مستقبلية."
+
+msgid "Focused products built for real needs."
+msgstr "منتجات مركزة مبنية لاحتياجات حقيقية."
+
+msgid "A product of Ropleon Technologies"
+msgstr "أحد منتجات روبليون تكنولوجيز"
+
+msgid "Merchant Portal"
+msgstr "بوابة التاجر"
+
+msgid "Merchant Portal navigation"
+msgstr "التنقل في بوابة التاجر"
+
+msgid "My account"
+msgstr "حسابي"
+
+msgid "Organization Portal"
+msgstr "بوابة المؤسسة"
+
+msgid "Platform Admin header"
+msgstr "رأس بوابة إدارة المنصة"
+
+msgid "Platform Admin navigation"
+msgstr "التنقل في بوابة إدارة المنصة"
+
+msgid "Platform Portal"
+msgstr "بوابة المنصة"
+
+msgid "Platform dashboard"
+msgstr "لوحة معلومات المنصة"
+
+msgid "Portal footer"
+msgstr "تذييل البوابة"
+
+msgid "Sign out"
+msgstr "تسجيل الخروج"
+
+msgid "Toggle Merchant Portal navigation"
+msgstr "فتح أو إغلاق التنقل في بوابة التاجر"
+
+msgid "Verify offers"
+msgstr "التحقق من العروض"
+
+msgid "Fast merchant verification and redemption"
+msgstr "تحقق واستبدال سريعان للتاجر"
+
+msgid "Loyalty points and exclusive offers"
+msgstr "نقاط ولاء وعروض حصرية"
+
+msgid "My Organization"
+msgstr "مؤسستي"
+
+msgid "Organization Portal header"
+msgstr "رأس بوابة المؤسسة"
+
+msgid "Organization Portal navigation"
+msgstr "التنقل في بوابة المؤسسة"
+
+msgid "Organization dashboard"
+msgstr "لوحة معلومات المؤسسة"
+
+msgid "Sign in to manage your business workspace."
+msgstr "سجّل الدخول لإدارة مساحة عملك."
+
+msgid "Welcome back"
+msgstr "مرحباً بعودتك"
+
+msgid "QR and NFC Ready"
+msgstr "جاهزة لـ QR وNFC"
+
+msgid "QR and NFC compatibility"
+msgstr "توافق مع QR وNFC"
+
+msgid "QR code and NFC-ready public profiles"
+msgstr "ملفات عامة جاهزة لرموز QR وتقنية NFC"
+
+msgid "Quality"
+msgstr "الجودة"
+
+msgid "Questions"
+msgstr "الاستفسارات"
+
+msgid "Reliability"
+msgstr "الموثوقية"
+
+msgid "Reliable connections between enterprise systems, services, channels, and data."
+msgstr "روابط موثوقة بين أنظمة المؤسسة وخدماتها وقنواتها وبياناتها."
+
+msgid "Request a demonstration"
+msgstr "اطلب عرضاً توضيحياً"
+
+msgid "Reset it here"
+msgstr "أعد تعيينها من هنا"
+
+msgid "Responsible use"
+msgstr "الاستخدام المسؤول"
+
+msgid "Responsive mobile layout"
+msgstr "تصميم متجاوب للهاتف"
+
+msgid "Review and approve identities"
+msgstr "راجع الهويات واعتمدها"
+
+msgid "Review and approve professional identity information before cards are published."
+msgstr "راجع معلومات الهوية المهنية واعتمدها قبل نشر البطاقات."
+
+msgid "Role-based access"
+msgstr "وصول حسب الأدوار"
+
+msgid "Role-based access and transparent workflows keep professional identity accurate without adding complexity for cardholders."
+msgstr "يحافظ الوصول حسب الأدوار ومسارات العمل الشفافة على دقة الهوية المهنية دون إضافة تعقيد على حاملي البطاقات."
+
+msgid "Ropleon Cards enables organizations to create, approve, publish, and manage professional digital business cards for their teams from one secure platform."
+msgstr "تمكّن روبليون كاردز المؤسسات من إنشاء بطاقات أعمال رقمية مهنية لفرقها واعتمادها ونشرها وإدارتها من منصة آمنة واحدة."
+
+msgid "Ropleon Cards gives organizations control over how employee identities are created, governed, published, and maintained while giving every employee a modern and convenient way to connect."
+msgstr "تمنح روبليون كاردز المؤسسات التحكم في إنشاء هويات الموظفين وحوكمتها ونشرها وصيانتها، وتمنح كل موظف وسيلة حديثة ومريحة للتواصل."
+
+msgid "Ropleon Cards is the first product in a broader connected technology vision. New products will be introduced only when they are ready to solve a clear organizational need."
+msgstr "روبليون كاردز هي المنتج الأول ضمن رؤية أوسع لتقنية مترابطة. ولن تُطرح منتجات جديدة إلا عندما تصبح جاهزة لحل احتياج مؤسسي واضح."
+
+msgid "Ropleon Cards is the first product in a broader vision for connected enterprise technology. Every Ropleon product will share the same commitment to clarity, interoperability, security, and purposeful design."
+msgstr "روبليون كاردز هي المنتج الأول ضمن رؤية أوسع لتقنية مؤسسية مترابطة. وستلتزم كل منتجات روبليون بالوضوح وقابلية التشغيل البيني والأمان والتصميم الهادف."
+
+msgid "Ropleon Cards platform interface preview"
+msgstr "معاينة واجهة منصة روبليون كاردز"
+
+msgid "Ropleon Cards | Enterprise Digital Business Card Platform"
+msgstr "روبليون كاردز | منصة بطاقات الأعمال الرقمية للمؤسسات"
+
+msgid "Ropleon Products"
+msgstr "منتجات روبليون"
+
+msgid "Ropleon Solutions"
+msgstr "حلول روبليون"
+
+msgid "Ropleon builds secure enterprise software, connected digital platforms, AI-enabled solutions, cloud services, and integration products that help organizations operate with greater clarity, speed, and control."
+msgstr "تبني روبليون برمجيات مؤسسية آمنة ومنصات رقمية مترابطة وحلولاً مدعومة بالذكاء الاصطناعي وخدمات سحابية ومنتجات تكامل تساعد المؤسسات على العمل بوضوح وسرعة وتحكم أكبر."
+
+msgid "Ropleon capabilities"
+msgstr "قدرات روبليون"
+
+msgid "Ropleon combines software engineering, system integration, cloud architecture, AI-enabled capabilities, and digital platform design to solve operational and customer experience challenges."
+msgstr "تجمع روبليون بين هندسة البرمجيات وتكامل الأنظمة والبنية السحابية وإمكانات الذكاء الاصطناعي وتصميم المنصات الرقمية لحل تحديات العمليات وتجربة العملاء."
+
+msgid "Ropleon develops enterprise software, integration solutions, AI-enabled services, cloud platforms, and connected digital products for modern organizations."
+msgstr "تطوّر روبليون برمجيات مؤسسية وحلول تكامل وخدمات مدعومة بالذكاء الاصطناعي ومنصات سحابية ومنتجات رقمية مترابطة للمؤسسات الحديثة."
+
+msgid "Ropleon develops focused digital products that solve real organizational challenges through secure, scalable, and connected design."
+msgstr "تطوّر روبليون منتجات رقمية مركزة تحل تحديات مؤسسية حقيقية من خلال تصميم آمن وقابل للتوسع ومترابط."
+
+msgid "Ropleon develops focused digital products that solve real organizational challenges while sharing a common foundation of security, scalability, and connected design."
+msgstr "تطوّر روبليون منتجات رقمية مركزة تحل تحديات مؤسسية حقيقية، وتشترك في أساس موحد من الأمان وقابلية التوسع والتصميم المترابط."
+
+msgid "Ropleon is a technology company focused on building secure, scalable, and connected solutions for modern organizations."
+msgstr "روبليون شركة تقنية تركز على بناء حلول آمنة وقابلة للتوسع ومترابطة للمؤسسات الحديثة."
+
+msgid "Ropleon is a technology company focused on secure, scalable, and connected solutions for modern organizations."
+msgstr "روبليون شركة تقنية تركز على الحلول الآمنة والقابلة للتوسع والمترابطة للمؤسسات الحديثة."
+
+msgid "Ropleon is committed to handling information responsibly and explaining how information is used across its public websites and digital services."
+msgstr "تلتزم روبليون بالتعامل المسؤول مع المعلومات وشرح كيفية استخدامها عبر مواقعها العامة وخدماتها الرقمية."
+
+msgid "Ropleon names, product identities, interfaces, and supplied brand assets may not be misrepresented or used outside authorized service activity."
+msgstr "لا يجوز تحريف أسماء روبليون أو هويات منتجاتها أو واجهاتها أو أصولها البصرية المعتمدة، أو استخدامها خارج نطاق الخدمة المصرح به."
+
+msgid "Ropleon products"
+msgstr "منتجات روبليون"
+
+msgid "Ropleon website enquiry"
+msgstr "استفسار عبر موقع روبليون"
+
+msgid "Ropleon | Enterprise Software, Integration and Digital Platforms"
+msgstr "روبليون | برمجيات المؤسسات والتكامل والمنصات الرقمية"
+
+msgid "Scalable digital platforms designed for resilience, maintainability, and controlled growth."
+msgstr "منصات رقمية قابلة للتوسع مصممة للمرونة وسهولة الصيانة والنمو المنضبط."
+
+msgid "Scalable platforms built for performance, continuity, security, and growth."
+msgstr "منصات قابلة للتوسع مبنية للأداء والاستمرارية والأمان والنمو."
+
+msgid "Secondary"
+msgstr "ثانوي"
+
+msgid "Secure and Reliable"
+msgstr "آمنة وموثوقة"
+
+msgid "Secure custom applications and business platforms aligned with real processes and integration requirements."
+msgstr "تطبيقات مخصصة ومنصات أعمال آمنة تتوافق مع العمليات الفعلية ومتطلبات التكامل."
+
+msgid "Security"
+msgstr "الأمان"
+
+msgid "Security, operational continuity, and controlled access treated as core requirements."
+msgstr "نتعامل مع الأمان واستمرارية التشغيل والتحكم في الوصول كمتطلبات أساسية."
+
+msgid "See connected design in action with Ropleon Cards."
+msgstr "شاهد التصميم المترابط عملياً مع روبليون كاردز."
+
+msgid "Service and security information"
+msgstr "معلومات الخدمة والأمان"
+
+msgid "Service availability"
+msgstr "توفر الخدمة"
+
+msgid "Set the brand, plan, administrators, and shared card experience."
+msgstr "اضبط الهوية المؤسسية والخطة والمسؤولين وتجربة البطاقة المشتركة."
+
+msgid "Sign in securely"
+msgstr "سجّل الدخول بأمان"
+
+msgid "Sign in to Ropleon Cards"
+msgstr "تسجيل الدخول إلى روبليون كاردز"
+
+msgid "Sign in to the platform"
+msgstr "تسجيل الدخول إلى المنصة"
+
+msgid "Social profile access"
+msgstr "الوصول إلى الحسابات الاجتماعية"
+
+msgid "Solution areas"
+msgstr "مجالات الحلول"
+
+msgid "Solutions"
+msgstr "الحلول"
+
+msgid "Stable public card URL"
+msgstr "عنوان عام ثابت للبطاقة"
+
+msgid "Structured access, governance, workflows, and scalable technical foundations."
+msgstr "وصول منظم وحوكمة ومسارات عمل وأسس تقنية قابلة للتوسع."
+
+msgid "Subscription and quota awareness"
+msgstr "متابعة الاشتراك والحصة"
+
+msgid "System Integration"
+msgstr "تكامل الأنظمة"
+
+msgid "System integration"
+msgstr "تكامل الأنظمة"
+
+msgid "Systems Integration"
+msgstr "تكامل الأنظمة"
+
+msgid "Technical and activity information may be processed to protect accounts, maintain reliability, understand service usage, and improve platform performance."
+msgstr "قد تُعالج المعلومات التقنية وبيانات النشاط لحماية الحسابات والحفاظ على الموثوقية وفهم استخدام الخدمة وتحسين أداء المنصة."
+
+msgid "Technology designed to work together."
+msgstr "تقنية مصممة لتعمل معاً."
+
+msgid "Technology with purpose. Systems that connect."
+msgstr "تقنية ذات غاية. وأنظمة مترابطة."
+
+msgid "Terms of Use"
+msgstr "شروط الاستخدام"
+
+msgid "Thank you for contacting Ropleon. Your message has been received."
+msgstr "شكراً لتواصلك مع روبليون. تم استلام رسالتك."
+
+msgid "The general terms for using Ropleon public websites and digital services."
+msgstr "الشروط العامة لاستخدام مواقع روبليون العامة وخدماتها الرقمية."
+
+msgid "These general terms describe the responsible use of Ropleon public websites and digital services."
+msgstr "توضح هذه الشروط العامة الاستخدام المسؤول لمواقع روبليون العامة وخدماتها الرقمية."
+
+msgid "To build connected digital products and platforms that help organizations work more effectively and create better experiences."
+msgstr "بناء منتجات ومنصات رقمية مترابطة تساعد المؤسسات على العمل بفعالية أكبر وصنع تجارب أفضل."
+
+msgid "To simplify complex technology challenges through reliable software, integration, intelligent automation, and purposeful digital design."
+msgstr "تبسيط التحديات التقنية المعقدة عبر برمجيات موثوقة وتكامل وأتمتة ذكية وتصميم رقمي هادف."
+
+msgid "Transparent"
+msgstr "شفافة"
+
+msgid "Trust and transparency"
+msgstr "الثقة والشفافية"
+
+msgid "Trusted data paths"
+msgstr "مسارات بيانات موثوقة"
+
+msgid "Use Ropleon services lawfully, protect account credentials, and provide accurate information when creating or managing digital identities."
+msgstr "استخدم خدمات روبليون بصورة قانونية، واحمِ بيانات دخول حسابك، وقدّم معلومات دقيقة عند إنشاء الهويات الرقمية أو إدارتها."
+
+msgid "Use the contact page for questions about these terms, privacy, or a Ropleon service."
+msgstr "استخدم صفحة التواصل للاستفسار عن هذه الشروط أو الخصوصية أو أي خدمة من روبليون."
+
+msgid "Use the relevant account or organization controls when available, or contact Ropleon about an information request."
+msgstr "استخدم عناصر التحكم المتاحة في الحساب أو المؤسسة، أو تواصل مع روبليون بشأن أي طلب يتعلق بالمعلومات."
+
+msgid "Using Ropleon services"
+msgstr "استخدام خدمات روبليون"
+
+msgid "Vision"
+msgstr "رؤيتنا"
+
+msgid "Waiting approval"
+msgstr "بانتظار الاعتماد"
+
+msgid "We develop enterprise software, digital platforms, integration solutions, AI-enabled services, cloud capabilities, and digital identity products."
+msgstr "نطوّر برمجيات المؤسسات والمنصات الرقمية وحلول التكامل والخدمات المدعومة بالذكاء الاصطناعي والقدرات السحابية ومنتجات الهوية الرقمية."
+
+msgid "What we build"
+msgstr "ما الذي نبنيه"
+
+msgid "White"
+msgstr "أبيض"
+
+msgid "Who we are"
+msgstr "من نحن"
+
+msgid "Why Ropleon"
+msgstr "لماذا روبليون"
+
+msgid "Work email"
+msgstr "البريد الإلكتروني للعمل"
+
+msgid "Your choices"
+msgstr "خياراتك"
+
+msgid "Your requirements"
+msgstr "متطلباتك"

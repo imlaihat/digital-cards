@@ -141,7 +141,7 @@
         document.documentElement.lang === 'ar'
         && /\/group\/\d+\/content\/create\/group_node(?::|%3A)digital_business_card/i.test(window.location.pathname)
       ) {
-        document.title = tr('Add Digital Card') + ' | ' + tr('Digital Card Platform');
+        document.title = tr('Add Digital Card') + ' | ' + tr('Ropleon Cards');
       }
       else if (document.documentElement.lang === 'ar') {
         const titleRules = [

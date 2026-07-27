@@ -6,21 +6,50 @@
 #}
 <header class="dc-portal-header dc-portal-header--platform" aria-label="{{ 'Platform Admin header'|t }}">
   <div class="dc-portal-header__inner">
-    <a class="dc-portal-brand" href="{{ path('digital_card_admin.platform_dashboard') }}" aria-label="{{ 'Platform dashboard'|t }}">
-      <span class="dc-portal-brand__mark">P</span>
+    <a class="dc-portal-brand dc-portal-brand--company" href="{{ path('digital_card_admin.platform_dashboard') }}" aria-label="{{ 'Platform dashboard'|t }}">
+      <img class="dc-portal-brand__company-logo" src="{{ company_logo_url }}" alt="{{ 'Ropleon Technologies'|t }}">
       <span class="dc-portal-brand__text">
-        <span class="dc-portal-kicker">{{ 'Platform Admin'|t }}</span>
-        <strong>{{ 'Digital Card Platform'|t }}</strong>
+        <span class="dc-portal-kicker">{{ 'Platform Portal'|t }}</span>
+        <strong>{{ 'Ropleon Technologies'|t }}</strong>
       </span>
     </a>
 
-    <nav class="dc-portal-nav" aria-label="{{ 'Platform Admin navigation'|t }}">
+    <button class="dc-portal-menu-toggle"
+            type="button"
+            hidden
+            aria-expanded="false"
+            aria-controls="dc-platform-admin-navigation"
+            data-dc-portal-toggle
+            data-open-label="{{ 'Open Platform Admin navigation'|t }}"
+            data-close-label="{{ 'Close Platform Admin navigation'|t }}">
+      <span class="dc-portal-menu-toggle__icon" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>{{ 'Menu'|t }}</span>
+    </button>
+
+    <nav class="dc-portal-nav" id="dc-platform-admin-navigation" aria-label="{{ 'Platform Admin navigation'|t }}" data-dc-portal-nav>
       {% for item in navigation %}
-        <a class="dc-portal-nav__link{{ item.active ? ' is-active' : '' }}{{ item.highlight|default(false) ? ' is-highlight' : '' }}" href="{{ item.url }}">
-          <span class="dc-portal-nav__icon" aria-hidden="true">{{ item.icon }}</span>
+        <a class="dc-portal-nav__link{{ item.active ? ' is-active' : '' }}{{ item.highlight|default(false) ? ' is-highlight' : '' }}"
+           href="{{ item.url }}"
+           {% if item.active %}aria-current="page"{% endif %}>
+          <span class="dc-portal-nav__icon" aria-hidden="true"><i class="{{ item.icon }}"></i></span>
           <span>{{ item.title }}</span>
         </a>
       {% endfor %}
     </nav>
+
+    <div class="rp-portal-language">
+      <div class="rp-language-nav" aria-label="{{ 'Language selection'|t }}">
+        {% for language in languages %}
+          <a class="rp-language-nav__link{{ language.active ? ' is-active' : '' }}"
+             href="{{ language.url }}"
+             lang="{{ language.langcode }}"
+             dir="{{ language.direction }}"
+             hreflang="{{ language.langcode }}"
+             {% if language.active %}aria-current="page"{% endif %}>
+            {{ language.label }}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </header>

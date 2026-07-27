@@ -661,8 +661,8 @@
 }
 
 .dc-portal-header--platform {
-  --portal-accent: #4f46e5;
-  --portal-accent-2: #06b6d4;
+  --portal-accent: var(--rp-blue-600, #2563eb);
+  --portal-accent-2: var(--rp-cyan-500, #16b8c4);
 }
 
 .dc-portal-header__inner {
@@ -734,6 +734,16 @@
   font-size: 18px;
   font-weight: 900;
   letter-spacing: -0.03em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dc-portal-brand__text small {
+  margin-block-start: 2px;
+  overflow: hidden;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 750;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -923,7 +933,7 @@
 }
 
 .dc-welcome-card--platform::after {
-  background: linear-gradient(135deg, rgba(79,70,229,.15), rgba(6,182,212,.12));
+  background: linear-gradient(135deg, rgba(37,99,235,.15), rgba(22,184,196,.12));
 }
 
 .dc-welcome-card__content,
@@ -1421,6 +1431,7 @@ body.dc-organization-portal-page #navbar-main .dashboard-card-body {
 .dc-portal-header--organization .dc-portal-brand,
 .dc-portal-header--organization .dc-portal-brand:hover,
 .dc-portal-header--organization .dc-portal-brand strong,
+.dc-portal-header--organization .dc-portal-brand__text small,
 .dc-portal-header--organization .dc-portal-kicker,
 .dc-portal-header--organization .dc-portal-nav__link {
   color: var(--dc-org-on-primary, #fff);
@@ -1428,6 +1439,10 @@ body.dc-organization-portal-page #navbar-main .dashboard-card-body {
 
 .dc-portal-header--organization .dc-portal-kicker {
   opacity: .78;
+}
+
+.dc-portal-header--organization .dc-portal-brand__text small {
+  opacity: .7;
 }
 
 .dc-portal-header--organization .dc-portal-brand__mark {
@@ -1546,4 +1561,171 @@ body.dc-organization-portal-page #navbar-main .dashboard-card-body {
   font: 13px/1.65 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   text-align: left;
   white-space: pre;
+}
+
+/* -------------------------------------------------------------------------
+ * Authenticated portal navigation: official product mark + accessible mobile
+ * disclosure menu. Without JavaScript the links remain visible; Drupal's
+ * behavior enhances them into a compact menu below 900px.
+ * ------------------------------------------------------------------------- */
+.dc-portal-brand__product-logo {
+  display: block;
+  width: auto;
+  max-width: 190px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.dc-portal-powered {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 18px;
+}
+
+.dc-portal-powered img {
+  display: block;
+  width: auto;
+  max-width: 92px;
+  height: 17px;
+  object-fit: contain;
+}
+
+.dc-portal-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 9px 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  color: #0f172a;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, .08);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.dc-portal-menu-toggle:hover {
+  border-color: var(--portal-accent);
+  color: var(--portal-accent);
+}
+
+.dc-portal-menu-toggle:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--portal-accent) 26%, transparent);
+  outline-offset: 2px;
+}
+
+.dc-portal-menu-toggle__icon {
+  display: grid;
+  width: 20px;
+  gap: 4px;
+}
+
+.dc-portal-menu-toggle__icon i {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+.dc-portal-header[data-portal-menu-open="true"] .dc-portal-menu-toggle__icon i:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.dc-portal-header[data-portal-menu-open="true"] .dc-portal-menu-toggle__icon i:nth-child(2) {
+  opacity: 0;
+}
+
+.dc-portal-header[data-portal-menu-open="true"] .dc-portal-menu-toggle__icon i:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+@media (max-width: 900px) {
+  .dc-portal-header {
+    position: sticky;
+    top: 0;
+  }
+
+  .dc-portal-header__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .dc-portal-brand__product-logo {
+    max-width: min(170px, 48vw);
+    height: 38px;
+  }
+
+  .dc-portal-header[data-portal-navigation-enhanced="true"] .dc-portal-menu-toggle {
+    display: inline-flex;
+  }
+
+  .dc-portal-nav {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    justify-content: stretch;
+    gap: 8px;
+    width: 100%;
+    max-height: min(66vh, 520px);
+    padding: 10px 0 2px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .dc-portal-header[data-portal-navigation-enhanced="true"][data-portal-menu-open="false"] .dc-portal-nav {
+    display: none;
+  }
+
+  .dc-portal-header[data-portal-navigation-enhanced="true"][data-portal-menu-open="true"] .dc-portal-nav {
+    display: grid;
+  }
+
+  .dc-portal-nav__link {
+    justify-content: flex-start;
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 12px;
+    border-color: #e2e8f0;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .92);
+  }
+
+  .dc-portal-nav__link span:not(.dc-portal-nav__icon) {
+    display: inline !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 560px) {
+  .dc-portal-brand__text strong {
+    max-width: 44vw;
+  }
+
+  .dc-portal-kicker {
+    font-size: 10px;
+  }
+
+  .dc-portal-powered span {
+    display: none;
+  }
+
+  .dc-portal-nav {
+    grid-template-columns: 1fr;
+  }
+}
+
+[dir="rtl"] .dc-portal-nav__link {
+  text-align: right;
 }

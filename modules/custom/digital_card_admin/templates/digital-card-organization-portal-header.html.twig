@@ -19,16 +19,49 @@
       <span class="dc-portal-brand__text">
         <span class="dc-portal-kicker">{{ 'Organization Portal'|t }}</span>
         <strong>{{ org_name }}</strong>
+        <small class="dc-portal-powered">
+          <span>{{ 'Powered by'|t }}</span>
+          <img src="{{ product_logo_url }}" alt="{{ 'Ropleon Cards'|t }}">
+        </small>
       </span>
     </a>
 
-    <nav class="dc-portal-nav" aria-label="{{ 'Organization Portal navigation'|t }}">
+    <button class="dc-portal-menu-toggle"
+            type="button"
+            hidden
+            aria-expanded="false"
+            aria-controls="dc-organization-portal-navigation"
+            data-dc-portal-toggle
+            data-open-label="{{ 'Open Organization Portal navigation'|t }}"
+            data-close-label="{{ 'Close Organization Portal navigation'|t }}">
+      <span class="dc-portal-menu-toggle__icon" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>{{ 'Menu'|t }}</span>
+    </button>
+
+    <nav class="dc-portal-nav" id="dc-organization-portal-navigation" aria-label="{{ 'Organization Portal navigation'|t }}" data-dc-portal-nav>
       {% for item in navigation %}
-        <a class="dc-portal-nav__link{{ item.active ? ' is-active' : '' }}{{ item.highlight|default(false) ? ' is-highlight' : '' }}" href="{{ item.url }}">
+        <a class="dc-portal-nav__link{{ item.active ? ' is-active' : '' }}{{ item.highlight|default(false) ? ' is-highlight' : '' }}"
+           href="{{ item.url }}"
+           {% if item.active %}aria-current="page"{% endif %}>
           <span class="dc-portal-nav__icon" aria-hidden="true"><i class="{{ item.icon }}"></i></span>
           <span>{{ item.title }}</span>
         </a>
       {% endfor %}
     </nav>
+
+    <div class="rp-portal-language">
+      <div class="rp-language-nav" aria-label="{{ 'Language selection'|t }}">
+        {% for language in languages %}
+          <a class="rp-language-nav__link{{ language.active ? ' is-active' : '' }}"
+             href="{{ language.url }}"
+             lang="{{ language.langcode }}"
+             dir="{{ language.direction }}"
+             hreflang="{{ language.langcode }}"
+             {% if language.active %}aria-current="page"{% endif %}>
+            {{ language.label }}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </header>

@@ -53,7 +53,7 @@
         document.documentElement.lang === 'ar'
         && /\/group\/\d+\/content\/create\/group_node(?::|%3A)digital_business_card/i.test(window.location.pathname)
       ) {
-        document.title = Drupal.t('Add Digital Card') + ' | ' + Drupal.t('Digital Card Platform');
+        document.title = Drupal.t('Add Digital Card') + ' | ' + Drupal.t('Ropleon Cards');
       }
     },
   };

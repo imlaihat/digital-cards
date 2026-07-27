@@ -66,6 +66,7 @@ module:
   path_alias: 0
   qrcode_generator: 0
   redirect: 0
+  ropleon_brand: 0
   search: 0
   serialization: 0
   shortcut: 0
