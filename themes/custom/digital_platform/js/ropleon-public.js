@@ -25,7 +25,6 @@
         button.setAttribute('aria-label', Drupal.t('Open navigation'));
         navigation.classList.remove('is-open');
         backdrop.hidden = true;
-        document.body.classList.remove('rp-navigation-open');
         if (restoreFocus && returnFocus) {
           returnFocus.focus();
         }
@@ -36,8 +35,7 @@
         button.setAttribute('aria-expanded', 'true');
         button.setAttribute('aria-label', Drupal.t('Close navigation'));
         navigation.classList.add('is-open');
-        backdrop.hidden = false;
-        document.body.classList.add('rp-navigation-open');
+        backdrop.hidden = true;
         const firstFocusable = navigation.querySelector(focusableSelector);
         if (firstFocusable) {
           firstFocusable.focus();

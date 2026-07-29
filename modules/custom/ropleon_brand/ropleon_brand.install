@@ -51,6 +51,14 @@ function ropleon_brand_update_10003(): string {
 }
 
 /**
+ * Imports the responsive table and mobile action labels.
+ */
+function ropleon_brand_update_10004(): string {
+  ropleon_brand_import_arabic();
+  return 'Ropleon responsive table and mobile action translations were imported.';
+}
+
+/**
  * Imports the Ropleon catalog as administrator-editable translations.
  */
 function ropleon_brand_import_arabic(): void {

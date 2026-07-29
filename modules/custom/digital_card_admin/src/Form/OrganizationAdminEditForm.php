@@ -9,6 +9,7 @@ use Drupal\digital_card_admin\Service\OrganizationAdminManager;
 use Drupal\group\Entity\Group;
 use Drupal\user\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Custom edit form for organization administrators.
@@ -31,6 +32,9 @@ class OrganizationAdminEditForm extends FormBase implements ContainerInjectionIn
   }
 
   public function buildForm(array $form, FormStateInterface $form_state, ?UserInterface $user = NULL): array {
+    if (!$user || !$user->hasRole(OrganizationAdminManager::DRUPAL_ROLE)) {
+      throw new AccessDeniedHttpException('Only organization administrator accounts can be managed from this form.');
+    }
     $this->user = $user;
     $current_group_id = $user ? $this->manager->getUserOrganizationId($user) : NULL;
 
@@ -46,6 +50,16 @@ class OrganizationAdminEditForm extends FormBase implements ContainerInjectionIn
       '#title' => $this->t('Email'),
       '#default_value' => $user ? $user->getEmail() : '',
       '#required' => TRUE,
+    ];
+    $form['account']['preferred_langcode'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Preferred language'),
+      '#options' => [
+        'en' => $this->t('English'),
+        'ar' => $this->t('Arabic'),
+      ],
+      '#default_value' => $user->getPreferredLangcode(),
+      '#description' => $this->t('Account changes and password notifications are sent in this language.'),
     ];
 
     $form['personal'] = ['#type' => 'details', '#title' => $this->t('Personal Information'), '#open' => TRUE];
@@ -76,6 +90,28 @@ class OrganizationAdminEditForm extends FormBase implements ContainerInjectionIn
       '#default_value' => $user ? $user->isActive() : TRUE,
     ];
 
+    $form['security'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Password and notification'),
+      '#open' => TRUE,
+    ];
+    $form['security']['password'] = [
+      '#type' => 'password_confirm',
+      '#title' => $this->t('New temporary password'),
+      '#required' => FALSE,
+      '#description' => $this->t('Leave both fields empty to keep the current password. If entered, the organization administrator can be emailed the new temporary password.'),
+    ];
+    $form['security']['notify'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Email the organization administrator when a new temporary password is set'),
+      '#default_value' => TRUE,
+      '#states' => [
+        'visible' => [
+          ':input[name="status"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
     $form['actions'] = ['#type' => 'actions'];
     $form['actions']['submit'] = ['#type' => 'submit', '#value' => $this->t('Save Changes'), '#button_type' => 'primary'];
     return $form;
@@ -89,16 +125,33 @@ class OrganizationAdminEditForm extends FormBase implements ContainerInjectionIn
 
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     try {
-      $this->manager->update($this->user, [
+      // PasswordConfirm replaces pass1/pass2 with the validated password
+      // string during element validation.
+      $password = (string) ($form_state->getValue('password') ?? '');
+      $result = $this->manager->update($this->user, [
         'username' => $form_state->getValue('username'),
         'email' => $form_state->getValue('email'),
+        'preferred_langcode' => $form_state->getValue('preferred_langcode'),
         'first_name' => $form_state->getValue('first_name'),
         'last_name' => $form_state->getValue('last_name'),
         'group_id' => $form_state->getValue('group_id'),
         'status' => $form_state->getValue('status'),
+        'password' => $password,
+        'notify' => $form_state->getValue('notify'),
       ]);
       $this->messenger()->addStatus($this->t('Organization administrator updated successfully.'));
-      $form_state->setRedirect('entity.user.collection');
+      if (!empty($result['password_changed'])) {
+        $this->messenger()->addStatus($this->t('New temporary password was saved successfully.'));
+        if ($result['mail_sent'] === TRUE) {
+          $this->messenger()->addStatus($this->t('New temporary password was emailed to @mail.', [
+            '@mail' => $this->user->getEmail(),
+          ]));
+        }
+        elseif ($result['mail_sent'] === FALSE) {
+          $this->messenger()->addWarning($this->t('The administrator was saved, but the password email could not be sent.'));
+        }
+      }
+      $form_state->setRedirect('view.organization_administrators.page_1');
     }
     catch (\Throwable $e) {
       $this->getLogger('digital_card_admin')->error('Organization admin update failed: @message', ['@message' => $e->getMessage()]);

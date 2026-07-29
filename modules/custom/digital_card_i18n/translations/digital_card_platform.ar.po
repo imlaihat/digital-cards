@@ -886,3 +886,23 @@ msgid "The card cannot be approved because the organization has reached its card
 msgstr "لا يمكن اعتماد البطاقة لأن المؤسسة استنفدت رصيد البطاقات."
 msgid "Card allowance check passed. After approval, @used of @limit cards will be in use."
 msgstr "نجح التحقق من رصيد البطاقات. بعد الاعتماد، سيتم استخدام @used بطاقة من أصل @limit."
+msgid "Account changes and password notifications are sent in this language."
+msgstr "تُرسل إشعارات تغييرات الحساب وكلمة المرور بهذه اللغة."
+
+msgid "Password and notification"
+msgstr "كلمة المرور والإشعار"
+
+msgid "Leave both fields empty to keep the current password. If entered, the organization administrator can be emailed the new temporary password."
+msgstr "اترك الحقلين فارغين للاحتفاظ بكلمة المرور الحالية. عند إدخال كلمة مرور جديدة، يمكن إرسالها مؤقتًا إلى مسؤول المؤسسة عبر البريد الإلكتروني."
+
+msgid "Email the organization administrator when a new temporary password is set"
+msgstr "إرسال كلمة المرور المؤقتة الجديدة إلى مسؤول المؤسسة عبر البريد الإلكتروني"
+
+msgid "New temporary password was saved successfully."
+msgstr "تم حفظ كلمة المرور المؤقتة الجديدة بنجاح."
+
+msgid "New temporary password was emailed to @mail."
+msgstr "تم إرسال كلمة المرور المؤقتة الجديدة إلى @mail."
+
+msgid "The administrator was saved, but the password email could not be sent."
+msgstr "تم حفظ حساب المسؤول، لكن تعذر إرسال رسالة كلمة المرور."

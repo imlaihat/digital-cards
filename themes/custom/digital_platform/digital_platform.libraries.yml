@@ -40,7 +40,7 @@ login:
       css/login.css: {}
 
 ropleon-public:
-  version: 3.1.0
+  version: 3.3.0
   dependencies:
     - digital_platform/global-styling
     - core/drupal
@@ -51,7 +51,7 @@ ropleon-public:
     js/ropleon-public.js: {}
 
 portal-shell:
-  version: 3.2.0
+  version: 3.3.0
   dependencies:
     - digital_platform/global-styling
     - digital_card_admin/dashboards
@@ -62,5 +62,6 @@ portal-shell:
       css/portal-shell.css: {}
   js:
     js/portal-shell.js: {}
+    js/mobile-tables.js: {}
 
   

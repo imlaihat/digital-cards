@@ -28,7 +28,7 @@ digital_card_admin.organization_admin_edit:
     _form: '\Drupal\digital_card_admin\Form\OrganizationAdminEditForm'
     _title: 'Edit Organization Administrator'
   requirements:
-    _permission: 'administer users'
+    _permission: 'create organization administrators'
     user: '\d+'
   options:
     parameters:
@@ -41,7 +41,7 @@ digital_card_admin.organization_admin_block:
     _form: '\Drupal\digital_card_admin\Form\OrganizationAdminBlockForm'
     _title: 'Block Organization Administrator'
   requirements:
-    _permission: 'administer users'
+    _permission: 'create organization administrators'
     user: '\d+'
   options:
     parameters:
@@ -54,7 +54,7 @@ digital_card_admin.organization_admin_activate:
     _form: '\Drupal\digital_card_admin\Form\OrganizationAdminActivateForm'
     _title: 'Activate Organization Administrator'
   requirements:
-    _permission: 'administer users'
+    _permission: 'create organization administrators'
     user: '\d+'
   options:
     parameters:
@@ -67,7 +67,7 @@ digital_card_admin.organization_admin_reset_password:
     _form: '\Drupal\digital_card_admin\Form\OrganizationAdminResetPasswordForm'
     _title: 'Reset Organization Administrator Password'
   requirements:
-    _permission: 'administer users'
+    _permission: 'create organization administrators'
     user: '\d+'
   options:
     parameters:

@@ -1228,3 +1228,18 @@ msgstr "خياراتك"
 
 msgid "Your requirements"
 msgstr "متطلباتك"
+
+msgid "Actions"
+msgstr "الإجراءات"
+
+msgid "Open actions"
+msgstr "فتح الإجراءات"
+
+msgid "Close actions"
+msgstr "إغلاق الإجراءات"
+
+msgid "Scrollable data table"
+msgstr "جدول بيانات قابل للتمرير"
+
+msgid "Swipe horizontally to view all columns"
+msgstr "اسحب أفقياً لعرض جميع الأعمدة"

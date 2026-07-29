@@ -67,8 +67,8 @@ class OrganizationAdminManager {
       'mail' => $email,
       'pass' => $password,
       'status' => $status ? 1 : 0,
-      'preferred_langcode' => in_array(($values['preferred_langcode'] ?? 'en'), ['en', 'ar'], TRUE) ? $values['preferred_langcode'] : 'en',
-      'preferred_admin_langcode' => in_array(($values['preferred_langcode'] ?? 'en'), ['en', 'ar'], TRUE) ? $values['preferred_langcode'] : 'en',
+      'preferred_langcode' => in_array(($data['preferred_langcode'] ?? 'en'), ['en', 'ar'], TRUE) ? $data['preferred_langcode'] : 'en',
+      'preferred_admin_langcode' => in_array(($data['preferred_langcode'] ?? 'en'), ['en', 'ar'], TRUE) ? $data['preferred_langcode'] : 'en',
     ]);
     $user->addRole(self::DRUPAL_ROLE);
 
@@ -92,13 +92,18 @@ class OrganizationAdminManager {
     return $user;
   }
 
-  public function update(UserInterface $user, array $data): void {
+  public function update(UserInterface $user, array $data): array {
     $username = trim((string) ($data['username'] ?? ''));
     $email = trim((string) ($data['email'] ?? ''));
     $first_name = trim((string) ($data['first_name'] ?? ''));
     $last_name = trim((string) ($data['last_name'] ?? ''));
     $group_id = (int) ($data['group_id'] ?? 0);
     $status = !empty($data['status']);
+    $password = (string) ($data['password'] ?? '');
+    $notify = !empty($data['notify']);
+    $preferred_langcode = in_array(($data['preferred_langcode'] ?? 'en'), ['en', 'ar'], TRUE)
+      ? (string) $data['preferred_langcode']
+      : 'en';
 
     if ($username === '' || $email === '' || $group_id <= 0) {
       throw new \InvalidArgumentException('Username, email and organization are required.');
@@ -125,6 +130,11 @@ class OrganizationAdminManager {
     $user->setUsername($username);
     $user->setEmail($email);
     $user->set('status', $status ? 1 : 0);
+    $user->set('preferred_langcode', $preferred_langcode);
+    $user->set('preferred_admin_langcode', $preferred_langcode);
+    if ($password !== '') {
+      $user->setPassword($password);
+    }
 
     if (!$user->hasRole(self::DRUPAL_ROLE)) {
       $user->addRole(self::DRUPAL_ROLE);
@@ -136,13 +146,37 @@ class OrganizationAdminManager {
       $user->set('field_last_name', $last_name);
     }
 
+    $violations = $user->validate();
+    if ($violations->count()) {
+      throw new \InvalidArgumentException((string) $violations);
+    }
+
     $user->save();
+    if ($password !== '') {
+      $reloaded = $this->entityTypeManager->getStorage('user')->loadUnchanged($user->id());
+      if (!$reloaded instanceof UserInterface || !\Drupal::service('password')->check($password, $reloaded->getPassword())) {
+        throw new \RuntimeException('Password verification failed after saving the organization administrator.');
+      }
+      $user = $reloaded;
+    }
     $this->assignToOrganization($user, $group);
 
-    $this->loggerFactory->get('digital_card_admin')->notice('Organization admin @user updated and assigned to @org.', [
+    $mail_sent = NULL;
+    if ($password !== '' && $notify && $user->isActive()) {
+      $mail_sent = $this->mailer->sendPasswordResetEmail($user, $password);
+    }
+
+    $this->loggerFactory->get('digital_card_admin')->notice('Organization admin @user updated and assigned to @org. Password changed: @password. Password email: @mail.', [
       '@user' => $user->getAccountName(),
       '@org' => $group->label(),
+      '@password' => $password !== '' ? 'yes' : 'no',
+      '@mail' => $mail_sent === NULL ? 'not requested' : ($mail_sent ? 'sent' : 'failed'),
     ]);
+
+    return [
+      'password_changed' => $password !== '',
+      'mail_sent' => $mail_sent,
+    ];
   }
 
   public function assignToOrganization(UserInterface $user, GroupInterface $group): void {

@@ -19,11 +19,11 @@ class OrganizationAdminResetPasswordForm extends ConfirmFormBase {
   public function buildForm(array $form, FormStateInterface $form_state, ?UserInterface $user = NULL): array { $this->user = $user; return parent::buildForm($form, $form_state); }
   public function getQuestion(): string { return $this->t('Reset password for @name?', ['@name' => $this->user ? $this->user->getAccountName() : '']); }
   public function getDescription(): string { return $this->t('A new temporary password will be generated and emailed to the user.'); }
-  public function getCancelUrl(): Url { return Url::fromRoute('entity.user.collection'); }
+  public function getCancelUrl(): Url { return Url::fromRoute('view.organization_administrators.page_1'); }
   public function getConfirmText(): string { return $this->t('Reset password'); }
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     try { $this->manager->resetPassword($this->user); $this->messenger()->addStatus($this->t('Temporary password was generated and emailed successfully.')); }
     catch (\Throwable $e) { $this->getLogger('digital_card_admin')->error('Password reset failed: @message', ['@message' => $e->getMessage()]); $this->messenger()->addError($this->t('Unable to reset password. Reason: @reason', ['@reason' => $e->getMessage()])); }
-    $form_state->setRedirect('entity.user.collection');
+    $form_state->setRedirect('view.organization_administrators.page_1');
   }
 }

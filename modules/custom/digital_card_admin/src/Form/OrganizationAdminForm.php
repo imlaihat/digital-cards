@@ -130,7 +130,7 @@ class OrganizationAdminForm extends FormBase implements ContainerInjectionInterf
       $this->messenger()->addStatus($this->t('Organization administrator @name was created, assigned to the selected organization, and notified by email.', [
         '@name' => $user->getAccountName(),
       ]));
-      $form_state->setRedirect('entity.user.collection');
+      $form_state->setRedirect('view.organization_administrators.page_1');
     }
     catch (\Throwable $e) {
       $this->getLogger('digital_card_admin')->error('Organization admin creation failed: @message', ['@message' => $e->getMessage()]);

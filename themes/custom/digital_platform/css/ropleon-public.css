@@ -1856,60 +1856,67 @@ body.rp-navigation-open {
 }
 
 @media (max-width: 1140px) {
+  .rp-corporate-header__inner {
+    display: grid;
+    grid-template-areas:
+      "brand actions"
+      "nav nav";
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0 12px;
+  }
+
+  .rp-wordmark {
+    grid-area: brand;
+  }
+
+  .rp-header-actions {
+    grid-area: actions;
+  }
+
   .rp-nav-toggle {
     display: block;
   }
 
   .rp-corporate-nav {
-    position: fixed;
-    inset: 0 0 0 auto;
-    z-index: 1002;
-    display: flex;
-    width: min(420px, 100%);
+    position: static;
+    grid-area: nav;
+    z-index: auto;
+    display: none;
+    width: 100%;
+    max-height: min(72dvh, 620px);
     align-items: stretch;
     flex-direction: column;
-    padding: 24px;
-    background: #fff;
-    box-shadow: -20px 0 60px rgba(7, 26, 51, .2);
-    transform: translateX(105%);
-    transition: transform 260ms ease;
+    margin: 0;
+    padding: 12px 0 16px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-block-start: 1px solid var(--ropleon-border);
+    background: transparent;
+    box-shadow: none;
+    transform: none;
   }
 
   [dir="rtl"] .rp-corporate-nav {
-    inset: 0 auto 0 0;
-    box-shadow: 20px 0 60px rgba(7, 26, 51, .2);
-    transform: translateX(-105%);
+    box-shadow: none;
+    transform: none;
   }
 
   .rp-corporate-nav.is-open {
-    transform: translateX(0);
+    display: flex;
   }
 
   .rp-corporate-nav__mobile-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-block-end: 28px;
-    padding-block-end: 18px;
-    border-block-end: 1px solid var(--ropleon-border);
-    color: var(--ropleon-navy-950);
-    font-weight: 700;
+    display: none;
   }
 
   .rp-nav-close {
-    display: grid;
-    width: 44px;
-    height: 44px;
-    place-items: center;
-    border: 1px solid var(--ropleon-border);
-    border-radius: 12px;
-    background: #fff;
-    font-size: 1.5rem;
+    display: none;
   }
 
   .rp-corporate-nav__links {
     display: grid;
-    gap: 4px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
   }
 
   .rp-corporate-nav__link {
@@ -1931,15 +1938,12 @@ body.rp-navigation-open {
   .rp-header-product-cta {
     display: inline-flex;
     width: 100%;
-    margin-block-start: auto;
+    margin-block-start: 10px;
     margin-inline-start: 0;
   }
 
   .rp-nav-backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 1001;
-    background: rgba(7, 26, 51, .55);
+    display: none !important;
   }
 
   .rp-hero__grid,
@@ -2105,6 +2109,10 @@ body.rp-navigation-open {
 
   .rp-corporate-header__inner {
     min-height: 68px;
+  }
+
+  .rp-corporate-nav__links {
+    grid-template-columns: 1fr;
   }
 
   .rp-wordmark img {

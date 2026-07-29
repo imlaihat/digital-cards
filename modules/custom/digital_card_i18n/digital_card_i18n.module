@@ -43,7 +43,20 @@ function digital_card_i18n_page_attachments(array &$attachments): void {
  * so customized Locale translations remain authoritative and editable.
  */
 function digital_card_i18n_views_pre_view(ViewExecutable $view, string $display_id, array &$args): void {
-  if (\Drupal::languageManager()->getCurrentLanguage()->getId() !== 'ar' || !$view->display_handler) {
+  if (!$view->display_handler) {
+    return;
+  }
+
+  // Action URLs must be repaired in every interface language. The original
+  // View text used a non-existent [site:url] token, which Views reduced to
+  // malformed paths such as "url]group/4" on English pages.
+  $fields = $view->display_handler->getOption('fields');
+  if (is_array($fields)) {
+    digital_card_i18n_rewrite_view_actions($view->id(), $fields);
+    $view->display_handler->setOption('fields', $fields);
+  }
+
+  if (\Drupal::languageManager()->getCurrentLanguage()->getId() !== 'ar') {
     return;
   }
 
@@ -61,9 +74,6 @@ function digital_card_i18n_views_pre_view(ViewExecutable $view, string $display_
   foreach (['fields', 'filters', 'header', 'footer', 'empty', 'pager'] as $option_name) {
     $option = $view->display_handler->getOption($option_name);
     if (is_array($option)) {
-      if ($option_name === 'fields') {
-        digital_card_i18n_rewrite_view_actions($view->id(), $option);
-      }
       $option = digital_card_i18n_translate_config_value($option);
       if ($option_name === 'fields') {
         digital_card_i18n_normalize_arabic_dates($option);

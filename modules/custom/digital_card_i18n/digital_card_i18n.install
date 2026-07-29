@@ -162,6 +162,14 @@ function digital_card_i18n_update_10018(): string {
 }
 
 /**
+ * Imports organization administrator password-management translations.
+ */
+function digital_card_i18n_update_10019(): string {
+  digital_card_i18n_import_arabic();
+  return 'Organization administrator password-management translations were imported.';
+}
+
+/**
  * Enables editable content language selection and core Translate operations.
  */
 function digital_card_i18n_enable_content_language_controls(): void {

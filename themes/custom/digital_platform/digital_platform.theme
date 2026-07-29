@@ -322,9 +322,45 @@ function digital_platform_form_user_login_form_alter(array &$form, FormStateInte
 function digital_platform_form_contact_message_feedback_form_alter(array &$form, FormStateInterface $form_state): void {
   $form['#attributes']['class'][] = 'rp-contact-form';
   $form['name']['#title'] = t('Full name');
-  $form['mail']['#title'] = t('Work email');
-  $form['subject']['#type'] = 'hidden';
-  $form['subject']['#value'] = (string) t('Ropleon website enquiry');
+  $form['name']['#weight'] = 0;
+
+  if (\Drupal::currentUser()->isAuthenticated()) {
+    // Core deliberately renders an authenticated account email as a read-only
+    // item. Keep that identity value for Drupal's form processing, but provide
+    // a genuine Work email field for this business enquiry.
+    $default_email = trim((string) ($form['mail']['#value'] ?? ''));
+    $form['mail']['#access'] = FALSE;
+    $form['work_email'] = [
+      '#type' => 'email',
+      '#title' => t('Work email'),
+      '#default_value' => $default_email,
+      '#required' => TRUE,
+      '#maxlength' => 254,
+      '#attributes' => [
+        'autocomplete' => 'email',
+        'inputmode' => 'email',
+      ],
+      '#weight' => 1,
+    ];
+  }
+  else {
+    $form['mail']['#title'] = t('Work email');
+    $form['mail']['#weight'] = 1;
+    $form['mail']['#attributes']['autocomplete'] = 'email';
+    $form['mail']['#attributes']['inputmode'] = 'email';
+  }
+
+  $subject = (string) t('Ropleon website enquiry');
+  if (isset($form['subject']['widget'][0]['value'])) {
+    // Subject is an entity-field widget. Hiding the outer wrapper produces an
+    // unrelated "subject_wrapper" value and leaves the required field empty.
+    // Populate and hide the real field input instead.
+    $form['subject']['widget'][0]['value']['#type'] = 'hidden';
+    $form['subject']['widget'][0]['value']['#value'] = $subject;
+    $form['subject']['widget'][0]['value']['#default_value'] = $subject;
+    $form['subject']['widget'][0]['value']['#required'] = TRUE;
+    $form['subject']['widget'][0]['value']['#title_display'] = 'invisible';
+  }
   $form['copy']['#access'] = FALSE;
 
   $form['organization'] = [
@@ -366,8 +402,18 @@ function digital_platform_form_contact_message_feedback_form_alter(array &$form,
   ];
 
   if (!empty($form['actions']['submit']['#submit']) && is_array($form['actions']['submit']['#submit'])) {
-    array_unshift($form['actions']['submit']['#submit'], 'digital_platform_contact_context_submit');
-    $form['actions']['submit']['#submit'][] = 'digital_platform_contact_success_submit';
+    // ContentEntityForm first copies submitted values to the entity and then
+    // saves it. Add our business context between those two callbacks.
+    $callbacks = $form['actions']['submit']['#submit'];
+    $save_index = array_search('::save', $callbacks, TRUE);
+    if ($save_index === FALSE) {
+      $callbacks[] = 'digital_platform_contact_context_submit';
+    }
+    else {
+      array_splice($callbacks, $save_index, 0, ['digital_platform_contact_context_submit']);
+    }
+    $callbacks[] = 'digital_platform_contact_success_submit';
+    $form['actions']['submit']['#submit'] = $callbacks;
   }
 }
 
@@ -382,6 +428,10 @@ function digital_platform_contact_context_submit(array &$form, FormStateInterfac
   $message = $form_object->getEntity();
   if (!$message || !method_exists($message, 'setMessage')) {
     return;
+  }
+  $work_email = trim((string) $form_state->getValue('work_email'));
+  if ($work_email !== '' && method_exists($message, 'setSenderMail')) {
+    $message->setSenderMail($work_email);
   }
   $interest_options = $form['interest']['#options'] ?? [];
   $interest_key = (string) $form_state->getValue('interest');
