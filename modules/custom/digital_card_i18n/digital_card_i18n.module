@@ -56,6 +56,12 @@ function digital_card_i18n_views_pre_view(ViewExecutable $view, string $display_
     $view->display_handler->setOption('fields', $fields);
   }
 
+  $header = $view->display_handler->getOption('header');
+  if (is_array($header)) {
+    digital_card_i18n_rewrite_view_header($view->id(), $header);
+    $view->display_handler->setOption('header', $header);
+  }
+
   if (\Drupal::languageManager()->getCurrentLanguage()->getId() !== 'ar') {
     return;
   }
@@ -692,6 +698,85 @@ function digital_card_i18n_rewrite_view_actions(string $view_id, array &$fields)
       . '<li><hr class="dropdown-divider"></li>'
       . '<li><a class="dropdown-item text-danger" href="' . $base . 'group/{{ id }}/delete"><i class="bi bi-trash"></i> ' . t('Delete') . '</a></li>'
       . '</ul></div>';
+  }
+
+  if ($view_id === 'organization_administrators' && isset($fields['nothing']['alter']['text'])) {
+    $fields['nothing']['alter']['text'] = '<div class="dropdown organization-admin-actions">'
+      . '<button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-expanded="false">' . t('Actions') . '</button>'
+      . '<ul class="dropdown-menu dropdown-menu-end">'
+      . '<li><a class="dropdown-item" href="' . $base . 'platform/users/{{ uid }}/edit-org-admin"><i class="bi bi-pencil"></i> ' . t('Edit') . '</a></li>'
+      . '<li><a class="dropdown-item" href="' . $base . 'platform/users/{{ uid }}/reset-password"><i class="bi bi-key"></i> ' . t('Reset password') . '</a></li>'
+      . '<li><a class="dropdown-item text-warning" href="' . $base . 'platform/users/{{ uid }}/block"><i class="bi bi-person-lock"></i> ' . t('Block') . '</a></li>'
+      . '<li><a class="dropdown-item text-success" href="' . $base . 'platform/users/{{ uid }}/activate"><i class="bi bi-person-check"></i> ' . t('Activate') . '</a></li>'
+      . '</ul></div>';
+  }
+
+  if ($view_id === 'platform_plans' && isset($fields['nothing']['alter']['text'])) {
+    $fields['nothing']['alter']['text'] = '<div class="dropdown platform-actions">'
+      . '<button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-expanded="false">' . t('Actions') . '</button>'
+      . '<ul class="dropdown-menu dropdown-menu-end">'
+      . '<li><a class="dropdown-item" href="' . $base . 'node/{{ nid }}"><i class="bi bi-eye"></i> ' . t('View') . '</a></li>'
+      . '<li><a class="dropdown-item" href="' . $base . 'node/{{ nid }}/edit"><i class="bi bi-pencil"></i> ' . t('Edit') . '</a></li>'
+      . '<li><a class="dropdown-item text-danger" href="' . $base . 'node/{{ nid }}/delete"><i class="bi bi-trash"></i> ' . t('Delete') . '</a></li>'
+      . '</ul></div>';
+  }
+}
+
+/**
+ * Replaces manually-authored View header links with base-path-safe links.
+ */
+function digital_card_i18n_rewrite_view_header(string $view_id, array &$header): void {
+  if (!isset($header['area']['content']['value']) || !is_string($header['area']['content']['value'])) {
+    return;
+  }
+
+  $base = \Drupal\Core\Url::fromUri('internal:/')->toString();
+  if (!str_ends_with($base, '/')) {
+    $base .= '/';
+  }
+
+  switch ($view_id) {
+    case 'organization_administrators':
+      $header['area']['content']['value'] = '<div class="dc-view-toolbar">'
+        . '<a class="btn btn-primary text-white" href="' . $base . 'platform/users/add-org-admin">'
+        . '<i class="bi bi-plus-circle me-1"></i> ' . t('Add Organization Administrator')
+        . '</a></div>';
+      break;
+
+    case 'platform_organizations':
+      $header['area']['content']['value'] = str_replace(
+        'href="group/add/organizations"',
+        'href="' . $base . 'group/add/organizations"',
+        $header['area']['content']['value']
+      );
+      break;
+
+    case 'platform_plans':
+      $header['area']['content']['value'] = str_replace(
+        'href="node/add/subscription_plan"',
+        'href="' . $base . 'node/add/subscription_plan"',
+        $header['area']['content']['value']
+      );
+      break;
+
+    case 'platform_subscriptions':
+      $header['area']['content']['value'] = str_replace(
+        'href="node/add/organization_subscription"',
+        'href="' . $base . 'node/add/organization_subscription"',
+        $header['area']['content']['value']
+      );
+      break;
+
+    case 'my_cards':
+      $header['area']['content']['value'] = str_replace(
+        [
+          'href="[site:url]my-cards/add"',
+          'href="my-cards/add"',
+        ],
+        'href="' . $base . 'organization/cards/add"',
+        $header['area']['content']['value']
+      );
+      break;
   }
 }
 
