@@ -1,0 +1,23 @@
+uuid: a33c83b0-0938-4756-9b89-0701dad43d6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_card_show_org_name
+    - group.type.organizations
+id: group.organizations.field_card_show_org_name
+field_name: field_card_show_org_name
+entity_type: group
+bundle: organizations
+label: 'Show organization name beside the logo'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

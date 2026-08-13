@@ -1,5 +1,5 @@
 global-styling:
-  version: 2.1.0
+  version: 4.0.0
 
   dependencies:
     - bootstrap_barrio/global-styling
@@ -40,7 +40,7 @@ login:
       css/login.css: {}
 
 ropleon-public:
-  version: 3.3.0
+  version: 4.0.0
   dependencies:
     - digital_platform/global-styling
     - core/drupal
@@ -51,7 +51,7 @@ ropleon-public:
     js/ropleon-public.js: {}
 
 portal-shell:
-  version: 3.3.0
+  version: 4.0.0
   dependencies:
     - digital_platform/global-styling
     - digital_card_admin/dashboards

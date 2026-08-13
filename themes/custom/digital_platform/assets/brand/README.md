@@ -1,14 +1,27 @@
-# Official Ropleon brand assets
+# Ropleon production brand assets
 
-The release includes the supplied approved artwork:
+Runtime source: `Ropleon_Drupal10_Production_Brand_Handoff_v1.0.0_2026-08-10`.
+The supplied manifest was verified before integration; all 128 declared files
+were present and matched their SHA-256 checksums.
 
-- `ropleon.svg` — Ropleon corporate logo/wordmark.
-- `ropleon-cards.svg` — Ropleon Cards product logo/wordmark.
-- `favicon.svg` — browser icon.
-- `apple-touch-icon.png` — 180 × 180 mobile icon.
-- `og-ropleon.jpg` — optional 1200 × 630 corporate social image.
-- `og-ropleon-cards.jpg` — optional 1200 × 630 product social image.
+Primary runtime assets:
 
-The public corporate header and footer use `ropleon.svg`. The product landing
-page, platform header, and login experience use `ropleon-cards.svg`. The SVG
-favicon and mobile icon are attached through Drupal page metadata.
+- `ropleon-technologies.svg` — approved corporate signature for Ropleon
+  Technologies, public corporate pages, and company-level portal surfaces.
+- `ropleon-cards.svg` — approved Ropleon Cards product signature for product,
+  login, platform, organization, merchant, and digital-card surfaces.
+- `ropleon.svg` — compatibility alias of `ropleon-technologies.svg`; retained so
+  older cached templates do not break.
+- `favicon.svg`, `favicon.ico`, `ropleon-icon-*.png` — browser icons.
+- `apple-touch-icon.png`, `ropleon-app-icon-*.png`, and
+  `ropleon-maskable-*.png` — mobile/PWA icons.
+- `site.webmanifest` — web-app identity metadata.
+
+Approved variants are retained under:
+
+- `corporate/svg` and `corporate/png`
+- `cards/svg` and `cards/png`
+
+Do not edit, stretch, recolor, shadow, rotate, or reconstruct these files.
+Use SVG for web UI whenever possible. The page attachment hook adds a file
+timestamp query string so deployed updates bypass stale browser/CDN caches.

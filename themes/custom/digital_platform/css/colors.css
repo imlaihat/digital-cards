@@ -1,87 +1,83 @@
-/* ---------- Color Module Styles ----------- */
-
+/**
+ * Ropleon semantic color application.
+ * Values come from css/brand-tokens.css; no logo colors are rewritten here.
+ */
 body {
-  color: #3b3b3b;
-  background: #292929;
+  color: var(--r-ink);
+  background: var(--r-surface);
 }
 
 #page,
 #main-wrapper,
 .region-primary-menu .menu-item a.is-active,
-.region-primary-menu .menu-item--active-trail a {
-  background: #fff;
-}
-
-.tabs ul.primary li a.is-active {
-  background-color: #fff;
+.region-primary-menu .menu-item--active-trail a,
+.tabs ul.primary li a.is-active,
+.tabs ul.primary li.is-active a {
+  background: var(--r-white);
 }
 
 .tabs ul.primary li.is-active a {
-  background-color: #fff;
-  border-bottom-color: #fff;
+  border-block-end-color: var(--r-white);
 }
 
 #navbar-top {
-  background-color: #055a8e;
+  background-color: var(--r-deep-navy);
 }
 
 #navbar-main {
-  background-color: #1d84c3;
+  background-color: var(--r-navy);
 }
 
 a,
 .link {
-  color: #0071b3;
+  color: var(--r-navy);
 }
 
 a:hover,
 a:focus,
 .link:hover,
-.link:focus {
-  color: #018fe2;
-}
-.nav-item .dropdown-item a.active {
-  color: white;
-}
-.nav-link {
-  color: rgb(231, 231, 231);
-}
-.nav-link:hover,
-.nav-link:focus {
-  color: rgb(231, 231, 231);
-}
+.link:focus,
 a:active,
 .link:active {
-  color: #23aeff;
+  color: var(--r-blue);
 }
 
-.page-item.active .page-link {
-  background-color: #0071b3;
-  border-color: #0071b3;
+.nav-item .dropdown-item a.active {
+  color: var(--r-white);
+}
+
+.nav-link,
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--r-white);
+}
+
+.page-item.active .page-link,
+.btn-primary {
+  border-color: var(--r-navy);
+  color: var(--r-white);
+  background-color: var(--r-navy);
 }
 
 .page-link,
 .page-link:hover {
-  color: #0071b3;
-}
-
-.sidebar .block {
-  background-color: #f6f6f2;
-  border-color: #f9f9f9;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
+  color: var(--r-navy);
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: #0256b1;
+  border-color: var(--r-deep-navy);
+  background-color: var(--r-deep-navy);
+}
+
+.sidebar .block {
+  border-color: var(--r-border);
+  background-color: var(--r-surface);
 }
 
 .site-footer {
-  background: #292929;
+  color: var(--r-white);
+  background: var(--r-deep-navy);
 }
 
 .region-header,
@@ -93,22 +89,17 @@ a:active,
 .region-header .site-branding a,
 .region-secondary-menu .menu-item a,
 .region-secondary-menu .menu-item a.is-active {
-  color: #fffeff;
+  color: var(--r-white);
 }
 
-
-/* ---------- Color Form ----------- */
-
 [dir="rtl"] .color-form .color-palette {
-  margin-left: 0;
-  margin-right: 20px;
+  margin-inline: 20px 0;
 }
 
 [dir="rtl"] .color-form .form-item label {
-  float: right;
+  float: inline-start;
 }
 
 [dir="rtl"] .color-form .color-palette .lock {
-  right: -20px;
-  left: 0;
+  inset-inline: -20px 0;
 }

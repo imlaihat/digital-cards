@@ -1,0 +1,23 @@
+uuid: a38bccf3-97a9-4280-97b7-8f4b1e29699a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_card_cover_watermark
+    - group.type.organizations
+id: group.organizations.field_card_cover_watermark
+field_name: field_card_cover_watermark
+entity_type: group
+bundle: organizations
+label: 'Show organization logo watermark in the card cover'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

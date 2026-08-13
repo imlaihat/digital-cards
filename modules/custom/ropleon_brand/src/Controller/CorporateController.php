@@ -130,12 +130,10 @@ final class CorporateController {
       'privacy' => Url::fromRoute('ropleon_brand.privacy')->toString(),
       'terms' => Url::fromRoute('ropleon_brand.terms')->toString(),
     ];
-    $theme_path = \Drupal::service('extension.list.theme')->getPath('digital_platform');
-    $base_path = base_path();
     $assets = [
-      'company_logo' => $base_path . $theme_path . '/assets/brand/ropleon.svg',
-      'product_logo' => $base_path . $theme_path . '/assets/brand/ropleon-cards.svg',
-      'favicon' => $base_path . $theme_path . '/assets/brand/favicon.svg',
+      'company_logo' => $this->brandAssetUrl('ropleon-technologies.svg'),
+      'product_logo' => $this->brandAssetUrl('ropleon-cards.svg'),
+      'favicon' => $this->brandAssetUrl('favicon.svg'),
     ];
     $canonical_route = $theme === 'ropleon_corporate_home'
       ? '<front>'
@@ -202,7 +200,7 @@ final class CorporateController {
           ], 'ropleon_twitter_card'],
           [[
             '#tag' => 'meta',
-            '#attributes' => ['name' => 'theme-color', 'content' => '#071A33'],
+            '#attributes' => ['name' => 'theme-color', 'content' => '#00184A'],
           ], 'ropleon_theme_color'],
           [[
             '#tag' => 'script',
@@ -223,6 +221,18 @@ final class CorporateController {
         'max-age' => 3600,
       ],
     ];
+  }
+
+  /**
+   * Builds a cache-safe URL for an approved Ropleon brand asset.
+   */
+  private function brandAssetUrl(string $filename): string {
+    $theme_path = \Drupal::service('extension.list.theme')->getPath('digital_platform');
+    $relative_path = $theme_path . '/assets/brand/' . ltrim($filename, '/');
+    $absolute_path = DRUPAL_ROOT . '/' . $relative_path;
+    $version = is_file($absolute_path) ? (string) filemtime($absolute_path) : '1';
+
+    return base_path() . $relative_path . '?v=' . rawurlencode($version);
   }
 
 }

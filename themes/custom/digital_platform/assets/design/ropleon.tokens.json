@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "brand": "Ropleon",
+    "version": "v1.0.0",
+    "date": "2026-08-10"
+  },
+  "color": {
+    "brand": {
+      "deepNavy": "#00184A",
+      "navy": "#00297E",
+      "blue": "#007BFF",
+      "cyan": "#00BEFF"
+    },
+    "neutral": {
+      "ink": "#101828",
+      "muted": "#667085",
+      "surface": "#F8FAFC",
+      "border": "#D0D5DD",
+      "white": "#FFFFFF",
+      "black": "#000000"
+    },
+    "semantic": {
+      "success": "#067647",
+      "warning": "#B54708",
+      "danger": "#B42318",
+      "info": "#175CD3"
+    }
+  },
+  "typography": {
+    "latin": {
+      "primary": "Inter",
+      "fallback": "Arial, sans-serif"
+    },
+    "arabic": {
+      "primary": "Noto Sans Arabic",
+      "fallback": "Tahoma, Arial, sans-serif"
+    },
+    "scale": {
+      "xs": "0.75rem",
+      "sm": "0.875rem",
+      "md": "1rem",
+      "lg": "1.125rem",
+      "xl": "1.25rem",
+      "2xl": "1.5rem",
+      "3xl": "1.875rem",
+      "4xl": "2.25rem"
+    }
+  },
+  "spacing": {
+    "1": "0.25rem",
+    "2": "0.5rem",
+    "3": "0.75rem",
+    "4": "1rem",
+    "5": "1.25rem",
+    "6": "1.5rem",
+    "8": "2rem",
+    "10": "2.5rem",
+    "12": "3rem",
+    "16": "4rem"
+  },
+  "radius": {
+    "sm": "6px",
+    "md": "10px",
+    "lg": "16px",
+    "pill": "999px"
+  },
+  "shadow": {
+    "sm": "0 1px 2px rgba(16,24,40,.06)",
+    "md": "0 6px 18px rgba(16,24,40,.10)",
+    "lg": "0 16px 40px rgba(16,24,40,.14)"
+  },
+  "breakpoints": {
+    "sm": "576px",
+    "md": "768px",
+    "lg": "992px",
+    "xl": "1200px",
+    "xxl": "1440px"
+  },
+  "motion": {
+    "fast": "120ms",
+    "standard": "200ms",
+    "slow": "320ms"
+  }
+}

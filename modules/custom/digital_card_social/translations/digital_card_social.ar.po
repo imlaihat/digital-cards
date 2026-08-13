@@ -216,3 +216,15 @@ msgstr "إضافة رابط تواصل"
 
 msgid "Social Links"
 msgstr "روابط التواصل"
+
+msgid "Enter a WhatsApp number with country code or an official WhatsApp click-to-chat URL."
+msgstr "أدخل رقم واتساب مع رمز الدولة أو رابط واتساب رسمي للمحادثة المباشرة."
+
+msgid "Use a WhatsApp number with a 7 to 15 digit international country code."
+msgstr "استخدم رقم واتساب يتضمن رمز الدولة ويتكون من 7 إلى 15 رقماً."
+
+msgid "Enter a valid WhatsApp click-to-chat URL."
+msgstr "أدخل رابط واتساب صالحاً للمحادثة المباشرة."
+
+msgid "Use a WhatsApp number or a wa.me link. Profile-name URLs are not valid WhatsApp contact links."
+msgstr "استخدم رقم واتساب أو رابط wa.me؛ روابط أسماء الملفات الشخصية ليست روابط اتصال صالحة في واتساب."

@@ -1,0 +1,228 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ropleon Production Brand Handoff 1.0.0\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. brand.corporate_name
+msgid "Ropleon Technologies"
+msgstr ""
+
+#. brand.corporate_tagline
+msgid "Technology. Connected."
+msgstr ""
+
+#. brand.product_name
+msgid "Ropleon Cards"
+msgstr ""
+
+#. brand.product_tagline
+msgid "Your Identity. Always Connected."
+msgstr ""
+
+#. nav.home
+msgid "Home"
+msgstr ""
+
+#. nav.product
+msgid "Ropleon Cards"
+msgstr ""
+
+#. nav.solutions
+msgid "Solutions"
+msgstr ""
+
+#. nav.pricing
+msgid "Pricing"
+msgstr ""
+
+#. nav.about
+msgid "About"
+msgstr ""
+
+#. nav.contact
+msgid "Contact"
+msgstr ""
+
+#. nav.login
+msgid "Log in"
+msgstr ""
+
+#. nav.dashboard
+msgid "Dashboard"
+msgstr ""
+
+#. home.hero_title
+msgid "Technology that keeps people and businesses connected."
+msgstr ""
+
+#. home.hero_body
+msgid "Ropleon Technologies builds practical digital products that simplify identity, connection and business interaction."
+msgstr ""
+
+#. home.hero_cta_primary
+msgid "Explore Ropleon Cards"
+msgstr ""
+
+#. home.hero_cta_secondary
+msgid "Contact us"
+msgstr ""
+
+#. cards.hero_title
+msgid "One smart card. One digital identity. Always up to date."
+msgstr ""
+
+#. cards.hero_body
+msgid "Share your professional profile instantly with NFC or QR. Update your details without reprinting your card."
+msgstr ""
+
+#. cards.cta
+msgid "Create your digital card"
+msgstr ""
+
+#. cards.features.nfc
+msgid "Tap with NFC"
+msgstr ""
+
+#. cards.features.qr
+msgid "Scan with QR"
+msgstr ""
+
+#. cards.features.update
+msgid "Update anytime"
+msgstr ""
+
+#. cards.features.contact
+msgid "Save contact"
+msgstr ""
+
+#. cards.features.analytics
+msgid "Understand engagement"
+msgstr ""
+
+#. ui.save
+msgid "Save"
+msgstr ""
+
+#. ui.cancel
+msgid "Cancel"
+msgstr ""
+
+#. ui.edit
+msgid "Edit"
+msgstr ""
+
+#. ui.delete
+msgid "Delete"
+msgstr ""
+
+#. ui.add
+msgid "Add"
+msgstr ""
+
+#. ui.search
+msgid "Search"
+msgstr ""
+
+#. ui.filter
+msgid "Filter"
+msgstr ""
+
+#. ui.view
+msgid "View"
+msgstr ""
+
+#. ui.download
+msgid "Download"
+msgstr ""
+
+#. ui.copy_link
+msgid "Copy link"
+msgstr ""
+
+#. ui.publish
+msgid "Publish"
+msgstr ""
+
+#. ui.archive
+msgid "Archive"
+msgstr ""
+
+#. ui.approve
+msgid "Approve"
+msgstr ""
+
+#. ui.reject
+msgid "Reject"
+msgstr ""
+
+#. ui.status
+msgid "Status"
+msgstr ""
+
+#. ui.organization
+msgid "Organization"
+msgstr ""
+
+#. ui.cards
+msgid "Cards"
+msgstr ""
+
+#. ui.administrators
+msgid "Administrators"
+msgstr ""
+
+#. ui.subscription
+msgid "Subscription"
+msgstr ""
+
+#. status.draft
+msgid "Draft"
+msgstr ""
+
+#. status.waiting_approval
+msgid "Waiting approval"
+msgstr ""
+
+#. status.approved
+msgid "Approved"
+msgstr ""
+
+#. status.rejected
+msgid "Rejected"
+msgstr ""
+
+#. status.archived
+msgid "Archived"
+msgstr ""
+
+#. errors.required
+msgid "This field is required."
+msgstr ""
+
+#. errors.invalid_email
+msgid "Enter a valid email address."
+msgstr ""
+
+#. errors.not_found
+msgid "The requested page could not be found."
+msgstr ""
+
+#. errors.access_denied
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#. footer.privacy
+msgid "Privacy"
+msgstr ""
+
+#. footer.terms
+msgid "Terms"
+msgstr ""
+
+#. footer.copyright
+msgid "© Ropleon Technologies. All rights reserved."
+msgstr ""

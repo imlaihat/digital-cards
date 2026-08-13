@@ -43,6 +43,9 @@ final class OrganizationCardContext {
       'card_language' => in_array($this->scalar($organization, 'field_card_language'), ['en', 'ar', 'bilingual'], TRUE)
         ? $this->scalar($organization, 'field_card_language')
         : 'en',
+      'show_organization_name' => $this->boolean($organization, 'field_card_show_org_name', TRUE),
+      'show_cover_watermark' => $this->boolean($organization, 'field_card_cover_watermark', FALSE),
+      'show_verified_badge' => $this->boolean($organization, 'field_card_verified_badge', FALSE),
       'custom_css' => $this->sanitizeCustomCss($this->scalar($organization, 'field_card_custom_css')),
       'logo_url' => $this->fileUrl($organization, 'field_logo'),
     ];
@@ -56,6 +59,13 @@ final class OrganizationCardContext {
     return $entity->hasField($field) && !$entity->get($field)->isEmpty()
       ? trim((string) $entity->get($field)->value)
       : '';
+  }
+
+  private function boolean(ContentEntityInterface $entity, string $field, bool $fallback): bool {
+    if (!$entity->hasField($field) || $entity->get($field)->isEmpty()) {
+      return $fallback;
+    }
+    return (bool) $entity->get($field)->value;
   }
 
   private function fileUrl(ContentEntityInterface $entity, string $field): string {

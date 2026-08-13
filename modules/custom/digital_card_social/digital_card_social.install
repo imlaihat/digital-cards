@@ -94,6 +94,19 @@ function digital_card_social_update_10004(): string {
 }
 
 /**
+ * Enforces valid WhatsApp contact links on existing social records.
+ */
+function digital_card_social_update_10005(): string {
+  digital_card_social_configure_widget();
+  digital_card_social_import_arabic();
+  $result = digital_card_social_cleanup_invalid_links();
+  return sprintf(
+    'Validated WhatsApp contact links and removed %d invalid social link(s). A recovery snapshot was retained in State API.',
+    $result['removed'],
+  );
+}
+
+/**
  * Grants the registry only to existing trusted platform administration roles.
  */
 function digital_card_social_grant_platform_permissions(): void {
@@ -138,6 +151,17 @@ function digital_card_social_configure_widget(): void {
         ->getLanguageConfigOverride('ar', 'field.field.paragraph.social_link.field_platform')
         ->set('label', 'منصة التواصل')
         ->set('description', 'اختر شبكة التواصل الخاصة بهذا الرابط. ستستخدم البطاقة الاسم والأيقونة المعتمدين تلقائياً.')
+      ->save();
+    }
+  }
+  $url_field = FieldConfig::loadByName('paragraph', 'social_link', 'field_url');
+  if ($url_field) {
+    $url_field->setDescription('Enter the complete HTTPS profile URL. For WhatsApp, you may enter the international phone number with country code, for example +970 599 123 456.');
+    $url_field->save();
+    if (\Drupal::languageManager()->getLanguage('ar')) {
+      \Drupal::languageManager()
+        ->getLanguageConfigOverride('ar', 'field.field.paragraph.social_link.field_url')
+        ->set('description', 'أدخل رابط الملف الشخصي الكامل بصيغة HTTPS. لواتساب، يمكنك إدخال رقم الهاتف الدولي مع رمز الدولة، مثل +970 599 123 456.')
         ->save();
     }
   }

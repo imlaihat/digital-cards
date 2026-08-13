@@ -75,6 +75,7 @@ $assert(str_contains($publicTemplate, "path('ropleon_brand.privacy')") && str_co
 $assert(substr_count($publicTemplate, 'class="rp-header-product-cta"') === 1, 'The public Ropleon Cards header action is missing or duplicated.');
 $assert(isset($theme['portal-shell']['css']['theme']['css/portal-shell.css']), 'Authenticated portal shell stylesheet is not attached.');
 $assert(isset($theme['portal-shell']['js']['js/portal-shell.js']), 'Authenticated portal shell behavior is not attached.');
+$assert(isset($theme['portal-shell']['js']['js/mobile-tables.js']), 'Shared responsive table behavior is not attached.');
 $themeFunctions = (string) file_get_contents($root . '/themes/custom/digital_platform/digital_platform.theme');
 $assert(str_contains($themeFunctions, 'function digital_platform_language_switch_links'), 'Shared language URL builder is missing.');
 $assert(str_contains($themeFunctions, "get('url.prefixes')"), 'Language URL builder does not use configured URL prefixes.');
@@ -83,11 +84,32 @@ $portalTemplate = (string) file_get_contents($root . '/themes/custom/digital_pla
 $assert(str_contains($portalTemplate, 'ropleon_portal_header'), 'Platform and Organization portal headers are not rendered by the authenticated shell.');
 $assert(str_contains($portalTemplate, 'rp-merchant-header') && str_contains($portalTemplate, 'rp-portal-footer'), 'Merchant branding or the authenticated footer is missing.');
 $assert(str_contains($portalTemplate, 'ropleon_languages'), 'Merchant Portal language switcher is missing.');
+$publicCss = (string) file_get_contents($root . '/themes/custom/digital_platform/css/ropleon-public.css');
+$assert(str_contains($publicCss, 'grid-template-areas:') && str_contains($publicCss, '"nav nav"'), 'Public mobile navigation does not use the portal-style expandable row.');
+$mobileTableScript = (string) file_get_contents($root . '/themes/custom/digital_platform/js/mobile-tables.js');
+$assert(str_contains($mobileTableScript, 'data-rp-action-toggle'), 'Tap-accessible table action controls are missing.');
+$assert(str_contains($mobileTableScript, 'ropleon-responsive-table'), 'Responsive table scroller behavior is missing.');
 
-foreach (['ropleon.svg', 'ropleon-cards.svg', 'favicon.svg', 'apple-touch-icon.png'] as $asset) {
+foreach ([
+  'ropleon-technologies.svg',
+  'ropleon.svg',
+  'ropleon-cards.svg',
+  'favicon.svg',
+  'favicon.ico',
+  'ropleon-icon-16x16.png',
+  'ropleon-icon-32x32.png',
+  'apple-touch-icon.png',
+  'site.webmanifest',
+] as $asset) {
   $asset_path = $root . '/themes/custom/digital_platform/assets/brand/' . $asset;
-  $assert(is_file($asset_path) && filesize($asset_path) > 1000, 'Official brand asset is missing or empty: ' . $asset);
+  $assert(is_file($asset_path) && filesize($asset_path) > 100, 'Official brand asset is missing or empty: ' . $asset);
 }
+$tokens = (string) file_get_contents($root . '/themes/custom/digital_platform/css/brand-tokens.css');
+foreach (['#00184a', '#00297e', '#007bff', '#00beff'] as $approvedColor) {
+  $assert(str_contains(strtolower($tokens), $approvedColor), 'Approved color token is missing: ' . $approvedColor);
+}
+$assert(str_contains($themeFunctions, "digital_platform_brand_asset_url('ropleon-technologies.svg')"), 'Corporate runtime surfaces are not using the approved Ropleon Technologies signature.');
+$assert(str_contains($themeFunctions, "digital_platform_brand_asset_url('site.webmanifest')"), 'The approved mobile manifest is not attached.');
 
 $adminLibraries = $yaml($root . '/modules/custom/digital_card_admin/digital_card_admin.libraries.yml');
 $assert(isset($adminLibraries['dashboards']['js']['js/portal-navigation.js']), 'Authenticated mobile navigation behavior is not attached.');

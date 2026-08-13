@@ -7,6 +7,10 @@ services:
     class: Drupal\digital_card_delivery\Service\OrganizationCardContext
     arguments: ['@transliteration', '@file_url_generator']
 
+  digital_card_delivery.card_language_policy:
+    class: Drupal\digital_card_delivery\Service\CardLanguagePolicy
+    arguments: ['@language_manager']
+
   digital_card_delivery.static_generator:
     class: Drupal\digital_card_delivery\Service\CardStaticGenerator
     arguments:
@@ -15,6 +19,8 @@ services:
       - '@lock'
       - '@logger.channel.digital_card_delivery'
       - '@request_stack'
+      - '@language_manager'
+      - '@digital_card_delivery.card_language_policy'
       - '@?digital_card_social.registry'
 
   digital_card_delivery.card_preparation:

@@ -105,6 +105,9 @@ final class SocialPlatformRegistry {
     if (!$platform) {
       return ['url' => '', 'error' => 'The selected social platform is unavailable.'];
     }
+    if ($platform_id === 'whatsapp') {
+      return $this->normalizeWhatsApp($raw_url);
+    }
     $url = trim($raw_url);
     if ($url === '' || preg_match('/[\x00-\x1F\x7F]/', $url)) {
       return ['url' => '', 'error' => 'Enter a valid social profile URL.'];
@@ -125,6 +128,55 @@ final class SocialPlatformRegistry {
       ];
     }
     return ['url' => $url, 'error' => ''];
+  }
+
+  /**
+   * Accepts a WhatsApp number or official click-to-chat URL and canonicalizes it.
+   */
+  private function normalizeWhatsApp(string $raw_value): array {
+    $value = trim($raw_value);
+    if ($value === '' || preg_match('/[\x00-\x1F\x7F]/', $value)) {
+      return ['url' => '', 'error' => 'Enter a WhatsApp number with country code or an official WhatsApp click-to-chat URL.'];
+    }
+
+    // A friendly phone number such as +970 599 123 456.
+    if (preg_match('/^[+0-9\s().-]+$/', $value)) {
+      $number = $this->normalizeWhatsAppNumber($value);
+      return $number !== ''
+        ? ['url' => 'https://wa.me/' . $number, 'error' => '']
+        : ['url' => '', 'error' => 'Use a WhatsApp number with a 7 to 15 digit international country code.'];
+    }
+
+    if (!preg_match('#^https?://#i', $value)) {
+      $value = 'https://' . ltrim($value, '/');
+    }
+    $parts = parse_url($value);
+    if (!is_array($parts) || !empty($parts['user']) || !empty($parts['pass'])) {
+      return ['url' => '', 'error' => 'Enter a valid WhatsApp click-to-chat URL.'];
+    }
+    $host = strtolower(preg_replace('/^www\./', '', rtrim((string) ($parts['host'] ?? ''), '.')) ?? '');
+    $number = '';
+    if ($host === 'wa.me') {
+      $number = $this->normalizeWhatsAppNumber(trim((string) ($parts['path'] ?? ''), '/'));
+    }
+    elseif ($host === 'api.whatsapp.com' || $host === 'whatsapp.com' || str_ends_with($host, '.whatsapp.com')) {
+      parse_str((string) ($parts['query'] ?? ''), $query);
+      if (strtolower(trim((string) ($parts['path'] ?? ''), '/')) === 'send') {
+        $number = $this->normalizeWhatsAppNumber((string) ($query['phone'] ?? ''));
+      }
+    }
+    if ($number === '') {
+      return ['url' => '', 'error' => 'Use a WhatsApp number or a wa.me link. Profile-name URLs are not valid WhatsApp contact links.'];
+    }
+    return ['url' => 'https://wa.me/' . $number, 'error' => ''];
+  }
+
+  private function normalizeWhatsAppNumber(string $value): string {
+    $number = preg_replace('/\D+/', '', $value) ?? '';
+    if (str_starts_with($number, '00')) {
+      $number = substr($number, 2);
+    }
+    return preg_match('/^[1-9][0-9]{6,14}$/', $number) ? $number : '';
   }
 
   public function save(string $id, array $definition): void {

@@ -106,6 +106,17 @@ digital_card_offers.eligibility:
   options:
     no_cache: TRUE
 
+digital_card_offers.context:
+  path: '/api/digital-card/context/{nfc_id}'
+  defaults:
+    _controller: '\Drupal\digital_card_offers\Controller\OfferApiController::context'
+  requirements:
+    _access: 'TRUE'
+    nfc_id: '[A-Za-z0-9_-]{3,128}'
+  methods: [GET]
+  options:
+    no_cache: TRUE
+
 digital_card_offers.redeem:
   path: '/api/digital-card/offers/{offer_id}/redeem/{nfc_id}'
   defaults:

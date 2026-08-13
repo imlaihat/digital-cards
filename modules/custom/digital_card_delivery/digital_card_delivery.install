@@ -10,6 +10,7 @@ use Drupal\Core\Entity\Entity\EntityFormDisplay;
 function digital_card_delivery_install(): void {
   digital_card_delivery_ensure_theme_fields();
   digital_card_delivery_ensure_language_fields();
+  digital_card_delivery_configure_card_translation_fields();
 }
 
 /**
@@ -30,6 +31,266 @@ function digital_card_delivery_update_10002(): string {
 }
 
 /**
+ * Adds organization-level presentation controls for generated cards.
+ */
+function digital_card_delivery_update_10003(): string {
+  digital_card_delivery_ensure_theme_fields();
+  return 'Organization name, cover watermark, and verified employee card controls are available.';
+}
+
+/**
+ * Changes card language overrides into immutable original-language choices.
+ */
+function digital_card_delivery_update_10004(array &$sandbox): string {
+  if (!isset($sandbox['ids'])) {
+    digital_card_delivery_ensure_language_fields();
+    $sandbox['ids'] = array_values(\Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->getQuery()
+      ->condition('type', 'digital_business_card')
+      ->accessCheck(FALSE)
+      ->execute());
+    $sandbox['total'] = count($sandbox['ids']);
+    $sandbox['processed'] = 0;
+    $sandbox['updated'] = 0;
+    $sandbox['failed'] = 0;
+  }
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  /** @var \Drupal\digital_card_delivery\Service\CardLanguagePolicy $policy */
+  $policy = \Drupal::service('digital_card_delivery.card_language_policy');
+  foreach (array_splice($sandbox['ids'], 0, 20) as $nid) {
+    $card = $storage->load($nid);
+    if (!$card) {
+      $sandbox['processed']++;
+      continue;
+    }
+    try {
+      $desired = $policy->originalLanguage($card);
+      $current = $card->hasField('field_card_language') && !$card->get('field_card_language')->isEmpty()
+        ? (string) $card->get('field_card_language')->value
+        : '';
+      if ($current !== $desired) {
+        $card->set('field_card_language', $desired);
+        $card->save();
+        $sandbox['updated']++;
+      }
+    }
+    catch (\Throwable $exception) {
+      $sandbox['failed']++;
+      \Drupal::logger('digital_card_delivery')->error('Could not migrate the original language for card @card: @message', [
+        '@card' => $nid,
+        '@message' => $exception->getMessage(),
+      ]);
+    }
+    $sandbox['processed']++;
+  }
+
+  $sandbox['#finished'] = $sandbox['total'] === 0
+    ? 1
+    : min(1, $sandbox['processed'] / $sandbox['total']);
+  return sprintf(
+    'Organization card language policy was updated. Cards checked: %d; migrated: %d; failed: %d.',
+    $sandbox['processed'],
+    $sandbox['updated'],
+    $sandbox['failed'],
+  );
+}
+
+/**
+ * Repairs obsolete card Workflow state IDs without changing source languages.
+ */
+function digital_card_delivery_update_10005(): string {
+  digital_card_delivery_ensure_language_fields();
+
+  $database = \Drupal::database();
+  $schema = $database->schema();
+  if (!$schema->tableExists('node__field_status')) {
+    return 'No card Workflow status field table exists; no repair was needed.';
+  }
+
+  $valid_states = [];
+  if (class_exists('Drupal\\workflow\\Entity\\Workflow')) {
+    try {
+      /** @var \Drupal\workflow\Entity\WorkflowInterface|null $workflow */
+      $workflow = \Drupal\workflow\Entity\Workflow::load('card_workflow');
+      if ($workflow) {
+        $valid_states = array_keys($workflow->getStates(TRUE));
+      }
+    }
+    catch (\Throwable $exception) {
+      \Drupal::logger('digital_card_delivery')->warning('Could not load card Workflow states during data repair: @message', [
+        '@message' => $exception->getMessage(),
+      ]);
+    }
+  }
+
+  // These are the configured state IDs on the established Ropleon Cards site.
+  // Keep the fallback so the update remains recoverable if Workflow config is
+  // temporarily unavailable while update.php is rebuilding the container.
+  if (!$valid_states) {
+    $valid_states = [
+      'card_workflow_creation',
+      'card_workflow_approve',
+      'card_workflow_wating_approval',
+      'card_workflow_approved',
+    ];
+  }
+
+  $waiting_state = in_array('card_workflow_wating_approval', $valid_states, TRUE)
+    ? 'card_workflow_wating_approval'
+    : (in_array('card_workflow_approve', $valid_states, TRUE) ? 'card_workflow_approve' : reset($valid_states));
+  $draft_state = in_array('card_workflow_approve', $valid_states, TRUE)
+    ? 'card_workflow_approve'
+    : (in_array('card_workflow_creation', $valid_states, TRUE) ? 'card_workflow_creation' : reset($valid_states));
+  $creation_state = in_array('card_workflow_creation', $valid_states, TRUE)
+    ? 'card_workflow_creation'
+    : $draft_state;
+
+  $legacy_map = [
+    'card_workflow_pending' => $waiting_state,
+    'card_workflow_rejected' => $draft_state,
+  ];
+  $rows = $database->select('node__field_status', 'status')
+    ->fields('status', ['entity_id', 'field_status_value'])
+    ->condition('bundle', 'digital_business_card')
+    ->execute()
+    ->fetchAll();
+
+  $repaired_cards = [];
+  foreach ($rows as $row) {
+    $old_state = (string) $row->field_status_value;
+    if ($old_state === '' || in_array($old_state, $valid_states, TRUE)) {
+      continue;
+    }
+
+    $new_state = $legacy_map[$old_state] ?? $creation_state;
+    $nid = (int) $row->entity_id;
+    $database->update('node__field_status')
+      ->fields(['field_status_value' => $new_state])
+      ->condition('entity_id', $nid)
+      ->condition('field_status_value', $old_state)
+      ->execute();
+
+    // An obsolete state cannot be rendered on a historical revision either.
+    // Repair only matching invalid values and retain all other revision data.
+    if ($schema->tableExists('node_revision__field_status')) {
+      $database->update('node_revision__field_status')
+        ->fields(['field_status_value' => $new_state])
+        ->condition('entity_id', $nid)
+        ->condition('field_status_value', $old_state)
+        ->execute();
+    }
+
+    $repaired_cards[$nid] = TRUE;
+    \Drupal::logger('digital_card_delivery')->notice('Repaired obsolete Workflow state @old to @new for Digital Business Card @card.', [
+      '@old' => $old_state,
+      '@new' => $new_state,
+      '@card' => $nid,
+    ]);
+  }
+
+  if ($repaired_cards) {
+    \Drupal::entityTypeManager()->getStorage('node')->resetCache(array_keys($repaired_cards));
+  }
+
+  return sprintf(
+    'Card Workflow repair completed. Cards repaired: %d. Existing Drupal source languages were preserved.',
+    count($repaired_cards),
+  );
+}
+
+/**
+ * Gives each card translation independent business-field values.
+ */
+function digital_card_delivery_update_10006(array &$sandbox): string {
+  if (!isset($sandbox['initialized'])) {
+    $configuration = digital_card_delivery_configure_card_translation_fields();
+    $sandbox['ids'] = array_values(\Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->getQuery()
+      ->condition('type', 'digital_business_card')
+      ->accessCheck(FALSE)
+      ->execute());
+    $sandbox['total'] = count($sandbox['ids']);
+    $sandbox['processed'] = 0;
+    $sandbox['seeded'] = 0;
+    $sandbox['failed'] = 0;
+    $sandbox['configured'] = $configuration['changed'];
+    $sandbox['initialized'] = TRUE;
+  }
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $owned_fields = digital_card_delivery_translation_owned_fields();
+  foreach (array_splice($sandbox['ids'], 0, 10) as $nid) {
+    $storage->resetCache([$nid]);
+    $card = $storage->load($nid);
+    if (!$card) {
+      $sandbox['processed']++;
+      continue;
+    }
+
+    try {
+      $source = $card->getUntranslated();
+      $source_langcode = $source->language()->getId();
+      $changed = FALSE;
+      foreach (array_keys($card->getTranslationLanguages()) as $langcode) {
+        if ($langcode === $source_langcode) {
+          continue;
+        }
+        $translation = $card->getTranslation($langcode);
+        $translation_changed = FALSE;
+        foreach ($owned_fields as $field_name) {
+          if (
+            $source->hasField($field_name)
+            && $translation->hasField($field_name)
+            && $translation->get($field_name)->isEmpty()
+            && !$source->get($field_name)->isEmpty()
+          ) {
+            // Existing translations were created while these fields were
+            // shared. Seed the new independent row with the current source
+            // value so the edit form never opens blank. Subsequent saves are
+            // isolated per language.
+            $translation->set($field_name, $source->get($field_name)->getValue());
+            $changed = TRUE;
+            $translation_changed = TRUE;
+          }
+        }
+        if ($translation_changed) {
+          $translation->setRevisionTranslationAffected(TRUE);
+        }
+      }
+
+      if ($changed) {
+        $card->setNewRevision(TRUE);
+        $card->setRevisionLogMessage('Initialized independent values for existing Digital Business Card translations.');
+        $card->save();
+        $sandbox['seeded']++;
+      }
+    }
+    catch (\Throwable $exception) {
+      $sandbox['failed']++;
+      \Drupal::logger('digital_card_delivery')->error('Could not initialize independent translations for card @card: @message', [
+        '@card' => $nid,
+        '@message' => $exception->getMessage(),
+      ]);
+    }
+    $sandbox['processed']++;
+  }
+
+  $sandbox['#finished'] = $sandbox['total'] === 0
+    ? 1
+    : min(1, $sandbox['processed'] / $sandbox['total']);
+  return sprintf(
+    'Card translation isolation completed. Field settings changed: %d; cards checked: %d; existing translations initialized: %d; failed: %d.',
+    $sandbox['configured'],
+    $sandbox['processed'],
+    $sandbox['seeded'],
+    $sandbox['failed'],
+  );
+}
+
+/**
  * Creates optional organization branding fields safely and idempotently.
  */
 function digital_card_delivery_ensure_theme_fields(): void {
@@ -39,6 +300,24 @@ function digital_card_delivery_ensure_theme_fields(): void {
     'field_card_background' => ['type' => 'string', 'label' => 'Card page background', 'settings' => ['max_length' => 255]],
     'field_slug' => ['type' => 'string', 'label' => 'Organization URL slug', 'settings' => ['max_length' => 64]],
     'field_card_custom_css' => ['type' => 'string_long', 'label' => 'Additional card CSS', 'settings' => []],
+    'field_card_show_org_name' => [
+      'type' => 'boolean',
+      'label' => 'Show organization name beside the logo',
+      'settings' => [],
+      'default_value' => [['value' => 1]],
+    ],
+    'field_card_cover_watermark' => [
+      'type' => 'boolean',
+      'label' => 'Show organization logo watermark in the card cover',
+      'settings' => [],
+      'default_value' => [['value' => 0]],
+    ],
+    'field_card_verified_badge' => [
+      'type' => 'boolean',
+      'label' => 'Show verified employee badge',
+      'settings' => [],
+      'default_value' => [['value' => 0]],
+    ],
   ];
 
   foreach ($definitions as $name => $definition) {
@@ -59,6 +338,7 @@ function digital_card_delivery_ensure_theme_fields(): void {
         'bundle' => 'organizations',
         'label' => $definition['label'],
         'required' => FALSE,
+        'default_value' => $definition['default_value'] ?? [],
       ])->save();
     }
   }
@@ -77,7 +357,7 @@ function digital_card_delivery_ensure_language_fields(): void {
   ];
   foreach ([
     ['entity_type' => 'group', 'bundle' => 'organizations', 'label' => 'Default static card language'],
-    ['entity_type' => 'node', 'bundle' => 'digital_business_card', 'label' => 'Static card language override'],
+    ['entity_type' => 'node', 'bundle' => 'digital_business_card', 'label' => 'Original card language'],
   ] as $definition) {
     $storage = FieldStorageConfig::loadByName($definition['entity_type'], 'field_card_language');
     if (!$storage) {
@@ -90,15 +370,21 @@ function digital_card_delivery_ensure_language_fields(): void {
       ]);
       $storage->save();
     }
-    if (!FieldConfig::loadByName($definition['entity_type'], $definition['bundle'], 'field_card_language')) {
-      FieldConfig::create([
+    $field = FieldConfig::loadByName($definition['entity_type'], $definition['bundle'], 'field_card_language');
+    if (!$field) {
+      $field = FieldConfig::create([
         'field_storage' => $storage,
         'bundle' => $definition['bundle'],
         'label' => $definition['label'],
         'required' => FALSE,
         'default_value' => $definition['entity_type'] === 'group' ? [['value' => 'en']] : [],
-      ])->save();
+      ]);
     }
+    $field->setLabel($definition['label']);
+    $field->setDescription($definition['entity_type'] === 'group'
+      ? 'Choose one language for all organization cards, or allow card creators to choose an original language and translate it into the other language.'
+      : 'The first/original language of this card. The organization theme determines which choices are allowed.');
+    $field->save();
   }
   $display = EntityFormDisplay::load('node.digital_business_card.default') ?: EntityFormDisplay::create([
     'targetEntityType' => 'node',
@@ -111,4 +397,87 @@ function digital_card_delivery_ensure_language_fields(): void {
     'weight' => 30,
     'region' => 'content',
   ])->save();
+}
+
+/**
+ * Fields whose values belong to one specific card language.
+ */
+function digital_card_delivery_translation_owned_fields(): array {
+  return [
+    'field_full_name',
+    'field_job_title',
+    'field_department',
+    'field_email',
+    'field_mobile',
+    'field_profile_image',
+    'field_social_links',
+  ];
+}
+
+/**
+ * Configures independent and shared card fields for Content Translation.
+ */
+function digital_card_delivery_configure_card_translation_fields(): array {
+  $changed = 0;
+
+  // Editors own these values independently in Arabic and English.
+  foreach (digital_card_delivery_translation_owned_fields() as $field_name) {
+    $field = FieldConfig::loadByName('node', 'digital_business_card', $field_name);
+    if ($field && !$field->isTranslatable()) {
+      $field->setTranslatable(TRUE)->save();
+      $changed++;
+    }
+  }
+
+  // Identity, workflow, generated QR, and source-language policy must remain
+  // consistent for both copies of the same physical NFC card.
+  foreach ([
+    'field_nfc_id',
+    'field_organization',
+    'field_status',
+    'field_qr_code',
+    'field_card_language',
+  ] as $field_name) {
+    $field = FieldConfig::loadByName('node', 'digital_business_card', $field_name);
+    if ($field && $field->isTranslatable()) {
+      $field->setTranslatable(FALSE)->save();
+      $changed++;
+    }
+  }
+
+  // Paragraphs follows the host card's translation. Copying the source into a
+  // new translation is handled by the Paragraphs widget, after which platform
+  // and URL edits are isolated to the selected language.
+  foreach (['field_platform', 'field_url'] as $field_name) {
+    $field = FieldConfig::loadByName('paragraph', 'social_link', $field_name);
+    if ($field && !$field->isTranslatable()) {
+      $field->setTranslatable(TRUE)->save();
+      $changed++;
+    }
+  }
+
+  $settings_storage = \Drupal::entityTypeManager()->getStorage('language_content_settings');
+  foreach ([
+    ['node', 'digital_business_card'],
+    ['paragraph', 'social_link'],
+  ] as [$entity_type, $bundle]) {
+    $settings = $settings_storage->load($entity_type . '.' . $bundle);
+    if (!$settings) {
+      continue;
+    }
+    if (!$settings->getThirdPartySetting('content_translation', 'enabled', FALSE)) {
+      $settings->setThirdPartySetting('content_translation', 'enabled', TRUE);
+      $changed++;
+    }
+    if ($entity_type === 'node' && !$settings->getThirdPartySetting('content_translation', 'untranslatable_fields_hide', FALSE)) {
+      // Translation editors should not accidentally change the shared NFC ID,
+      // organization, Workflow state, QR code, or source-language policy.
+      $settings->setThirdPartySetting('content_translation', 'untranslatable_fields_hide', TRUE);
+      $changed++;
+    }
+    $settings->save();
+  }
+
+  \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
+  return ['changed' => $changed];
 }

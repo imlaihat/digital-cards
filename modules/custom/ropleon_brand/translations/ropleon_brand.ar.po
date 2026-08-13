@@ -21,7 +21,7 @@ msgstr "تواصل معنا"
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-msgid "Technology, Connected."
+msgid "Technology. Connected."
 msgstr "تقنية مترابطة."
 
 msgid "Your Identity. Always Connected."
@@ -424,7 +424,7 @@ msgstr "نجعل الحوكمة والصلاحيات والاعتمادات وش
 msgid "Stable internal architecture and reusable product capabilities support future Ropleon services."
 msgstr "تدعم البنية الداخلية المستقرة والقدرات القابلة لإعادة الاستخدام خدمات روبليون المستقبلية."
 
-msgid "Ropleon Technologies | Technology, Connected."
+msgid "Ropleon Technologies | Technology. Connected."
 msgstr "روبليون تكنولوجيز | تقنية مترابطة."
 
 msgid "Ropleon Technologies connects organizations, people, and commercial partners through secure, scalable digital products."

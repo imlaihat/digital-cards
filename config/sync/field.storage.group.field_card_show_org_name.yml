@@ -1,0 +1,18 @@
+uuid: ec75ae60-0df0-46c2-adb0-fc1be096a53b
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.field_card_show_org_name
+field_name: field_card_show_org_name
+entity_type: group
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

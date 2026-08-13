@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - node.type.article
+    - node.type.digital_business_card
     - node.type.page
     - taxonomy.vocabulary.tags
     - workflow.workflow.card_workflow
@@ -12,10 +13,12 @@ dependencies:
   module:
     - comment
     - content_moderation
+    - content_translation
     - contextual
     - field_ui
     - file
     - node
+    - paragraphs
     - path
     - system
     - taxonomy
@@ -37,6 +40,7 @@ permissions:
   - 'administer workflow_transition display'
   - 'create article content'
   - 'create card_workflow workflow_transition'
+  - 'create content translations'
   - 'create page content'
   - 'create terms in tags'
   - 'create test workflow_transition'
@@ -51,6 +55,9 @@ permissions:
   - 'edit own page content'
   - 'edit terms in tags'
   - 'revert all revisions'
+  - 'translate digital_business_card node'
+  - 'translate paragraph'
+  - 'update content translations'
   - 'use card_approval transition to_pending_approval'
   - 'view all revisions'
   - 'view own unpublished content'

@@ -9,6 +9,7 @@ use Drupal\field\Entity\FieldStorageConfig;
  */
 function digital_card_i18n_install(): void {
   digital_card_i18n_configure();
+  digital_card_i18n_grant_translation_permissions();
   digital_card_i18n_import_arabic();
 }
 
@@ -170,6 +171,33 @@ function digital_card_i18n_update_10019(): string {
 }
 
 /**
+ * Imports organization card presentation and scanner-context translations.
+ */
+function digital_card_i18n_update_10020(): string {
+  digital_card_i18n_import_arabic();
+  return 'Organization card presentation, sharing, and scanner-context translations were imported.';
+}
+
+/**
+ * Enables card translations for editors and refreshes field translatability.
+ */
+function digital_card_i18n_update_10021(): string {
+  digital_card_i18n_enable_content_language_controls();
+  digital_card_i18n_configure_card_translatable_fields();
+  digital_card_i18n_grant_translation_permissions();
+  digital_card_i18n_import_arabic();
+  return 'Digital Card editors can create and update English and Arabic card translations.';
+}
+
+/**
+ * Imports organization-policy and original-card-language guidance.
+ */
+function digital_card_i18n_update_10022(): string {
+  digital_card_i18n_import_arabic();
+  return 'Organization language policy and original card language guidance were translated.';
+}
+
+/**
  * Enables editable content language selection and core Translate operations.
  */
 function digital_card_i18n_enable_content_language_controls(): void {
@@ -201,6 +229,49 @@ function digital_card_i18n_enable_content_language_controls(): void {
           '@message' => $exception->getMessage(),
         ]);
       }
+    }
+  }
+  digital_card_i18n_configure_card_translatable_fields();
+}
+
+/**
+ * Marks only language-dependent card fields as translatable.
+ */
+function digital_card_i18n_configure_card_translatable_fields(): void {
+  foreach (['field_full_name', 'field_job_title', 'field_department', 'field_social_links'] as $field_name) {
+    if ($storage = FieldStorageConfig::loadByName('node', $field_name)) {
+      if (!$storage->isTranslatable()) {
+        $storage->setTranslatable(TRUE)->save();
+      }
+    }
+  }
+}
+
+/**
+ * Grants minimal translation access to trusted card-editor roles.
+ */
+function digital_card_i18n_grant_translation_permissions(): void {
+  $permissions = [
+    'create content translations',
+    'update content translations',
+    'translate digital_business_card node',
+    'translate paragraph',
+  ];
+  $storage = \Drupal::entityTypeManager()->getStorage('user_role');
+  foreach (['organization_admin', 'platform_admin', 'content_editor', 'administrator'] as $role_id) {
+    $role = $storage->load($role_id);
+    if (!$role) {
+      continue;
+    }
+    $changed = FALSE;
+    foreach ($permissions as $permission) {
+      if (!$role->hasPermission($permission)) {
+        $role->grantPermission($permission);
+        $changed = TRUE;
+      }
+    }
+    if ($changed) {
+      $role->save();
     }
   }
 }
@@ -267,17 +338,7 @@ function digital_card_i18n_configure(): void {
       }
     }
   }
-  foreach ([
-    ['node', 'field_full_name'],
-    ['node', 'field_job_title'],
-    ['node', 'field_social_links'],
-  ] as [$entityType, $fieldName]) {
-    if ($storage = FieldStorageConfig::loadByName($entityType, $fieldName)) {
-      if (!$storage->isTranslatable()) {
-        $storage->setTranslatable(TRUE)->save();
-      }
-    }
-  }
+  digital_card_i18n_configure_card_translatable_fields();
 }
 
 /**

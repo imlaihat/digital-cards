@@ -1,0 +1,75 @@
+{
+  "brand": {
+    "corporate_name": "Ropleon Technologies",
+    "corporate_tagline": "Technology. Connected.",
+    "product_name": "Ropleon Cards",
+    "product_tagline": "Your Identity. Always Connected."
+  },
+  "nav": {
+    "home": "Home",
+    "product": "Ropleon Cards",
+    "solutions": "Solutions",
+    "pricing": "Pricing",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Log in",
+    "dashboard": "Dashboard"
+  },
+  "home": {
+    "hero_title": "Technology that keeps people and businesses connected.",
+    "hero_body": "Ropleon Technologies builds practical digital products that simplify identity, connection and business interaction.",
+    "hero_cta_primary": "Explore Ropleon Cards",
+    "hero_cta_secondary": "Contact us"
+  },
+  "cards": {
+    "hero_title": "One smart card. One digital identity. Always up to date.",
+    "hero_body": "Share your professional profile instantly with NFC or QR. Update your details without reprinting your card.",
+    "cta": "Create your digital card",
+    "features": {
+      "nfc": "Tap with NFC",
+      "qr": "Scan with QR",
+      "update": "Update anytime",
+      "contact": "Save contact",
+      "analytics": "Understand engagement"
+    }
+  },
+  "ui": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "search": "Search",
+    "filter": "Filter",
+    "view": "View",
+    "download": "Download",
+    "copy_link": "Copy link",
+    "publish": "Publish",
+    "archive": "Archive",
+    "approve": "Approve",
+    "reject": "Reject",
+    "status": "Status",
+    "organization": "Organization",
+    "cards": "Cards",
+    "administrators": "Administrators",
+    "subscription": "Subscription"
+  },
+  "status": {
+    "draft": "Draft",
+    "waiting_approval": "Waiting approval",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "archived": "Archived"
+  },
+  "errors": {
+    "required": "This field is required.",
+    "invalid_email": "Enter a valid email address.",
+    "not_found": "The requested page could not be found.",
+    "access_denied": "You do not have permission to access this page."
+  },
+  "footer": {
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "copyright": "© Ropleon Technologies. All rights reserved."
+  }
+}

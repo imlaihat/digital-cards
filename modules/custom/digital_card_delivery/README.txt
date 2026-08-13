@@ -7,8 +7,16 @@ What this version does:
   - Generates NFC ID automatically when field_nfc_id is empty.
   - Assigns organization from the Group route context when field_organization is empty.
   - Generates QR image into public://qr_codes when field_qr_code is empty.
-  - Generates static files under /cards/{field_nfc_id}/index.html and contact.vcf after approval.
-  - Copies module CSS to /assets/cards/card.css whenever a static card is generated.
+  - Generates organization-scoped files under /cards/{organization}/{field_nfc_id}/.
+  - Generates the instant public scan copy under /c/{field_nfc_id}/.
+  - Uses each organization's colors, logo, presentation controls, and optional additional CSS.
+  - Treats Default static card language on the organization theme as policy:
+      1. English: every card is English-only.
+      2. Arabic: every card is Arabic-only.
+      3. Arabic and English: the creator chooses the card's original language,
+         then may create only the other language through Drupal translations.
+  - Shows the public language selector only after both real card translations exist.
+  - Regenerates language-specific HTML and vCard files after translation changes.
   - Deletes/pauses static files when a card is not approved or when subscription checks fail.
   - Runs cron maintenance:
       1. expires old organization_subscription records through digital_card_subscription.manager

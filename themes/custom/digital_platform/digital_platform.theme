@@ -9,17 +9,48 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
 /**
+ * Builds a cache-safe URL for any production theme asset.
+ */
+function digital_platform_theme_asset_url(string $relative_path): string {
+  $theme_path = \Drupal::service('extension.list.theme')->getPath('digital_platform');
+  $normalized_path = ltrim(str_replace('\\', '/', $relative_path), '/');
+  $relative_file = $theme_path . '/assets/' . $normalized_path;
+  $absolute_path = DRUPAL_ROOT . '/' . $relative_file;
+  $version = is_file($absolute_path) ? (string) filemtime($absolute_path) : '1';
+
+  return base_path() . $relative_file . '?v=' . rawurlencode($version);
+}
+
+/**
+ * Builds a cache-safe URL for an approved Ropleon brand asset.
+ */
+function digital_platform_brand_asset_url(string $filename): string {
+  return digital_platform_theme_asset_url('brand/' . ltrim($filename, '/'));
+}
+
+/**
+ * Ensures Drupal's standard Site Branding block uses approved artwork.
+ */
+function digital_platform_preprocess_block(array &$variables): void {
+  if (($variables['elements']['#plugin_id'] ?? '') !== 'system_branding_block') {
+    return;
+  }
+
+  if (isset($variables['content']['site_logo']) && is_array($variables['content']['site_logo'])) {
+    $variables['content']['site_logo']['#uri'] = digital_platform_brand_asset_url('ropleon-technologies.svg');
+    $variables['content']['site_logo']['#alt'] = t('Ropleon Technologies');
+  }
+}
+
+/**
  * Keeps the supplied Ropleon icon as the single favicon source.
  */
 function digital_platform_page_attachments_alter(array &$attachments): void {
-  $theme_path = \Drupal::service('extension.list.theme')->getPath('digital_platform');
-  $base_path = base_path();
-
   $links = $attachments['#attached']['html_head_link'] ?? [];
   foreach ($links as $key => $link) {
     $attributes = is_array($link) && isset($link[0]) && is_array($link[0]) ? $link[0] : [];
     $rel = strtolower((string) ($attributes['rel'] ?? ''));
-    if (in_array($rel, ['icon', 'shortcut icon', 'apple-touch-icon'], TRUE)) {
+    if (in_array($rel, ['icon', 'shortcut icon', 'apple-touch-icon', 'manifest'], TRUE)) {
       unset($links[$key]);
     }
   }
@@ -27,20 +58,50 @@ function digital_platform_page_attachments_alter(array &$attachments): void {
   $links = array_values($links);
   $links[] = [[
     'rel' => 'icon',
-    'href' => $base_path . $theme_path . '/assets/brand/favicon.svg?v=3.1.0',
+    'href' => digital_platform_brand_asset_url('favicon.svg'),
     'type' => 'image/svg+xml',
   ], TRUE];
   $links[] = [[
     'rel' => 'icon',
-    'href' => $base_path . $theme_path . '/assets/brand/apple-touch-icon.png?v=3.1.0',
+    'href' => digital_platform_brand_asset_url('ropleon-icon-32x32.png'),
     'type' => 'image/png',
-    'sizes' => '180x180',
+    'sizes' => '32x32',
+  ], TRUE];
+  $links[] = [[
+    'rel' => 'icon',
+    'href' => digital_platform_brand_asset_url('ropleon-icon-16x16.png'),
+    'type' => 'image/png',
+    'sizes' => '16x16',
+  ], TRUE];
+  $links[] = [[
+    'rel' => 'shortcut icon',
+    'href' => digital_platform_brand_asset_url('favicon.ico'),
+    'type' => 'image/x-icon',
   ], TRUE];
   $links[] = [[
     'rel' => 'apple-touch-icon',
-    'href' => $base_path . $theme_path . '/assets/brand/apple-touch-icon.png?v=3.1.0',
+    'href' => digital_platform_brand_asset_url('apple-touch-icon.png'),
+    'sizes' => '180x180',
+  ], TRUE];
+  $links[] = [[
+    'rel' => 'manifest',
+    'href' => digital_platform_brand_asset_url('site.webmanifest'),
   ], TRUE];
   $attachments['#attached']['html_head_link'] = $links;
+  $attachments['#attached']['html_head'][] = [[
+    '#tag' => 'meta',
+    '#attributes' => [
+      'name' => 'theme-color',
+      'content' => '#00184A',
+    ],
+  ], 'ropleon_theme_color'];
+  $attachments['#attached']['html_head'][] = [[
+    '#tag' => 'meta',
+    '#attributes' => [
+      'name' => 'application-name',
+      'content' => 'Ropleon',
+    ],
+  ], 'ropleon_application_name'];
 }
 
 /**
@@ -210,7 +271,7 @@ function digital_platform_preprocess_html(array &$variables): void {
     'contact.site_page',
   ], TRUE)) {
     $variables['head_title']['name'] = t('Ropleon Technologies');
-    $variables['head_title']['slogan'] = t('Technology, Connected.');
+    $variables['head_title']['slogan'] = t('Technology. Connected.');
   }
 
   $portal_context = digital_platform_authenticated_portal_context((string) $route_name);
@@ -484,16 +545,23 @@ function digital_platform_preprocess_page(array &$variables): void {
       'company_name' => (string) ($config->get('company_name') ?: 'Ropleon'),
       'company_legal_name' => (string) ($config->get('company_legal_name') ?: 'Ropleon Technologies'),
       'company_name_ar' => (string) ($config->get('company_name_ar') ?: 'روبليون'),
-      'company_tagline' => (string) ($config->get('company_tagline') ?: 'Technology, Connected.'),
+      'company_tagline' => (string) ($config->get('company_tagline') ?: 'Technology. Connected.'),
       'product_name' => (string) ($config->get('product_name') ?: 'Ropleon Cards'),
       'product_tagline' => (string) ($config->get('product_tagline') ?: 'Your Identity. Always Connected.'),
       'product_branding_line' => (string) ($config->get('product_branding_line') ?: 'Powered by Ropleon Cards.'),
     ];
     $theme_path = \Drupal::service('extension.list.theme')->getPath('digital_platform');
     $variables['ropleon_assets'] = [
-      'company_logo' => base_path() . $theme_path . '/assets/brand/ropleon.svg',
-      'product_logo' => base_path() . $theme_path . '/assets/brand/ropleon-cards.svg',
-      'favicon' => base_path() . $theme_path . '/assets/brand/favicon.svg',
+      'company_logo' => digital_platform_brand_asset_url('ropleon-technologies.svg'),
+      'company_mark' => digital_platform_brand_asset_url('corporate/svg/ropleon-approved-master-color.svg'),
+      'company_logo_inverse' => digital_platform_brand_asset_url('corporate/svg/ropleon-technologies-mono-white.svg'),
+      'product_logo' => digital_platform_brand_asset_url('ropleon-cards.svg'),
+      'product_logo_inverse' => digital_platform_brand_asset_url('cards/svg/ropleon-cards-mono-white.svg'),
+      'favicon' => digital_platform_brand_asset_url('favicon.svg'),
+      'icons' => [
+        'menu' => digital_platform_theme_asset_url('icons/menu.svg'),
+        'close' => digital_platform_theme_asset_url('icons/close.svg'),
+      ],
     ];
   }
 
@@ -504,7 +572,7 @@ function digital_platform_preprocess_page(array &$variables): void {
       'company_name' => (string) ($config->get('company_name') ?: 'Ropleon'),
       'company_legal_name' => (string) ($config->get('company_legal_name') ?: 'Ropleon Technologies'),
       'company_name_ar' => (string) ($config->get('company_name_ar') ?: 'روبليون'),
-      'company_tagline' => (string) ($config->get('company_tagline') ?: 'Technology, Connected.'),
+      'company_tagline' => (string) ($config->get('company_tagline') ?: 'Technology. Connected.'),
       'product_name' => (string) ($config->get('product_name') ?: 'Ropleon Cards'),
       'product_tagline' => (string) ($config->get('product_tagline') ?: 'Your Identity. Always Connected.'),
       'product_branding_line' => (string) ($config->get('product_branding_line') ?: 'Powered by Ropleon Cards.'),
@@ -579,19 +647,25 @@ function digital_platform_preprocess_page(array &$variables): void {
       ], TRUE];
     }
 
-    $theme_path = \Drupal::service('extension.list.theme')->getPath('digital_platform');
-    $base_path = base_path();
     $variables['ropleon_assets'] = [
-      'company_logo' => $base_path . $theme_path . '/assets/brand/ropleon.svg',
-      'product_logo' => $base_path . $theme_path . '/assets/brand/ropleon-cards.svg',
-      'favicon' => $base_path . $theme_path . '/assets/brand/favicon.svg',
+      'company_logo' => digital_platform_brand_asset_url('ropleon-technologies.svg'),
+      'company_mark' => digital_platform_brand_asset_url('corporate/svg/ropleon-approved-master-color.svg'),
+      'company_logo_inverse' => digital_platform_brand_asset_url('corporate/svg/ropleon-technologies-mono-white.svg'),
+      'product_logo' => digital_platform_brand_asset_url('ropleon-cards.svg'),
+      'product_logo_inverse' => digital_platform_brand_asset_url('cards/svg/ropleon-cards-mono-white.svg'),
+      'favicon' => digital_platform_brand_asset_url('favicon.svg'),
+      'icons' => [
+        'menu' => digital_platform_theme_asset_url('icons/menu.svg'),
+        'close' => digital_platform_theme_asset_url('icons/close.svg'),
+      ],
     ];
 
     $og_asset = $route_name === 'ropleon_brand.cards'
-      ? $theme_path . '/assets/brand/og-ropleon-cards.jpg'
-      : $theme_path . '/assets/brand/og-ropleon.jpg';
-    if (is_file(DRUPAL_ROOT . '/' . $og_asset)) {
-      $absolute_og = \Drupal::request()->getSchemeAndHttpHost() . $base_path . $og_asset;
+      ? 'social/cards/open-graph-1200x630.png'
+      : 'social/corporate/open-graph-1200x630.png';
+    $og_file = \Drupal::service('extension.list.theme')->getPath('digital_platform') . '/assets/' . $og_asset;
+    if (is_file(DRUPAL_ROOT . '/' . $og_file)) {
+      $absolute_og = \Drupal::request()->getSchemeAndHttpHost() . digital_platform_theme_asset_url($og_asset);
       $variables['#attached']['html_head'][] = [[
         '#tag' => 'meta',
         '#attributes' => ['property' => 'og:image', 'content' => $absolute_og],
@@ -600,6 +674,10 @@ function digital_platform_preprocess_page(array &$variables): void {
         '#tag' => 'meta',
         '#attributes' => ['name' => 'twitter:image', 'content' => $absolute_og],
       ], 'ropleon_twitter_image'];
+      $variables['#attached']['html_head'][] = [[
+        '#tag' => 'meta',
+        '#attributes' => ['name' => 'twitter:card', 'content' => 'summary_large_image'],
+      ], 'ropleon_twitter_card'];
     }
   }
 
@@ -611,9 +689,12 @@ function digital_platform_preprocess_page(array &$variables): void {
     $variables['ropleon_portal_context'] = $portal_context;
     $variables['ropleon_portal_account_name'] = $account->getDisplayName();
     $variables['ropleon_assets'] = [
-      'company_logo' => $base_path . $theme_path . '/assets/brand/ropleon.svg',
-      'product_logo' => $base_path . $theme_path . '/assets/brand/ropleon-cards.svg',
-      'favicon' => $base_path . $theme_path . '/assets/brand/favicon.svg',
+      'company_logo' => digital_platform_brand_asset_url('ropleon-technologies.svg'),
+      'company_mark' => digital_platform_brand_asset_url('corporate/svg/ropleon-approved-master-color.svg'),
+      'company_logo_inverse' => digital_platform_brand_asset_url('corporate/svg/ropleon-technologies-mono-white.svg'),
+      'product_logo' => digital_platform_brand_asset_url('ropleon-cards.svg'),
+      'product_logo_inverse' => digital_platform_brand_asset_url('cards/svg/ropleon-cards-mono-white.svg'),
+      'favicon' => digital_platform_brand_asset_url('favicon.svg'),
     ];
     $variables['ropleon_portal_urls'] = [
       'company' => Url::fromRoute('<front>')->toString(),
@@ -685,8 +766,8 @@ function digital_platform_preprocess_page(array &$variables): void {
 function digital_platform_preprocess_ropleon_cards_landing(array &$variables): void {
   $theme_path = \Drupal::service('extension.list.theme')->getPath('digital_platform');
   $variables['ropleon_assets'] = [
-    'product_logo' => base_path() . $theme_path . '/assets/brand/ropleon-cards.svg',
-    'favicon' => base_path() . $theme_path . '/assets/brand/favicon.svg',
+    'product_logo' => digital_platform_brand_asset_url('ropleon-cards.svg'),
+    'favicon' => digital_platform_brand_asset_url('favicon.svg'),
   ];
 }
 

@@ -63,10 +63,10 @@
     <div class="rp-portal-footer__inner">
       <div class="rp-portal-footer__brand">
         {% if ropleon_portal_context == 'platform' %}
-          <img src="{{ ropleon_assets.company_logo }}" alt="{{ 'Ropleon Technologies'|t }}">
-          <div><strong>{{ 'Platform Portal'|t }}</strong><span>{{ 'Technology, Connected.'|t }}</span></div>
+          <img src="{{ ropleon_assets.company_logo_inverse|default(ropleon_assets.company_logo) }}" alt="{{ 'Ropleon Technologies'|t }}">
+          <div><strong>{{ 'Platform Portal'|t }}</strong><span>{{ 'Technology. Connected.'|t }}</span></div>
         {% else %}
-          <img src="{{ ropleon_assets.product_logo }}" alt="{{ 'Ropleon Cards'|t }}">
+          <img src="{{ ropleon_assets.product_logo_inverse|default(ropleon_assets.product_logo) }}" alt="{{ 'Ropleon Cards'|t }}">
           <div><strong>{{ ropleon_portal_context == 'merchant' ? 'Merchant Portal'|t : 'Organization Portal'|t }}</strong><span>{{ 'A product of Ropleon Technologies'|t }}</span></div>
         {% endif %}
       </div>

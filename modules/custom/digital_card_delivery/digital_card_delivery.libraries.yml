@@ -1,0 +1,11 @@
+theme-color-inputs:
+  version: 1.0.0
+  css:
+    component:
+      css/theme-color-inputs.css: {}
+  js:
+    js/theme-color-inputs.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+

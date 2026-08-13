@@ -1,7 +1,7 @@
-name: Ropleon Platform
+name: Ropleon Digital Platform
 type: theme
 base theme: bootstrap_barrio
-description: 'Ropleon Technologies corporate, product, and authenticated portal theme.'
+description: 'Approved Ropleon Technologies corporate, Ropleon Cards product, and authenticated portal theme.'
 core_version_requirement: ^10 || ^11
 
 libraries:
@@ -27,4 +27,3 @@ regions:
   dashboard_header: Dashboard Header
 
   dashboard_content: Dashboard Content
-

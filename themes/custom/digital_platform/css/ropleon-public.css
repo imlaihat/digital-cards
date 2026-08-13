@@ -64,8 +64,9 @@
 
 .rp-wordmark img {
   display: block;
-  width: auto;
-  height: 38px;
+  width: clamp(180px, 15vw, 210px);
+  height: auto;
+  max-height: 64px;
 }
 
 .rp-corporate-nav {
@@ -190,12 +191,11 @@
   background: #fff;
 }
 
-.rp-nav-toggle i {
+.rp-nav-toggle img,
+.rp-nav-close img {
   display: block;
-  height: 2px;
-  margin: 4px 0;
-  border-radius: 2px;
-  background: var(--ropleon-navy-950);
+  width: 22px;
+  height: 22px;
 }
 
 .rp-system-region {
@@ -1736,8 +1736,9 @@
 }
 
 .rp-footer-logo img {
-  width: auto;
-  height: 36px;
+  width: min(210px, 100%);
+  height: auto;
+  max-height: 74px;
 }
 
 .rp-footer-brand p {
@@ -2116,7 +2117,9 @@ body.rp-navigation-open {
   }
 
   .rp-wordmark img {
-    height: 31px;
+    width: 150px;
+    height: auto;
+    max-height: 42px;
   }
 
   .rp-language-nav__link {

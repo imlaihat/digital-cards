@@ -12,7 +12,7 @@ bundle: social_link
 label: Platform
 description: 'Select the social network for this link. The card will automatically use its approved name and icon.'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

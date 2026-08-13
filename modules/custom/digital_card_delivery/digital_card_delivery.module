@@ -1,12 +1,235 @@
 <?php
 
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\digital_card_delivery\Service\CardLanguagePolicy;
 use Drupal\node\NodeInterface;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function digital_card_delivery_form_node_digital_business_card_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  digital_card_delivery_prepare_card_language_form($form, $form_state);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function digital_card_delivery_form_node_digital_business_card_edit_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  digital_card_delivery_prepare_card_language_form($form, $form_state);
+}
+
+/**
+ * Adds the organization-aware language policy to card forms.
+ */
+function digital_card_delivery_prepare_card_language_form(array &$form, FormStateInterface $form_state): void {
+  $form_object = $form_state->getFormObject();
+  if (!method_exists($form_object, 'getEntity')) {
+    return;
+  }
+  $card = $form_object->getEntity();
+  if (!$card instanceof NodeInterface || $card->bundle() !== 'digital_business_card') {
+    return;
+  }
+
+  digital_card_delivery_attach_route_organization($card);
+  $policy = \Drupal::service('digital_card_delivery.card_language_policy');
+  if (!$card->isDefaultTranslation() && !$policy->allowsTranslation($card)) {
+    throw new AccessDeniedHttpException((string) t('This organization publishes cards in one language, so a card translation cannot be added or edited.'));
+  }
+
+  $form['#after_build'][] = 'digital_card_delivery_card_language_after_build';
+  $form['#validate'][] = 'digital_card_delivery_card_language_validate';
+}
+
+/**
+ * Applies final language choices after all field widgets have been built.
+ */
+function digital_card_delivery_card_language_after_build(array $form, FormStateInterface $form_state): array {
+  $form_object = $form_state->getFormObject();
+  $card = method_exists($form_object, 'getEntity') ? $form_object->getEntity() : NULL;
+  if (!$card instanceof NodeInterface || $card->bundle() !== 'digital_business_card') {
+    return $form;
+  }
+
+  digital_card_delivery_attach_route_organization($card);
+  /** @var \Drupal\digital_card_delivery\Service\CardLanguagePolicy $policy */
+  $policy = \Drupal::service('digital_card_delivery.card_language_policy');
+  $organization_policy = $policy->organizationPolicy($card);
+  $original = $policy->originalLanguage($card);
+  $is_new_source = $card->isNew() && $card->isDefaultTranslation();
+
+  // The organization-aware field below is the single source of truth for a
+  // new card's source language. Hiding Drupal's generic language widget avoids
+  // contradictory selections on the same form.
+  if (isset($form['langcode'])) {
+    $form['langcode']['#access'] = FALSE;
+  }
+
+  if (isset($form['field_card_language'])) {
+    $options = $is_new_source ? $policy->originalLanguageOptions($card) : [$original => digital_card_delivery_language_label($original)];
+    $default = $is_new_source && $organization_policy === CardLanguagePolicy::BILINGUAL
+      ? $original
+      : array_key_first($options);
+    $description = $organization_policy === CardLanguagePolicy::BILINGUAL
+      ? ($is_new_source
+        ? t('Choose the language of the first/original card copy. After saving, the Translate tab can create the @language translation.', ['@language' => $original === 'ar' ? t('English') : t('Arabic')])
+        : t('The original card language is locked after creation. Use the Translate tab for the other language.'))
+      : t('This organization publishes cards in @language only. The organization theme setting controls this value.', ['@language' => digital_card_delivery_language_label($original)]);
+    digital_card_delivery_configure_language_element($form['field_card_language'], $options, (string) $default, !$is_new_source, $description);
+  }
+
+  if ($organization_policy === CardLanguagePolicy::BILINGUAL) {
+    $alternate = $policy->translationLanguage($card);
+    $message = $is_new_source
+      ? t('Create the original card now. After saving it, add only its @language translation from the Translate tab.', ['@language' => digital_card_delivery_language_label((string) $alternate)])
+      : t('This organization allows both languages. The original copy is @original; the only translation language is @translation.', [
+        '@original' => digital_card_delivery_language_label($original),
+        '@translation' => digital_card_delivery_language_label((string) $alternate),
+      ]);
+    if (isset($form['digital_card_translation_help']['message'])) {
+      $form['digital_card_translation_help']['message']['#markup'] = '<strong>' . t('Card languages') . ':</strong> ' . $message;
+    }
+  }
+  elseif (isset($form['digital_card_translation_help'])) {
+    $form['digital_card_translation_help']['#access'] = FALSE;
+  }
+
+  return $form;
+}
+
+/**
+ * Configures the bounded select/radios element inside an options widget.
+ *
+ * Form render arrays can contain references back to parent/form state data.
+ * Recursively traversing an arbitrary render array can therefore loop until
+ * PHP exhausts memory. OptionsSelectWidget normally places #type directly on
+ * the widget; the explicit fallbacks cover the common alternative structures.
+ */
+function digital_card_delivery_configure_language_element(array &$element, array $options, string $default, bool $disabled, $description): void {
+  $candidates = [
+    &$element,
+  ];
+  if (isset($element['widget']) && is_array($element['widget'])) {
+    $candidates[] = &$element['widget'];
+  }
+  if (isset($element['widget'][0]) && is_array($element['widget'][0])) {
+    $candidates[] = &$element['widget'][0];
+  }
+  if (isset($element['widget'][0]['value']) && is_array($element['widget'][0]['value'])) {
+    $candidates[] = &$element['widget'][0]['value'];
+  }
+
+  foreach ($candidates as &$candidate) {
+    if (isset($candidate['#type']) && in_array($candidate['#type'], ['select', 'radios'], TRUE)) {
+      $candidate['#title'] = t('Original card language');
+      $candidate['#options'] = $options;
+      $candidate['#default_value'] = $default;
+      $candidate['#disabled'] = $disabled;
+      $candidate['#description'] = $description;
+      break;
+    }
+  }
+  unset($candidate);
+}
+
+/**
+ * Validates and copies the original-language selection to the source entity.
+ */
+function digital_card_delivery_card_language_validate(array &$form, FormStateInterface $form_state): void {
+  $form_object = $form_state->getFormObject();
+  $card = method_exists($form_object, 'getEntity') ? $form_object->getEntity() : NULL;
+  if (!$card instanceof NodeInterface || $card->bundle() !== 'digital_business_card') {
+    return;
+  }
+
+  digital_card_delivery_attach_route_organization($card);
+  /** @var \Drupal\digital_card_delivery\Service\CardLanguagePolicy $policy */
+  $policy = \Drupal::service('digital_card_delivery.card_language_policy');
+  if (!$card->isDefaultTranslation() && !$policy->allowsTranslation($card)) {
+    $form_state->setErrorByName('langcode', t('This organization allows only one card language.'));
+    return;
+  }
+
+  if ($card->isNew() && $card->isDefaultTranslation()) {
+    $selected = digital_card_delivery_submitted_card_language($form_state);
+    $organization_policy = $policy->organizationPolicy($card);
+    if ($organization_policy !== CardLanguagePolicy::BILINGUAL) {
+      $selected = $organization_policy;
+    }
+    elseif (!in_array($selected, [CardLanguagePolicy::ENGLISH, CardLanguagePolicy::ARABIC], TRUE)) {
+      $selected = $policy->originalLanguage($card);
+    }
+    $card->set('field_card_language', $selected);
+    $card->set('langcode', $selected);
+  }
+}
+
+/**
+ * Reads the options-widget value regardless of its widget nesting.
+ */
+function digital_card_delivery_submitted_card_language(FormStateInterface $form_state): string {
+  $value = $form_state->getValue('field_card_language');
+  if (is_string($value)) {
+    return $value;
+  }
+  if (is_array($value)) {
+    $candidate = $value[0]['value'] ?? $value[0] ?? $value['value'] ?? '';
+    return is_scalar($candidate) ? (string) $candidate : '';
+  }
+  return '';
+}
+
+/**
+ * Assigns the route group to a new card before the language policy is read.
+ */
+function digital_card_delivery_attach_route_organization(NodeInterface $card): void {
+  if (!$card->hasField('field_organization') || !$card->get('field_organization')->isEmpty()) {
+    return;
+  }
+  $group = \Drupal::routeMatch()->getParameter('group');
+  if (is_object($group) && method_exists($group, 'bundle') && method_exists($group, 'id') && $group->bundle() === 'organizations') {
+    $card->set('field_organization', $group->id());
+  }
+}
+
+/**
+ * Returns a translated, user-facing language label.
+ */
+function digital_card_delivery_language_label(string $langcode) {
+  return $langcode === CardLanguagePolicy::ARABIC ? t('Arabic') : t('English');
+}
 
 /**
  * Implements hook_node_presave().
  */
 function digital_card_delivery_node_presave(NodeInterface $node): void {
   if ($node->bundle() === 'digital_business_card') {
+    /** @var \Drupal\digital_card_delivery\Service\CardLanguagePolicy $policy */
+    $policy = \Drupal::service('digital_card_delivery.card_language_policy');
+    if (!$node->isDefaultTranslation() && !$policy->allowsTranslation($node)) {
+      throw new EntityStorageException((string) t('This card cannot be translated because its organization allows only one static card language.'));
+    }
+    if (!$node->isDefaultTranslation() && $policy->allowsTranslation($node)) {
+      $expected = $policy->translationLanguage($node);
+      if ($node->language()->getId() !== $expected) {
+        throw new EntityStorageException((string) t('The only allowed translation language for this card is @language.', [
+          '@language' => digital_card_delivery_language_label((string) $expected),
+        ]));
+      }
+    }
+
+    $original = $policy->originalLanguage($node);
+    if ($node->isDefaultTranslation()) {
+      $node->set('field_card_language', $original);
+    }
+    if ($node->isNew() && $node->isDefaultTranslation() && $node->language()->getId() !== $original) {
+      // The source language is selected only during initial creation. Existing
+      // entities keep their Drupal source language permanently.
+      $node->set('langcode', $original);
+    }
     \Drupal::service('digital_card_delivery.card_preparation')->prepare($node);
   }
 }
@@ -31,6 +254,17 @@ function digital_card_delivery_node_update(NodeInterface $node): void {
 function digital_card_delivery_node_delete(NodeInterface $node): void {
   if ($node->bundle() === 'digital_business_card') {
     \Drupal::service('digital_card_delivery.static_generator')->delete($node);
+  }
+}
+
+/**
+ * Implements hook_entity_translation_delete().
+ */
+function digital_card_delivery_entity_translation_delete(EntityInterface $translation): void {
+  if ($translation instanceof NodeInterface && $translation->bundle() === 'digital_business_card') {
+    // Rebuilding removes the obsolete /en or /ar static directory and hides
+    // the language selector immediately after a translation is deleted.
+    digital_card_delivery_sync_card($translation->getUntranslated());
   }
 }
 

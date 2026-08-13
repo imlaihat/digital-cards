@@ -1,0 +1,23 @@
+uuid: 43844ed8-75b5-4251-8b12-9b47e07175a0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_card_verified_badge
+    - group.type.organizations
+id: group.organizations.field_card_verified_badge
+field_name: field_card_verified_badge
+entity_type: group
+bundle: organizations
+label: 'Show verified employee badge'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

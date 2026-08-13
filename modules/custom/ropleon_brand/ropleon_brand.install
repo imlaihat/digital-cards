@@ -15,7 +15,7 @@ function ropleon_brand_install(): void {
 
   $editable
     ->set('name', 'Ropleon Technologies')
-    ->set('slogan', 'Technology, Connected.')
+    ->set('slogan', 'Technology. Connected.')
     ->set('page.front', '/ropleon')
     ->save(TRUE);
 
@@ -56,6 +56,24 @@ function ropleon_brand_update_10003(): string {
 function ropleon_brand_update_10004(): string {
   ropleon_brand_import_arabic();
   return 'Ropleon responsive table and mobile action translations were imported.';
+}
+
+/**
+ * Applies the approved production tagline without replacing custom copy.
+ */
+function ropleon_brand_update_10005(): string {
+  $brand = \Drupal::configFactory()->getEditable('ropleon_brand.settings');
+  if (in_array($brand->get('company_tagline'), [NULL, '', 'Technology, Connected.'], TRUE)) {
+    $brand->set('company_tagline', 'Technology. Connected.')->save(TRUE);
+  }
+
+  $site = \Drupal::configFactory()->getEditable('system.site');
+  if (in_array($site->get('slogan'), [NULL, '', 'Technology, Connected.'], TRUE)) {
+    $site->set('slogan', 'Technology. Connected.')->save(TRUE);
+  }
+
+  ropleon_brand_import_arabic();
+  return 'Approved Ropleon production tagline and editable translations were installed.';
 }
 
 /**

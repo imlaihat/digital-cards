@@ -906,3 +906,90 @@ msgstr "تم إرسال كلمة المرور المؤقتة الجديدة إل
 
 msgid "The administrator was saved, but the password email could not be sent."
 msgstr "تم حفظ حساب المسؤول، لكن تعذر إرسال رسالة كلمة المرور."
+
+msgid "Show organization name beside the logo"
+msgstr "إظهار اسم المؤسسة بجانب الشعار"
+
+msgid "Disable this when the uploaded logo already contains the complete organization name."
+msgstr "عطّل هذا الخيار عندما يتضمن الشعار المرفوع اسم المؤسسة كاملاً."
+
+msgid "Show organization logo watermark in the card cover"
+msgstr "إظهار شعار المؤسسة كعلامة مائية في غلاف البطاقة"
+
+msgid "Adds a subtle monochrome version of the organization logo to the branded cover."
+msgstr "يضيف نسخة أحادية اللون وهادئة من شعار المؤسسة إلى غلاف البطاقة."
+
+msgid "Show verified employee badge"
+msgstr "إظهار شارة موظف موثّق"
+
+msgid "Use this only when the organization verifies the identity and employment status of its card holders."
+msgstr "استخدم هذا الخيار فقط عندما تتحقق المؤسسة من هوية حاملي بطاقاتها ووضعهم الوظيفي."
+
+msgid "Offers are currently unavailable."
+msgstr "العروض غير متاحة حالياً."
+
+msgid "Card translations"
+msgstr "ترجمات البطاقة"
+
+msgid "Save the original card first, then use the Translate tab to add its Arabic or English copy. Each public language page displays the values entered in that translation."
+msgstr "احفظ البطاقة الأصلية أولاً، ثم استخدم تبويب «ترجمة» لإضافة نسختها العربية أو الإنجليزية. تعرض كل صفحة لغة عامة القيم المدخلة في ترجمتها."
+
+msgid "Choose English or Arabic for a single-language card. Choose Arabic and English only after adding both content translations; the public language selector appears when both translations exist."
+msgstr "اختر الإنجليزية أو العربية لبطاقة أحادية اللغة. اختر العربية والإنجليزية فقط بعد إضافة ترجمتي المحتوى؛ يظهر محدد اللغة العام عند توفر الترجمتين."
+
+msgid "New cards use this setting unless overridden. The public language selector is shown only when Arabic and English is selected and the card has real content translations in both languages."
+msgstr "تستخدم البطاقات الجديدة هذا الإعداد ما لم يتم تجاوزه. يظهر محدد اللغة العام فقط عند اختيار العربية والإنجليزية ووجود ترجمة فعلية لمحتوى البطاقة باللغتين."
+
+msgid "Enter a WhatsApp number with country code or an official WhatsApp click-to-chat URL."
+msgstr "أدخل رقم واتساب مع رمز الدولة أو رابط واتساب رسمي للمحادثة المباشرة."
+
+msgid "Use a WhatsApp number with a 7 to 15 digit international country code."
+msgstr "استخدم رقم واتساب يتضمن رمز الدولة ويتكون من 7 إلى 15 رقماً."
+
+msgid "Enter a valid WhatsApp click-to-chat URL."
+msgstr "أدخل رابط واتساب صالحاً للمحادثة المباشرة."
+
+msgid "Use a WhatsApp number or a wa.me link. Profile-name URLs are not valid WhatsApp contact links."
+msgstr "استخدم رقم واتساب أو رابط wa.me؛ روابط أسماء الملفات الشخصية ليست روابط اتصال صالحة في واتساب."
+
+msgid "Original card language"
+msgstr "اللغة الأصلية للبطاقة"
+
+msgid "Choose the first/original language of this card. The organization theme determines whether one or both languages are allowed."
+msgstr "اختر اللغة الأولى والأصلية لهذه البطاقة. تحدد سمة المؤسسة ما إذا كانت لغة واحدة أو كلتا اللغتين مسموحتين."
+
+msgid "Card languages"
+msgstr "لغات البطاقة"
+
+msgid "The organization theme controls the allowed languages. When both are allowed, save the original card first and then use the Translate tab to create only the other language copy."
+msgstr "تتحكم سمة المؤسسة باللغات المسموح بها. عند السماح باللغتين، احفظ البطاقة الأصلية أولاً ثم استخدم تبويب «ترجمة» لإنشاء نسخة اللغة الأخرى فقط."
+
+msgid "English or Arabic makes every organization card single-language. Arabic and English lets the card creator choose the original language and add the other language later as a translation. The public selector appears only after that translation exists."
+msgstr "اختيار الإنجليزية أو العربية يجعل جميع بطاقات المؤسسة أحادية اللغة. أما اختيار العربية والإنجليزية فيتيح لمنشئ البطاقة تحديد اللغة الأصلية ثم إضافة اللغة الأخرى لاحقاً كترجمة. لا يظهر محدد اللغة العام إلا بعد وجود تلك الترجمة."
+
+msgid "Choose the language of the first/original card copy. After saving, the Translate tab can create the @language translation."
+msgstr "اختر لغة النسخة الأولى والأصلية للبطاقة. بعد الحفظ، يمكنك استخدام تبويب «ترجمة» لإنشاء النسخة @language."
+
+msgid "The original card language is locked after creation. Use the Translate tab for the other language."
+msgstr "تُثبّت اللغة الأصلية للبطاقة بعد إنشائها. استخدم تبويب «ترجمة» للغة الأخرى."
+
+msgid "This organization publishes cards in @language only. The organization theme setting controls this value."
+msgstr "تنشر هذه المؤسسة بطاقاتها باللغة @language فقط. يتحكم إعداد سمة المؤسسة بهذه القيمة."
+
+msgid "Create the original card now. After saving it, add only its @language translation from the Translate tab."
+msgstr "أنشئ البطاقة الأصلية الآن. بعد حفظها، أضف ترجمتها باللغة @language فقط من تبويب «ترجمة»."
+
+msgid "This organization allows both languages. The original copy is @original; the only translation language is @translation."
+msgstr "تسمح هذه المؤسسة باللغتين. النسخة الأصلية باللغة @original، ولغة الترجمة الوحيدة هي @translation."
+
+msgid "This organization publishes cards in one language, so a card translation cannot be added or edited."
+msgstr "تنشر هذه المؤسسة بطاقاتها بلغة واحدة، لذلك لا يمكن إضافة ترجمة للبطاقة أو تعديلها."
+
+msgid "This organization allows only one card language."
+msgstr "تسمح هذه المؤسسة بلغة واحدة للبطاقات فقط."
+
+msgid "This card cannot be translated because its organization allows only one static card language."
+msgstr "لا يمكن ترجمة هذه البطاقة لأن مؤسستها تسمح بلغة واحدة فقط للبطاقة الثابتة."
+
+msgid "The only allowed translation language for this card is @language."
+msgstr "لغة الترجمة الوحيدة المسموح بها لهذه البطاقة هي @language."

@@ -332,7 +332,7 @@ function digital_card_i18n_prepare_digital_card_form(array &$form): void {
     'field_email' => ['Email', 'Enter the business email address displayed on the card.'],
     'field_social_links' => ['Social Links', 'Add only public professional or organization social links.'],
     'field_profile_image' => ['Profile Image', 'Upload a clear and recent card-holder photo.'],
-    'field_card_language' => ['Static card language override', 'Keep the organization default, or choose a different language for this card.'],
+    'field_card_language' => ['Original card language', 'Choose the first/original language of this card. The organization theme determines whether one or both languages are allowed.'],
     'field_qr_code' => ['QR Code', 'The QR code is generated after approval. Leave this empty unless an authorized replacement is required.'],
   ];
 
@@ -340,6 +340,18 @@ function digital_card_i18n_prepare_digital_card_form(array &$form): void {
     digital_card_i18n_set_field_title($form, $field_name, t($title));
     digital_card_i18n_set_field_description($form, $field_name, t($description));
   }
+
+  $form['digital_card_translation_help'] = [
+    '#type' => 'container',
+    '#weight' => -180,
+    '#attributes' => [
+      'class' => ['alert', 'alert-info', 'dc-card-translation-help'],
+      'role' => 'note',
+    ],
+    'message' => [
+      '#markup' => '<strong>' . t('Card languages') . ':</strong> ' . t('The organization theme controls the allowed languages. When both are allowed, save the original card first and then use the Translate tab to create only the other language copy.'),
+    ],
+  ];
 
   // Revision controls are internal implementation details for organization
   // administrators; Workflow state actions remain available on the form.
@@ -679,6 +691,7 @@ function digital_card_i18n_rewrite_view_actions(string $view_id, array &$fields)
       . '<ul class="dropdown-menu dropdown-menu-end">'
       . '<li><a class="dropdown-item" href="' . $base . 'node/{{ nid }}"><i class="bi bi-eye"></i> ' . t('View') . '</a></li>'
       . '<li><a class="dropdown-item" href="' . $base . 'node/{{ nid }}/edit"><i class="bi bi-pencil"></i> ' . t('Edit') . '</a></li>'
+      . '<li><a class="dropdown-item" href="' . $base . 'node/{{ nid }}/translations"><i class="bi bi-translate"></i> ' . t('Translate') . '</a></li>'
       . '<li><a class="dropdown-item text-danger" href="' . $base . 'node/{{ nid }}/delete"><i class="bi bi-trash"></i> ' . t('Delete') . '</a></li>'
       . '<li><hr class="dropdown-divider"></li>'
       . $status_actions
@@ -956,6 +969,9 @@ function digital_card_i18n_translatable_sources(): array {
     'Add or update a Digital Card',
     'Enter the card-holder information that will appear on the organization card.',
     'Enter the card holder role or professional title.',
+    'Card translations',
+    'Save the original card first, then use the Translate tab to add its Arabic or English copy. Each public language page displays the values entered in that translation.',
+    'Choose English or Arabic for a single-language card. Choose Arabic and English only after adding both content translations; the public language selector appears when both translations exist.',
     'Select the department associated with the card holder.',
     'Enter a reachable mobile number, including the country code when needed.',
     'Enter the business email address displayed on the card.',

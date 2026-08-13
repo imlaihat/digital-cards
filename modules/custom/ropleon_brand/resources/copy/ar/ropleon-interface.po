@@ -1,0 +1,228 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ropleon Production Brand Handoff 1.0.0\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+
+#. brand.corporate_name
+msgid "brand.corporate_name"
+msgstr "شركة روبليون للتكنولوجيا"
+
+#. brand.corporate_tagline
+msgid "brand.corporate_tagline"
+msgstr "تكنولوجيا. تواصل."
+
+#. brand.product_name
+msgid "brand.product_name"
+msgstr "روبليون كاردز"
+
+#. brand.product_tagline
+msgid "brand.product_tagline"
+msgstr "هويتك. متصلة دائماً."
+
+#. nav.home
+msgid "nav.home"
+msgstr "الرئيسية"
+
+#. nav.product
+msgid "nav.product"
+msgstr "روبليون كاردز"
+
+#. nav.solutions
+msgid "nav.solutions"
+msgstr "الحلول"
+
+#. nav.pricing
+msgid "nav.pricing"
+msgstr "الأسعار"
+
+#. nav.about
+msgid "nav.about"
+msgstr "من نحن"
+
+#. nav.contact
+msgid "nav.contact"
+msgstr "تواصل معنا"
+
+#. nav.login
+msgid "nav.login"
+msgstr "تسجيل الدخول"
+
+#. nav.dashboard
+msgid "nav.dashboard"
+msgstr "لوحة التحكم"
+
+#. home.hero_title
+msgid "home.hero_title"
+msgstr "تقنية تبقي الأشخاص والأعمال على اتصال."
+
+#. home.hero_body
+msgid "home.hero_body"
+msgstr "تطور روبليون للتكنولوجيا منتجات رقمية عملية تبسّط الهوية والتواصل والتفاعل التجاري."
+
+#. home.hero_cta_primary
+msgid "home.hero_cta_primary"
+msgstr "اكتشف روبليون كاردز"
+
+#. home.hero_cta_secondary
+msgid "home.hero_cta_secondary"
+msgstr "تواصل معنا"
+
+#. cards.hero_title
+msgid "cards.hero_title"
+msgstr "بطاقة ذكية واحدة. هوية رقمية واحدة. محدثة دائماً."
+
+#. cards.hero_body
+msgid "cards.hero_body"
+msgstr "شارك ملفك المهني فوراً عبر NFC أو QR، وحدّث بياناتك دون الحاجة إلى إعادة طباعة البطاقة."
+
+#. cards.cta
+msgid "cards.cta"
+msgstr "أنشئ بطاقتك الرقمية"
+
+#. cards.features.nfc
+msgid "cards.features.nfc"
+msgstr "المشاركة عبر NFC"
+
+#. cards.features.qr
+msgid "cards.features.qr"
+msgstr "المشاركة عبر QR"
+
+#. cards.features.update
+msgid "cards.features.update"
+msgstr "تحديث في أي وقت"
+
+#. cards.features.contact
+msgid "cards.features.contact"
+msgstr "حفظ جهة الاتصال"
+
+#. cards.features.analytics
+msgid "cards.features.analytics"
+msgstr "متابعة التفاعل"
+
+#. ui.save
+msgid "ui.save"
+msgstr "حفظ"
+
+#. ui.cancel
+msgid "ui.cancel"
+msgstr "إلغاء"
+
+#. ui.edit
+msgid "ui.edit"
+msgstr "تعديل"
+
+#. ui.delete
+msgid "ui.delete"
+msgstr "حذف"
+
+#. ui.add
+msgid "ui.add"
+msgstr "إضافة"
+
+#. ui.search
+msgid "ui.search"
+msgstr "بحث"
+
+#. ui.filter
+msgid "ui.filter"
+msgstr "تصفية"
+
+#. ui.view
+msgid "ui.view"
+msgstr "عرض"
+
+#. ui.download
+msgid "ui.download"
+msgstr "تنزيل"
+
+#. ui.copy_link
+msgid "ui.copy_link"
+msgstr "نسخ الرابط"
+
+#. ui.publish
+msgid "ui.publish"
+msgstr "نشر"
+
+#. ui.archive
+msgid "ui.archive"
+msgstr "أرشفة"
+
+#. ui.approve
+msgid "ui.approve"
+msgstr "اعتماد"
+
+#. ui.reject
+msgid "ui.reject"
+msgstr "رفض"
+
+#. ui.status
+msgid "ui.status"
+msgstr "الحالة"
+
+#. ui.organization
+msgid "ui.organization"
+msgstr "المؤسسة"
+
+#. ui.cards
+msgid "ui.cards"
+msgstr "البطاقات"
+
+#. ui.administrators
+msgid "ui.administrators"
+msgstr "المشرفون"
+
+#. ui.subscription
+msgid "ui.subscription"
+msgstr "الاشتراك"
+
+#. status.draft
+msgid "status.draft"
+msgstr "مسودة"
+
+#. status.waiting_approval
+msgid "status.waiting_approval"
+msgstr "بانتظار الاعتماد"
+
+#. status.approved
+msgid "status.approved"
+msgstr "معتمدة"
+
+#. status.rejected
+msgid "status.rejected"
+msgstr "مرفوضة"
+
+#. status.archived
+msgid "status.archived"
+msgstr "مؤرشفة"
+
+#. errors.required
+msgid "errors.required"
+msgstr "هذا الحقل مطلوب."
+
+#. errors.invalid_email
+msgid "errors.invalid_email"
+msgstr "أدخل بريداً إلكترونياً صالحاً."
+
+#. errors.not_found
+msgid "errors.not_found"
+msgstr "تعذر العثور على الصفحة المطلوبة."
+
+#. errors.access_denied
+msgid "errors.access_denied"
+msgstr "ليس لديك صلاحية للوصول إلى هذه الصفحة."
+
+#. footer.privacy
+msgid "footer.privacy"
+msgstr "الخصوصية"
+
+#. footer.terms
+msgid "footer.terms"
+msgstr "الشروط"
+
+#. footer.copyright
+msgid "footer.copyright"
+msgstr "© شركة روبليون للتكنولوجيا. جميع الحقوق محفوظة."

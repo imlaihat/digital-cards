@@ -11,10 +11,10 @@ id: node.digital_business_card.field_card_language
 field_name: field_card_language
 entity_type: node
 bundle: digital_business_card
-label: 'Static card language override'
-description: ''
+label: 'Original card language'
+description: 'The first/original language of this card. The organization theme determines which choices are allowed.'
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }

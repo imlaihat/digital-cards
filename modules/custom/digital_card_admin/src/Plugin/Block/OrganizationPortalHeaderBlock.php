@@ -100,8 +100,6 @@ class OrganizationPortalHeaderBlock extends BlockBase implements ContainerFactor
     }
     unset($item);
 
-    $theme_path = \Drupal::service('extension.list.theme')->getPath('digital_platform');
-
     return [
       '#theme' => 'digital_card_organization_portal_header',
       '#summary' => $summary,
@@ -109,7 +107,7 @@ class OrganizationPortalHeaderBlock extends BlockBase implements ContainerFactor
       '#portal_theme' => $portal_theme,
       '#navigation' => $navigation,
       '#account_name' => $this->currentUser->getAccountName(),
-      '#product_logo_url' => base_path() . $theme_path . '/assets/brand/ropleon-cards.svg',
+      '#product_logo_url' => $this->brandAssetUrl('ropleon-cards.svg'),
       '#attached' => [
         'library' => ['digital_card_admin/dashboards'],
       ],
@@ -119,6 +117,18 @@ class OrganizationPortalHeaderBlock extends BlockBase implements ContainerFactor
         'max-age' => 0,
       ],
     ];
+  }
+
+  /**
+   * Builds a cache-safe URL for an approved Ropleon brand asset.
+   */
+  protected function brandAssetUrl(string $filename): string {
+    $theme_path = \Drupal::service('extension.list.theme')->getPath('digital_platform');
+    $relative_path = $theme_path . '/assets/brand/' . ltrim($filename, '/');
+    $absolute_path = DRUPAL_ROOT . '/' . $relative_path;
+    $version = is_file($absolute_path) ? (string) filemtime($absolute_path) : '1';
+
+    return base_path() . $relative_path . '?v=' . rawurlencode($version);
   }
 
   protected function blockAccess(AccountInterface $account): AccessResult {

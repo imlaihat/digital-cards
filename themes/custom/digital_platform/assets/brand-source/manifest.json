@@ -1,0 +1,904 @@
+{
+  "package": "Ropleon_Drupal10_Production_Brand_Handoff_v1.0.0_2026-08-10",
+  "version": "v1.0.0",
+  "date": "2026-08-10",
+  "file_count": 128,
+  "files": [
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/Ropleon_Approved_Master.png",
+      "type": "png",
+      "bytes": 147795,
+      "sha256": "ca4d0fdd95765b9f52669d78b02493fe7a930839e6f9edda48f2ed23edfb8999",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-black-1280.png",
+      "type": "png",
+      "bytes": 120038,
+      "sha256": "13c6b83598faad6944c1ad3e503879bd372d94bc6c754a7b7e444d1c42d8d571",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-black-2560.png",
+      "type": "png",
+      "bytes": 312342,
+      "sha256": "a2dc02abbe824f9ef9982f590397f800660663aa0a0d61a1f97f06fa1c91f227",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-black-320.png",
+      "type": "png",
+      "bytes": 11584,
+      "sha256": "fe58c7f1f8d91ce0c2cd6fdef51e7fc22d5cb82ab621ba3521e76631929dde07",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-black-640.png",
+      "type": "png",
+      "bytes": 36987,
+      "sha256": "57ed017751131c1115e1b5a54ae4e201f983f193be3f6a3401be7b39ed63881d",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-color-1280.png",
+      "type": "png",
+      "bytes": 320217,
+      "sha256": "70740520f376cbdfab35d698916f9792744aea004453ad64fdbb4adaabf50889",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-color-2560.png",
+      "type": "png",
+      "bytes": 895749,
+      "sha256": "dd048a13b9dabb9684be289d450246425795cbee0566978e6fc8e425882afec6",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-color-320.png",
+      "type": "png",
+      "bytes": 29851,
+      "sha256": "59166778b625deb8e0426659e8bfdc1316971c8ffae819dd89a8dee94d54e11d",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-color-640.png",
+      "type": "png",
+      "bytes": 99040,
+      "sha256": "c5aeb4e24a85a0d3d959055da865f86fc2dc10d4e01e24a82d8a1c09eac8065b",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-navy-1280.png",
+      "type": "png",
+      "bytes": 200999,
+      "sha256": "bc5066a8e6f06f8f3fcb8db72985b448894839c033c847198f1a45724e31a6d1",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-navy-2560.png",
+      "type": "png",
+      "bytes": 543887,
+      "sha256": "3a8cb2808cf117dd49048e705d9a888d13439d1443ae1ac086c1c761fc52a2b0",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-navy-320.png",
+      "type": "png",
+      "bytes": 20669,
+      "sha256": "6a9302fc6e4445c2062b53e200928b3728c3bae5dbb07c953fa042f62db897d3",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-navy-640.png",
+      "type": "png",
+      "bytes": 65482,
+      "sha256": "557dd5de63c85dcd9fc712a315f6ab4f4313cab50486e6c1482b32231b26ab8c",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-white-1280.png",
+      "type": "png",
+      "bytes": 127278,
+      "sha256": "cb349f2b5bdcd79b7ff2f40053bef65a0e95c287fd7f869f36eb1cdd79e0f4c9",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-white-2560.png",
+      "type": "png",
+      "bytes": 327539,
+      "sha256": "48c09f2f972be207fbe3467f563726ef74c786bbed8dfdc5e7ae704aab78641b",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-white-320.png",
+      "type": "png",
+      "bytes": 12472,
+      "sha256": "527a1151aa9a675308c808ae7ea4e352b417bbe7a05f97ebef5901e604fc35ab",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-approved-master-white-640.png",
+      "type": "png",
+      "bytes": 40104,
+      "sha256": "b672eacc573200efbc5b4d37ea71c6ec7e4998466317a10b6bc818e7b2ffd31d",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-technologies-dark-1600.png",
+      "type": "png",
+      "bytes": 142597,
+      "sha256": "b4122b1a05dddc7365e76a59ea9f7e864c410ea1161ceba0c9deee6b0656bcf7",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-technologies-light-1600.png",
+      "type": "png",
+      "bytes": 166476,
+      "sha256": "6dbcf5b881251995fc2d6dbb15a8b89fba8d61e1971599fd799fc037aa4136a9",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-technologies-mono-black-1600.png",
+      "type": "png",
+      "bytes": 82407,
+      "sha256": "e532b18d4c47ad5e280581d78661d2c1acfbb81563ee33d939c1a617bd6bbc0f",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-technologies-mono-navy-1600.png",
+      "type": "png",
+      "bytes": 83063,
+      "sha256": "0e495d6d393603f7506c5ea634cd1b03c813f285002c3ebf3bf83f8e399cfc8e",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/PNG/ropleon-technologies-mono-white-1600.png",
+      "type": "png",
+      "bytes": 110973,
+      "sha256": "b3395859adb65fbf05b9345ff550ba4cdc151bd214f5759a2cc933fd2c9c0021",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/SVG/ropleon-approved-master-black.svg",
+      "type": "svg",
+      "bytes": 75021,
+      "sha256": "fde0c7259bb98533e1ea7e0fb41f999817a807a238fda1d0f7366e473c917337",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/SVG/ropleon-approved-master-color.svg",
+      "type": "svg",
+      "bytes": 194776,
+      "sha256": "934fce9a5b1cb4f3f46dd422ab5696830f88db5dd968644217a40334ce25b4c9",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/SVG/ropleon-approved-master-navy.svg",
+      "type": "svg",
+      "bytes": 78388,
+      "sha256": "387e26c75edfb52950aca7cb812ccb2c7e86fac961a8ad885e7eedefc39c3fbd",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/SVG/ropleon-approved-master-white.svg",
+      "type": "svg",
+      "bytes": 77973,
+      "sha256": "9939fd1a62c61e16fd27215a3cf40a4d32307c2b6e7484d3fc678006ab8eddb4",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/SVG/ropleon-technologies-dark.svg",
+      "type": "svg",
+      "bytes": 210622,
+      "sha256": "7cb6576553153cf6b3d1dde44733fa9d4fcc97aa264a8711cdf135493b5533e0",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/SVG/ropleon-technologies-light.svg",
+      "type": "svg",
+      "bytes": 210574,
+      "sha256": "9992a5d7a95d066b74d072c5059103a76dfccdbc96059c236a387bbed784cf95",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/SVG/ropleon-technologies-mono-black.svg",
+      "type": "svg",
+      "bytes": 90818,
+      "sha256": "9b6c4a26047226aa4fb5ef5347413fae176ed248b0009dfa48d4bfb7ff566170",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/SVG/ropleon-technologies-mono-navy.svg",
+      "type": "svg",
+      "bytes": 94186,
+      "sha256": "85b7d52ccf4732b218661b6beea240c135e0f348558e4a80dbc7edebe0e8443a",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "01_Corporate/Ropleon_Technologies/Logos/SVG/ropleon-technologies-mono-white.svg",
+      "type": "svg",
+      "bytes": 93818,
+      "sha256": "952bd3261eabc219f1b24a65a7a628640175619ca76a483e3571b91f79b76e9a",
+      "intended_use": "Corporate/company branding"
+    },
+    {
+      "path": "02_Product/Ropleon_Cards/Logos/PNG/ropleon-cards-dark-1600.png",
+      "type": "png",
+      "bytes": 143484,
+      "sha256": "11da09f24ae166c226b319f21090d478b6bca4770e487685140591225804e2b8",
+      "intended_use": "Ropleon Cards product/platform branding"
+    },
+    {
+      "path": "02_Product/Ropleon_Cards/Logos/PNG/ropleon-cards-light-1600.png",
+      "type": "png",
+      "bytes": 166727,
+      "sha256": "dc8c064f8eba24d78fc55a46164dae2b411daa559e3fca60ed10100aef6f82a4",
+      "intended_use": "Ropleon Cards product/platform branding"
+    },
+    {
+      "path": "02_Product/Ropleon_Cards/Logos/PNG/ropleon-cards-mono-black-1600.png",
+      "type": "png",
+      "bytes": 82602,
+      "sha256": "16626078f248af580a34f17a6c21569a791e284604f2def968ffd17ac012b334",
+      "intended_use": "Ropleon Cards product/platform branding"
+    },
+    {
+      "path": "02_Product/Ropleon_Cards/Logos/PNG/ropleon-cards-mono-navy-1600.png",
+      "type": "png",
+      "bytes": 83285,
+      "sha256": "aee53e2e4942f5db965c9668ae076059f24a21389eb4468dd4dee5acf5cae1ca",
+      "intended_use": "Ropleon Cards product/platform branding"
+    },
+    {
+      "path": "02_Product/Ropleon_Cards/Logos/PNG/ropleon-cards-mono-white-1600.png",
+      "type": "png",
+      "bytes": 111900,
+      "sha256": "32569901f2acc097bf65e588876ffa9afa779c82b80ae6999df096fd354da19f",
+      "intended_use": "Ropleon Cards product/platform branding"
+    },
+    {
+      "path": "02_Product/Ropleon_Cards/Logos/SVG/ropleon-cards-dark.svg",
+      "type": "svg",
+      "bytes": 210251,
+      "sha256": "cbfc4c663d9d3f99a8d492207a6b4951690709563e0c9d1029285dc5d21c480d",
+      "intended_use": "Ropleon Cards product/platform branding"
+    },
+    {
+      "path": "02_Product/Ropleon_Cards/Logos/SVG/ropleon-cards-light.svg",
+      "type": "svg",
+      "bytes": 210203,
+      "sha256": "d934c68743426050393edae38d483c3706853bf699b45f48057d311777a3b509",
+      "intended_use": "Ropleon Cards product/platform branding"
+    },
+    {
+      "path": "02_Product/Ropleon_Cards/Logos/SVG/ropleon-cards-mono-black.svg",
+      "type": "svg",
+      "bytes": 90447,
+      "sha256": "ac9376245da9ff9d5ec000f7474be7d14f1180c967d86826ad5b15104ae947b2",
+      "intended_use": "Ropleon Cards product/platform branding"
+    },
+    {
+      "path": "02_Product/Ropleon_Cards/Logos/SVG/ropleon-cards-mono-navy.svg",
+      "type": "svg",
+      "bytes": 93815,
+      "sha256": "b58bdb01a7bcdfcdf319d3b8bc25df6c106c7451e3d46a56add83f7359c0916b",
+      "intended_use": "Ropleon Cards product/platform branding"
+    },
+    {
+      "path": "02_Product/Ropleon_Cards/Logos/SVG/ropleon-cards-mono-white.svg",
+      "type": "svg",
+      "bytes": 93447,
+      "sha256": "85abcf036bf36f92055ca51fd7a57502e135fdf3169ad11e6c33890b9fa5cacf",
+      "intended_use": "Ropleon Cards product/platform branding"
+    },
+    {
+      "path": "03_Icons/Browser/favicon.ico",
+      "type": "ico",
+      "bytes": 68445,
+      "sha256": "b4722f7bfa3e78e8f38bc5176fdb2bf09edd95b6f5656524578e83a8994905bc",
+      "intended_use": "Browser favicon and browser-touch assets"
+    },
+    {
+      "path": "03_Icons/Browser/favicon.svg",
+      "type": "svg",
+      "bytes": 73428,
+      "sha256": "ef70447ababda0c40078f26ae8d9db1b7b624704f99ca5f2c5ffd35e97677aa5",
+      "intended_use": "Browser favicon and browser-touch assets"
+    },
+    {
+      "path": "03_Icons/Browser/ropleon-icon-16x16.png",
+      "type": "png",
+      "bytes": 696,
+      "sha256": "4319eb5385bdabda4bd5adc6e5b0dd097ac0c3003432aa239937ae0c1bb760ec",
+      "intended_use": "Browser favicon and browser-touch assets"
+    },
+    {
+      "path": "03_Icons/Browser/ropleon-icon-180x180.png",
+      "type": "png",
+      "bytes": 29244,
+      "sha256": "3fe5f4a84f21f7878f0ca8b2e3e84ec1e303b4b07c8fc8b83c1450431de7fdcd",
+      "intended_use": "Browser favicon and browser-touch assets"
+    },
+    {
+      "path": "03_Icons/Browser/ropleon-icon-192x192.png",
+      "type": "png",
+      "bytes": 32853,
+      "sha256": "9aee576f88fd5ee64de4a540fccf13daea223e35fb5259f9310bd9ef4233243d",
+      "intended_use": "Browser favicon and browser-touch assets"
+    },
+    {
+      "path": "03_Icons/Browser/ropleon-icon-256x256.png",
+      "type": "png",
+      "bytes": 55588,
+      "sha256": "6560aecab9f08df65820b90b18c03ebe60db9c5e0c0418db0fe604ced1bc12ce",
+      "intended_use": "Browser favicon and browser-touch assets"
+    },
+    {
+      "path": "03_Icons/Browser/ropleon-icon-32x32.png",
+      "type": "png",
+      "bytes": 2015,
+      "sha256": "00095f101cd740249fc6ef129cc2cfd58be9f426ac74f7e4cbd586495f06f8c9",
+      "intended_use": "Browser favicon and browser-touch assets"
+    },
+    {
+      "path": "03_Icons/Browser/ropleon-icon-48x48.png",
+      "type": "png",
+      "bytes": 3551,
+      "sha256": "ef6e5270cbb8e327488ca7a828d1c57d5d5935168549899214577076b4f85a4f",
+      "intended_use": "Browser favicon and browser-touch assets"
+    },
+    {
+      "path": "03_Icons/Browser/ropleon-icon-512x512.png",
+      "type": "png",
+      "bytes": 172856,
+      "sha256": "b74697db248653382d6a0999ff01cefcf8963a9734475cab0693f3b753fb422b",
+      "intended_use": "Browser favicon and browser-touch assets"
+    },
+    {
+      "path": "03_Icons/Browser/ropleon-icon-64x64.png",
+      "type": "png",
+      "bytes": 5442,
+      "sha256": "bb06c2e5ca5f981a166ab397be94f01187470fe422d1b8f9a0e26a9ec0e85215",
+      "intended_use": "Browser favicon and browser-touch assets"
+    },
+    {
+      "path": "03_Icons/Mobile/ropleon-app-icon-1024x1024.png",
+      "type": "png",
+      "bytes": 280706,
+      "sha256": "534b39186b75111cafd999c0bd63d5c032a4e9f93ee6b681df808e9e6da7aa73",
+      "intended_use": "iOS/Android/PWA icon source sizes"
+    },
+    {
+      "path": "03_Icons/Mobile/ropleon-app-icon-128x128.png",
+      "type": "png",
+      "bytes": 8885,
+      "sha256": "04565dbc229161212fd74dbbf9dc4bae3e24d851b0eb0b1aded31afca9d6ff57",
+      "intended_use": "iOS/Android/PWA icon source sizes"
+    },
+    {
+      "path": "03_Icons/Mobile/ropleon-app-icon-144x144.png",
+      "type": "png",
+      "bytes": 10758,
+      "sha256": "99ea53e110417f25de02320d2c572c74ec4d3e94eb45dcbcaa25647696ed4b57",
+      "intended_use": "iOS/Android/PWA icon source sizes"
+    },
+    {
+      "path": "03_Icons/Mobile/ropleon-app-icon-152x152.png",
+      "type": "png",
+      "bytes": 11697,
+      "sha256": "2c46dee1eb2e4399a7d1b0c67ba6fb29bd310969c1418e97c9946d9cedaa9aa3",
+      "intended_use": "iOS/Android/PWA icon source sizes"
+    },
+    {
+      "path": "03_Icons/Mobile/ropleon-app-icon-167x167.png",
+      "type": "png",
+      "bytes": 13700,
+      "sha256": "a2be2b9be88a7edfdc14af1cf9e75412e579d05f52dcdb26548347131ddbd8d0",
+      "intended_use": "iOS/Android/PWA icon source sizes"
+    },
+    {
+      "path": "03_Icons/Mobile/ropleon-app-icon-180x180.png",
+      "type": "png",
+      "bytes": 15665,
+      "sha256": "754adef425b5d4da632cb8011d2d05ec21078e7ac0332a5c072179445fd5d1f8",
+      "intended_use": "iOS/Android/PWA icon source sizes"
+    },
+    {
+      "path": "03_Icons/Mobile/ropleon-app-icon-192x192.png",
+      "type": "png",
+      "bytes": 17399,
+      "sha256": "8fb87086d062ceb340284c5b75a43d7cc5c2437c237913cf020c9b8aed94a80f",
+      "intended_use": "iOS/Android/PWA icon source sizes"
+    },
+    {
+      "path": "03_Icons/Mobile/ropleon-app-icon-384x384.png",
+      "type": "png",
+      "bytes": 61283,
+      "sha256": "1180b251df7f8a8ede04ad77bc2008d2a978e80fc2fb85335a02af04ef377ec8",
+      "intended_use": "iOS/Android/PWA icon source sizes"
+    },
+    {
+      "path": "03_Icons/Mobile/ropleon-app-icon-512x512.png",
+      "type": "png",
+      "bytes": 98247,
+      "sha256": "a2b3e24d45982a3e62e73fb28ae850a8c14bc4c6cf305adc72ed90a9661a874a",
+      "intended_use": "iOS/Android/PWA icon source sizes"
+    },
+    {
+      "path": "03_Icons/Mobile/ropleon-app-icon-72x72.png",
+      "type": "png",
+      "bytes": 3675,
+      "sha256": "2f7f1b7313f3305b6b3ab3ad99402e00b5ca1f9732d47311d53f8eb7e7742652",
+      "intended_use": "iOS/Android/PWA icon source sizes"
+    },
+    {
+      "path": "03_Icons/Mobile/ropleon-app-icon-96x96.png",
+      "type": "png",
+      "bytes": 5636,
+      "sha256": "856584959c0e4ab688e31553b2322f1279b065f78e6e105499a840beae6c1927",
+      "intended_use": "iOS/Android/PWA icon source sizes"
+    },
+    {
+      "path": "03_Icons/Mobile/ropleon-maskable-192x192.png",
+      "type": "png",
+      "bytes": 11896,
+      "sha256": "e4ec77797a6ee836925daf7bf0344b3f6b0f055a942d45ee9bcf8e9435d495e8",
+      "intended_use": "iOS/Android/PWA icon source sizes"
+    },
+    {
+      "path": "03_Icons/Mobile/ropleon-maskable-512x512.png",
+      "type": "png",
+      "bytes": 68369,
+      "sha256": "399668537c2a4c5f356557832f0750a9456e6263660091f1d754a0f4c37461a9",
+      "intended_use": "iOS/Android/PWA icon source sizes"
+    },
+    {
+      "path": "03_Icons/UI/SVG/building.svg",
+      "type": "svg",
+      "bytes": 274,
+      "sha256": "67b095314e77f61c671654351eb13d137108e648612646c936b034b08ef02132",
+      "intended_use": "Reusable interface icon set; currentColor SVG"
+    },
+    {
+      "path": "03_Icons/UI/SVG/card.svg",
+      "type": "svg",
+      "bytes": 273,
+      "sha256": "45742d032e184e1f8afe974632d966bedef6d4486128343b4fbec5e2a2767db5",
+      "intended_use": "Reusable interface icon set; currentColor SVG"
+    },
+    {
+      "path": "03_Icons/UI/SVG/close.svg",
+      "type": "svg",
+      "bytes": 231,
+      "sha256": "bf7465c6bf67735436651cc597cfc359caade616d9b4c41220a050f6b4c3f305",
+      "intended_use": "Reusable interface icon set; currentColor SVG"
+    },
+    {
+      "path": "03_Icons/UI/SVG/delete.svg",
+      "type": "svg",
+      "bytes": 261,
+      "sha256": "180f7a4ebca0b4ec4c1d0718c6a3c8649aae4097cb28aa3c289eef156add6c7d",
+      "intended_use": "Reusable interface icon set; currentColor SVG"
+    },
+    {
+      "path": "03_Icons/UI/SVG/download.svg",
+      "type": "svg",
+      "bytes": 247,
+      "sha256": "ca10f6132a4e6c3488d0d3039509eaa47448c66d134d51ddaa6c01f5dde40da7",
+      "intended_use": "Reusable interface icon set; currentColor SVG"
+    },
+    {
+      "path": "03_Icons/UI/SVG/edit.svg",
+      "type": "svg",
+      "bytes": 248,
+      "sha256": "a7c2928d9ba7894f0202c83745e9f2b5c96f28cc507a51c6c25c43c463abe28e",
+      "intended_use": "Reusable interface icon set; currentColor SVG"
+    },
+    {
+      "path": "03_Icons/UI/SVG/external-link.svg",
+      "type": "svg",
+      "bytes": 252,
+      "sha256": "e27adc985caeab8ae7b279e10971b4b091904aa212df756a968550e3488de68f",
+      "intended_use": "Reusable interface icon set; currentColor SVG"
+    },
+    {
+      "path": "03_Icons/UI/SVG/menu.svg",
+      "type": "svg",
+      "bytes": 233,
+      "sha256": "5c740b517ce795d45568b2eabaef52c6a367502d14e1115c9a23cb1c5fa928af",
+      "intended_use": "Reusable interface icon set; currentColor SVG"
+    },
+    {
+      "path": "03_Icons/UI/SVG/nfc.svg",
+      "type": "svg",
+      "bytes": 286,
+      "sha256": "442c26b9abd9a8a959f06755ba0e626c1953d22c25c7fd682e4273a5ba46afec",
+      "intended_use": "Reusable interface icon set; currentColor SVG"
+    },
+    {
+      "path": "03_Icons/UI/SVG/qr.svg",
+      "type": "svg",
+      "bytes": 277,
+      "sha256": "ad55150562c7971358398cf2d378f90edcaeba4e0d5042e0ccc2afa3fb42fd0a",
+      "intended_use": "Reusable interface icon set; currentColor SVG"
+    },
+    {
+      "path": "03_Icons/UI/SVG/search.svg",
+      "type": "svg",
+      "bytes": 253,
+      "sha256": "c5b81f29b791fdf87f213c6d41bf7f113080dff9a51ffaa7acaf21fa473a80c2",
+      "intended_use": "Reusable interface icon set; currentColor SVG"
+    },
+    {
+      "path": "03_Icons/UI/SVG/user.svg",
+      "type": "svg",
+      "bytes": 266,
+      "sha256": "693178dcb92fb70a6521a8955d57722c7023c75a660bd6807d539e6ae2414b45",
+      "intended_use": "Reusable interface icon set; currentColor SVG"
+    },
+    {
+      "path": "04_Social_Sharing/Corporate/linkedin-1200x627.png",
+      "type": "png",
+      "bytes": 124881,
+      "sha256": "fe89c7ef30f3d2c3ffd4c884053e4c977742a63b6a0992f07c1fb704323c3942",
+      "intended_use": "Open Graph, X, LinkedIn and square sharing artwork"
+    },
+    {
+      "path": "04_Social_Sharing/Corporate/open-graph-1200x630.png",
+      "type": "png",
+      "bytes": 125834,
+      "sha256": "a7ca6120b3cd4dab42874d9f7529836364d0c105a4c6210e4b98e02a61d56515",
+      "intended_use": "Open Graph, X, LinkedIn and square sharing artwork"
+    },
+    {
+      "path": "04_Social_Sharing/Corporate/square-1080x1080.png",
+      "type": "png",
+      "bytes": 184564,
+      "sha256": "91a5c22e992aee080c149febdb747c53a8eb1cf1a319b73581b69df9f23162b8",
+      "intended_use": "Open Graph, X, LinkedIn and square sharing artwork"
+    },
+    {
+      "path": "04_Social_Sharing/Corporate/x-card-1200x600.png",
+      "type": "png",
+      "bytes": 119436,
+      "sha256": "f7df44a6395fe774becc8f933432d1e71545485e4255ddf44b6adca6f59625c7",
+      "intended_use": "Open Graph, X, LinkedIn and square sharing artwork"
+    },
+    {
+      "path": "04_Social_Sharing/Ropleon_Cards/linkedin-1200x627.png",
+      "type": "png",
+      "bytes": 121512,
+      "sha256": "7381001e999d9e3aa8205a91049933a0dda9477282740ad7b96459e14ddc1adc",
+      "intended_use": "Open Graph, X, LinkedIn and square sharing artwork"
+    },
+    {
+      "path": "04_Social_Sharing/Ropleon_Cards/open-graph-1200x630.png",
+      "type": "png",
+      "bytes": 121809,
+      "sha256": "9063754139b00e83c53e3a1eba411bea05211d74a7992af8cf3bf6962479335d",
+      "intended_use": "Open Graph, X, LinkedIn and square sharing artwork"
+    },
+    {
+      "path": "04_Social_Sharing/Ropleon_Cards/square-1080x1080.png",
+      "type": "png",
+      "bytes": 180474,
+      "sha256": "32ababa140e56f54456f2046a73e2b2da8d6199ff4f19fd44855582cee67534f",
+      "intended_use": "Open Graph, X, LinkedIn and square sharing artwork"
+    },
+    {
+      "path": "04_Social_Sharing/Ropleon_Cards/x-card-1200x600.png",
+      "type": "png",
+      "bytes": 115951,
+      "sha256": "e6ce863fb94030f03f2a07ecdce1e9d2b5edfdb49dd7a482a044a7f54a0c1315",
+      "intended_use": "Open Graph, X, LinkedIn and square sharing artwork"
+    },
+    {
+      "path": "05_Design_Tokens/CSS/ropleon-tokens.css",
+      "type": "css",
+      "bytes": 804,
+      "sha256": "e9e19623d332995c3621e3f58ea48dc3cde46e916c8e7ce5604a1b988dfeb3c4",
+      "intended_use": "Design-system source tokens for CSS/JS/design tooling"
+    },
+    {
+      "path": "05_Design_Tokens/JSON/ropleon.tokens.json",
+      "type": "json",
+      "bytes": 1620,
+      "sha256": "1b2d9d98c2fbab8e644f9da4920c24a0f64b2b75c47b0d647061a6f7b58d88d2",
+      "intended_use": "Design-system source tokens for CSS/JS/design tooling"
+    },
+    {
+      "path": "06_Website_Copy/ar/ropleon-interface.po",
+      "type": "po",
+      "bytes": 4423,
+      "sha256": "2ead106ca2659f457144b6538238dccfcd1fc69c46f73eb73ada80cf5813a31c",
+      "intended_use": "Bilingual website/interface copy and translation seed"
+    },
+    {
+      "path": "06_Website_Copy/ar/website-ui-copy.json",
+      "type": "json",
+      "bytes": 2859,
+      "sha256": "c1cc28c8c34cd81ea8443b7c25c4e5ab57e6632cb655aac1e94347459499d395",
+      "intended_use": "Bilingual website/interface copy and translation seed"
+    },
+    {
+      "path": "06_Website_Copy/en/ropleon-interface.po",
+      "type": "po",
+      "bytes": 3058,
+      "sha256": "8f5c178a85eb52b12bb7608ec575b89dc6632927cff6e7f467188bbeeee7d133",
+      "intended_use": "Bilingual website/interface copy and translation seed"
+    },
+    {
+      "path": "06_Website_Copy/en/website-ui-copy.json",
+      "type": "json",
+      "bytes": 2258,
+      "sha256": "982a96fcefc4e967180b561534f1bf2024fb22b335fe750b4d20818dbfee5320",
+      "intended_use": "Bilingual website/interface copy and translation seed"
+    },
+    {
+      "path": "07_Responsive_Page_Specs/responsive-page-specifications.md",
+      "type": "md",
+      "bytes": 1700,
+      "sha256": "84433911614300593327005783b4a0140d9f83186c279e2628bbc9ded392fdb2",
+      "intended_use": "Desktop/tablet/mobile behavior specifications"
+    },
+    {
+      "path": "08_Static_Digital_Card_Themes/default/card.css",
+      "type": "css",
+      "bytes": 1212,
+      "sha256": "26bebbc1a67d9df703eccc70052c818c2905dfc793cd05497fe7728819be4ff3",
+      "intended_use": "Static HTML/CSS themes for generated public cards"
+    },
+    {
+      "path": "08_Static_Digital_Card_Themes/default/index.html",
+      "type": "html",
+      "bytes": 840,
+      "sha256": "891b91ec6d2f92b599b8111c082d0ebfb531ed3e6a6b5dcf5262918851458314",
+      "intended_use": "Static HTML/CSS themes for generated public cards"
+    },
+    {
+      "path": "08_Static_Digital_Card_Themes/executive/card.css",
+      "type": "css",
+      "bytes": 1272,
+      "sha256": "a0fa48cff157b8199dec6f7fb806e4cc75902a236ce02c882d9f9c3a0cba312e",
+      "intended_use": "Static HTML/CSS themes for generated public cards"
+    },
+    {
+      "path": "08_Static_Digital_Card_Themes/executive/index.html",
+      "type": "html",
+      "bytes": 840,
+      "sha256": "891b91ec6d2f92b599b8111c082d0ebfb531ed3e6a6b5dcf5262918851458314",
+      "intended_use": "Static HTML/CSS themes for generated public cards"
+    },
+    {
+      "path": "08_Static_Digital_Card_Themes/minimal/card.css",
+      "type": "css",
+      "bytes": 1241,
+      "sha256": "ce28619fb3b850803802fbe020b89c50fb641bfce0efc851e05f66256778bf84",
+      "intended_use": "Static HTML/CSS themes for generated public cards"
+    },
+    {
+      "path": "08_Static_Digital_Card_Themes/minimal/index.html",
+      "type": "html",
+      "bytes": 840,
+      "sha256": "891b91ec6d2f92b599b8111c082d0ebfb531ed3e6a6b5dcf5262918851458314",
+      "intended_use": "Static HTML/CSS themes for generated public cards"
+    },
+    {
+      "path": "08_Static_Digital_Card_Themes/placeholder-profile.svg",
+      "type": "svg",
+      "bytes": 233,
+      "sha256": "feb186ab247e8896eefe1b126efd2d2bb94edd077df2a9051ba507562120ae05",
+      "intended_use": "Static HTML/CSS themes for generated public cards"
+    },
+    {
+      "path": "09_Accessibility_and_RTL/requirements.md",
+      "type": "md",
+      "bytes": 1609,
+      "sha256": "11bad5d7768bbbf7318b95b830d4e5548f050a91ba611cef44cfe38f3d53664b",
+      "intended_use": "WCAG/keyboard/RTL implementation requirements"
+    },
+    {
+      "path": "09_Accessibility_and_RTL/rtl-utilities.css",
+      "type": "css",
+      "bytes": 251,
+      "sha256": "ee60a19d709a90b26e1db3e5a039a0733cc6332e3aee3832585cc4d73c141794",
+      "intended_use": "WCAG/keyboard/RTL implementation requirements"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/README.md",
+      "type": "md",
+      "bytes": 780,
+      "sha256": "382ed19278d099847f62456e6598342a3ce2174084625707533bfb3cd063d2ea",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/brand/favicon.svg",
+      "type": "svg",
+      "bytes": 73428,
+      "sha256": "ef70447ababda0c40078f26ae8d9db1b7b624704f99ca5f2c5ffd35e97677aa5",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/brand/ropleon-cards.svg",
+      "type": "svg",
+      "bytes": 210203,
+      "sha256": "d934c68743426050393edae38d483c3706853bf699b45f48057d311777a3b509",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/brand/ropleon-technologies.svg",
+      "type": "svg",
+      "bytes": 210574,
+      "sha256": "9992a5d7a95d066b74d072c5059103a76dfccdbc96059c236a387bbed784cf95",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/icons/building.svg",
+      "type": "svg",
+      "bytes": 274,
+      "sha256": "67b095314e77f61c671654351eb13d137108e648612646c936b034b08ef02132",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/icons/card.svg",
+      "type": "svg",
+      "bytes": 273,
+      "sha256": "45742d032e184e1f8afe974632d966bedef6d4486128343b4fbec5e2a2767db5",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/icons/close.svg",
+      "type": "svg",
+      "bytes": 231,
+      "sha256": "bf7465c6bf67735436651cc597cfc359caade616d9b4c41220a050f6b4c3f305",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/icons/delete.svg",
+      "type": "svg",
+      "bytes": 261,
+      "sha256": "180f7a4ebca0b4ec4c1d0718c6a3c8649aae4097cb28aa3c289eef156add6c7d",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/icons/download.svg",
+      "type": "svg",
+      "bytes": 247,
+      "sha256": "ca10f6132a4e6c3488d0d3039509eaa47448c66d134d51ddaa6c01f5dde40da7",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/icons/edit.svg",
+      "type": "svg",
+      "bytes": 248,
+      "sha256": "a7c2928d9ba7894f0202c83745e9f2b5c96f28cc507a51c6c25c43c463abe28e",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/icons/external-link.svg",
+      "type": "svg",
+      "bytes": 252,
+      "sha256": "e27adc985caeab8ae7b279e10971b4b091904aa212df756a968550e3488de68f",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/icons/menu.svg",
+      "type": "svg",
+      "bytes": 233,
+      "sha256": "5c740b517ce795d45568b2eabaef52c6a367502d14e1115c9a23cb1c5fa928af",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/icons/nfc.svg",
+      "type": "svg",
+      "bytes": 286,
+      "sha256": "442c26b9abd9a8a959f06755ba0e626c1953d22c25c7fd682e4273a5ba46afec",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/icons/qr.svg",
+      "type": "svg",
+      "bytes": 277,
+      "sha256": "ad55150562c7971358398cf2d378f90edcaeba4e0d5042e0ccc2afa3fb42fd0a",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/icons/search.svg",
+      "type": "svg",
+      "bytes": 253,
+      "sha256": "c5b81f29b791fdf87f213c6d41bf7f113080dff9a51ffaa7acaf21fa473a80c2",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/assets/icons/user.svg",
+      "type": "svg",
+      "bytes": 266,
+      "sha256": "693178dcb92fb70a6521a8955d57722c7023c75a660bd6807d539e6ae2414b45",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/css/global.css",
+      "type": "css",
+      "bytes": 362,
+      "sha256": "b7fa2b3a5147a33942d5c7f4fc8d7aaaf91ac28b41db0bbf33d0e96b0a0e7e94",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/css/ropleon-tokens.css",
+      "type": "css",
+      "bytes": 804,
+      "sha256": "e9e19623d332995c3621e3f58ea48dc3cde46e916c8e7ce5604a1b988dfeb3c4",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/css/rtl.css",
+      "type": "css",
+      "bytes": 99,
+      "sha256": "33008370acf0ceab924685834e46355aa758cfbf38744681b73932984f4c8a84",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/digital_platform.info.yml",
+      "type": "yml",
+      "bytes": 379,
+      "sha256": "e40ba957c24914cda2add5229bc2ffc9dd928f52f9afe86b08f825dff6e85f6e",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/digital_platform.libraries.yml",
+      "type": "yml",
+      "bytes": 183,
+      "sha256": "87723c590ec38fd78906b3278ab5b43eb5a07329d6e03e1d0dc0a514744fb288",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/js/global.js",
+      "type": "js",
+      "bytes": 180,
+      "sha256": "36582bb725022fc41aaa351f0a5f3f86323358ea4502602d5ed87199da264438",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "10_Drupal_10_Implementation/digital_platform/templates/page--front.html.twig",
+      "type": "twig",
+      "bytes": 227,
+      "sha256": "70089a7ce3ddbbb45bfa00c1181d833aedccd6342dbf0720b2c077d3578d876b",
+      "intended_use": "Drupal custom-theme starter/merge-ready files"
+    },
+    {
+      "path": "11_Fonts_AND_Licensing/README_FONT_INSTALLATION.md",
+      "type": "md",
+      "bytes": 752,
+      "sha256": "05c9284fefcb4abe9d85889be7365da5f7af867ade2301a237ef7bb9bd245f57",
+      "intended_use": "Font installation wiring and licensing/provenance instructions"
+    },
+    {
+      "path": "11_Fonts_AND_Licensing/fonts.css",
+      "type": "css",
+      "bytes": 1242,
+      "sha256": "61b477c1f4e213ed5bad988d84e66914972242bf19d2373cc9b6fe47bc56f690",
+      "intended_use": "Font installation wiring and licensing/provenance instructions"
+    },
+    {
+      "path": "12_Brand_Guidelines/Ropleon_Brand_Guidelines_AR.md",
+      "type": "md",
+      "bytes": 2356,
+      "sha256": "13f3583f9486bd1a2a860a3457b4da2158a544b2823f43969cdc2ee06fbfef9c",
+      "intended_use": "Corporate/product brand governance and usage rules"
+    },
+    {
+      "path": "12_Brand_Guidelines/Ropleon_Brand_Guidelines_EN.md",
+      "type": "md",
+      "bytes": 4682,
+      "sha256": "e29be4601319769caa7090bd40bbea1098dd6a043e7efe90c5c56c55ffbaef6c",
+      "intended_use": "Corporate/product brand governance and usage rules"
+    },
+    {
+      "path": "README.md",
+      "type": "md",
+      "bytes": 1319,
+      "sha256": "7a7634d7a4f100b161ce6930760e6459ec1a4d9c9b46ee11f5a4d976c4007b30",
+      "intended_use": "Package overview and implementation notes"
+    }
+  ]
+}

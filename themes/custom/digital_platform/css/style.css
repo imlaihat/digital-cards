@@ -4,32 +4,22 @@
  */
 
 
- :root {
-  --brand-primary: #0D6EFD;
-  --brand-dark: #0B1F3A;
-  --page-bg: #F8F9FA;
-  --card-bg: #FFFFFF;
-  --text-color: #212529;
-  --muted-color: #6C757D;
-}
-
 body {
   background-color: var(--page-bg);
   color: var(--text-color);
 }
 
 .card {
-  border-radius: 12px;
-  border: 1px solid #DEE2E6;
+  border-radius: var(--r-radius-lg);
+  border: 1px solid var(--r-border);
   background: var(--card-bg);
-  box-shadow: 0 4px 12px rgba(0,0,0,.05);
+  box-shadow: var(--r-shadow-sm);
 }
 
 .btn-primary {
-  border-radius: 8px;
+  border-radius: var(--r-radius-md);
 }
 
 .badge {
   border-radius: 20px;
 }
-

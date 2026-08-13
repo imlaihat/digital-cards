@@ -3,12 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - node.type.digital_business_card
     - workflow.workflow.card_workflow
     - workflow.workflow.test
     - workflows.workflow.card_approval
   module:
     - content_moderation
+    - content_translation
     - digital_card_admin
+    - paragraphs
     - workflow
 id: organization_admin
 label: 'Organization admin'
@@ -19,5 +22,9 @@ permissions:
   - 'access organization portal dashboard'
   - 'access user profiles'
   - 'create card_workflow workflow_transition'
+  - 'create content translations'
   - 'create test workflow_transition'
+  - 'translate digital_business_card node'
+  - 'translate paragraph'
+  - 'update content translations'
   - 'use card_approval transition to_pending_approval'

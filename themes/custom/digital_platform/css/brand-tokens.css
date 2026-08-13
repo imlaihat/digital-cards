@@ -1,66 +1,128 @@
 /**
- * Ropleon approved brand and interface tokens.
+ * Ropleon production design tokens.
+ *
+ * Source: Ropleon Drupal 10 Production Brand Handoff v1.0.0 (2026-08-10).
+ * The --ropleon-* and legacy --rp-* aliases preserve existing components.
  */
 :root {
-  --ropleon-navy-950: #071a33;
-  --ropleon-navy-900: #0b2447;
-  --ropleon-navy-800: #10345f;
-  --ropleon-blue-700: #1c54cc;
-  --ropleon-blue-600: #246bfd;
-  --ropleon-blue-500: #2f80ff;
-  --ropleon-cyan-400: #22d3ee;
-  --ropleon-cyan-300: #67e8f9;
-  --ropleon-ink: #0f172a;
-  --ropleon-text: #334155;
-  --ropleon-text-muted: #64748b;
-  --ropleon-border: #d8e2f0;
-  --ropleon-surface: #f6f9fd;
+  color-scheme: light;
+
+  /* Approved core brand colors. */
+  --r-deep-navy: #00184a;
+  --r-navy: #00297e;
+  --r-blue: #007bff;
+  --r-cyan: #00beff;
+  --r-ink: #101828;
+  --r-muted: #667085;
+  --r-surface: #f8fafc;
+  --r-border: #d0d5dd;
+  --r-white: #fff;
+  --r-black: #000;
+  --r-success: #067647;
+  --r-warning: #b54708;
+  --r-danger: #b42318;
+  --r-info: #175cd3;
+
+  /* Approved typography. */
+  --r-font-latin: Inter, Arial, sans-serif;
+  --r-font-arabic: "Noto Sans Arabic", Tahoma, Arial, sans-serif;
+  --r-font-xs: .75rem;
+  --r-font-sm: .875rem;
+  --r-font-md: 1rem;
+  --r-font-lg: 1.125rem;
+  --r-font-xl: 1.25rem;
+  --r-font-2xl: 1.5rem;
+  --r-font-3xl: 1.875rem;
+  --r-font-4xl: 2.25rem;
+
+  /* Approved spacing scale. */
+  --r-space-1: .25rem;
+  --r-space-2: .5rem;
+  --r-space-3: .75rem;
+  --r-space-4: 1rem;
+  --r-space-5: 1.25rem;
+  --r-space-6: 1.5rem;
+  --r-space-8: 2rem;
+  --r-space-10: 2.5rem;
+  --r-space-12: 3rem;
+  --r-space-16: 4rem;
+
+  /* Approved shape, elevation, and motion. */
+  --r-radius-sm: 6px;
+  --r-radius-md: 10px;
+  --r-radius-lg: 16px;
+  --r-radius-pill: 999px;
+  --r-shadow-sm: 0 1px 2px rgba(16, 24, 40, .06);
+  --r-shadow-md: 0 6px 18px rgba(16, 24, 40, .10);
+  --r-shadow-lg: 0 16px 40px rgba(16, 24, 40, .14);
+  --r-motion-fast: 120ms;
+  --r-motion-standard: 200ms;
+  --r-motion-slow: 320ms;
+
+  /* Public and portal component aliases. */
+  --ropleon-deep-navy: var(--r-deep-navy);
+  --ropleon-navy: var(--r-navy);
+  --ropleon-blue: var(--r-blue);
+  --ropleon-cyan: var(--r-cyan);
+  --ropleon-navy-950: var(--r-deep-navy);
+  --ropleon-navy-900: var(--r-navy);
+  --ropleon-navy-800: #003b9f;
+  --ropleon-blue-700: #0066d6;
+  --ropleon-blue-600: var(--r-blue);
+  --ropleon-blue-500: #2b91ff;
+  --ropleon-cyan-400: var(--r-cyan);
+  --ropleon-cyan-300: #66dfff;
+  --ropleon-ink: var(--r-ink);
+  --ropleon-text: #344054;
+  --ropleon-text-muted: var(--r-muted);
+  --ropleon-border: var(--r-border);
+  --ropleon-surface: var(--r-surface);
   --ropleon-surface-alt: #eef4fb;
-  --ropleon-white: #fff;
-  --ropleon-success: #0f9d76;
-  --ropleon-warning: #d97706;
-  --ropleon-danger: #dc2626;
-  --ropleon-info: #2563eb;
+  --ropleon-white: var(--r-white);
+  --ropleon-success: var(--r-success);
+  --ropleon-warning: var(--r-warning);
+  --ropleon-danger: var(--r-danger);
+  --ropleon-info: var(--r-info);
 
-  --ropleon-gradient-brand: linear-gradient(135deg, #246bfd 0%, #22d3ee 100%);
-  --ropleon-gradient-hero: linear-gradient(135deg, #071a33 0%, #0b2447 55%, #10345f 100%);
-  --ropleon-gradient-surface: linear-gradient(180deg, #f6f9fd 0%, #fff 100%);
+  --ropleon-gradient-brand: linear-gradient(135deg, var(--r-navy) 0%, var(--r-blue) 58%, var(--r-cyan) 100%);
+  --ropleon-gradient-hero: linear-gradient(135deg, var(--r-deep-navy) 0%, var(--r-navy) 100%);
+  --ropleon-gradient-surface: linear-gradient(180deg, var(--r-surface) 0%, var(--r-white) 100%);
 
-  --ropleon-font-sans: Manrope, Inter, "Segoe UI", Arial, sans-serif;
-  --ropleon-font-arabic: "IBM Plex Sans Arabic", "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
-  --ropleon-font-display: clamp(2.75rem, 5vw, 4.5rem);
-  --ropleon-font-h1: clamp(2.5rem, 4.5vw, 4rem);
-  --ropleon-font-h2: clamp(2rem, 3.5vw, 3rem);
+  --ropleon-font-sans: var(--r-font-latin);
+  --ropleon-font-arabic: var(--r-font-arabic);
+  --ropleon-font-display: clamp(2.5rem, 5vw, 4.5rem);
+  --ropleon-font-h1: clamp(2.25rem, 4.5vw, 4rem);
+  --ropleon-font-h2: clamp(1.875rem, 3.5vw, 3rem);
   --ropleon-font-h3: clamp(1.5rem, 2.5vw, 2rem);
   --ropleon-font-h4: clamp(1.25rem, 2vw, 1.5rem);
-  --ropleon-font-body-large: clamp(1.0625rem, 1.5vw, 1.25rem);
-  --ropleon-font-body: 1.0625rem;
-  --ropleon-font-small: .875rem;
+  --ropleon-font-body-large: var(--r-font-lg);
+  --ropleon-font-body: var(--r-font-md);
+  --ropleon-font-small: var(--r-font-sm);
 
   --ropleon-container-wide: 1440px;
-  --ropleon-container-main: 1240px;
+  --ropleon-container-main: 1280px;
   --ropleon-container-content: 840px;
   --ropleon-section-desktop: 112px;
   --ropleon-section-tablet: 80px;
   --ropleon-section-mobile: 56px;
-  --ropleon-gap: 24px;
-  --ropleon-gap-large: 32px;
+  --ropleon-gap: var(--r-space-6);
+  --ropleon-gap-large: var(--r-space-8);
 
-  --ropleon-radius-small: 8px;
-  --ropleon-radius-medium: 12px;
-  --ropleon-radius-large: 20px;
-  --ropleon-radius-xl: 28px;
-  --ropleon-radius-pill: 999px;
-  --ropleon-shadow-small: 0 4px 16px rgba(7, 26, 51, .06);
-  --ropleon-shadow-medium: 0 16px 45px rgba(7, 26, 51, .1);
-  --ropleon-shadow-large: 0 28px 80px rgba(7, 26, 51, .14);
-  --ropleon-transition: 220ms ease;
+  --ropleon-radius-small: var(--r-radius-sm);
+  --ropleon-radius-medium: var(--r-radius-md);
+  --ropleon-radius-large: var(--r-radius-lg);
+  --ropleon-radius-xl: 24px;
+  --ropleon-radius-pill: var(--r-radius-pill);
+  --ropleon-shadow-small: var(--r-shadow-sm);
+  --ropleon-shadow-medium: var(--r-shadow-md);
+  --ropleon-shadow-large: var(--r-shadow-lg);
+  --ropleon-transition: var(--r-motion-standard) ease;
 
-  /* Existing authenticated components keep their stable aliases. */
+  /* Stable aliases used by existing authenticated components. */
   --rp-ink-950: var(--ropleon-navy-950);
   --rp-ink-900: var(--ropleon-navy-900);
   --rp-ink-800: var(--ropleon-navy-800);
-  --rp-ink-700: #274b73;
+  --rp-ink-700: #344054;
   --rp-blue-700: var(--ropleon-blue-700);
   --rp-blue-600: var(--ropleon-blue-600);
   --rp-blue-500: var(--ropleon-blue-500);
@@ -89,15 +151,27 @@
   --rp-shadow-lg: var(--ropleon-shadow-large);
   --rp-container: var(--ropleon-container-main);
   --rp-transition: var(--ropleon-transition);
-  --brand-primary: var(--ropleon-blue-600);
-  --brand-dark: var(--ropleon-navy-900);
-  --page-bg: var(--ropleon-surface);
-  --card-bg: var(--ropleon-white);
-  --text-color: var(--ropleon-ink);
-  --muted-color: var(--ropleon-text-muted);
+  --brand-primary: var(--r-navy);
+  --brand-dark: var(--r-deep-navy);
+  --page-bg: var(--r-surface);
+  --card-bg: var(--r-white);
+  --text-color: var(--r-ink);
+  --muted-color: var(--r-muted);
 }
 
-[dir="rtl"] {
-  --ropleon-font-sans: var(--ropleon-font-arabic);
-  --rp-font-sans: var(--ropleon-font-arabic);
+html {
+  color: var(--r-ink);
+  font-family: var(--r-font-latin);
+}
+
+html[dir="rtl"],
+:lang(ar) {
+  --ropleon-font-sans: var(--r-font-arabic);
+  --rp-font-sans: var(--r-font-arabic);
+  font-family: var(--r-font-arabic);
+}
+
+:focus-visible {
+  outline: 3px solid var(--r-cyan);
+  outline-offset: 3px;
 }

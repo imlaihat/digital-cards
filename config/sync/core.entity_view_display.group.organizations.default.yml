@@ -6,8 +6,11 @@ dependencies:
     - core.base_field_override.group.organizations.label
     - field.field.group.organizations.field_address
     - field.field.group.organizations.field_card_background
+    - field.field.group.organizations.field_card_cover_watermark
     - field.field.group.organizations.field_card_custom_css
     - field.field.group.organizations.field_card_language
+    - field.field.group.organizations.field_card_show_org_name
+    - field.field.group.organizations.field_card_verified_badge
     - field.field.group.organizations.field_email
     - field.field.group.organizations.field_logo
     - field.field.group.organizations.field_primary_color
@@ -623,8 +626,11 @@ hidden:
   changed: true
   created: true
   field_card_background: true
+  field_card_cover_watermark: true
   field_card_custom_css: true
   field_card_language: true
+  field_card_show_org_name: true
+  field_card_verified_badge: true
   field_primary_color: true
   field_secondary_color: true
   field_slug: true

@@ -12,7 +12,7 @@ field_name: field_card_language
 entity_type: group
 bundle: organizations
 label: 'Default static card language'
-description: ''
+description: 'Choose one language for all organization cards, or allow card creators to choose an original language and translate it into the other language.'
 required: false
 translatable: true
 default_value:

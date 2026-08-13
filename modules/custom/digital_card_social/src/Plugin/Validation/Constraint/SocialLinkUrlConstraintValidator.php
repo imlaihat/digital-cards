@@ -4,6 +4,7 @@ namespace Drupal\digital_card_social\Plugin\Validation\Constraint;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\digital_card_social\Service\SocialPlatformRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
@@ -13,6 +14,8 @@ use Symfony\Component\Validator\ConstraintValidator;
  * Enforces HTTPS and administrator-configured social domains.
  */
 final class SocialLinkUrlConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
+
+  use StringTranslationTrait;
 
   public function __construct(private readonly SocialPlatformRegistry $registry) {}
 
@@ -48,7 +51,7 @@ final class SocialLinkUrlConstraintValidator extends ConstraintValidator impleme
 
     if ($result['url'] === '') {
       $this->context->buildViolation($constraint->invalidUrl)
-        ->setParameter('@message', (string) $result['error'])
+        ->setParameter('@message', (string) $this->t((string) $result['error']))
         ->addViolation();
     }
   }

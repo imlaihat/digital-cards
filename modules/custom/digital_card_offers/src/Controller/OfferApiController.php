@@ -7,6 +7,9 @@ use Drupal\Core\Flood\FloodInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\digital_card_offers\Service\OfferRepository;
 use Drupal\digital_card_public\Service\CardLookup;
+use Drupal\digital_card_public\Service\ScannerContextResolver;
+use Drupal\digital_card_public\Service\ScanLogger;
+use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -21,10 +24,20 @@ final class OfferApiController implements ContainerInjectionInterface {
     private readonly AccountProxyInterface $currentUser,
     private readonly FloodInterface $flood,
     private readonly RequestStack $requestStack,
+    private readonly ScannerContextResolver $scannerContext,
+    private readonly ScanLogger $scanLogger,
   ) {}
 
   public static function create(ContainerInterface $container): self {
-    return new self($container->get('digital_card_offers.repository'), $container->get('digital_card_public.card_lookup'), $container->get('current_user'), $container->get('flood'), $container->get('request_stack'));
+    return new self(
+      $container->get('digital_card_offers.repository'),
+      $container->get('digital_card_public.card_lookup'),
+      $container->get('current_user'),
+      $container->get('flood'),
+      $container->get('request_stack'),
+      $container->get('digital_card_public.scanner_context'),
+      $container->get('digital_card_public.scan_logger'),
+    );
   }
 
   public function eligibility(string $nfc_id): JsonResponse {
@@ -38,48 +51,41 @@ final class OfferApiController implements ContainerInjectionInterface {
     if ($this->currentUser->isAnonymous()) {
       return $this->response(['available' => TRUE, 'authenticated' => FALSE, 'offers' => [], 'message' => (string) $this->t('Sign in to view card-holder offers.')]);
     }
-    $ownerId = $card->hasField('field_card_owner_user') && !$card->get('field_card_owner_user')->isEmpty() ? (int) $card->get('field_card_owner_user')->target_id : (int) $card->getOwnerId();
-    $merchant = $this->currentUser->hasPermission('check card holder offer eligibility');
-    if ((int) $this->currentUser->id() !== $ownerId && !$merchant) {
-      return $this->response(['available' => TRUE, 'authenticated' => TRUE, 'eligible' => FALSE, 'offers' => [], 'message' => (string) $this->t('Offers are available only to the card holder or an authorized merchant.')], 403);
+    [$payload, $status] = $this->offerPayload($card);
+    return $this->response($payload, $status);
+  }
+
+  /**
+   * Returns scanner identity, analytics, offers, and loyalty in one request.
+   */
+  public function context(string $nfc_id): JsonResponse {
+    if (!$this->rateAllowed('context', 120)) {
+      return $this->response(['available' => FALSE, 'message' => (string) $this->t('Too many requests.')], 429);
     }
-    $offerStatuses = $this->repository->offerStatuses($card);
-    if ($merchant) {
-      $partner = $this->repository->partnerForMerchant((int) $this->currentUser->id());
-      if (!$partner) {
-        return $this->response(['available' => TRUE, 'authenticated' => TRUE, 'eligible' => FALSE, 'merchant_mode' => TRUE, 'offers' => [], 'message' => (string) $this->t('Your Merchant account is not assigned to an active partner.')], 403);
+    $card = $this->cardLookup->loadApprovedByNfc($nfc_id);
+    if (!$card) {
+      return $this->response(['available' => FALSE, 'logged_in' => FALSE, 'offers' => [], 'loyalty' => []], 404);
+    }
+    $context = $this->scannerContext->resolve($card);
+    if ($request = $this->requestStack->getCurrentRequest()) {
+      $this->scanLogger->record($card, $context, $request);
+    }
+    $payload = ['available' => TRUE, 'offers' => [], 'loyalty' => [], 'locked_prizes' => []] + $context;
+    if (!empty($context['is_owner']) || ($context['scanner_type'] === 'merchant' && !empty($context['capabilities']['check_offer_eligibility']))) {
+      [$offerPayload, $status] = $this->offerPayload($card);
+      if ($status < 400) {
+        $payload = array_replace($payload, $offerPayload);
+        // The identity context is authoritative for the combined response.
+        $payload['logged_in'] = $context['logged_in'];
+        $payload['is_owner'] = $context['is_owner'];
+        $payload['scanner_type'] = $context['scanner_type'];
+        $payload['capabilities'] = $context['capabilities'];
       }
-      $offerStatuses = array_values(array_filter($offerStatuses, static fn(array $offer): bool => (int) $offer['partner_id'] === (int) $partner['id']));
+      else {
+        $payload['offer_message'] = (string) ($offerPayload['message'] ?? $this->t('Offers are currently unavailable.'));
+      }
     }
-    $eligibleOffers = array_values(array_filter($offerStatuses, static fn(array $offer): bool => !empty($offer['available'])));
-    $offers = array_map(static fn(array $offer): array => [
-      'id' => (int) $offer['id'], 'title' => $offer['title'], 'partner' => $offer['partner_name'], 'benefit' => $offer['discount_label'],
-      'description' => $offer['description'], 'ends' => (int) $offer['ends'], 'remaining_for_holder' => (int) $offer['remaining_for_holder'],
-      'remaining_for_organization' => $offer['remaining_for_organization'] === NULL ? NULL : (int) $offer['remaining_for_organization'],
-      'reward_type' => (string) ($offer['reward_type'] ?? 'standard'),
-      'points_awarded' => (int) ($offer['points_awarded'] ?? 0),
-      'points_required' => (int) ($offer['points_required'] ?? 0),
-      'points_balance' => (int) ($offer['points_balance'] ?? 0),
-      'points_remaining_to_unlock' => (int) ($offer['points_remaining_to_unlock'] ?? 0),
-    ], $eligibleOffers);
-    $lockedPrizes = array_values(array_map(static fn(array $offer): array => [
-      'id' => (int) $offer['id'],
-      'title' => (string) $offer['title'],
-      'partner' => (string) $offer['partner_name'],
-      'benefit' => (string) $offer['discount_label'],
-      'points_required' => (int) ($offer['points_required'] ?? 0),
-      'points_balance' => (int) ($offer['points_balance'] ?? 0),
-      'points_remaining' => (int) ($offer['points_remaining_to_unlock'] ?? 0),
-    ], array_filter($offerStatuses, static fn(array $offer): bool => !empty($offer['locked_by_points']))));
-    return $this->response([
-      'available' => TRUE,
-      'authenticated' => TRUE,
-      'eligible' => !empty($offers),
-      'merchant_mode' => $merchant,
-      'offers' => $offers,
-      'loyalty' => $this->repository->loyaltySummary($card, $offerStatuses),
-      'locked_prizes' => $lockedPrizes,
-    ]);
+    return $this->response($payload);
   }
 
   public function redeem(int $offer_id, string $nfc_id): JsonResponse {
@@ -105,6 +111,86 @@ final class OfferApiController implements ContainerInjectionInterface {
     catch (\Throwable $exception) {
       return $this->response(['success' => FALSE, 'message' => $exception->getMessage()], 409);
     }
+  }
+
+  /**
+   * Builds the existing eligibility payload without another card lookup.
+   *
+   * @return array{0: array, 1: int}
+   *   Payload and HTTP status.
+   */
+  private function offerPayload(NodeInterface $card): array {
+    $ownerId = $card->hasField('field_card_owner_user') && !$card->get('field_card_owner_user')->isEmpty()
+      ? (int) $card->get('field_card_owner_user')->target_id
+      : (int) $card->getOwnerId();
+    $isOwner = (int) $this->currentUser->id() === $ownerId;
+    // Ownership takes precedence if a user also happens to hold a Merchant
+    // permission, so the holder still sees every eligible benefit.
+    $merchant = !$isOwner && $this->currentUser->hasPermission('check card holder offer eligibility');
+    if (!$isOwner && !$merchant) {
+      return [[
+        'available' => TRUE,
+        'authenticated' => TRUE,
+        'eligible' => FALSE,
+        'offers' => [],
+        'message' => (string) $this->t('Offers are available only to the card holder or an authorized merchant.'),
+      ], 403];
+    }
+
+    $offerStatuses = $this->repository->offerStatuses($card);
+    if ($merchant) {
+      $partner = $this->repository->partnerForMerchant((int) $this->currentUser->id());
+      if (!$partner) {
+        return [[
+          'available' => TRUE,
+          'authenticated' => TRUE,
+          'eligible' => FALSE,
+          'merchant_mode' => TRUE,
+          'offers' => [],
+          'message' => (string) $this->t('Your Merchant account is not assigned to an active partner.'),
+        ], 403];
+      }
+      $offerStatuses = array_values(array_filter(
+        $offerStatuses,
+        static fn(array $offer): bool => (int) $offer['partner_id'] === (int) $partner['id'],
+      ));
+    }
+
+    $eligibleOffers = array_values(array_filter($offerStatuses, static fn(array $offer): bool => !empty($offer['available'])));
+    $offers = array_map(static fn(array $offer): array => [
+      'id' => (int) $offer['id'],
+      'title' => (string) $offer['title'],
+      'partner' => (string) $offer['partner_name'],
+      'benefit' => (string) $offer['discount_label'],
+      'description' => (string) $offer['description'],
+      'ends' => (int) $offer['ends'],
+      'remaining_for_holder' => (int) $offer['remaining_for_holder'],
+      'remaining_for_organization' => $offer['remaining_for_organization'] === NULL ? NULL : (int) $offer['remaining_for_organization'],
+      'reward_type' => (string) ($offer['reward_type'] ?? 'standard'),
+      'points_awarded' => (int) ($offer['points_awarded'] ?? 0),
+      'points_required' => (int) ($offer['points_required'] ?? 0),
+      'points_balance' => (int) ($offer['points_balance'] ?? 0),
+      'points_remaining_to_unlock' => (int) ($offer['points_remaining_to_unlock'] ?? 0),
+    ], $eligibleOffers);
+    $lockedPrizes = array_values(array_map(static fn(array $offer): array => [
+      'id' => (int) $offer['id'],
+      'title' => (string) $offer['title'],
+      'partner' => (string) $offer['partner_name'],
+      'benefit' => (string) $offer['discount_label'],
+      'points_required' => (int) ($offer['points_required'] ?? 0),
+      'points_balance' => (int) ($offer['points_balance'] ?? 0),
+      'points_remaining' => (int) ($offer['points_remaining_to_unlock'] ?? 0),
+    ], array_filter($offerStatuses, static fn(array $offer): bool => !empty($offer['locked_by_points']))));
+
+    return [[
+      'available' => TRUE,
+      'authenticated' => TRUE,
+      'eligible' => !empty($offers),
+      'merchant_mode' => $merchant,
+      'offers' => $offers,
+      'loyalty' => $this->repository->loyaltySummary($card, $offerStatuses),
+      'locked_prizes' => $lockedPrizes,
+    ], 200];
   }
 
   private function rateAllowed(string $operation, int $limit): bool {

@@ -10,9 +10,9 @@ field_name: field_url
 entity_type: paragraph
 bundle: social_link
 label: URL
-description: ''
+description: 'Enter the complete HTTPS profile URL. For WhatsApp, you may enter the international phone number with country code, for example +970 599 123 456.'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

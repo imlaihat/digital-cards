@@ -1,0 +1,104 @@
+/**
+ * Shared accessible form treatment for public and authenticated surfaces.
+ */
+.form-item {
+  margin-block: 0 1.25rem;
+}
+
+.form-item label,
+.form-composite > legend {
+  margin-block-end: .45rem;
+  color: var(--r-ink);
+  font-weight: 700;
+}
+
+.form-control,
+.form-select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="url"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+  min-height: 44px;
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius-md);
+  color: var(--r-ink);
+  background: var(--r-white);
+  box-shadow: var(--r-shadow-sm);
+}
+
+textarea {
+  min-height: 120px;
+}
+
+.form-control:focus,
+.form-select:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--r-blue);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, .18);
+}
+
+.description,
+.form-text {
+  color: var(--r-muted);
+}
+
+.form-check {
+  min-height: 24px;
+  padding-inline-start: 1.75rem;
+}
+
+[dir="rtl"] .form-check {
+  padding-inline: 1.75rem 0;
+}
+
+[dir="rtl"] .form-check .form-check-input {
+  float: inline-start;
+  margin-inline: -1.75rem .5rem;
+}
+
+.button,
+.btn {
+  min-height: 44px;
+  border-radius: var(--r-radius-md);
+  font-weight: 700;
+}
+
+.button--primary,
+.btn-primary {
+  border-color: var(--r-navy);
+  color: var(--r-white);
+  background: var(--r-navy);
+}
+
+.button--primary:hover,
+.button--primary:focus-visible,
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  border-color: var(--r-deep-navy);
+  color: var(--r-white);
+  background: var(--r-deep-navy);
+}
+
+.form-item--error-message,
+.invalid-feedback {
+  color: var(--r-danger);
+}
+
+@media (max-width: 767.98px) {
+  .form-actions {
+    display: grid;
+    gap: .75rem;
+  }
+
+  .form-actions .button,
+  .form-actions .btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,18 @@
+uuid: b7b9e5a3-538f-4a21-9c51-778c7c56e4c6
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.field_card_cover_watermark
+field_name: field_card_cover_watermark
+entity_type: group
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

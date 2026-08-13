@@ -13,14 +13,17 @@
 <header class="rp-corporate-header" data-rp-header>
   <div class="rp-shell rp-corporate-header__inner">
     <a class="rp-wordmark" href="{{ path('<front>') }}" aria-label="{{ 'Ropleon home'|t }}">
-      <img src="{{ ropleon_assets.company_logo }}" alt="{{ ropleon_brand.company_legal_name }}">
+      <picture>
+        <source media="(max-width: 575.98px)" srcset="{{ ropleon_assets.company_mark }}">
+        <img src="{{ ropleon_assets.company_logo }}" alt="{{ ropleon_brand.company_legal_name }}">
+      </picture>
     </a>
 
     <nav class="rp-corporate-nav" id="rp-corporate-nav" aria-label="{{ 'Corporate navigation'|t }}" data-rp-nav>
       <div class="rp-corporate-nav__mobile-head">
         <span>{{ 'Menu'|t }}</span>
         <button class="rp-nav-close" type="button" aria-label="{{ 'Close navigation'|t }}" data-rp-nav-close>
-          <span aria-hidden="true">×</span>
+          <img src="{{ ropleon_assets.icons.close }}" alt="" aria-hidden="true">
         </button>
       </div>
       <div class="rp-corporate-nav__links">
@@ -50,7 +53,7 @@
         {% endfor %}
       </div>
       <button class="rp-nav-toggle" type="button" aria-expanded="false" aria-controls="rp-corporate-nav" aria-label="{{ 'Open navigation'|t }}" data-rp-nav-toggle>
-        <i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
+        <img src="{{ ropleon_assets.icons.menu }}" alt="" aria-hidden="true">
       </button>
     </div>
   </div>
@@ -112,7 +115,7 @@
   <div class="rp-shell rp-corporate-footer__grid">
     <div class="rp-footer-brand">
       <a class="rp-footer-logo" href="{{ path('<front>') }}" aria-label="{{ 'Ropleon home'|t }}">
-        <img src="{{ ropleon_assets.company_logo }}" alt="{{ ropleon_brand.company_legal_name }}">
+        <img src="{{ ropleon_assets.company_logo_inverse|default(ropleon_assets.company_logo) }}" alt="{{ ropleon_brand.company_legal_name }}">
       </a>
       <p>{{ 'Connected technology for modern organizations.'|t }}</p>
     </div>
