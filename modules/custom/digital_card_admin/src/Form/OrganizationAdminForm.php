@@ -51,7 +51,7 @@ class OrganizationAdminForm extends FormBase implements ContainerInjectionInterf
       '#title' => $this->t('Preferred language'),
       '#options' => ['en' => $this->t('English'), 'ar' => $this->t('Arabic')],
       '#default_value' => \Drupal::languageManager()->getCurrentLanguage()->getId(),
-      '#description' => $this->t('Invitations and platform notifications are sent in this language.'),
+      '#description' => $this->t('Invitations, notifications, and the page opened after sign-in use this language.'),
     ];
 
     $form['personal'] = [
@@ -63,11 +63,15 @@ class OrganizationAdminForm extends FormBase implements ContainerInjectionInterf
       '#type' => 'textfield',
       '#title' => $this->t('First Name'),
       '#required' => TRUE,
+      '#maxlength' => 100,
+      '#attributes' => ['autocomplete' => 'given-name'],
     ];
     $form['personal']['last_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Last Name'),
       '#required' => TRUE,
+      '#maxlength' => 100,
+      '#attributes' => ['autocomplete' => 'family-name'],
     ];
 
     $form['organization'] = [

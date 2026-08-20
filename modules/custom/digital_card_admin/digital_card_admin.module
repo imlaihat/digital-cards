@@ -114,19 +114,69 @@ function digital_card_admin_entity_presave(EntityInterface $entity): void {
  * link to the user's organization-scoped profile.
  */
 function digital_card_admin_views_pre_view(ViewExecutable $view, string $display_id, array &$args): void {
-  if ($view->id() !== 'group_members' || !$view->display_handler) {
+  if (!$view->display_handler) {
     return;
   }
 
-  $fields = $view->display_handler->getOption('fields');
-  if (!is_array($fields)) {
-    return;
+  if ($view->id() === 'group_members') {
+    $fields = $view->display_handler->getOption('fields');
+    if (!is_array($fields)) {
+      return;
+    }
+
+    foreach (['view_group_relationship', 'edit_group_relationship', 'delete_group_relationship', 'dropbutton'] as $field_id) {
+      unset($fields[$field_id]);
+    }
+    $view->display_handler->setOption('fields', $fields);
   }
 
-  foreach (['view_group_relationship', 'edit_group_relationship', 'delete_group_relationship', 'dropbutton'] as $field_id) {
-    unset($fields[$field_id]);
+  // Add a single readable Full name column without replacing the manually
+  // maintained View configuration. This also keeps exports aligned with the
+  // visible table and provides a username fallback for pre-upgrade accounts.
+  if ($view->id() === 'organization_administrators') {
+    $fields = $view->display_handler->getOption('fields');
+    if (!is_array($fields) || isset($fields['digital_card_user_full_name'])) {
+      return;
+    }
+
+    $full_name = [
+      'id' => 'digital_card_user_full_name',
+      'table' => 'users_field_data',
+      'field' => 'digital_card_user_full_name',
+      'relationship' => 'none',
+      'group_type' => 'group',
+      'admin_label' => '',
+      'entity_type' => 'user',
+      'plugin_id' => 'digital_card_user_full_name',
+      'label' => (string) t('Full name'),
+      'exclude' => FALSE,
+    ];
+
+    $ordered = [];
+    foreach ($fields as $field_id => $field) {
+      $ordered[$field_id] = $field;
+      if ($field_id === 'name') {
+        $ordered['digital_card_user_full_name'] = $full_name;
+      }
+    }
+    if (!isset($ordered['digital_card_user_full_name'])) {
+      $ordered = ['digital_card_user_full_name' => $full_name] + $ordered;
+    }
+    $view->display_handler->setOption('fields', $ordered);
   }
-  $view->display_handler->setOption('fields', $fields);
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function digital_card_admin_views_data_alter(array &$data): void {
+  $data['users_field_data']['digital_card_user_full_name'] = [
+    'title' => t('Full name'),
+    'help' => t('The user’s first and last name, with the username used for legacy accounts that do not have profile names yet.'),
+    'field' => [
+      'id' => 'digital_card_user_full_name',
+    ],
+  ];
 }
 
 /**
@@ -328,7 +378,10 @@ function digital_card_admin_user_login_dashboard_redirect(array &$form, FormStat
   try {
     \Drupal::service('router.route_provider')->getRouteByName($route_name);
     if (\Drupal\Core\Url::fromRoute($route_name)->access($account)) {
-      $form_state->setRedirect($route_name);
+      $langcode = $account->getPreferredLangcode();
+      $language = \Drupal::languageManager()->getLanguage($langcode);
+      $options = $language ? ['language' => $language] : [];
+      $form_state->setRedirect($route_name, [], $options);
     }
   }
   catch (\Throwable $e) {

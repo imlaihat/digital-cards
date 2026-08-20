@@ -4,6 +4,7 @@ description: 'Ropleon Cards dashboards, organization administration, and card wo
 package: Ropleon Cards
 core_version_requirement: ^10 || ^11
 dependencies:
+  - drupal:field
   - drupal:node
   - drupal:user
   - drupal:views

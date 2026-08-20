@@ -59,7 +59,7 @@ class OrganizationAdminEditForm extends FormBase implements ContainerInjectionIn
         'ar' => $this->t('Arabic'),
       ],
       '#default_value' => $user->getPreferredLangcode(),
-      '#description' => $this->t('Account changes and password notifications are sent in this language.'),
+      '#description' => $this->t('Account notifications and the page opened after sign-in use this language.'),
     ];
 
     $form['personal'] = ['#type' => 'details', '#title' => $this->t('Personal Information'), '#open' => TRUE];
@@ -67,11 +67,16 @@ class OrganizationAdminEditForm extends FormBase implements ContainerInjectionIn
       '#type' => 'textfield',
       '#title' => $this->t('First Name'),
       '#default_value' => ($user && $user->hasField('field_first_name')) ? $user->get('field_first_name')->value : '',
+      '#maxlength' => 100,
+      '#attributes' => ['autocomplete' => 'given-name'],
+      '#description' => $this->t('Shown with the last name as the administrator’s full name in management lists and account details.'),
     ];
     $form['personal']['last_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Last Name'),
       '#default_value' => ($user && $user->hasField('field_last_name')) ? $user->get('field_last_name')->value : '',
+      '#maxlength' => 100,
+      '#attributes' => ['autocomplete' => 'family-name'],
     ];
 
     $form['organization'] = ['#type' => 'details', '#title' => $this->t('Organization'), '#open' => TRUE];

@@ -611,6 +611,13 @@
     display: inline-flex !important;
   }
 
+  /* The server renders a usable navigation before Drupal behaviors attach.
+   * Always render the control at mobile width so cached markup or delayed
+   * behaviors can never leave users without a visible menu affordance. */
+  .rp-portal-shell .dc-portal-menu-toggle {
+    display: inline-flex !important;
+  }
+
   .rp-portal-shell .dc-portal-header[data-portal-navigation-enhanced="true"][data-portal-menu-open="false"] .dc-portal-nav {
     display: none;
   }
@@ -687,6 +694,122 @@
     min-width: 34px;
     padding-inline: 6px;
     font-size: .65rem;
+  }
+}
+
+/* Group's stock entity pages, member lists, content lists, and local task
+ * navigation inherit the same responsive application shell as custom pages. */
+.rp-portal-shell__main {
+  min-width: 0;
+}
+
+.rp-portal-shell__main .region-content,
+.rp-portal-shell__main .block-system-main-block,
+.rp-portal-shell__main .view,
+.rp-portal-shell__main form,
+.rp-portal-shell__main .group,
+.rp-portal-shell__main .layout-content {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.rp-portal-shell__main .tabs,
+.rp-portal-shell__main .nav-tabs,
+.rp-portal-shell__main ul.tabs.primary,
+.rp-portal-shell__main ul.tabs.secondary {
+  display: flex;
+  max-width: 100%;
+  flex-wrap: nowrap;
+  gap: 6px;
+  padding: 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid var(--ropleon-border);
+  border-radius: 13px;
+  background: #fff;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rp-portal-shell__main .tabs > li,
+.rp-portal-shell__main .nav-tabs > li,
+.rp-portal-shell__main ul.tabs.primary > li,
+.rp-portal-shell__main ul.tabs.secondary > li {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.rp-portal-shell__main .tabs a,
+.rp-portal-shell__main .nav-tabs a {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  padding: 8px 13px;
+  border: 0;
+  border-radius: 9px;
+  white-space: nowrap;
+}
+
+.rp-portal-shell__main .tabs a.is-active,
+.rp-portal-shell__main .nav-tabs a.active {
+  color: #fff;
+  background: var(--ropleon-blue-700);
+}
+
+.rp-portal-shell__main .views-exposed-form .form--inline,
+.rp-portal-shell__main .views-exposed-form .form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  align-items: end;
+  gap: 12px;
+}
+
+.rp-portal-shell__main .views-exposed-form .form-item,
+.rp-portal-shell__main .views-exposed-form .form-actions,
+.rp-portal-shell__main input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),
+.rp-portal-shell__main select,
+.rp-portal-shell__main textarea {
+  max-width: 100%;
+}
+
+.rp-portal-shell__main .views-exposed-form .form-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rp-portal-shell__main .action-links,
+.rp-portal-shell__main .entity-meta__header,
+.rp-portal-shell__main .form-actions {
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+  .rp-portal-shell__main h1 {
+    font-size: clamp(1.55rem, 8vw, 2.1rem);
+    overflow-wrap: anywhere;
+  }
+
+  .rp-portal-shell__main .views-exposed-form .form--inline,
+  .rp-portal-shell__main .views-exposed-form .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .rp-portal-shell__main .views-exposed-form .form-actions > *,
+  .rp-portal-shell__main .form-actions > .button,
+  .rp-portal-shell__main .form-actions > .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rp-portal-shell__main details {
+    max-width: 100%;
+  }
+
+  .rp-portal-shell__main details > summary {
+    overflow-wrap: anywhere;
   }
 }
 

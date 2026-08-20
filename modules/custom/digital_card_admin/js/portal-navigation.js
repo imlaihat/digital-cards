@@ -41,6 +41,12 @@
             toggle.focus();
           }
         });
+
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > 900 && header.dataset.portalMenuOpen === 'true') {
+            setOpen(false);
+          }
+        }, {passive: true});
       });
     },
   };

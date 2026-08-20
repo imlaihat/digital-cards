@@ -1,5 +1,5 @@
 dashboards:
-  version: 2.1.0
+  version: 4.2.0
   css:
     theme:
       css/dashboards.css: {}

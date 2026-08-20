@@ -3,8 +3,10 @@
 namespace Drupal\digital_card_admin\Service;
 
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Url;
 use Drupal\group\Entity\GroupInterface;
 use Drupal\user\UserInterface;
 
@@ -17,17 +19,20 @@ class OrganizationAdminMailer {
 
   protected MailManagerInterface $mailManager;
   protected LoggerChannelFactoryInterface $loggerFactory;
+  protected LanguageManagerInterface $languageManager;
 
-  public function __construct(MailManagerInterface $mail_manager, LoggerChannelFactoryInterface $logger_factory) {
+  public function __construct(MailManagerInterface $mail_manager, LoggerChannelFactoryInterface $logger_factory, LanguageManagerInterface $language_manager) {
     $this->mailManager = $mail_manager;
     $this->loggerFactory = $logger_factory;
+    $this->languageManager = $language_manager;
   }
 
   public function sendWelcomeEmail(UserInterface $user, GroupInterface $group, string $password): bool {
     $langcode = $user->getPreferredLangcode() ?: 'en';
     $options = ['langcode' => $langcode];
-    $message = (string) $this->t("Hello @name,\n\nYou have been added as an administrator for: @organization\n\nLogin email: @email\nTemporary password: @password\n\nPlease log in to Ropleon Cards and change your password as soon as possible.\n\nRegards,\nRopleon Cards Team\nA product of Ropleon Technologies", [
-      '@name' => $user->getDisplayName(), '@organization' => $group->label(), '@email' => $user->getEmail(), '@password' => $password,
+    $login_url = $this->localizedLoginUrl($langcode);
+    $message = (string) $this->t("Hello @name,\n\nYou have been added as an administrator for: @organization\n\nLogin email: @email\nTemporary password: @password\nLogin: @login_url\n\nPlease log in to Ropleon Cards and change your password as soon as possible.\n\nRegards,\nRopleon Cards Team\nA product of Ropleon Technologies", [
+      '@name' => $user->getDisplayName(), '@organization' => $group->label(), '@email' => $user->getEmail(), '@password' => $password, '@login_url' => $login_url,
     ], $options);
 
     return $this->send($user, 'organization_admin_welcome', [
@@ -39,8 +44,9 @@ class OrganizationAdminMailer {
   public function sendPasswordResetEmail(UserInterface $user, string $password): bool {
     $langcode = $user->getPreferredLangcode() ?: 'en';
     $options = ['langcode' => $langcode];
-    $message = (string) $this->t("Hello @name,\n\nYour Ropleon Cards password was reset.\n\nTemporary password: @password\n\nPlease log in and change your password as soon as possible.\n\nRegards,\nRopleon Cards Team\nA product of Ropleon Technologies", [
-      '@name' => $user->getDisplayName(), '@password' => $password,
+    $login_url = $this->localizedLoginUrl($langcode);
+    $message = (string) $this->t("Hello @name,\n\nYour Ropleon Cards password was reset.\n\nTemporary password: @password\nLogin: @login_url\n\nPlease log in and change your password as soon as possible.\n\nRegards,\nRopleon Cards Team\nA product of Ropleon Technologies", [
+      '@name' => $user->getDisplayName(), '@password' => $password, '@login_url' => $login_url,
     ], $options);
 
     return $this->send($user, 'organization_admin_password_reset', [
@@ -74,6 +80,18 @@ class OrganizationAdminMailer {
       '@mail' => $mail,
     ]);
     return FALSE;
+  }
+
+  /**
+   * Builds a login address in the account's preferred interface language.
+   */
+  protected function localizedLoginUrl(string $langcode): string {
+    $language = $this->languageManager->getLanguage($langcode)
+      ?: $this->languageManager->getDefaultLanguage();
+    return Url::fromRoute('user.login', [], [
+      'absolute' => TRUE,
+      'language' => $language,
+    ])->toString();
   }
 
 }

@@ -993,3 +993,36 @@ msgstr "لا يمكن ترجمة هذه البطاقة لأن مؤسستها ت�
 
 msgid "The only allowed translation language for this card is @language."
 msgstr "لغة الترجمة الوحيدة المسموح بها لهذه البطاقة هي @language."
+
+msgid "Full name"
+msgstr "الاسم الكامل"
+
+msgid "The user’s first and last name, with the username used for legacy accounts that do not have profile names yet."
+msgstr "الاسم الأول واسم العائلة للمستخدم، مع استخدام اسم المستخدم للحسابات القديمة التي لم تُضف لها بيانات الاسم بعد."
+
+msgid "Shown with the last name as the administrator’s full name in management lists and account details."
+msgstr "يظهر مع اسم العائلة بوصفه الاسم الكامل للمسؤول في قوائم الإدارة وتفاصيل الحساب."
+
+msgid "Scrollable data table"
+msgstr "جدول بيانات قابل للتمرير"
+
+msgid "Swipe horizontally to view all columns"
+msgstr "مرّر أفقياً لعرض جميع الأعمدة"
+
+msgid "Open navigation"
+msgstr "فتح قائمة التنقل"
+
+msgid "Close navigation"
+msgstr "إغلاق قائمة التنقل"
+
+msgid "Invitations, notifications, and the page opened after sign-in use this language."
+msgstr "تُستخدم هذه اللغة في الدعوات والإشعارات والصفحة التي تُفتح بعد تسجيل الدخول."
+
+msgid "Account notifications and the page opened after sign-in use this language."
+msgstr "تُستخدم هذه اللغة في إشعارات الحساب والصفحة التي تُفتح بعد تسجيل الدخول."
+
+msgid "Hello @name,\n\nYou have been added as an administrator for: @organization\n\nLogin email: @email\nTemporary password: @password\nLogin: @login_url\n\nPlease log in to Ropleon Cards and change your password as soon as possible.\n\nRegards,\nRopleon Cards Team\nA product of Ropleon Technologies"
+msgstr "مرحباً @name،\n\nتمت إضافتك مسؤولاً للمؤسسة: @organization\n\nالبريد الإلكتروني لتسجيل الدخول: @email\nكلمة المرور المؤقتة: @password\nرابط تسجيل الدخول: @login_url\n\nيرجى تسجيل الدخول إلى روبليون كاردز وتغيير كلمة المرور في أقرب وقت.\n\nمع التحية،\nفريق روبليون كاردز\nأحد منتجات روبليون للتكنولوجيا"
+
+msgid "Hello @name,\n\nYour Ropleon Cards password was reset.\n\nTemporary password: @password\nLogin: @login_url\n\nPlease log in and change your password as soon as possible.\n\nRegards,\nRopleon Cards Team\nA product of Ropleon Technologies"
+msgstr "مرحباً @name،\n\nتمت إعادة تعيين كلمة مرور حسابك في روبليون كاردز.\n\nكلمة المرور المؤقتة: @password\nرابط تسجيل الدخول: @login_url\n\nيرجى تسجيل الدخول وتغيير كلمة المرور في أقرب وقت.\n\nمع التحية،\nفريق روبليون كاردز\nأحد منتجات روبليون للتكنولوجيا"

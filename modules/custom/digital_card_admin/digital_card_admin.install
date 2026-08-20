@@ -6,6 +6,74 @@
  */
 
 /**
+ * Implements hook_install().
+ */
+function digital_card_admin_install(): void {
+  _digital_card_admin_ensure_profile_name_fields();
+}
+
+/**
+ * Creates the optional first/last-name fields used by the account forms.
+ *
+ * Earlier releases rendered these inputs without creating their user fields.
+ * The form therefore appeared to save successfully while Drupal had nowhere
+ * to persist the values. Keeping these as ordinary configurable fields makes
+ * them available to Views, exports, the normal user form, and future APIs.
+ */
+function _digital_card_admin_ensure_profile_name_fields(): array {
+  $created = [];
+  $definitions = [
+    'field_first_name' => t('First Name'),
+    'field_last_name' => t('Last Name'),
+  ];
+
+  foreach ($definitions as $field_name => $label) {
+    $storage = \Drupal\field\Entity\FieldStorageConfig::loadByName('user', $field_name);
+    if (!$storage) {
+      $storage = \Drupal\field\Entity\FieldStorageConfig::create([
+        'field_name' => $field_name,
+        'entity_type' => 'user',
+        'type' => 'string',
+        'cardinality' => 1,
+        'settings' => ['max_length' => 100],
+        'translatable' => FALSE,
+      ]);
+      $storage->save();
+      $created[] = $field_name . ' storage';
+    }
+
+    $field = \Drupal\field\Entity\FieldConfig::loadByName('user', 'user', $field_name);
+    if (!$field) {
+      $field = \Drupal\field\Entity\FieldConfig::create([
+        'field_storage' => $storage,
+        'bundle' => 'user',
+        'label' => $label,
+        'required' => FALSE,
+      ]);
+      $field->save();
+      $created[] = $field_name . ' instance';
+    }
+  }
+
+  $form_display = \Drupal\Core\Entity\Entity\EntityFormDisplay::load('user.user.default');
+  if ($form_display) {
+    $form_display
+      ->setComponent('field_first_name', [
+        'type' => 'string_textfield',
+        'weight' => 5,
+      ])
+      ->setComponent('field_last_name', [
+        'type' => 'string_textfield',
+        'weight' => 6,
+      ])
+      ->save();
+  }
+
+  \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
+  return $created;
+}
+
+/**
  * Remove stale block configs assigned to a missing theme named "color".
  */
 function digital_card_admin_update_10001(): string {
@@ -150,4 +218,16 @@ function digital_card_admin_update_10005(): string {
   ]);
 
   return 'Migrated legacy organization portal menu links: ' . implode('; ', $updated);
+}
+
+/**
+ * Add persistent organization-administrator profile name fields.
+ */
+function digital_card_admin_update_10006(): string {
+  $created = _digital_card_admin_ensure_profile_name_fields();
+  if (!$created) {
+    return 'Organization administrator profile name fields already exist.';
+  }
+
+  return 'Created organization administrator profile fields: ' . implode(', ', $created) . '.';
 }

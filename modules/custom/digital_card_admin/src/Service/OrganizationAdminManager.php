@@ -126,7 +126,7 @@ class OrganizationAdminManager {
       throw new \InvalidArgumentException('Invalid organization selected.');
     }
 
-    $this->removeFromAllOrganizations($user);
+    $current_group_id = $this->getUserOrganizationId($user);
     $user->setUsername($username);
     $user->setEmail($email);
     $user->set('status', $status ? 1 : 0);
@@ -159,7 +159,16 @@ class OrganizationAdminManager {
       }
       $user = $reloaded;
     }
-    $this->assignToOrganization($user, $group);
+    // Preserve the existing Group relationship (including its roles and any
+    // relationship fields) when the organization has not changed. Earlier
+    // releases removed and recreated it on every account edit.
+    if ($current_group_id !== $group_id) {
+      $this->removeFromAllOrganizations($user);
+      $this->assignToOrganization($user, $group);
+    }
+    elseif (!$group->getMember($user)) {
+      $this->assignToOrganization($user, $group);
+    }
 
     $mail_sent = NULL;
     if ($password !== '' && $notify && $user->isActive()) {

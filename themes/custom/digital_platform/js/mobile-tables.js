@@ -79,7 +79,7 @@
 
   Drupal.behaviors.ropleonResponsiveTables = {
     attach(context) {
-      once('ropleon-responsive-table', '.rp-portal-shell .view table', context).forEach((table) => {
+      once('ropleon-responsive-table', '.rp-portal-shell__main table:not(.sticky-header)', context).forEach((table) => {
         let scrollRegion = table.closest('.table-responsive, .rp-table-scroll');
         if (!scrollRegion) {
           scrollRegion = document.createElement('div');
